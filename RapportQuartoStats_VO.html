@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Barbeau Faustine - Combes Florent - Dumas Elouan - Malzieux Yann">
+<meta name="dcterms.date" content="2026-02-02">
+
+<title>insérer problématique</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="RapportQuartoStats_VO_files/libs/clipboard/clipboard.min.js"></script>
+<script src="RapportQuartoStats_VO_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="RapportQuartoStats_VO_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="RapportQuartoStats_VO_files/libs/quarto-html/popper.min.js"></script>
+<script src="RapportQuartoStats_VO_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="RapportQuartoStats_VO_files/libs/quarto-html/anchor.min.js"></script>
+<link href="RapportQuartoStats_VO_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="RapportQuartoStats_VO_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="RapportQuartoStats_VO_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="RapportQuartoStats_VO_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="RapportQuartoStats_VO_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">insérer problématique</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Barbeau Faustine - Combes Florent - Dumas Elouan - Malzieux Yann </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 2, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="relation-élèves-enseignants" class="level1">
+<h1>Relation élèves enseignants</h1>
+<section id="installation-des-packages" class="level2">
+<h2 class="anchored" data-anchor-id="installation-des-packages">Installation des packages</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attachement du package : 'dplyr'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Les objets suivants sont masqués depuis 'package:stats':
+
+    filter, lag</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Les objets suivants sont masqués depuis 'package:base':
+
+    intersect, setdiff, setequal, union</code></pre>
+</div>
+</div>
+</section>
+<section id="import-des-données" class="level2">
+<h2 class="anchored" data-anchor-id="import-des-données">Import des données</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"stu_qqq.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 613744   1278</code></pre>
+</div>
+</div>
+<p>Par souci d’efficacité, le jeu de données contenant plus de 600.000 individus, nous élaborerons nos analyses exploratoires sur un échantillon de 5% de celui-ci.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>taille <span class="ot">=</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(data)<span class="sc">*</span><span class="fl">0.05</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data_ech <span class="ot">&lt;-</span> data[<span class="fu">sample.int</span>(<span class="fu">nrow</span>(data), taille), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="sélection-et-gestion-des-variables" class="level3">
+<h3 class="anchored" data-anchor-id="sélection-et-gestion-des-variables">Sélection et gestion des variables</h3>
+<p>On décide ici de dicerner plusieurs types de variables, notamment celles en lien direct avec l’enseignent, celles concernant les cours de mathématiques, celles concernant la créativité, et les autres.</p>
+<p>On les conserve toute et on aura l’occasion de créer des jeux de données distincts selon les types de variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>vars_collector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ST267Q01JA"</span>, <span class="st">"ST267Q02JA"</span>, <span class="st">"ST267Q03JA"</span>, <span class="st">"ST267Q04JA"</span>, <span class="st">"ST267Q05JA"</span>, <span class="st">"ST267Q06JA"</span>, <span class="st">"ST267Q07JA"</span>, <span class="st">"ST267Q08JA"</span>,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                    </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"ST273Q01JA"</span>, <span class="st">"ST273Q03JA"</span>, <span class="st">"ST270Q01JA"</span>, <span class="st">"ST270Q02JA"</span>, <span class="st">"ST270Q03JA"</span>, <span class="st">"ST270Q04JA"</span>, <span class="st">"ST285Q01JA"</span>, <span class="st">"ST285Q02JA"</span>, <span class="st">"ST285Q03JA"</span>, <span class="st">"ST285Q04JA"</span>, <span class="st">"ST285Q05JA"</span>, <span class="st">"ST285Q06JA"</span>, <span class="st">"ST285Q07JA"</span>, <span class="st">"ST285Q08JA"</span>, <span class="st">"ST285Q09JA"</span>, <span class="st">"ST283Q01JA"</span>, <span class="st">"ST283Q02JA"</span>, <span class="st">"ST283Q03JA"</span>, <span class="st">"ST283Q04JA"</span>, <span class="st">"ST283Q05JA"</span>, <span class="st">"ST283Q06JA"</span>, <span class="st">"ST283Q07JA"</span>, <span class="st">"ST283Q08JA"</span>, <span class="st">"ST283Q09JA"</span>, <span class="st">"ST293Q02JA"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                    </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"ST335Q01JA"</span>, <span class="st">"ST335Q02JA"</span>, <span class="st">"ST335Q06JA"</span>, </span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                    </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"ST351Q03JA"</span>, <span class="st">"ST351Q05JA"</span>, <span class="st">"ST351Q06JA"</span>, <span class="st">"ST354Q03JA"</span>, <span class="st">"ST354Q08JA"</span>, <span class="st">"ST273Q02JA"</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>vars_etude <span class="ot">&lt;-</span> vars_collector[vars_collector <span class="sc">%in%</span> <span class="fu">names</span>(data_ech)]</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>idx_vars_etude <span class="ot">&lt;-</span> <span class="fu">match</span>(vars_etude, <span class="fu">names</span>(data_ech))</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>data_ech_etude <span class="ot">&lt;-</span> data_ech[, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">26</span>, idx_vars_etude), drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Recodons nos données pour rendre le dataframe plus clair à étudier.</p>
+<p>Pour les variables de base :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data_ech_etude <span class="ot">&lt;-</span> data_ech_etude <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Code_pays              =</span> CNT,          <span class="co"># code du pays</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ID_pays                =</span> CNTRYID,       <span class="co"># identifiant du pays</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Code_centre_national   =</span> NatCen,        <span class="co"># code du centre national</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Stratum_ID             =</span> STRATUM,       <span class="co"># identifiant de la strate</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Code_sous_region       =</span> SUBNATIO,      <span class="co"># code de sous-région</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Region                 =</span> REGION,        <span class="co"># région</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Pays_OCDE              =</span> OECD,          <span class="co"># pays OCDE</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mode_administration    =</span> ADMINMODE,     <span class="co"># mode d’administration</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Langue_questionnaire   =</span> LANGTEST_QQQ,  <span class="co"># langue du questionnaire élève</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Langue_evaluation      =</span> LANGTEST_COG,  <span class="co"># langue de l’évaluation</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Langue_parent          =</span> LANGTEST_PAQ,  <span class="co"># langue du questionnaire parent</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_pensee_creative =</span> Option_CT,     <span class="co"># option pensée créative</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_litteratie_fin  =</span> Option_FL,     <span class="co"># option littératie financière</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_ICT             =</span> Option_ICTQ,   <span class="co"># option questionnaire TIC</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_bien_etre       =</span> Option_WBQ,    <span class="co"># option bien-être</span></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_parent          =</span> Option_PQ,     <span class="co"># option parent</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_enseignant      =</span> Option_TQ,     <span class="co"># option enseignant</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_une_heure       =</span> Option_UH,     <span class="co"># option une heure</span></span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">ID_livret              =</span> BOOKID,        <span class="co"># identifiant du livret</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">Niveau_scolaire        =</span> ST001D01T,      <span class="co"># niveau scolaire</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mois_naissance         =</span> ST003D02T,      <span class="co"># mois de naissance</span></span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">Annee_naissance        =</span> ST003D03T,      <span class="co"># année de naissance</span></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">Genre                  =</span> ST004D01T       <span class="co"># genre</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Pour les variables à intérêt dans notre étude (on précise en commentaire la question d’origine posée à l’élève) :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data_ech_etude <span class="ot">&lt;-</span> data_ech_etude <span class="sc">%&gt;%</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Questions en lien direct avec l’enseignant</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_respectueux       =</span> ST267Q01JA,  <span class="co"># The teachers at my school are respectful towards me</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_inquiets          =</span> ST267Q02JA,  <span class="co"># If I walked into my classes upset, my teachers would be concerned about me</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_heureux_voir      =</span> ST267Q03JA,  <span class="co"># If I came back to visit my school three years from now, my teachers would be excited to see me</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_intimidants       =</span> ST267Q04JA,  <span class="co"># I feel intimidated by the teachers at my school</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_interesses        =</span> ST267Q05JA,  <span class="co"># When my teachers ask how I am doing, they are really interested in my answer</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_amicaux           =</span> ST267Q06JA,  <span class="co"># The teachers at my school are friendly towards me</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_bien_etre         =</span> ST267Q07JA,  <span class="co"># The teachers at my school are interested in students' well-being</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_mechants           =</span> ST267Q08JA,  <span class="co"># The teachers at my school are mean towards me</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Questions sur le cours de Mathématiques</span></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_pas_ecoute               =</span> ST273Q01JA,  <span class="co"># Students do not listen to what the teacher said</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_attente_calme            =</span> ST273Q03JA,  <span class="co"># The teacher has to wait a long time for students to quiet down</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_interet_apprentissage    =</span> ST270Q01JA,  <span class="co"># The teacher shows an interest in every student's learning</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_aide_extra               =</span> ST270Q02JA,  <span class="co"># The teacher gives extra help when students need it</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_aide                     =</span> ST270Q03JA,  <span class="co"># The teacher helps students with their learning</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_explique_tant_que_pas_compris =</span> ST270Q04JA,  <span class="co"># The teacher continues teaching until the students understand</span></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_resoudre_sans_calcul     =</span> ST285Q01JA,  <span class="co"># The teacher asked us to solve mathematics problems without computing anything</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_expliquer_solution       =</span> ST285Q02JA,  <span class="co"># The teacher asked us to explain how we solved a mathematics problem</span></span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_expliquer_hypotheses     =</span> ST285Q03JA,  <span class="co"># The teacher asked us to explain what assumptions we were making when solving a mathematics problem</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_expliquer_raisonnement   =</span> ST285Q04JA,  <span class="co"># The teacher asked us to explain our reasoning when solving a mathematics problem</span></span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_defendre_reponse         =</span> ST285Q05JA,  <span class="co"># The teacher asked us to defend our answer to a mathematics problem</span></span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_relier_anciens_nouveaux  =</span> ST285Q06JA,  <span class="co"># The teacher asked us to think about how new and old mathematics topics were related</span></span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_resoudre_autrement       =</span> ST285Q07JA,  <span class="co"># The teacher encouraged us to think about how to solve mathematics problems in different ways than demonstrated in class</span></span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_persister                =</span> ST285Q08JA,  <span class="co"># The teacher told us to keep trying even when we face difficulties with a mathematics task</span></span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_memoriser                =</span> ST285Q09JA,  <span class="co"># The teacher taught us to memorize rules and apply them to solve mathematics problems</span></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_problemes_quotidien      =</span> ST283Q01JA,  <span class="co"># The teacher asked us to think of problems from everyday life that could be solved with new mathematics knowledge we learned</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_utilite                  =</span> ST283Q02JA,  <span class="co"># The teacher showed us how mathematics can be useful in our everyday lives</span></span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_penser_math              =</span> ST283Q03JA,  <span class="co"># The teacher encouraged us to "think mathematically"</span></span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_logique                  =</span> ST283Q04JA,  <span class="co"># The teacher taught us how to use mathematical logic when approaching new situations</span></span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_simplifier_problemes     =</span> ST283Q05JA,  <span class="co"># The teacher showed us how some problems that look difficult can be solved more easily by understanding how the number system is organized</span></span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_decision                 =</span> ST283Q06JA,  <span class="co"># The teacher gave problems from everyday life involving numbers and asked us to make a decision about the situation</span></span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_relier_concepts          =</span> ST283Q07JA,  <span class="co"># The teacher asked us how different topics are connected to a bigger mathematical idea</span></span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_penser_quotidien         =</span> ST283Q08JA,  <span class="co"># The teacher encouraged us to think about how a problem from everyday life could be solved using mathematics</span></span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_connexion_idees          =</span> ST283Q09JA,  <span class="co"># The teacher explained how different mathematical ideas connect to a larger context</span></span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_attention                =</span> ST293Q02JA,  <span class="co"># I paid attention when my mathematics teacher was speaking</span></span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Questions sur la créativité</span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">creativite_temps               =</span> ST335Q01JA,  <span class="co"># My teachers give me enough time to come up with creative solutions on assignments</span></span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">creativite_valeur              =</span> ST335Q02JA,  <span class="co"># My teachers value students’ creativity</span></span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">creativite_originalite          =</span> ST335Q06JA,  <span class="co"># My teachers encourage me to come up with original answers</span></span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Questions sur la COVID-19</span></span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">covid_lecons_video             =</span> ST351Q03JA,  <span class="co"># Real-time lessons by a teacher from my school on a video communication program</span></span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">covid_materiel_envoye          =</span> ST351Q05JA,  <span class="co"># Learning material my teachers sent via email or platform</span></span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">covid_lecons_enregistrees       =</span> ST351Q06JA,  <span class="co"># Recorded lessons or other digital material provided by teachers from my school</span></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">covid_disponibilite_enseignant =</span> ST354Q03JA,  <span class="co"># My teachers were available when I needed help</span></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">covid_preparation_enseignant    =</span> ST354Q08JA,  <span class="co"># My teachers were well prepared to provide instruction remotely</span></span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Questions indirectes</span></span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">bruit_desordre                 =</span> ST273Q02JA   <span class="co"># There is noise and disorder</span></span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Par ailleurs, les données de réponses aux questions sont décrites comme une echelle de 1 à 4 pour affirmer un total désacord, un désacord, un accord et un accord total. On aura l’occasion de transformes ces valeurs pour rendre le jeu plus clair, mais seulement après nos études préliminaires pour conserver la possibilité de calculer des statistiques de base (moyenne, mediane, EIQ…).</p>
+<p>D’autre part, on ne possède aucune information sur les variables “CNTSCHID” “CNTSTUID” et “CYC” donc on se permet de les supprimer du jeu de données.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data_ech_etude <span class="ot">&lt;-</span> data_ech_etude <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>CNTSCHID, <span class="sc">-</span>CNTSTUID, <span class="sc">-</span>CYC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Regardons maintenant les types de nos variables :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_ech_etude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>tibble [30,687 × 65] (S3: tbl_df/tbl/data.frame)
+ $ Code_pays                          : chr [1:30687] "AUS" "MKD" "PHL" "AUT" ...
+  ..- attr(*, "label")= chr "Country code 3-character"
+ $ ID_pays                            : num [1:30687] 36 807 608 40 398 191 76 36 76 688 ...
+  ..- attr(*, "label")= chr "Country Identifier"
+ $ Code_centre_national               : chr [1:30687] "003600" "080700" "060800" "004000" ...
+  ..- attr(*, "label")= chr "National Centre 6-digit Code"
+ $ Stratum_ID                         : chr [1:30687] "AUS14" "MKD02" "PHL03" "AUT97" ...
+  ..- attr(*, "label")= chr "Stratum ID 5-character (cnt + original stratum ID)"
+ $ Code_sous_region                   : chr [1:30687] "0360000" "8070000" "6080000" "0400000" ...
+  ..- attr(*, "label")= chr "Adjudicated sub-region code 7-digit code (3-digit country code + region ID + stratum ID)"
+ $ Region                             : num [1:30687] 3600 80700 60800 4000 39803 ...
+  ..- attr(*, "label")= chr "REGION"
+ $ Pays_OCDE                          : num [1:30687] 1 0 0 1 0 0 0 1 0 0 ...
+  ..- attr(*, "label")= chr "OECD country"
+ $ Mode_administration                : num [1:30687] 2 2 2 2 2 2 2 2 2 2 ...
+  ..- attr(*, "label")= chr "Mode of Respondent"
+ $ Langue_questionnaire               : num [1:30687] 313 492 313 148 495 266 232 313 232 317 ...
+  ..- attr(*, "label")= chr "Language of Questionnaire"
+ $ Langue_evaluation                  : num [1:30687] 313 492 313 148 495 266 232 313 232 317 ...
+  ..- attr(*, "label")= chr "Language of Assessment"
+ $ Langue_parent                      : num [1:30687] NA NA NA NA NA 266 232 NA 232 NA ...
+  ..- attr(*, "label")= chr "Language of Parent Questionnaire"
+ $ Option_pensee_creative             : num [1:30687] 1 1 1 0 1 1 1 1 1 1 ...
+  ..- attr(*, "label")= chr "Creative Thinking Option"
+ $ Option_litteratie_fin              : num [1:30687] 0 0 0 1 0 0 1 0 1 0 ...
+  ..- attr(*, "label")= chr "Financial Literacy Option"
+ $ Option_ICT                         : num [1:30687] 1 0 0 1 1 1 1 1 1 0 ...
+  ..- attr(*, "label")= chr "ICT Questionnaire Option"
+ $ Option_bien_etre                   : num [1:30687] 0 0 0 0 0 0 1 0 1 0 ...
+  ..- attr(*, "label")= chr "Well-Being Questionnaire Option"
+ $ Option_parent                      : num [1:30687] 0 0 0 0 0 1 1 0 1 0 ...
+  ..- attr(*, "label")= chr "Parent Questionnaire Option"
+ $ Option_enseignant                  : num [1:30687] 1 0 0 0 0 0 1 1 1 0 ...
+  ..- attr(*, "label")= chr "Teacher Questionnaire Option"
+ $ Option_une_heure                   : num [1:30687] 0 0 0 1 0 0 0 0 0 0 ...
+  ..- attr(*, "label")= chr "Une Heure Option"
+ $ ID_livret                          : num [1:30687] 21 64 16 20 9 1 7 20 10 11 ...
+  ..- attr(*, "label")= chr "Form Identifier"
+ $ Niveau_scolaire                    : num [1:30687] 10 10 10 9 9 9 10 10 10 9 ...
+  ..- attr(*, "label")= chr "Student International Grade (Derived)"
+ $ Mois_naissance                     : num [1:30687] 10 2 9 12 11 5 8 1 4 5 ...
+  ..- attr(*, "label")= chr "Student (Standardized) Birth - Month"
+ $ Annee_naissance                    : num [1:30687] 2006 2006 2006 2006 2006 ...
+  ..- attr(*, "label")= chr "Student (Standardized) Birth -Year"
+ $ Genre                              : num [1:30687] 2 1 2 2 2 2 1 1 2 2 ...
+  ..- attr(*, "label")= chr "Student (Standardized) Gender"
+ $ enseignants_respectueux            : num [1:30687] 4 NA 4 4 NA 3 3 3 NA 3 ...
+  ..- attr(*, "label")= chr "Agree/disagree: The teachers at my school are respectful towards me."
+ $ enseignants_inquiets               : num [1:30687] NA NA NA NA 3 NA 4 NA 2 3 ...
+  ..- attr(*, "label")= chr "Agree/disagree: If I walked into my classes upset, my teachers would be concerned about me."
+ $ enseignants_heureux_voir           : num [1:30687] NA 3 3 3 NA NA NA 3 NA 3 ...
+  ..- attr(*, "label")= chr "Agree/disagree: If I came back to visit my school 3 years from now, my teachers would be excited to see me."
+ $ enseignants_intimidants            : num [1:30687] 4 1 NA 1 NA 2 1 2 2 NA ...
+  ..- attr(*, "label")= chr "Agree/disagree: I feel intimidated by the teachers at my school."
+ $ enseignants_interesses             : num [1:30687] 4 3 4 NA 3 3 NA 2 3 NA ...
+  ..- attr(*, "label")= chr "Agree/disagree: When my teachers ask how I am doing, they are really interested in my answer."
+ $ enseignants_amicaux                : num [1:30687] NA 4 NA 4 NA 3 4 NA NA NA ...
+  ..- attr(*, "label")= chr "Agree/disagree: The teachers at my school are friendly towards me."
+ $ enseignants_bien_etre              : num [1:30687] 4 NA 4 3 4 3 3 NA 3 4 ...
+  ..- attr(*, "label")= chr "Agree/disagree: The teachers at my school are interested in students' well-being."
+ $ enseignants_mechants               : num [1:30687] 1 1 2 NA 1 NA NA 2 2 1 ...
+  ..- attr(*, "label")= chr "Agree/disagree: The teachers at my school are mean towards me."
+ $ maths_pas_ecoute                   : num [1:30687] 4 NA 4 NA 4 NA 2 4 3 2 ...
+  ..- attr(*, "label")= chr "How often: Students do not listen to what the teacher said."
+ $ maths_attente_calme                : num [1:30687] 4 4 2 4 NA 2 1 4 3 3 ...
+  ..- attr(*, "label")= chr "How often: The teacher has to wait a long time for students to quiet down."
+ $ maths_interet_apprentissage        : num [1:30687] 1 1 1 2 1 3 2 4 3 2 ...
+  ..- attr(*, "label")= chr "How often: The teacher shows an interest in every student's learning."
+ $ maths_aide_extra                   : num [1:30687] 1 2 2 3 1 3 2 4 3 2 ...
+  ..- attr(*, "label")= chr "How often: The teacher gives extra help when students need it."
+ $ maths_aide                         : num [1:30687] 1 1 2 1 1 3 2 3 3 2 ...
+  ..- attr(*, "label")= chr "How often: The teacher helps students with their learning."
+ $ maths_explique_tant_que_pas_compris: num [1:30687] 2 1 1 1 1 1 1 3 3 2 ...
+  ..- attr(*, "label")= chr "How often: The teacher continues teaching until the students understand."
+ $ maths_resoudre_sans_calcul         : num [1:30687] 5 1 2 NA NA 1 3 1 3 2 ...
+  ..- attr(*, "label")= chr "How often: The teacher asked us to solve mathematics problems without computing anything."
+ $ maths_expliquer_solution           : num [1:30687] NA 5 4 5 NA 2 NA 4 2 NA ...
+  ..- attr(*, "label")= chr "How often: The teacher asked us to explain how we solved a mathematics problem."
+ $ maths_expliquer_hypotheses         : num [1:30687] NA 5 5 5 5 2 2 NA 2 3 ...
+  ..- attr(*, "label")= chr "How often: The teacher asked us to explain what assumptions we were making when solving a mathematics problem."
+ $ maths_expliquer_raisonnement       : num [1:30687] 4 5 5 NA 5 NA NA NA NA 3 ...
+  ..- attr(*, "label")= chr "How often: The teacher asked us to explain our reasoning when solving a mathematics problem."
+ $ maths_defendre_reponse             : num [1:30687] 4 NA 4 NA 5 NA 5 4 NA 2 ...
+  ..- attr(*, "label")= chr "How often: The teacher asked us to defend our answer to a mathematics problem."
+ $ maths_relier_anciens_nouveaux      : num [1:30687] 4 NA NA 5 5 NA NA 1 3 NA ...
+  ..- attr(*, "label")= chr "How often: The teacher asked us to think about how new and old mathematics topics were related."
+ $ maths_resoudre_autrement           : num [1:30687] NA 5 NA NA NA NA 5 1 NA NA ...
+  ..- attr(*, "label")= chr "How often: The teacher encouraged us to think about how to solve mathematics problems in different ways than de"| __truncated__
+ $ maths_persister                    : num [1:30687] 4 NA NA 1 NA 2 5 NA 2 3 ...
+  ..- attr(*, "label")= chr "How often: The teacher told us to keep trying even when we face difficulties with a mathematics task."
+ $ maths_memoriser                    : num [1:30687] NA NA NA 4 5 2 NA NA NA NA ...
+  ..- attr(*, "label")= chr "How often: The teacher taught us to memorize rules and apply them to solve mathematics problems."
+ $ maths_problemes_quotidien          : num [1:30687] 3 5 5 2 3 3 NA 2 2 2 ...
+  ..- attr(*, "label")= chr "How often: The teacher asked us to think of problems from everyday life that could be solved with new mathemati"| __truncated__
+ $ maths_utilite                      : num [1:30687] 3 5 NA 1 NA NA 5 2 3 4 ...
+  ..- attr(*, "label")= chr "How often: The teacher showed us how mathematics can be useful in our everyday lives."
+ $ maths_penser_math                  : num [1:30687] NA 5 NA NA 3 NA 4 NA NA NA ...
+  ..- attr(*, "label")= chr "How often: The teacher encouraged us to 'think mathematically'."
+ $ maths_logique                      : num [1:30687] NA 5 5 1 4 3 5 NA NA 3 ...
+  ..- attr(*, "label")= chr "How often: The teacher taught us how to use mathematical logic when approaching new situations."
+ $ maths_simplifier_problemes         : num [1:30687] NA NA 5 NA NA 3 NA 1 3 NA ...
+  ..- attr(*, "label")= chr "How often: The teacher showed us how some problems that look difficult can be solved more easily by understandi"| __truncated__
+ $ maths_decision                     : num [1:30687] 3 NA NA 1 NA NA NA NA NA NA ...
+  ..- attr(*, "label")= chr "How often: The teacher gave problems from everyday life involving numbers and asked us to make a decision about the situation."
+ $ maths_relier_concepts              : num [1:30687] NA NA 5 2 3 NA 3 NA NA NA ...
+  ..- attr(*, "label")= chr "How often: The teacher asked us how different topics are connected to a bigger mathematical idea."
+ $ maths_penser_quotidien             : num [1:30687] 3 NA NA NA NA 3 NA 1 2 2 ...
+  ..- attr(*, "label")= chr "How often: The teacher encouraged us to think about how a problem from everyday life could be solved using mathematics."
+ $ maths_connexion_idees              : num [1:30687] 3 5 4 NA 3 3 2 2 1 3 ...
+  ..- attr(*, "label")= chr "How often: The teacher explained how different mathematical ideas connect to a larger context."
+ $ maths_attention                    : num [1:30687] 5 NA 5 5 5 NA NA NA 3 NA ...
+  ..- attr(*, "label")= chr "This school year, how often: I paid attention when my mathematics teacher was speaking."
+ $ creativite_temps                   : num [1:30687] NA NA 3 2 3 2 2 2 2 3 ...
+  ..- attr(*, "label")= chr "Agree/disagree: My teachers give me enough time to come up with creative solutions on assignments."
+ $ creativite_valeur                  : num [1:30687] 3 NA NA NA 3 NA 3 NA 3 3 ...
+  ..- attr(*, "label")= chr "Agree/disagree: My teachers value students' creativity."
+ $ creativite_originalite             : num [1:30687] 3 NA 3 2 3 2 4 3 2 3 ...
+  ..- attr(*, "label")= chr "Agree/disagree: My teachers encourage me to come up with original answers."
+ $ covid_lecons_video                 : num [1:30687] 3 NA 4 4 4 NA 4 2 1 NA ...
+  ..- attr(*, "label")= chr "During COVID closures, how often use: Real-time lessons by a teacher from my school on a video communication pr"| __truncated__
+ $ covid_materiel_envoye              : num [1:30687] 1 NA NA 3 3 NA NA 1 NA 2 ...
+  ..- attr(*, "label")= chr "During COVID closures, how often use: Learning material my teachers sent via SMS or WhatsApp™"
+ $ covid_lecons_enregistrees          : num [1:30687] NA NA NA 2 4 NA NA NA 1 NA ...
+  ..- attr(*, "label")= chr "During COVID closures, how often use: Recorded lessons or other digital material provided by teachers from my school"
+ $ covid_disponibilite_enseignant     : num [1:30687] 3 NA NA 3 3 NA 3 3 2 3 ...
+  ..- attr(*, "label")= chr "During COVID closures, agree/disagree: My teachers were available when I needed help (e.g. through virtual offi"| __truncated__
+ $ covid_preparation_enseignant       : num [1:30687] NA NA 3 NA 4 NA 1 NA 3 3 ...
+  ..- attr(*, "label")= chr "During COVID closures, agree/disagree: My teachers were well prepared to provide instruction remotely."
+ $ bruit_desordre                     : num [1:30687] NA 3 NA NA NA 4 2 3 NA 4 ...
+  ..- attr(*, "label")= chr "How often: There is noise and disorder."</code></pre>
+</div>
+</div>
+<p>On ne remarque pas de gros problème au sein nos types de variables. On peut malgré tout convertir en facteur celles qui ne sont pas destinées à élaborer des calculs.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>vars_factor <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Genre"</span>, <span class="st">"Option_une_heure"</span>, <span class="st">"Option_enseignant"</span>, <span class="st">"Option_parent"</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Option_bien_etre"</span>, <span class="st">"Option_ICT"</span>, <span class="st">"Option_litteratie_fin"</span>, <span class="st">"Option_pensee_creative"</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Mode_administration"</span>, <span class="st">"Pays_OCDE"</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>data_ech_etude[, vars_factor] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(data_ech_etude[, vars_factor], factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="etude-des-valeurs-manquantes" class="level3">
+<h3 class="anchored" data-anchor-id="etude-des-valeurs-manquantes">Etude des valeurs manquantes</h3>
+<p>Etudions les valeurs manquantes selon le pays des individus étudiés afin de mieux nous préparer à l’analyse monovariée :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>prop_NA_par_ligne <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(<span class="fu">is.na</span>(data_ech))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>pct_NA_par_pays <span class="ot">&lt;-</span> <span class="fu">tapply</span>(prop_NA_par_ligne, data_ech<span class="sc">$</span>CNT, mean) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>pct_NA_par_pays_tri <span class="ot">&lt;-</span> <span class="fu">sort</span>(pct_NA_par_pays)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  pct_NA_par_pays_tri,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">las =</span> <span class="dv">2</span>,              </span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"darkorange"</span>,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Proportion moyenne de NA par pays"</span>,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"% de valeurs manquantes"</span>,</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex.names =</span> <span class="fl">0.7</span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Le nombre de pays étant important, on peut plus simplement regrouper les pays selon le pourcentage de possession de valeurs manquantes. On établit 3 groupes : le premier entre 0 et 40% de valeurs manquantes, le deuxième entre 40 et 60% et le dernier entre 60 et 100%.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>groupes <span class="ot">&lt;-</span> <span class="fu">cut</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  pct_NA_par_pays,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="dv">40</span>, <span class="dv">60</span>, <span class="cn">Inf</span>),</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"&lt; 40%"</span>, <span class="st">"40-60%"</span>, <span class="st">"&gt; 60%"</span>)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(groupes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>groupes
+ &lt; 40% 40-60%  &gt; 60% 
+    18     57      5 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pct_groupes <span class="ot">&lt;-</span> <span class="fu">tapply</span>(pct_NA_par_pays, groupes, mean)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>pct_groupes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   &lt; 40%   40-60%    &gt; 60% 
+32.45691 49.01870 64.93787 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  pct_groupes,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">'orange'</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Proportion moyenne de NA par groupe de pays"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"% de valeurs manquantes"</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>On peut ainsi noter une grande quantité de valeurs manquantes qui nous pénalisera dans la suite de l’étude si on décide de simplement supprimer les données des étudiants qui ne répondent parfois pas à certaines question. On se proposera alors d’imputer les données par la moyenne.</p>
+</section>
+</section>
+<section id="analyses-univariées" class="level2">
+<h2 class="anchored" data-anchor-id="analyses-univariées">Analyses univariées</h2>
+<section id="variable-expliquée" class="level3">
+<h3 class="anchored" data-anchor-id="variable-expliquée">Variable expliquée</h3>
+<p>Premièrement il peut être pertinent d’analyser séparément nos variables explicatives et notre variable expliquée. Ainsi on se concentre d’abord sur la réussite scolaire de l’élève, soit “Niveau_scolaire”.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(data_ech_etude<span class="sc">$</span>Niveau_scolaire))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0</code></pre>
+</div>
+</div>
+<p>On note que la variable qu’on cherche à expliquer ne possède aucune valeur manquante.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(data_ech_etude<span class="sc">$</span>Niveau_scolaire)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>tab </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    7     8     9    10    11    12    96    98    99 
+  220   954  8464 17915  2091   103   107   832     1 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Répartition du niveau scolaire"</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"Nombre d'élèves"</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"orange"</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">las =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="variables-explicatives" class="level3">
+<h3 class="anchored" data-anchor-id="variables-explicatives">Variables explicatives</h3>
+<p>Ensuite, on construit une boucle permettant d’étudier toutes les variables d’intérêt à notre guise à l’aide de diagrammes circulaires ;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>vars_a_visualiser <span class="ot">&lt;-</span> <span class="fu">names</span>(data_ech_etude)[<span class="dv">24</span><span class="sc">:</span><span class="dv">65</span>]</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (var <span class="cf">in</span> vars_a_visualiser) {</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  tab <span class="ot">&lt;-</span> <span class="fu">table</span>(data_ech_etude[[var]])</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  tab_pct <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> tab <span class="sc">/</span> <span class="fu">sum</span>(tab), <span class="dv">1</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pie</span>(tab, </span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">paste0</span>(<span class="fu">names</span>(tab), <span class="st">" ("</span>, tab_pct, <span class="st">"%)"</span>),</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Répartition de"</span>, var),</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>,<span class="st">"orange"</span>, <span class="st">"yellow"</span>,<span class="st">"green"</span>, <span class="st">"cadetblue1"</span> ))</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-7.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-8.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-9.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-10.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-11.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-12.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-13.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-14.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-15.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-16.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-17.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-18.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-19.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-20.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-21.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-22.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-23.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-24.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-25.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-26.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-27.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-28.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-29.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-30.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-31.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-32.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-33.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-34.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-35.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-36.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-37.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-38.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-39.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-40.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-41.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-42.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="analyses-multivariées" class="level2">
+<h2 class="anchored" data-anchor-id="analyses-multivariées">Analyses multivariées</h2>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
