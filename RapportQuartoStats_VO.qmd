@@ -19,7 +19,12 @@ bibliography: references.bib
 ## Installation des packages 
 
 ```{r} 
-library(dplyr)
+packages <- c("ggplot2", "dplyr", "corrplot")
+
+to_install <- packages[!packages %in% rownames(installed.packages())]
+if(length(to_install)) install.packages(to_install, dependencies = TRUE)
+
+lapply(packages, library, character.only = TRUE)
 ```
 
 ## Import des données
@@ -47,6 +52,8 @@ On décide ici de dicerner plusieurs types de variables, notamment celles en lie
 
 On les conserve toute et on aura l'occasion de créer des jeux de données distincts selon les types de variables.
 
+Celles-ci seront nos variables explicatives.
+
 ```{r}
 vars_collector <- c("ST267Q01JA", "ST267Q02JA", "ST267Q03JA", "ST267Q04JA", "ST267Q05JA", "ST267Q06JA", "ST267Q07JA", "ST267Q08JA",
                     
@@ -61,6 +68,15 @@ vars_etude <- vars_collector[vars_collector %in% names(data_ech)]
 idx_vars_etude <- match(vars_etude, names(data_ech))
 
 data_ech_etude <- data_ech[, c(1:26, idx_vars_etude), drop = FALSE]
+```
+
+Récupérons maintenant les variables concernant la notation des élèves qu'on tachera d'expliquer par la relation avec l'enseignant.
+
+```{r}
+Notes <- data_ech %>% select(starts_with("PV"))
+Notes_NA <- data_ech %>% select(starts_with("PV"))
+Notes_NA <-lapply(Notes_NA, as.numeric)
+moyennes_NA <- lapply(Notes_NA, mean, na.rm = FALSE)
 ```
 
 Recodons nos données pour rendre le dataframe plus clair à étudier.
@@ -234,26 +250,116 @@ On peut ainsi noter une grande quantité de valeurs manquantes qui nous pénalis
 
 ### Variable expliquée
 
-Premièrement il peut être pertinent d'analyser séparément nos variables explicatives et notre variable expliquée. Ainsi on se concentre d'abord sur la réussite scolaire de l'élève, soit "Niveau_scolaire". 
+Premièrement il peut être pertinent d'analyser séparément nos variables explicatives et notre variable expliquée. Ainsi on se concentre d'abord sur la réussite scolaire de l'élève, par le biais des notes de l'élève. 
 
 ```{r}
-sum(is.na(data_ech_etude$Niveau_scolaire))
+sum(is.na(Notes))
 ```
 
-On note que la variable qu'on cherche à expliquer ne possède aucune valeur manquante.
+On note que la variable qu'on cherche à expliquer se traduit par des notes dans différentes matières. Certaines notes sont vraissemblablement manquantes et l'on souligne 85600 valeurs manquantes sur 30687 élèves multipliés par 110 variables, soit (85600/(30687x110))x100 N.A en pourcentage.
 
 ```{r}
-tab <- table(data_ech_etude$Niveau_scolaire)
-tab 
-```
-```{r}
-barplot(tab,
-        main = "Répartition du niveau scolaire",
-        ylab = "Nombre d'élèves",
-        col = "orange",
-        las = 1)
+(85600/(30687*110))*100
 ```
 
+On a donc 2.5% de valeurs manquantes, qu'on imputera pour le moment par la moyenne.
+
+Etudions maintenant concrètement ces notes.
+
+D'abord on distingue toutes les matières dans le dataframe suivant :
+
+```{r}
+matieres <- c(
+  "MATH", #Mathématiques générales
+  "READ", #Lecture
+  "SCIE", #Science
+  "MCCR", #Mathématiques : Changement et relation
+  "MCQN", #Mathématiques : Quantitatif
+  "MCSS", #Mathématiques : Espace et formes
+  "MCUD", #Mathématiques : Incertitude et données
+  "MPEM", #Mathématiques : Employer des concepts mathématiques, définitions et théorèmes
+  "MPFS", #Mathématiques : Formuler des situations mathématiquement
+  "MPIN", #Mathématiques : Interpréter, appliquer et analyser des sorties mathématiques
+  "MPRE"  #Mathématiques : Raisonnement
+)
+```
+
+Calculons toutes les moyennes des élèves :
+
+```{r}
+Notes_moyennes <- as.data.frame(
+  sapply(matieres, function(m) {
+    vars <- paste0("PV", 1:10, m)
+    rowMeans(Notes[, vars], na.rm = TRUE)
+  })
+)
+
+colnames(Notes_moyennes) <- paste0("MOY_", matieres)
+
+Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
+```
+
+Etablissons maintenant quelques statistiques descriptives de nos moyennes par matières pour une première approche.
+
+```{r}
+stats_matieres <- t(
+  sapply(
+    Notes_moyennes[, grep("^MOY_", names(Notes_moyennes))],
+    function(x) {
+      c(
+        N      = sum(!is.na(x)),
+        Moyenne = mean(x, na.rm = TRUE),
+        Ecart_type = sd(x, na.rm = TRUE),
+        Min    = min(x, na.rm = TRUE),
+        Q1     = quantile(x, 0.25, na.rm = TRUE),
+        Mediane = median(x, na.rm = TRUE),
+        Q3     = quantile(x, 0.75, na.rm = TRUE),
+        Max    = max(x, na.rm = TRUE)
+      )
+    }
+  )
+)
+
+stats_matieres
+```
+
+On peut alors tracer par exemple l'histogramme représentant les moyennes en mathématiques :
+
+```{r}
+hist(
+  Notes_moyennes$MOY_MATH,
+  breaks = 30,
+  freq = FALSE,  
+  col = "gray",
+  main = "Distribution de la moyenne en mathématiques",
+  xlab = "Moyenne"
+)
+```
+
+On s'apperçoit que les moyennes des élèves semblent tendre vers une loi gaussienne. On pourrait par la suite effectuer des tests d'adéquation tels que la droite de Henry ou un QQ-plot.
+
+D'autres part et plus généralement, on s'intéresse à toutes les moyennes les unes entre les autres.
+
+```{r}
+cor_mat <- cor(
+  Notes_moyennes[, grep("^MOY_", names(Notes_moyennes))],
+  use = "pairwise.complete.obs"
+)
+
+corrplot(
+  cor_mat,
+  method = "number",
+  type = "upper",
+  tl.col = "black",
+  tl.srt = 45,
+  number.cex = 0.8
+)
+
+```
+
+On note qu'elles semblent toutes corrélées les unes des autres. Cela fait sens car 8 moyennes de notes sur 11 sont des sous-parties des mathématiques et sont donc incluses dans la même matière. De plus on a une 9ème variable de pure moyenne de l'élève en mathématique.
+On aurait pu s'attendre à de tels résultats. A noter tout de même que les moyennes en mathématiques, en lecture et en sciences sont fortement corrélées.
+ 
 ### Variables explicatives
 
 Ensuite, on construit une boucle permettant d'étudier toutes les variables d'intérêt à notre guise à l'aide de diagrammes circulaires ;
