@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Barbeau Faustine - Combes Florent - Dumas Elouan - Malzieux Yann">
-<meta name="dcterms.date" content="2026-02-02">
+<meta name="dcterms.date" content="2026-02-09">
 
-<title>insérer problématique</title>
+<title>En quoi la relation élève-enseignant peut influencer les résultats académiques des élèves ?</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,7 +83,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">insérer problématique</h1>
+<h1 class="title">En quoi la relation élève-enseignant peut influencer les résultats académiques des élèves ?</h1>
 </div>
 
 
@@ -100,7 +100,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 2, 2026</p>
+      <p class="date">February 9, 2026</p>
     </div>
   </div>
   
@@ -117,7 +117,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="installation-des-packages" class="level2">
 <h2 class="anchored" data-anchor-id="installation-des-packages">Installation des packages</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>packages <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ggplot2"</span>, <span class="st">"dplyr"</span>, <span class="st">"corrplot"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>to_install <span class="ot">&lt;-</span> packages[<span class="sc">!</span>packages <span class="sc">%in%</span> <span class="fu">rownames</span>(<span class="fu">installed.packages</span>())]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>(<span class="fu">length</span>(to_install)) <span class="fu">install.packages</span>(to_install, <span class="at">dependencies =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(packages, library, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>
 Attachement du package : 'dplyr'</code></pre>
@@ -132,345 +137,236 @@ Attachement du package : 'dplyr'</code></pre>
 
     intersect, setdiff, setequal, union</code></pre>
 </div>
+<div class="cell-output cell-output-stderr">
+<pre><code>corrplot 0.95 loaded</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] "ggplot2"   "stats"     "graphics"  "grDevices" "utils"     "datasets" 
+[7] "methods"   "base"     
+
+[[2]]
+[1] "dplyr"     "ggplot2"   "stats"     "graphics"  "grDevices" "utils"    
+[7] "datasets"  "methods"   "base"     
+
+[[3]]
+ [1] "corrplot"  "dplyr"     "ggplot2"   "stats"     "graphics"  "grDevices"
+ [7] "utils"     "datasets"  "methods"   "base"     </code></pre>
+</div>
 </div>
 </section>
 <section id="import-des-données" class="level2">
 <h2 class="anchored" data-anchor-id="import-des-données">Import des données</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"stu_qqq.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"stu_qqq.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 613744   1278</code></pre>
 </div>
 </div>
 <p>Par souci d’efficacité, le jeu de données contenant plus de 600.000 individus, nous élaborerons nos analyses exploratoires sur un échantillon de 5% de celui-ci.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>taille <span class="ot">=</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(data)<span class="sc">*</span><span class="fl">0.05</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>data_ech <span class="ot">&lt;-</span> data[<span class="fu">sample.int</span>(<span class="fu">nrow</span>(data), taille), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>taille <span class="ot">=</span> <span class="fu">floor</span>(<span class="fu">nrow</span>(data)<span class="sc">*</span><span class="fl">0.05</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>data_ech <span class="ot">&lt;-</span> data[<span class="fu">sample.int</span>(<span class="fu">nrow</span>(data), taille), ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="sélection-et-gestion-des-variables" class="level3">
 <h3 class="anchored" data-anchor-id="sélection-et-gestion-des-variables">Sélection et gestion des variables</h3>
 <p>On décide ici de dicerner plusieurs types de variables, notamment celles en lien direct avec l’enseignent, celles concernant les cours de mathématiques, celles concernant la créativité, et les autres.</p>
 <p>On les conserve toute et on aura l’occasion de créer des jeux de données distincts selon les types de variables.</p>
+<p>Celles-ci seront nos variables explicatives.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>vars_collector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ST267Q01JA"</span>, <span class="st">"ST267Q02JA"</span>, <span class="st">"ST267Q03JA"</span>, <span class="st">"ST267Q04JA"</span>, <span class="st">"ST267Q05JA"</span>, <span class="st">"ST267Q06JA"</span>, <span class="st">"ST267Q07JA"</span>, <span class="st">"ST267Q08JA"</span>,</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                    </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"ST273Q01JA"</span>, <span class="st">"ST273Q03JA"</span>, <span class="st">"ST270Q01JA"</span>, <span class="st">"ST270Q02JA"</span>, <span class="st">"ST270Q03JA"</span>, <span class="st">"ST270Q04JA"</span>, <span class="st">"ST285Q01JA"</span>, <span class="st">"ST285Q02JA"</span>, <span class="st">"ST285Q03JA"</span>, <span class="st">"ST285Q04JA"</span>, <span class="st">"ST285Q05JA"</span>, <span class="st">"ST285Q06JA"</span>, <span class="st">"ST285Q07JA"</span>, <span class="st">"ST285Q08JA"</span>, <span class="st">"ST285Q09JA"</span>, <span class="st">"ST283Q01JA"</span>, <span class="st">"ST283Q02JA"</span>, <span class="st">"ST283Q03JA"</span>, <span class="st">"ST283Q04JA"</span>, <span class="st">"ST283Q05JA"</span>, <span class="st">"ST283Q06JA"</span>, <span class="st">"ST283Q07JA"</span>, <span class="st">"ST283Q08JA"</span>, <span class="st">"ST283Q09JA"</span>, <span class="st">"ST293Q02JA"</span>,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                    </span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"ST335Q01JA"</span>, <span class="st">"ST335Q02JA"</span>, <span class="st">"ST335Q06JA"</span>, </span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>                    </span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"ST351Q03JA"</span>, <span class="st">"ST351Q05JA"</span>, <span class="st">"ST351Q06JA"</span>, <span class="st">"ST354Q03JA"</span>, <span class="st">"ST354Q08JA"</span>, <span class="st">"ST273Q02JA"</span>)</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>vars_etude <span class="ot">&lt;-</span> vars_collector[vars_collector <span class="sc">%in%</span> <span class="fu">names</span>(data_ech)]</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>idx_vars_etude <span class="ot">&lt;-</span> <span class="fu">match</span>(vars_etude, <span class="fu">names</span>(data_ech))</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>data_ech_etude <span class="ot">&lt;-</span> data_ech[, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">26</span>, idx_vars_etude), drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>vars_collector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"ST267Q01JA"</span>, <span class="st">"ST267Q02JA"</span>, <span class="st">"ST267Q03JA"</span>, <span class="st">"ST267Q04JA"</span>, <span class="st">"ST267Q05JA"</span>, <span class="st">"ST267Q06JA"</span>, <span class="st">"ST267Q07JA"</span>, <span class="st">"ST267Q08JA"</span>,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                    </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"ST273Q01JA"</span>, <span class="st">"ST273Q03JA"</span>, <span class="st">"ST270Q01JA"</span>, <span class="st">"ST270Q02JA"</span>, <span class="st">"ST270Q03JA"</span>, <span class="st">"ST270Q04JA"</span>, <span class="st">"ST285Q01JA"</span>, <span class="st">"ST285Q02JA"</span>, <span class="st">"ST285Q03JA"</span>, <span class="st">"ST285Q04JA"</span>, <span class="st">"ST285Q05JA"</span>, <span class="st">"ST285Q06JA"</span>, <span class="st">"ST285Q07JA"</span>, <span class="st">"ST285Q08JA"</span>, <span class="st">"ST285Q09JA"</span>, <span class="st">"ST283Q01JA"</span>, <span class="st">"ST283Q02JA"</span>, <span class="st">"ST283Q03JA"</span>, <span class="st">"ST283Q04JA"</span>, <span class="st">"ST283Q05JA"</span>, <span class="st">"ST283Q06JA"</span>, <span class="st">"ST283Q07JA"</span>, <span class="st">"ST283Q08JA"</span>, <span class="st">"ST283Q09JA"</span>, <span class="st">"ST293Q02JA"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                    </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"ST335Q01JA"</span>, <span class="st">"ST335Q02JA"</span>, <span class="st">"ST335Q06JA"</span>, </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                    </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                    <span class="st">"ST351Q03JA"</span>, <span class="st">"ST351Q05JA"</span>, <span class="st">"ST351Q06JA"</span>, <span class="st">"ST354Q03JA"</span>, <span class="st">"ST354Q08JA"</span>, <span class="st">"ST273Q02JA"</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>vars_etude <span class="ot">&lt;-</span> vars_collector[vars_collector <span class="sc">%in%</span> <span class="fu">names</span>(data_ech)]</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>idx_vars_etude <span class="ot">&lt;-</span> <span class="fu">match</span>(vars_etude, <span class="fu">names</span>(data_ech))</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>data_ech_etude <span class="ot">&lt;-</span> data_ech[, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">26</span>, idx_vars_etude), drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Récupérons maintenant les variables concernant la notation des élèves qu’on tachera d’expliquer par la relation avec l’enseignant.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Notes <span class="ot">&lt;-</span> data_ech <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"PV"</span>))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Notes_NA <span class="ot">&lt;-</span> data_ech <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">"PV"</span>))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>Notes_NA <span class="ot">&lt;-</span><span class="fu">lapply</span>(Notes_NA, as.numeric)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>moyennes_NA <span class="ot">&lt;-</span> <span class="fu">lapply</span>(Notes_NA, mean, <span class="at">na.rm =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Recodons nos données pour rendre le dataframe plus clair à étudier.</p>
 <p>Pour les variables de base :</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data_ech_etude <span class="ot">&lt;-</span> data_ech_etude <span class="sc">%&gt;%</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Code_pays              =</span> CNT,          <span class="co"># code du pays</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ID_pays                =</span> CNTRYID,       <span class="co"># identifiant du pays</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Code_centre_national   =</span> NatCen,        <span class="co"># code du centre national</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Stratum_ID             =</span> STRATUM,       <span class="co"># identifiant de la strate</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Code_sous_region       =</span> SUBNATIO,      <span class="co"># code de sous-région</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Region                 =</span> REGION,        <span class="co"># région</span></span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Pays_OCDE              =</span> OECD,          <span class="co"># pays OCDE</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mode_administration    =</span> ADMINMODE,     <span class="co"># mode d’administration</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Langue_questionnaire   =</span> LANGTEST_QQQ,  <span class="co"># langue du questionnaire élève</span></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Langue_evaluation      =</span> LANGTEST_COG,  <span class="co"># langue de l’évaluation</span></span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Langue_parent          =</span> LANGTEST_PAQ,  <span class="co"># langue du questionnaire parent</span></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_pensee_creative =</span> Option_CT,     <span class="co"># option pensée créative</span></span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_litteratie_fin  =</span> Option_FL,     <span class="co"># option littératie financière</span></span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_ICT             =</span> Option_ICTQ,   <span class="co"># option questionnaire TIC</span></span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_bien_etre       =</span> Option_WBQ,    <span class="co"># option bien-être</span></span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_parent          =</span> Option_PQ,     <span class="co"># option parent</span></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_enseignant      =</span> Option_TQ,     <span class="co"># option enseignant</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_une_heure       =</span> Option_UH,     <span class="co"># option une heure</span></span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">ID_livret              =</span> BOOKID,        <span class="co"># identifiant du livret</span></span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">Niveau_scolaire        =</span> ST001D01T,      <span class="co"># niveau scolaire</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mois_naissance         =</span> ST003D02T,      <span class="co"># mois de naissance</span></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">Annee_naissance        =</span> ST003D03T,      <span class="co"># année de naissance</span></span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">Genre                  =</span> ST004D01T       <span class="co"># genre</span></span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data_ech_etude <span class="ot">&lt;-</span> data_ech_etude <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Code_pays              =</span> CNT,          <span class="co"># code du pays</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">ID_pays                =</span> CNTRYID,       <span class="co"># identifiant du pays</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">Code_centre_national   =</span> NatCen,        <span class="co"># code du centre national</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Stratum_ID             =</span> STRATUM,       <span class="co"># identifiant de la strate</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Code_sous_region       =</span> SUBNATIO,      <span class="co"># code de sous-région</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Region                 =</span> REGION,        <span class="co"># région</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">Pays_OCDE              =</span> OECD,          <span class="co"># pays OCDE</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mode_administration    =</span> ADMINMODE,     <span class="co"># mode d’administration</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">Langue_questionnaire   =</span> LANGTEST_QQQ,  <span class="co"># langue du questionnaire élève</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">Langue_evaluation      =</span> LANGTEST_COG,  <span class="co"># langue de l’évaluation</span></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">Langue_parent          =</span> LANGTEST_PAQ,  <span class="co"># langue du questionnaire parent</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_pensee_creative =</span> Option_CT,     <span class="co"># option pensée créative</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_litteratie_fin  =</span> Option_FL,     <span class="co"># option littératie financière</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_ICT             =</span> Option_ICTQ,   <span class="co"># option questionnaire TIC</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_bien_etre       =</span> Option_WBQ,    <span class="co"># option bien-être</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_parent          =</span> Option_PQ,     <span class="co"># option parent</span></span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_enseignant      =</span> Option_TQ,     <span class="co"># option enseignant</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">Option_une_heure       =</span> Option_UH,     <span class="co"># option une heure</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">ID_livret              =</span> BOOKID,        <span class="co"># identifiant du livret</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">Niveau_scolaire        =</span> ST001D01T,      <span class="co"># niveau scolaire</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mois_naissance         =</span> ST003D02T,      <span class="co"># mois de naissance</span></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">Annee_naissance        =</span> ST003D03T,      <span class="co"># année de naissance</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">Genre                  =</span> ST004D01T       <span class="co"># genre</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Pour les variables à intérêt dans notre étude (on précise en commentaire la question d’origine posée à l’élève) :</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data_ech_etude <span class="ot">&lt;-</span> data_ech_etude <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Questions en lien direct avec l’enseignant</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_respectueux       =</span> ST267Q01JA,  <span class="co"># The teachers at my school are respectful towards me</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_inquiets          =</span> ST267Q02JA,  <span class="co"># If I walked into my classes upset, my teachers would be concerned about me</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_heureux_voir      =</span> ST267Q03JA,  <span class="co"># If I came back to visit my school three years from now, my teachers would be excited to see me</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_intimidants       =</span> ST267Q04JA,  <span class="co"># I feel intimidated by the teachers at my school</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_interesses        =</span> ST267Q05JA,  <span class="co"># When my teachers ask how I am doing, they are really interested in my answer</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_amicaux           =</span> ST267Q06JA,  <span class="co"># The teachers at my school are friendly towards me</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_bien_etre         =</span> ST267Q07JA,  <span class="co"># The teachers at my school are interested in students' well-being</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_mechants           =</span> ST267Q08JA,  <span class="co"># The teachers at my school are mean towards me</span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Questions sur le cours de Mathématiques</span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_pas_ecoute               =</span> ST273Q01JA,  <span class="co"># Students do not listen to what the teacher said</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_attente_calme            =</span> ST273Q03JA,  <span class="co"># The teacher has to wait a long time for students to quiet down</span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_interet_apprentissage    =</span> ST270Q01JA,  <span class="co"># The teacher shows an interest in every student's learning</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_aide_extra               =</span> ST270Q02JA,  <span class="co"># The teacher gives extra help when students need it</span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_aide                     =</span> ST270Q03JA,  <span class="co"># The teacher helps students with their learning</span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_explique_tant_que_pas_compris =</span> ST270Q04JA,  <span class="co"># The teacher continues teaching until the students understand</span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_resoudre_sans_calcul     =</span> ST285Q01JA,  <span class="co"># The teacher asked us to solve mathematics problems without computing anything</span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_expliquer_solution       =</span> ST285Q02JA,  <span class="co"># The teacher asked us to explain how we solved a mathematics problem</span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_expliquer_hypotheses     =</span> ST285Q03JA,  <span class="co"># The teacher asked us to explain what assumptions we were making when solving a mathematics problem</span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_expliquer_raisonnement   =</span> ST285Q04JA,  <span class="co"># The teacher asked us to explain our reasoning when solving a mathematics problem</span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_defendre_reponse         =</span> ST285Q05JA,  <span class="co"># The teacher asked us to defend our answer to a mathematics problem</span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_relier_anciens_nouveaux  =</span> ST285Q06JA,  <span class="co"># The teacher asked us to think about how new and old mathematics topics were related</span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_resoudre_autrement       =</span> ST285Q07JA,  <span class="co"># The teacher encouraged us to think about how to solve mathematics problems in different ways than demonstrated in class</span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_persister                =</span> ST285Q08JA,  <span class="co"># The teacher told us to keep trying even when we face difficulties with a mathematics task</span></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_memoriser                =</span> ST285Q09JA,  <span class="co"># The teacher taught us to memorize rules and apply them to solve mathematics problems</span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_problemes_quotidien      =</span> ST283Q01JA,  <span class="co"># The teacher asked us to think of problems from everyday life that could be solved with new mathematics knowledge we learned</span></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_utilite                  =</span> ST283Q02JA,  <span class="co"># The teacher showed us how mathematics can be useful in our everyday lives</span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_penser_math              =</span> ST283Q03JA,  <span class="co"># The teacher encouraged us to "think mathematically"</span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_logique                  =</span> ST283Q04JA,  <span class="co"># The teacher taught us how to use mathematical logic when approaching new situations</span></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_simplifier_problemes     =</span> ST283Q05JA,  <span class="co"># The teacher showed us how some problems that look difficult can be solved more easily by understanding how the number system is organized</span></span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_decision                 =</span> ST283Q06JA,  <span class="co"># The teacher gave problems from everyday life involving numbers and asked us to make a decision about the situation</span></span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_relier_concepts          =</span> ST283Q07JA,  <span class="co"># The teacher asked us how different topics are connected to a bigger mathematical idea</span></span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_penser_quotidien         =</span> ST283Q08JA,  <span class="co"># The teacher encouraged us to think about how a problem from everyday life could be solved using mathematics</span></span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_connexion_idees          =</span> ST283Q09JA,  <span class="co"># The teacher explained how different mathematical ideas connect to a larger context</span></span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_attention                =</span> ST293Q02JA,  <span class="co"># I paid attention when my mathematics teacher was speaking</span></span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Questions sur la créativité</span></span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">creativite_temps               =</span> ST335Q01JA,  <span class="co"># My teachers give me enough time to come up with creative solutions on assignments</span></span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">creativite_valeur              =</span> ST335Q02JA,  <span class="co"># My teachers value students’ creativity</span></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">creativite_originalite          =</span> ST335Q06JA,  <span class="co"># My teachers encourage me to come up with original answers</span></span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Questions sur la COVID-19</span></span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">covid_lecons_video             =</span> ST351Q03JA,  <span class="co"># Real-time lessons by a teacher from my school on a video communication program</span></span>
-<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">covid_materiel_envoye          =</span> ST351Q05JA,  <span class="co"># Learning material my teachers sent via email or platform</span></span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">covid_lecons_enregistrees       =</span> ST351Q06JA,  <span class="co"># Recorded lessons or other digital material provided by teachers from my school</span></span>
-<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">covid_disponibilite_enseignant =</span> ST354Q03JA,  <span class="co"># My teachers were available when I needed help</span></span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">covid_preparation_enseignant    =</span> ST354Q08JA,  <span class="co"># My teachers were well prepared to provide instruction remotely</span></span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Questions indirectes</span></span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">bruit_desordre                 =</span> ST273Q02JA   <span class="co"># There is noise and disorder</span></span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data_ech_etude <span class="ot">&lt;-</span> data_ech_etude <span class="sc">%&gt;%</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Questions en lien direct avec l’enseignant</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_respectueux       =</span> ST267Q01JA,  <span class="co"># The teachers at my school are respectful towards me</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_inquiets          =</span> ST267Q02JA,  <span class="co"># If I walked into my classes upset, my teachers would be concerned about me</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_heureux_voir      =</span> ST267Q03JA,  <span class="co"># If I came back to visit my school three years from now, my teachers would be excited to see me</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_intimidants       =</span> ST267Q04JA,  <span class="co"># I feel intimidated by the teachers at my school</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_interesses        =</span> ST267Q05JA,  <span class="co"># When my teachers ask how I am doing, they are really interested in my answer</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_amicaux           =</span> ST267Q06JA,  <span class="co"># The teachers at my school are friendly towards me</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_bien_etre         =</span> ST267Q07JA,  <span class="co"># The teachers at my school are interested in students' well-being</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">enseignants_mechants           =</span> ST267Q08JA,  <span class="co"># The teachers at my school are mean towards me</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Questions sur le cours de Mathématiques</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_pas_ecoute               =</span> ST273Q01JA,  <span class="co"># Students do not listen to what the teacher said</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_attente_calme            =</span> ST273Q03JA,  <span class="co"># The teacher has to wait a long time for students to quiet down</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_interet_apprentissage    =</span> ST270Q01JA,  <span class="co"># The teacher shows an interest in every student's learning</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_aide_extra               =</span> ST270Q02JA,  <span class="co"># The teacher gives extra help when students need it</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_aide                     =</span> ST270Q03JA,  <span class="co"># The teacher helps students with their learning</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_explique_tant_que_pas_compris =</span> ST270Q04JA,  <span class="co"># The teacher continues teaching until the students understand</span></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_resoudre_sans_calcul     =</span> ST285Q01JA,  <span class="co"># The teacher asked us to solve mathematics problems without computing anything</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_expliquer_solution       =</span> ST285Q02JA,  <span class="co"># The teacher asked us to explain how we solved a mathematics problem</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_expliquer_hypotheses     =</span> ST285Q03JA,  <span class="co"># The teacher asked us to explain what assumptions we were making when solving a mathematics problem</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_expliquer_raisonnement   =</span> ST285Q04JA,  <span class="co"># The teacher asked us to explain our reasoning when solving a mathematics problem</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_defendre_reponse         =</span> ST285Q05JA,  <span class="co"># The teacher asked us to defend our answer to a mathematics problem</span></span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_relier_anciens_nouveaux  =</span> ST285Q06JA,  <span class="co"># The teacher asked us to think about how new and old mathematics topics were related</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_resoudre_autrement       =</span> ST285Q07JA,  <span class="co"># The teacher encouraged us to think about how to solve mathematics problems in different ways than demonstrated in class</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_persister                =</span> ST285Q08JA,  <span class="co"># The teacher told us to keep trying even when we face difficulties with a mathematics task</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_memoriser                =</span> ST285Q09JA,  <span class="co"># The teacher taught us to memorize rules and apply them to solve mathematics problems</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_problemes_quotidien      =</span> ST283Q01JA,  <span class="co"># The teacher asked us to think of problems from everyday life that could be solved with new mathematics knowledge we learned</span></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_utilite                  =</span> ST283Q02JA,  <span class="co"># The teacher showed us how mathematics can be useful in our everyday lives</span></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_penser_math              =</span> ST283Q03JA,  <span class="co"># The teacher encouraged us to "think mathematically"</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_logique                  =</span> ST283Q04JA,  <span class="co"># The teacher taught us how to use mathematical logic when approaching new situations</span></span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_simplifier_problemes     =</span> ST283Q05JA,  <span class="co"># The teacher showed us how some problems that look difficult can be solved more easily by understanding how the number system is organized</span></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_decision                 =</span> ST283Q06JA,  <span class="co"># The teacher gave problems from everyday life involving numbers and asked us to make a decision about the situation</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_relier_concepts          =</span> ST283Q07JA,  <span class="co"># The teacher asked us how different topics are connected to a bigger mathematical idea</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_penser_quotidien         =</span> ST283Q08JA,  <span class="co"># The teacher encouraged us to think about how a problem from everyday life could be solved using mathematics</span></span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_connexion_idees          =</span> ST283Q09JA,  <span class="co"># The teacher explained how different mathematical ideas connect to a larger context</span></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">maths_attention                =</span> ST293Q02JA,  <span class="co"># I paid attention when my mathematics teacher was speaking</span></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Questions sur la créativité</span></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">creativite_temps               =</span> ST335Q01JA,  <span class="co"># My teachers give me enough time to come up with creative solutions on assignments</span></span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">creativite_valeur              =</span> ST335Q02JA,  <span class="co"># My teachers value students’ creativity</span></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">creativite_originalite          =</span> ST335Q06JA,  <span class="co"># My teachers encourage me to come up with original answers</span></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Questions sur la COVID-19</span></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">covid_lecons_video             =</span> ST351Q03JA,  <span class="co"># Real-time lessons by a teacher from my school on a video communication program</span></span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">covid_materiel_envoye          =</span> ST351Q05JA,  <span class="co"># Learning material my teachers sent via email or platform</span></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">covid_lecons_enregistrees       =</span> ST351Q06JA,  <span class="co"># Recorded lessons or other digital material provided by teachers from my school</span></span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">covid_disponibilite_enseignant =</span> ST354Q03JA,  <span class="co"># My teachers were available when I needed help</span></span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">covid_preparation_enseignant    =</span> ST354Q08JA,  <span class="co"># My teachers were well prepared to provide instruction remotely</span></span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Questions indirectes</span></span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">bruit_desordre                 =</span> ST273Q02JA   <span class="co"># There is noise and disorder</span></span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Par ailleurs, les données de réponses aux questions sont décrites comme une echelle de 1 à 4 pour affirmer un total désacord, un désacord, un accord et un accord total. On aura l’occasion de transformes ces valeurs pour rendre le jeu plus clair, mais seulement après nos études préliminaires pour conserver la possibilité de calculer des statistiques de base (moyenne, mediane, EIQ…).</p>
 <p>D’autre part, on ne possède aucune information sur les variables “CNTSCHID” “CNTSTUID” et “CYC” donc on se permet de les supprimer du jeu de données.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data_ech_etude <span class="ot">&lt;-</span> data_ech_etude <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>CNTSCHID, <span class="sc">-</span>CNTSTUID, <span class="sc">-</span>CYC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>data_ech_etude <span class="ot">&lt;-</span> data_ech_etude <span class="sc">%&gt;%</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>CNTSCHID, <span class="sc">-</span>CNTSTUID, <span class="sc">-</span>CYC)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Regardons maintenant les types de nos variables :</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_ech_etude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>tibble [30,687 × 65] (S3: tbl_df/tbl/data.frame)
- $ Code_pays                          : chr [1:30687] "AUS" "MKD" "PHL" "AUT" ...
-  ..- attr(*, "label")= chr "Country code 3-character"
- $ ID_pays                            : num [1:30687] 36 807 608 40 398 191 76 36 76 688 ...
-  ..- attr(*, "label")= chr "Country Identifier"
- $ Code_centre_national               : chr [1:30687] "003600" "080700" "060800" "004000" ...
-  ..- attr(*, "label")= chr "National Centre 6-digit Code"
- $ Stratum_ID                         : chr [1:30687] "AUS14" "MKD02" "PHL03" "AUT97" ...
-  ..- attr(*, "label")= chr "Stratum ID 5-character (cnt + original stratum ID)"
- $ Code_sous_region                   : chr [1:30687] "0360000" "8070000" "6080000" "0400000" ...
-  ..- attr(*, "label")= chr "Adjudicated sub-region code 7-digit code (3-digit country code + region ID + stratum ID)"
- $ Region                             : num [1:30687] 3600 80700 60800 4000 39803 ...
-  ..- attr(*, "label")= chr "REGION"
- $ Pays_OCDE                          : num [1:30687] 1 0 0 1 0 0 0 1 0 0 ...
-  ..- attr(*, "label")= chr "OECD country"
- $ Mode_administration                : num [1:30687] 2 2 2 2 2 2 2 2 2 2 ...
-  ..- attr(*, "label")= chr "Mode of Respondent"
- $ Langue_questionnaire               : num [1:30687] 313 492 313 148 495 266 232 313 232 317 ...
-  ..- attr(*, "label")= chr "Language of Questionnaire"
- $ Langue_evaluation                  : num [1:30687] 313 492 313 148 495 266 232 313 232 317 ...
-  ..- attr(*, "label")= chr "Language of Assessment"
- $ Langue_parent                      : num [1:30687] NA NA NA NA NA 266 232 NA 232 NA ...
-  ..- attr(*, "label")= chr "Language of Parent Questionnaire"
- $ Option_pensee_creative             : num [1:30687] 1 1 1 0 1 1 1 1 1 1 ...
-  ..- attr(*, "label")= chr "Creative Thinking Option"
- $ Option_litteratie_fin              : num [1:30687] 0 0 0 1 0 0 1 0 1 0 ...
-  ..- attr(*, "label")= chr "Financial Literacy Option"
- $ Option_ICT                         : num [1:30687] 1 0 0 1 1 1 1 1 1 0 ...
-  ..- attr(*, "label")= chr "ICT Questionnaire Option"
- $ Option_bien_etre                   : num [1:30687] 0 0 0 0 0 0 1 0 1 0 ...
-  ..- attr(*, "label")= chr "Well-Being Questionnaire Option"
- $ Option_parent                      : num [1:30687] 0 0 0 0 0 1 1 0 1 0 ...
-  ..- attr(*, "label")= chr "Parent Questionnaire Option"
- $ Option_enseignant                  : num [1:30687] 1 0 0 0 0 0 1 1 1 0 ...
-  ..- attr(*, "label")= chr "Teacher Questionnaire Option"
- $ Option_une_heure                   : num [1:30687] 0 0 0 1 0 0 0 0 0 0 ...
-  ..- attr(*, "label")= chr "Une Heure Option"
- $ ID_livret                          : num [1:30687] 21 64 16 20 9 1 7 20 10 11 ...
-  ..- attr(*, "label")= chr "Form Identifier"
- $ Niveau_scolaire                    : num [1:30687] 10 10 10 9 9 9 10 10 10 9 ...
-  ..- attr(*, "label")= chr "Student International Grade (Derived)"
- $ Mois_naissance                     : num [1:30687] 10 2 9 12 11 5 8 1 4 5 ...
-  ..- attr(*, "label")= chr "Student (Standardized) Birth - Month"
- $ Annee_naissance                    : num [1:30687] 2006 2006 2006 2006 2006 ...
-  ..- attr(*, "label")= chr "Student (Standardized) Birth -Year"
- $ Genre                              : num [1:30687] 2 1 2 2 2 2 1 1 2 2 ...
-  ..- attr(*, "label")= chr "Student (Standardized) Gender"
- $ enseignants_respectueux            : num [1:30687] 4 NA 4 4 NA 3 3 3 NA 3 ...
-  ..- attr(*, "label")= chr "Agree/disagree: The teachers at my school are respectful towards me."
- $ enseignants_inquiets               : num [1:30687] NA NA NA NA 3 NA 4 NA 2 3 ...
-  ..- attr(*, "label")= chr "Agree/disagree: If I walked into my classes upset, my teachers would be concerned about me."
- $ enseignants_heureux_voir           : num [1:30687] NA 3 3 3 NA NA NA 3 NA 3 ...
-  ..- attr(*, "label")= chr "Agree/disagree: If I came back to visit my school 3 years from now, my teachers would be excited to see me."
- $ enseignants_intimidants            : num [1:30687] 4 1 NA 1 NA 2 1 2 2 NA ...
-  ..- attr(*, "label")= chr "Agree/disagree: I feel intimidated by the teachers at my school."
- $ enseignants_interesses             : num [1:30687] 4 3 4 NA 3 3 NA 2 3 NA ...
-  ..- attr(*, "label")= chr "Agree/disagree: When my teachers ask how I am doing, they are really interested in my answer."
- $ enseignants_amicaux                : num [1:30687] NA 4 NA 4 NA 3 4 NA NA NA ...
-  ..- attr(*, "label")= chr "Agree/disagree: The teachers at my school are friendly towards me."
- $ enseignants_bien_etre              : num [1:30687] 4 NA 4 3 4 3 3 NA 3 4 ...
-  ..- attr(*, "label")= chr "Agree/disagree: The teachers at my school are interested in students' well-being."
- $ enseignants_mechants               : num [1:30687] 1 1 2 NA 1 NA NA 2 2 1 ...
-  ..- attr(*, "label")= chr "Agree/disagree: The teachers at my school are mean towards me."
- $ maths_pas_ecoute                   : num [1:30687] 4 NA 4 NA 4 NA 2 4 3 2 ...
-  ..- attr(*, "label")= chr "How often: Students do not listen to what the teacher said."
- $ maths_attente_calme                : num [1:30687] 4 4 2 4 NA 2 1 4 3 3 ...
-  ..- attr(*, "label")= chr "How often: The teacher has to wait a long time for students to quiet down."
- $ maths_interet_apprentissage        : num [1:30687] 1 1 1 2 1 3 2 4 3 2 ...
-  ..- attr(*, "label")= chr "How often: The teacher shows an interest in every student's learning."
- $ maths_aide_extra                   : num [1:30687] 1 2 2 3 1 3 2 4 3 2 ...
-  ..- attr(*, "label")= chr "How often: The teacher gives extra help when students need it."
- $ maths_aide                         : num [1:30687] 1 1 2 1 1 3 2 3 3 2 ...
-  ..- attr(*, "label")= chr "How often: The teacher helps students with their learning."
- $ maths_explique_tant_que_pas_compris: num [1:30687] 2 1 1 1 1 1 1 3 3 2 ...
-  ..- attr(*, "label")= chr "How often: The teacher continues teaching until the students understand."
- $ maths_resoudre_sans_calcul         : num [1:30687] 5 1 2 NA NA 1 3 1 3 2 ...
-  ..- attr(*, "label")= chr "How often: The teacher asked us to solve mathematics problems without computing anything."
- $ maths_expliquer_solution           : num [1:30687] NA 5 4 5 NA 2 NA 4 2 NA ...
-  ..- attr(*, "label")= chr "How often: The teacher asked us to explain how we solved a mathematics problem."
- $ maths_expliquer_hypotheses         : num [1:30687] NA 5 5 5 5 2 2 NA 2 3 ...
-  ..- attr(*, "label")= chr "How often: The teacher asked us to explain what assumptions we were making when solving a mathematics problem."
- $ maths_expliquer_raisonnement       : num [1:30687] 4 5 5 NA 5 NA NA NA NA 3 ...
-  ..- attr(*, "label")= chr "How often: The teacher asked us to explain our reasoning when solving a mathematics problem."
- $ maths_defendre_reponse             : num [1:30687] 4 NA 4 NA 5 NA 5 4 NA 2 ...
-  ..- attr(*, "label")= chr "How often: The teacher asked us to defend our answer to a mathematics problem."
- $ maths_relier_anciens_nouveaux      : num [1:30687] 4 NA NA 5 5 NA NA 1 3 NA ...
-  ..- attr(*, "label")= chr "How often: The teacher asked us to think about how new and old mathematics topics were related."
- $ maths_resoudre_autrement           : num [1:30687] NA 5 NA NA NA NA 5 1 NA NA ...
-  ..- attr(*, "label")= chr "How often: The teacher encouraged us to think about how to solve mathematics problems in different ways than de"| __truncated__
- $ maths_persister                    : num [1:30687] 4 NA NA 1 NA 2 5 NA 2 3 ...
-  ..- attr(*, "label")= chr "How often: The teacher told us to keep trying even when we face difficulties with a mathematics task."
- $ maths_memoriser                    : num [1:30687] NA NA NA 4 5 2 NA NA NA NA ...
-  ..- attr(*, "label")= chr "How often: The teacher taught us to memorize rules and apply them to solve mathematics problems."
- $ maths_problemes_quotidien          : num [1:30687] 3 5 5 2 3 3 NA 2 2 2 ...
-  ..- attr(*, "label")= chr "How often: The teacher asked us to think of problems from everyday life that could be solved with new mathemati"| __truncated__
- $ maths_utilite                      : num [1:30687] 3 5 NA 1 NA NA 5 2 3 4 ...
-  ..- attr(*, "label")= chr "How often: The teacher showed us how mathematics can be useful in our everyday lives."
- $ maths_penser_math                  : num [1:30687] NA 5 NA NA 3 NA 4 NA NA NA ...
-  ..- attr(*, "label")= chr "How often: The teacher encouraged us to 'think mathematically'."
- $ maths_logique                      : num [1:30687] NA 5 5 1 4 3 5 NA NA 3 ...
-  ..- attr(*, "label")= chr "How often: The teacher taught us how to use mathematical logic when approaching new situations."
- $ maths_simplifier_problemes         : num [1:30687] NA NA 5 NA NA 3 NA 1 3 NA ...
-  ..- attr(*, "label")= chr "How often: The teacher showed us how some problems that look difficult can be solved more easily by understandi"| __truncated__
- $ maths_decision                     : num [1:30687] 3 NA NA 1 NA NA NA NA NA NA ...
-  ..- attr(*, "label")= chr "How often: The teacher gave problems from everyday life involving numbers and asked us to make a decision about the situation."
- $ maths_relier_concepts              : num [1:30687] NA NA 5 2 3 NA 3 NA NA NA ...
-  ..- attr(*, "label")= chr "How often: The teacher asked us how different topics are connected to a bigger mathematical idea."
- $ maths_penser_quotidien             : num [1:30687] 3 NA NA NA NA 3 NA 1 2 2 ...
-  ..- attr(*, "label")= chr "How often: The teacher encouraged us to think about how a problem from everyday life could be solved using mathematics."
- $ maths_connexion_idees              : num [1:30687] 3 5 4 NA 3 3 2 2 1 3 ...
-  ..- attr(*, "label")= chr "How often: The teacher explained how different mathematical ideas connect to a larger context."
- $ maths_attention                    : num [1:30687] 5 NA 5 5 5 NA NA NA 3 NA ...
-  ..- attr(*, "label")= chr "This school year, how often: I paid attention when my mathematics teacher was speaking."
- $ creativite_temps                   : num [1:30687] NA NA 3 2 3 2 2 2 2 3 ...
-  ..- attr(*, "label")= chr "Agree/disagree: My teachers give me enough time to come up with creative solutions on assignments."
- $ creativite_valeur                  : num [1:30687] 3 NA NA NA 3 NA 3 NA 3 3 ...
-  ..- attr(*, "label")= chr "Agree/disagree: My teachers value students' creativity."
- $ creativite_originalite             : num [1:30687] 3 NA 3 2 3 2 4 3 2 3 ...
-  ..- attr(*, "label")= chr "Agree/disagree: My teachers encourage me to come up with original answers."
- $ covid_lecons_video                 : num [1:30687] 3 NA 4 4 4 NA 4 2 1 NA ...
-  ..- attr(*, "label")= chr "During COVID closures, how often use: Real-time lessons by a teacher from my school on a video communication pr"| __truncated__
- $ covid_materiel_envoye              : num [1:30687] 1 NA NA 3 3 NA NA 1 NA 2 ...
-  ..- attr(*, "label")= chr "During COVID closures, how often use: Learning material my teachers sent via SMS or WhatsApp™"
- $ covid_lecons_enregistrees          : num [1:30687] NA NA NA 2 4 NA NA NA 1 NA ...
-  ..- attr(*, "label")= chr "During COVID closures, how often use: Recorded lessons or other digital material provided by teachers from my school"
- $ covid_disponibilite_enseignant     : num [1:30687] 3 NA NA 3 3 NA 3 3 2 3 ...
-  ..- attr(*, "label")= chr "During COVID closures, agree/disagree: My teachers were available when I needed help (e.g. through virtual offi"| __truncated__
- $ covid_preparation_enseignant       : num [1:30687] NA NA 3 NA 4 NA 1 NA 3 3 ...
-  ..- attr(*, "label")= chr "During COVID closures, agree/disagree: My teachers were well prepared to provide instruction remotely."
- $ bruit_desordre                     : num [1:30687] NA 3 NA NA NA 4 2 3 NA 4 ...
-  ..- attr(*, "label")= chr "How often: There is noise and disorder."</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(data_ech_etude)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>On ne remarque pas de gros problème au sein nos types de variables. On peut malgré tout convertir en facteur celles qui ne sont pas destinées à élaborer des calculs.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>vars_factor <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Genre"</span>, <span class="st">"Option_une_heure"</span>, <span class="st">"Option_enseignant"</span>, <span class="st">"Option_parent"</span>,</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Option_bien_etre"</span>, <span class="st">"Option_ICT"</span>, <span class="st">"Option_litteratie_fin"</span>, <span class="st">"Option_pensee_creative"</span>,</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Mode_administration"</span>, <span class="st">"Pays_OCDE"</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>data_ech_etude[, vars_factor] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(data_ech_etude[, vars_factor], factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>vars_factor <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Genre"</span>, <span class="st">"Option_une_heure"</span>, <span class="st">"Option_enseignant"</span>, <span class="st">"Option_parent"</span>,</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Option_bien_etre"</span>, <span class="st">"Option_ICT"</span>, <span class="st">"Option_litteratie_fin"</span>, <span class="st">"Option_pensee_creative"</span>,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Mode_administration"</span>, <span class="st">"Pays_OCDE"</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>data_ech_etude[, vars_factor] <span class="ot">&lt;-</span> <span class="fu">lapply</span>(data_ech_etude[, vars_factor], factor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="etude-des-valeurs-manquantes" class="level3">
 <h3 class="anchored" data-anchor-id="etude-des-valeurs-manquantes">Etude des valeurs manquantes</h3>
 <p>Etudions les valeurs manquantes selon le pays des individus étudiés afin de mieux nous préparer à l’analyse monovariée :</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>prop_NA_par_ligne <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(<span class="fu">is.na</span>(data_ech))</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>pct_NA_par_pays <span class="ot">&lt;-</span> <span class="fu">tapply</span>(prop_NA_par_ligne, data_ech<span class="sc">$</span>CNT, mean) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>pct_NA_par_pays_tri <span class="ot">&lt;-</span> <span class="fu">sort</span>(pct_NA_par_pays)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>  pct_NA_par_pays_tri,</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">las =</span> <span class="dv">2</span>,              </span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"darkorange"</span>,</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Proportion moyenne de NA par pays"</span>,</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"% de valeurs manquantes"</span>,</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex.names =</span> <span class="fl">0.7</span></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>prop_NA_par_ligne <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(<span class="fu">is.na</span>(data_ech))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>pct_NA_par_pays <span class="ot">&lt;-</span> <span class="fu">tapply</span>(prop_NA_par_ligne, data_ech<span class="sc">$</span>CNT, mean) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>pct_NA_par_pays_tri <span class="ot">&lt;-</span> <span class="fu">sort</span>(pct_NA_par_pays)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>  pct_NA_par_pays_tri,</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">las =</span> <span class="dv">2</span>,              </span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"darkorange"</span>,</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Proportion moyenne de NA par pays"</span>,</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"% de valeurs manquantes"</span>,</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex.names =</span> <span class="fl">0.7</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Le nombre de pays étant important, on peut plus simplement regrouper les pays selon le pourcentage de possession de valeurs manquantes. On établit 3 groupes : le premier entre 0 et 40% de valeurs manquantes, le deuxième entre 40 et 60% et le dernier entre 60 et 100%.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>groupes <span class="ot">&lt;-</span> <span class="fu">cut</span>(</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  pct_NA_par_pays,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="dv">40</span>, <span class="dv">60</span>, <span class="cn">Inf</span>),</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"&lt; 40%"</span>, <span class="st">"40-60%"</span>, <span class="st">"&gt; 60%"</span>)</span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(groupes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>groupes <span class="ot">&lt;-</span> <span class="fu">cut</span>(</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  pct_NA_par_pays,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="dv">40</span>, <span class="dv">60</span>, <span class="cn">Inf</span>),</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"&lt; 40%"</span>, <span class="st">"40-60%"</span>, <span class="st">"&gt; 60%"</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(groupes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>groupes
  &lt; 40% 40-60%  &gt; 60% 
-    18     57      5 </code></pre>
+    19     56      5 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>pct_groupes <span class="ot">&lt;-</span> <span class="fu">tapply</span>(pct_NA_par_pays, groupes, mean)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>pct_groupes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pct_groupes <span class="ot">&lt;-</span> <span class="fu">tapply</span>(pct_NA_par_pays, groupes, mean)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>pct_groupes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   &lt; 40%   40-60%    &gt; 60% 
-32.45691 49.01870 64.93787 </code></pre>
+32.74482 49.19597 64.72160 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  pct_groupes,</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">'orange'</span>,</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Proportion moyenne de NA par groupe de pays"</span>,</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"% de valeurs manquantes"</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  pct_groupes,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">'orange'</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Proportion moyenne de NA par groupe de pays"</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"% de valeurs manquantes"</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -482,344 +378,602 @@ Attachement du package : 'dplyr'</code></pre>
 <h2 class="anchored" data-anchor-id="analyses-univariées">Analyses univariées</h2>
 <section id="variable-expliquée" class="level3">
 <h3 class="anchored" data-anchor-id="variable-expliquée">Variable expliquée</h3>
-<p>Premièrement il peut être pertinent d’analyser séparément nos variables explicatives et notre variable expliquée. Ainsi on se concentre d’abord sur la réussite scolaire de l’élève, soit “Niveau_scolaire”.</p>
+<p>Premièrement il peut être pertinent d’analyser séparément nos variables explicatives et notre variable expliquée. Ainsi on se concentre d’abord sur la réussite scolaire de l’élève, par le biais des notes de l’élève.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(data_ech_etude<span class="sc">$</span>Niveau_scolaire))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(Notes))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0</code></pre>
+<pre><code>[1] 88640</code></pre>
 </div>
 </div>
-<p>On note que la variable qu’on cherche à expliquer ne possède aucune valeur manquante.</p>
+<p>On note que la variable qu’on cherche à expliquer se traduit par des notes dans différentes matières. Certaines notes sont vraissemblablement manquantes et l’on souligne 85600 valeurs manquantes sur 30687 élèves multipliés par 110 variables, soit (85600/(30687x110))x100 N.A en pourcentage.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(data_ech_etude<span class="sc">$</span>Niveau_scolaire)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>tab </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">85600</span><span class="sc">/</span>(<span class="dv">30687</span><span class="sc">*</span><span class="dv">110</span>))<span class="sc">*</span><span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-    7     8     9    10    11    12    96    98    99 
-  220   954  8464 17915  2091   103   107   832     1 </code></pre>
+<pre><code>[1] 2.535868</code></pre>
 </div>
 </div>
+<p>On a donc 2.5% de valeurs manquantes, qu’on imputera pour le moment par la moyenne.</p>
+<p>Etudions maintenant concrètement ces notes.</p>
+<p>D’abord on distingue toutes les matières dans le dataframe suivant :</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(tab,</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">main =</span> <span class="st">"Répartition du niveau scolaire"</span>,</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">ylab =</span> <span class="st">"Nombre d'élèves"</span>,</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">col =</span> <span class="st">"orange"</span>,</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">las =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>matieres <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MATH"</span>, <span class="co">#Mathématiques générales</span></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"READ"</span>, <span class="co">#Lecture</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"SCIE"</span>, <span class="co">#Science</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MCCR"</span>, <span class="co">#Mathématiques : Changement et relation</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MCQN"</span>, <span class="co">#Mathématiques : Quantitatif</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MCSS"</span>, <span class="co">#Mathématiques : Espace et formes</span></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MCUD"</span>, <span class="co">#Mathématiques : Incertitude et données</span></span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MPEM"</span>, <span class="co">#Mathématiques : Employer des concepts mathématiques, définitions et théorèmes</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MPFS"</span>, <span class="co">#Mathématiques : Formuler des situations mathématiquement</span></span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MPIN"</span>, <span class="co">#Mathématiques : Interpréter, appliquer et analyser des sorties mathématiques</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>  <span class="st">"MPRE"</span>  <span class="co">#Mathématiques : Raisonnement</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Calculons toutes les moyennes des élèves :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>Notes_moyennes <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(matieres, <span class="cf">function</span>(m) {</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    vars <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"PV"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, m)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rowMeans</span>(Notes[, vars], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  })</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Notes_moyennes) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"MOY_"</span>, matieres)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>Notes_moyennes<span class="sc">$</span>MOY_GENERALE <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(Notes_moyennes, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Etablissons maintenant quelques statistiques descriptives de nos moyennes par matières pour une première approche.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>stats_matieres <span class="ot">&lt;-</span> <span class="fu">t</span>(</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sapply</span>(</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    Notes_moyennes[, <span class="fu">grep</span>(<span class="st">"^MOY_"</span>, <span class="fu">names</span>(Notes_moyennes))],</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">function</span>(x) {</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">N      =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(x)),</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">Moyenne =</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">Ecart_type =</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">Min    =</span> <span class="fu">min</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">Q1     =</span> <span class="fu">quantile</span>(x, <span class="fl">0.25</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">Mediane =</span> <span class="fu">median</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">Q3     =</span> <span class="fu">quantile</span>(x, <span class="fl">0.75</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">Max    =</span> <span class="fu">max</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>stats_matieres</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 N  Moyenne Ecart_type      Min   Q1.25%  Mediane   Q3.75%
+MOY_MATH     30687 441.1788   98.18591  97.6254 366.2017 432.7221 509.4463
+MOY_READ     30687 438.3963  103.95046 115.5791 359.9266 435.7783 514.4329
+MOY_SCIE     30687 450.9246   99.85441 132.8061 373.9515 444.6080 522.5615
+MOY_MCCR     29579 442.4038  101.50312  90.9414 365.1441 435.1589 513.1812
+MOY_MCQN     29579 443.0916  101.75267 139.4384 365.3967 434.6705 513.7363
+MOY_MCSS     29579 440.1320  101.16738  54.9551 365.3055 432.3332 508.0833
+MOY_MCUD     29579 443.7007  102.84661 137.0496 365.9856 435.8178 513.9823
+MOY_MPEM     29579 443.3525  101.07851  84.2234 366.2287 434.9971 512.5532
+MOY_MPFS     29579 440.9890  103.87432 124.2331 361.7892 430.9065 511.6599
+MOY_MPIN     29579 443.8738  102.13527 161.9816 367.1894 436.7535 513.7903
+MOY_MPRE     29579 442.7182  100.26676 102.4500 366.3799 435.5518 513.3803
+MOY_GENERALE 30687 441.2488   97.79781 136.5882 365.4037 433.0961 509.6089
+                  Max
+MOY_MATH     841.8794
+MOY_READ     785.7220
+MOY_SCIE     798.7697
+MOY_MCCR     849.8845
+MOY_MCQN     852.0792
+MOY_MCSS     864.3615
+MOY_MCUD     887.6726
+MOY_MPEM     839.2182
+MOY_MPFS     873.9664
+MOY_MPIN     866.7163
+MOY_MPRE     849.9461
+MOY_GENERALE 826.7383</code></pre>
+</div>
+</div>
+<p>On peut alors tracer par exemple l’histogramme représentant les moyennes en mathématiques :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  Notes_moyennes<span class="sc">$</span>MOY_MATH,</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="dv">30</span>,</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">freq =</span> <span class="cn">FALSE</span>,  </span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"gray"</span>,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Distribution de la moyenne en mathématiques"</span>,</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Moyenne"</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>On s’apperçoit que les moyennes des élèves semblent tendre vers une loi gaussienne. On pourrait par la suite effectuer des tests d’adéquation tels que la droite de Henry ou un QQ-plot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(Notes_moyennes<span class="sc">$</span>MOY_GENERALE)</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(Notes_moyennes<span class="sc">$</span>MOY_GENERALE, <span class="at">col =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Grâce à ces méthodes, on est capable d’identifier que la moyenne générale des élèves poursuit une distribution gaussienne.</p>
+<p>Plus précisément et avant les analyses multivariées, on peut par curiosité regarder si certains pays influencent cette moyenne. On crée le dataframe ;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df_Moy_pays <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">MOY_GENERALE =</span> Notes_moyennes<span class="sc">$</span>MOY_GENERALE,</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Code_pays =</span> data_ech_etude<span class="sc">$</span>Code_pays,</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Pays_OCDE =</span> <span class="fu">factor</span>(</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    data_ech_etude<span class="sc">$</span>Pays_OCDE,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Non-OCDE"</span>, <span class="st">"OCDE"</span>)</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>On réalise alors des statistiques descriptives une nouvelle fois ;</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>stats_pays <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  MOY_GENERALE <span class="sc">~</span> Code_pays,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_Moy_pays,</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">c</span>(</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">length</span>(x),</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Moyenne =</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Ecart_type =</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mediane =</span> <span class="fu">median</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>stats_pays<span class="sc">$</span>N <span class="ot">&lt;-</span> stats_pays<span class="sc">$</span>MOY_GENERALE[, <span class="st">"N"</span>]</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>stats_pays<span class="sc">$</span>Moyenne <span class="ot">&lt;-</span> stats_pays<span class="sc">$</span>MOY_GENERALE[, <span class="st">"Moyenne"</span>]</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>stats_pays<span class="sc">$</span>Ecart_type <span class="ot">&lt;-</span> stats_pays<span class="sc">$</span>MOY_GENERALE[, <span class="st">"Ecart_type"</span>]</span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>stats_pays<span class="sc">$</span>Mediane <span class="ot">&lt;-</span> stats_pays<span class="sc">$</span>MOY_GENERALE[, <span class="st">"Mediane"</span>]</span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>stats_pays<span class="sc">$</span>MOY_GENERALE <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>stats_pays <span class="ot">&lt;-</span> stats_pays[<span class="fu">order</span>(stats_pays<span class="sc">$</span>Moyenne, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), ]</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>stats_pays</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   Code_pays    N  Moyenne Ecart_type  Mediane
+68       SGP  322 568.4159   99.17797 579.7157
+44       MAC  254 550.6483   83.33051 551.4129
+27       HKG  262 550.0951   96.03888 561.2650
+74       TAP  316 537.5726  107.13672 542.2137
+37       JPN  251 535.8478   89.77650 545.4424
+40       KOR  310 533.3173   99.21628 541.8954
+20       EST  278 517.5357   79.79220 510.0404
+11       CHE  369 504.1222   90.01945 505.7974
+53       NLD  262 495.9276  103.92678 506.5118
+31       IRL  244 495.1519   74.97732 497.3648
+15       CZE  419 494.9611   89.99453 498.6483
+5        AUT  313 493.9695   94.91634 498.7355
+6        BEL  417 492.3067   92.98222 499.0144
+59       POL  305 489.1305   86.99086 490.4842
+4        AUS  661 488.9498   96.68290 490.0405
+10       CAN 1175 487.5137   88.47182 486.0477
+55       NZL  229 483.9506   92.33250 489.5967
+23       GBR  591 483.9324   90.06507 483.0036
+29       HUN  305 483.4910   88.81318 483.2705
+21       FIN  524 481.6765   85.74532 484.0395
+43       LVA  263 480.5655   73.70861 478.3159
+19       ESP 1590 480.1950   80.40743 482.1085
+72       SVN  336 479.2534   89.52301 470.9854
+73       SWE  312 477.0760   93.19529 480.9099
+34       ITA  521 476.5606   87.63168 479.7424
+17       DNK  294 475.7991   78.48238 479.4494
+16       DEU  325 474.4254   87.50358 476.6055
+49       MLT  136 473.3003   90.83916 476.5168
+78       USA  244 473.0408   96.86097 465.5183
+60       PRT  359 470.2558   86.96063 469.5032
+80       VNM  293 468.8266   67.32155 472.0286
+54       NOR  326 468.7881   91.16874 472.5835
+42       LTU  391 466.2973   81.94746 461.1105
+28       HRV  330 466.0640   85.63007 464.1147
+32       ISL  154 464.8937   85.61115 448.4808
+33       ISR  297 462.6642  102.45131 462.2802
+22       FRA  384 459.0963   95.61646 460.7825
+71       SVK  315 458.6644   95.85934 465.7898
+76       TUR  368 455.7019   80.95925 452.8052
+65       QUR  208 446.8371   82.22879 439.8843
+9        BRN  261 441.1565   81.37985 430.8872
+38       KAZ 1040 439.0968   78.58743 433.1004
+66       ROU  371 437.9120   96.36179 434.1574
+70       SRB  287 437.7981   80.94160 435.6180
+2        ARE 1251 435.3553   97.89221 427.0402
+25       GRC  331 431.4968   75.09826 432.9857
+12       CHL  341 429.7984   75.76400 428.1471
+51       MNG  322 424.2194   76.36904 416.5578
+7        BGR  314 416.8516   90.63655 415.0499
+46       MDA  297 415.4771   72.75930 415.8288
+77       URY  304 410.9598   71.27971 404.1056
+75       THA  420 409.8530   89.06072 391.4710
+52       MYS  337 407.6449   71.79163 404.7430
+63       QAT  376 407.5337   84.09852 394.3405
+50       MNE  286 404.8008   74.41840 400.7747
+47       MEX  307 402.4407   68.20783 397.3800
+13       COL  387 395.6724   70.68126 392.7504
+3        ARG  595 394.7901   70.79582 386.1794
+57       PER  319 394.0566   76.91332 381.2038
+64       QAZ  358 392.8743   74.46870 385.5068
+67       SAU  377 387.9569   57.65852 383.0911
+14       CRI  293 387.8220   66.68365 383.9511
+24       GEO  313 386.6268   75.92990 377.0763
+48       MKD  346 382.9997   75.29748 380.9835
+8        BRA  549 382.7537   70.34907 372.6575
+35       JAM  199 378.6354   73.43040 364.1549
+30       IDN  683 375.5144   64.48935 366.0121
+1        ALB  306 369.2417   70.51664 360.4055
+62       PSE  432 366.2426   61.37919 365.4977
+61       PRY  266 365.3754   71.68592 368.7026
+26       GTM  257 363.5290   61.73313 358.6690
+45       MAR  348 361.2253   57.05605 354.5049
+41       KSV  277 359.3422   60.59937 352.3024
+36       JOR  340 359.0231   57.94289 358.4978
+79       UZB  344 358.3248   60.67152 355.9994
+56       PAN  225 353.7078   68.23682 339.9596
+58       PHL  381 352.8514   62.83462 343.6333
+69       SLV  367 349.0619   56.69387 341.1169
+18       DOM  335 338.5659   50.37662 333.0077
+39       KHM  292 332.3247   54.07037 331.7131</code></pre>
+</div>
+</div>
+<p>Le calcul des statistiques classiques nous permet de montrer que les élèves de Singapour et du Japon dominent les autres pays de part leur moyenne générale (en moyenne). En revanche ce sont le cambodge et la république dominicaine qui se montre avoir des moyennes générales (en moyenne) plus faibles. Notons par ailleurs que l’écart-type semble plus élevé pour les meilleurs pays. On peut émettre l’hypothèse que certains élèves tirent la moyenne vers le haut en étant extêmement efficaces dans leurs examens.</p>
+<p>Maintenant, on se propose un bref apperçu de l’analyse de la moyenne générale selon l’appartenance au pays de l’OCDE.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  MOY_GENERALE <span class="sc">~</span> Pays_OCDE,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_Moy_pays,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"lightgray"</span>, <span class="st">"darkgray"</span>),</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Moyenne générale"</span>,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">""</span>,</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Moyenne générale selon l'appartenance à l'OCDE"</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Graphiquement, les pays de l’OCDE montrent sur cet échantillon une moyenne générale plus élevée, avec une médiane à ~100 points de plus.</p>
+<p>D’autre part et plus généralement, on s’intéresse à toutes les moyennes les unes entre les autres.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>cor_mat <span class="ot">&lt;-</span> <span class="fu">cor</span>(</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  Notes_moyennes[, <span class="fu">grep</span>(<span class="st">"^MOY_"</span>, <span class="fu">names</span>(Notes_moyennes))],</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  cor_mat,</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"number"</span>,</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"upper"</span>,</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">tl.col =</span> <span class="st">"black"</span>,</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">tl.srt =</span> <span class="dv">45</span>,</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">number.cex =</span> <span class="fl">0.8</span></span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>On note qu’elles semblent toutes corrélées les unes des autres. Cela fait sens car 8 moyennes de notes sur 11 sont des sous-parties des mathématiques et sont donc incluses dans la même matière. De plus on a une 9ème variable de pure moyenne de l’élève en mathématique. On aurait pu s’attendre à de tels résultats. A noter tout de même que les moyennes en mathématiques, en lecture et en sciences sont fortement corrélées.</p>
 </section>
 <section id="variables-explicatives" class="level3">
 <h3 class="anchored" data-anchor-id="variables-explicatives">Variables explicatives</h3>
 <p>Ensuite, on construit une boucle permettant d’étudier toutes les variables d’intérêt à notre guise à l’aide de diagrammes circulaires ;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>vars_a_visualiser <span class="ot">&lt;-</span> <span class="fu">names</span>(data_ech_etude)[<span class="dv">24</span><span class="sc">:</span><span class="dv">65</span>]</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (var <span class="cf">in</span> vars_a_visualiser) {</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  tab <span class="ot">&lt;-</span> <span class="fu">table</span>(data_ech_etude[[var]])</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  tab_pct <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> tab <span class="sc">/</span> <span class="fu">sum</span>(tab), <span class="dv">1</span>)</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pie</span>(tab, </span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">paste0</span>(<span class="fu">names</span>(tab), <span class="st">" ("</span>, tab_pct, <span class="st">"%)"</span>),</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Répartition de"</span>, var),</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>,<span class="st">"orange"</span>, <span class="st">"yellow"</span>,<span class="st">"green"</span>, <span class="st">"cadetblue1"</span> ))</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>vars_a_visualiser <span class="ot">&lt;-</span> <span class="fu">names</span>(data_ech_etude)[<span class="dv">24</span><span class="sc">:</span><span class="dv">65</span>]</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (var <span class="cf">in</span> vars_a_visualiser) {</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  tab <span class="ot">&lt;-</span> <span class="fu">table</span>(data_ech_etude[[var]])</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  tab_pct <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> tab <span class="sc">/</span> <span class="fu">sum</span>(tab), <span class="dv">1</span>)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pie</span>(tab, </span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">paste0</span>(<span class="fu">names</span>(tab), <span class="st">" ("</span>, tab_pct, <span class="st">"%)"</span>),</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Répartition de"</span>, var),</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>,<span class="st">"orange"</span>, <span class="st">"yellow"</span>,<span class="st">"green"</span>, <span class="st">"cadetblue1"</span> ))</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-4.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-4.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-5.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-5.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-6.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-6.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-7.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-7.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-8.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-8.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-9.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-9.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-10.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-10.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-11.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-11.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-12.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-12.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-13.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-13.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-14.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-14.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-15.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-15.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-16.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-16.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-17.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-17.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-18.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-18.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-19.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-19.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-20.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-20.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-21.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-21.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-22.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-22.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-23.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-23.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-24.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-24.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-25.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-25.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-26.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-26.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-27.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-27.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-28.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-28.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-29.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-29.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-30.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-30.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-31.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-31.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-32.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-32.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-33.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-33.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-34.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-34.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-35.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-35.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-36.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-36.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-37.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-37.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-38.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-38.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-39.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-39.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-40.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-40.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-41.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-41.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-16-42.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-42.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>

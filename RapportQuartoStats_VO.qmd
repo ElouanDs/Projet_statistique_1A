@@ -1,5 +1,5 @@
 ---
-title: "insérer problématique"
+title: "En quoi la relation élève-enseignant peut influencer les résultats académiques des élèves ?"
 author: "Barbeau Faustine - Combes Florent - Dumas Elouan - Malzieux Yann"
 date: "`r Sys.Date()`"
 output: 
@@ -188,8 +188,11 @@ data_ech_etude <- data_ech_etude %>%
 Regardons maintenant les types de nos variables :
 
 ```{r}
+#| echo: true
+#| output: false
 str(data_ech_etude)
 ```
+
 On ne remarque pas de gros problème au sein nos types de variables. On peut malgré tout convertir en facteur celles qui ne sont pas destinées à élaborer des calculs.
 
 ```{r}
@@ -338,7 +341,71 @@ hist(
 
 On s'apperçoit que les moyennes des élèves semblent tendre vers une loi gaussienne. On pourrait par la suite effectuer des tests d'adéquation tels que la droite de Henry ou un QQ-plot.
 
-D'autres part et plus généralement, on s'intéresse à toutes les moyennes les unes entre les autres.
+```{r}
+qqnorm(Notes_moyennes$MOY_GENERALE)
+qqline(Notes_moyennes$MOY_GENERALE, col = "red")
+```
+
+Grâce à ces méthodes, on est capable d'identifier que la moyenne générale des élèves poursuit une distribution gaussienne.
+
+Plus précisément et avant les analyses multivariées, on peut par curiosité regarder si certains pays influencent cette moyenne.
+On crée le dataframe ;
+
+```{r}
+df_Moy_pays <- data.frame(
+  MOY_GENERALE = Notes_moyennes$MOY_GENERALE,
+  Code_pays = data_ech_etude$Code_pays,
+  Pays_OCDE = factor(
+    data_ech_etude$Pays_OCDE,
+    levels = c(0, 1),
+    labels = c("Non-OCDE", "OCDE")
+  )
+)
+```
+
+On réalise alors des statistiques descriptives une nouvelle fois ;
+
+```{r}
+stats_pays <- aggregate(
+  MOY_GENERALE ~ Code_pays,
+  data = df_Moy_pays,
+  FUN = function(x) c(
+    N = length(x),
+    Moyenne = mean(x, na.rm = TRUE),
+    Ecart_type = sd(x, na.rm = TRUE),
+    Mediane = median(x, na.rm = TRUE)
+  )
+)
+
+stats_pays$N <- stats_pays$MOY_GENERALE[, "N"]
+stats_pays$Moyenne <- stats_pays$MOY_GENERALE[, "Moyenne"]
+stats_pays$Ecart_type <- stats_pays$MOY_GENERALE[, "Ecart_type"]
+stats_pays$Mediane <- stats_pays$MOY_GENERALE[, "Mediane"]
+
+stats_pays$MOY_GENERALE <- NULL
+
+stats_pays <- stats_pays[order(stats_pays$Moyenne, decreasing = TRUE), ]
+
+stats_pays
+```
+
+Le calcul des statistiques classiques nous permet de montrer que les élèves de Singapour et du Japon dominent les autres pays de part leur moyenne générale (en moyenne). En revanche ce sont le cambodge et la république dominicaine qui se montre avoir des moyennes générales (en moyenne) plus faibles. Notons par ailleurs que l'écart-type semble plus élevé pour les meilleurs pays. On peut émettre l'hypothèse que certains élèves tirent la moyenne vers le haut en étant extêmement efficaces dans leurs examens.
+
+Maintenant, on se propose un bref apperçu de l'analyse de la moyenne générale selon l'appartenance au pays de l'OCDE.
+
+```{r}
+boxplot(
+  MOY_GENERALE ~ Pays_OCDE,
+  data = df_Moy_pays,
+  col = c("lightgray", "darkgray"),
+  ylab = "Moyenne générale",
+  xlab = "",
+  main = "Moyenne générale selon l'appartenance à l'OCDE"
+)
+```
+Graphiquement, les pays de l'OCDE montrent sur cet échantillon une moyenne générale plus élevée, avec une médiane à ~100 points de plus.
+
+D'autre part et plus généralement, on s'intéresse à toutes les moyennes les unes entre les autres.
 
 ```{r}
 cor_mat <- cor(
