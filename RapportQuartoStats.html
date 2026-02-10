@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Barbeau Faustine - Combes Florent - Dumas Elouan - Malzieux Yann">
-<meta name="dcterms.date" content="2026-02-09">
+<meta name="author" content="Barbeau Faustine - Combes Florent - Dumas Elouan - Malzieu Yann">
+<meta name="dcterms.date" content="2026-02-10">
 
-<title>En quoi la relation élève-enseignant peut influencer les résultats académiques des élèves ?</title>
+<title>Une bonne relation entre élève et enseignant se traduit-elle par une bonne réussite en mathématiques selon différents pays (Enquête PISA 2022) ?</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -60,17 +60,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="RapportQuartoStats_VO_files/libs/clipboard/clipboard.min.js"></script>
-<script src="RapportQuartoStats_VO_files/libs/quarto-html/quarto.js" type="module"></script>
-<script src="RapportQuartoStats_VO_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="RapportQuartoStats_VO_files/libs/quarto-html/popper.min.js"></script>
-<script src="RapportQuartoStats_VO_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="RapportQuartoStats_VO_files/libs/quarto-html/anchor.min.js"></script>
-<link href="RapportQuartoStats_VO_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="RapportQuartoStats_VO_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="RapportQuartoStats_VO_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="RapportQuartoStats_VO_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="RapportQuartoStats_VO_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="RapportQuartoStats_files/libs/clipboard/clipboard.min.js"></script>
+<script src="RapportQuartoStats_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="RapportQuartoStats_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="RapportQuartoStats_files/libs/quarto-html/popper.min.js"></script>
+<script src="RapportQuartoStats_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="RapportQuartoStats_files/libs/quarto-html/anchor.min.js"></script>
+<link href="RapportQuartoStats_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="RapportQuartoStats_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="RapportQuartoStats_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="RapportQuartoStats_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="RapportQuartoStats_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -83,7 +83,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">En quoi la relation élève-enseignant peut influencer les résultats académiques des élèves ?</h1>
+<h1 class="title">Une bonne relation entre élève et enseignant se traduit-elle par une bonne réussite en mathématiques selon différents pays (Enquête PISA 2022) ?</h1>
 </div>
 
 
@@ -93,14 +93,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>Barbeau Faustine - Combes Florent - Dumas Elouan - Malzieux Yann </p>
+             <p>Barbeau Faustine - Combes Florent - Dumas Elouan - Malzieu Yann </p>
           </div>
   </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 9, 2026</p>
+      <p class="date">February 10, 2026</p>
     </div>
   </div>
   
@@ -331,7 +331,7 @@ Attachement du package : 'dplyr'</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -348,14 +348,14 @@ Attachement du package : 'dplyr'</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>groupes
  &lt; 40% 40-60%  &gt; 60% 
-    19     56      5 </code></pre>
+    18     56      6 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pct_groupes <span class="ot">&lt;-</span> <span class="fu">tapply</span>(pct_NA_par_pays, groupes, mean)</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>pct_groupes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   &lt; 40%   40-60%    &gt; 60% 
-32.74482 49.19597 64.72160 </code></pre>
+32.49916 48.86114 64.02036 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  pct_groupes,</span>
@@ -366,7 +366,7 @@ Attachement du package : 'dplyr'</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -382,7 +382,7 @@ Attachement du package : 'dplyr'</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(Notes))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 88640</code></pre>
+<pre><code>[1] 82880</code></pre>
 </div>
 </div>
 <p>On note que la variable qu’on cherche à expliquer se traduit par des notes dans différentes matières. Certaines notes sont vraissemblablement manquantes et l’on souligne 85600 valeurs manquantes sur 30687 élèves multipliés par 110 variables, soit (85600/(30687x110))x100 N.A en pourcentage.</p>
@@ -446,47 +446,50 @@ Attachement du package : 'dplyr'</code></pre>
 <span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>stats_matieres</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 N  Moyenne Ecart_type      Min   Q1.25%  Mediane   Q3.75%
-MOY_MATH     30687 441.1788   98.18591  97.6254 366.2017 432.7221 509.4463
-MOY_READ     30687 438.3963  103.95046 115.5791 359.9266 435.7783 514.4329
-MOY_SCIE     30687 450.9246   99.85441 132.8061 373.9515 444.6080 522.5615
-MOY_MCCR     29579 442.4038  101.50312  90.9414 365.1441 435.1589 513.1812
-MOY_MCQN     29579 443.0916  101.75267 139.4384 365.3967 434.6705 513.7363
-MOY_MCSS     29579 440.1320  101.16738  54.9551 365.3055 432.3332 508.0833
-MOY_MCUD     29579 443.7007  102.84661 137.0496 365.9856 435.8178 513.9823
-MOY_MPEM     29579 443.3525  101.07851  84.2234 366.2287 434.9971 512.5532
-MOY_MPFS     29579 440.9890  103.87432 124.2331 361.7892 430.9065 511.6599
-MOY_MPIN     29579 443.8738  102.13527 161.9816 367.1894 436.7535 513.7903
-MOY_MPRE     29579 442.7182  100.26676 102.4500 366.3799 435.5518 513.3803
-MOY_GENERALE 30687 441.2488   97.79781 136.5882 365.4037 433.0961 509.6089
+MOY_MATH     30687 440.4669   98.05143 128.0993 365.1819 430.8617 508.4478
+MOY_READ     30687 438.2015  103.91801 116.9534 359.4162 435.1366 514.2335
+MOY_SCIE     30687 450.1573  100.35279 114.2922 372.6472 442.3203 521.8933
+MOY_MCCR     29651 441.3585  101.47055 107.4172 363.2171 432.8345 512.7784
+MOY_MCQN     29651 441.8634  101.40278 112.1102 364.3436 432.4207 512.3630
+MOY_MCSS     29651 439.1290  101.56971 114.8588 363.5308 430.6924 508.2504
+MOY_MCUD     29651 442.7243  103.21127 122.9497 365.1953 433.5947 513.6560
+MOY_MPEM     29651 442.2514  101.14217 127.9576 365.0663 432.9805 511.9725
+MOY_MPFS     29651 439.8689  103.85727  57.9901 361.0382 429.0902 510.3992
+MOY_MPIN     29651 442.9402  102.27173 111.4937 365.7795 434.5028 513.4706
+MOY_MPRE     29651 441.5991  100.19111 107.0398 365.1456 433.3320 512.4594
+MOY_GENERALE 30687 440.4681   97.74604 143.9158 364.5303 430.9213 509.2730
                   Max
-MOY_MATH     841.8794
-MOY_READ     785.7220
-MOY_SCIE     798.7697
-MOY_MCCR     849.8845
-MOY_MCQN     852.0792
-MOY_MCSS     864.3615
-MOY_MCUD     887.6726
-MOY_MPEM     839.2182
-MOY_MPFS     873.9664
-MOY_MPIN     866.7163
-MOY_MPRE     849.9461
-MOY_GENERALE 826.7383</code></pre>
+MOY_MATH     797.2884
+MOY_READ     779.5872
+MOY_SCIE     817.1728
+MOY_MCCR     816.9457
+MOY_MCQN     811.6221
+MOY_MCSS     862.4876
+MOY_MCUD     838.4065
+MOY_MPEM     824.1665
+MOY_MPFS     847.4337
+MOY_MPIN     836.6933
+MOY_MPRE     832.9331
+MOY_GENERALE 795.1321</code></pre>
 </div>
 </div>
-<p>On peut alors tracer par exemple l’histogramme représentant les moyennes en mathématiques :</p>
+<p>On peut alors tracer par exemple l’histogramme représentant les moyennes en mathématiques en densité d’effectif, et y ajouter la courbe de la fonction de densité :</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(</span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  Notes_moyennes<span class="sc">$</span>MOY_MATH,</span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="dv">30</span>,</span>
 <span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">freq =</span> <span class="cn">FALSE</span>,  </span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"gray"</span>,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"orange"</span>,</span>
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Distribution de la moyenne en mathématiques"</span>,</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Moyenne"</span></span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">"Moyenne"</span>,</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Densité d'effectif"</span>,</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>densite <span class="ot">&lt;-</span> <span class="fu">density</span>(Notes_moyennes<span class="sc">$</span>MOY_MATH) </span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(densite, <span class="at">col =</span> <span class="st">"black"</span>,<span class="at">lwd=</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -498,146 +501,195 @@ MOY_GENERALE 826.7383</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Grâce à ces méthodes, on est capable d’identifier que la moyenne générale des élèves poursuit une distribution gaussienne.</p>
+<p>Par ailleurs, on discrétise ces notes en classes pour obtenir des proportions d’élèves appartenant à une certaine classe/note.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>Notes_moy_class <span class="ot">=</span> <span class="fu">data.frame</span>(Notes_moyennes<span class="sc">$</span>MOY_MATH)</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>Notes_moy_class <span class="ot">&lt;-</span> Notes_moyennes <span class="sc">%&gt;%</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">Classes_Niveau =</span> <span class="fu">case_when</span>(</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>      MOY_MATH <span class="sc">&lt;=</span> <span class="dv">100</span> <span class="sc">~</span> <span class="st">"0-100"</span>,</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>      MOY_MATH <span class="sc">&lt;=</span> <span class="dv">200</span> <span class="sc">~</span> <span class="st">"100-200"</span>,</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>      MOY_MATH <span class="sc">&lt;=</span> <span class="dv">300</span> <span class="sc">~</span> <span class="st">"200-300"</span>,</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>      MOY_MATH <span class="sc">&lt;=</span> <span class="dv">400</span> <span class="sc">~</span> <span class="st">"300-400"</span>,</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>      MOY_MATH <span class="sc">&lt;=</span> <span class="dv">500</span> <span class="sc">~</span> <span class="st">"400-500"</span>,</span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>      MOY_MATH <span class="sc">&lt;=</span> <span class="dv">600</span> <span class="sc">~</span> <span class="st">"500-600"</span>,</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>      MOY_MATH <span class="sc">&lt;=</span> <span class="dv">700</span> <span class="sc">~</span> <span class="st">"600-700"</span>,</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>      MOY_MATH <span class="sc">&lt;=</span> <span class="dv">800</span> <span class="sc">~</span> <span class="st">"700-800"</span>,</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>      MOY_MATH <span class="sc">&lt;=</span> <span class="dv">900</span> <span class="sc">~</span> <span class="st">"800-900"</span>,</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a>      MOY_MATH <span class="sc">&lt;=</span> <span class="dv">1000</span> <span class="sc">~</span> <span class="st">"900-1000"</span></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>ordre_classes <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">"0-100"</span>,<span class="st">"100-200"</span>,<span class="st">"200-300"</span>,<span class="st">"300-400"</span>,<span class="st">"400-500"</span>,</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a>  <span class="st">"500-600"</span>,<span class="st">"600-700"</span>,<span class="st">"700-800"</span>,<span class="st">"800-900"</span>,<span class="st">"900-1000"</span></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>Notes_moy_class<span class="sc">$</span>Classes_Niveau <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a>  Notes_moy_class<span class="sc">$</span>Classes_Niveau,</span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> ordre_classes</span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>tab <span class="ot">&lt;-</span> <span class="fu">table</span>(Notes_moy_class<span class="sc">$</span>Classes_Niveau)</span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a>tab_pct <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(tab) <span class="sc">*</span> <span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>On trace le diagramme en barre des 10 classes de moyennes de mathématiques :</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  tab_pct,</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">las =</span> <span class="dv">2</span>,                </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">max</span>(tab_pct) <span class="sc">*</span> <span class="fl">1.2</span>),</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="st">"orange"</span>,</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Pourcentage"</span>,</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Répartition des notes moyennes (%)"</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>On lit : “Environ 20% des élèves de l’échantillon possèdent une moyenne en mathématiques entre 500 et 600 points.”</p>
 <p>Plus précisément et avant les analyses multivariées, on peut par curiosité regarder si certains pays influencent cette moyenne. On crée le dataframe ;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>df_Moy_pays <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">MOY_GENERALE =</span> Notes_moyennes<span class="sc">$</span>MOY_GENERALE,</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Code_pays =</span> data_ech_etude<span class="sc">$</span>Code_pays,</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Pays_OCDE =</span> <span class="fu">factor</span>(</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    data_ech_etude<span class="sc">$</span>Pays_OCDE,</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Non-OCDE"</span>, <span class="st">"OCDE"</span>)</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>df_Moy_pays <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">MOY_GENERALE =</span> Notes_moyennes<span class="sc">$</span>MOY_GENERALE,</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Code_pays =</span> data_ech_etude<span class="sc">$</span>Code_pays,</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Pays_OCDE =</span> <span class="fu">factor</span>(</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>    data_ech_etude<span class="sc">$</span>Pays_OCDE,</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">"Non-OCDE"</span>, <span class="st">"OCDE"</span>)</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>On réalise alors des statistiques descriptives une nouvelle fois ;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>stats_pays <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  MOY_GENERALE <span class="sc">~</span> Code_pays,</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_Moy_pays,</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">c</span>(</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">length</span>(x),</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Moyenne =</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Ecart_type =</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mediane =</span> <span class="fu">median</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>stats_pays<span class="sc">$</span>N <span class="ot">&lt;-</span> stats_pays<span class="sc">$</span>MOY_GENERALE[, <span class="st">"N"</span>]</span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>stats_pays<span class="sc">$</span>Moyenne <span class="ot">&lt;-</span> stats_pays<span class="sc">$</span>MOY_GENERALE[, <span class="st">"Moyenne"</span>]</span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>stats_pays<span class="sc">$</span>Ecart_type <span class="ot">&lt;-</span> stats_pays<span class="sc">$</span>MOY_GENERALE[, <span class="st">"Ecart_type"</span>]</span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>stats_pays<span class="sc">$</span>Mediane <span class="ot">&lt;-</span> stats_pays<span class="sc">$</span>MOY_GENERALE[, <span class="st">"Mediane"</span>]</span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>stats_pays<span class="sc">$</span>MOY_GENERALE <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>stats_pays <span class="ot">&lt;-</span> stats_pays[<span class="fu">order</span>(stats_pays<span class="sc">$</span>Moyenne, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), ]</span>
-<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>stats_pays</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>stats_pays <span class="ot">&lt;-</span> <span class="fu">aggregate</span>(</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  MOY_GENERALE <span class="sc">~</span> Code_pays,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_Moy_pays,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">c</span>(</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">length</span>(x),</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Moyenne =</span> <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">Ecart_type =</span> <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Mediane =</span> <span class="fu">median</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>stats_pays<span class="sc">$</span>N <span class="ot">&lt;-</span> stats_pays<span class="sc">$</span>MOY_GENERALE[, <span class="st">"N"</span>]</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>stats_pays<span class="sc">$</span>Moyenne <span class="ot">&lt;-</span> stats_pays<span class="sc">$</span>MOY_GENERALE[, <span class="st">"Moyenne"</span>]</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>stats_pays<span class="sc">$</span>Ecart_type <span class="ot">&lt;-</span> stats_pays<span class="sc">$</span>MOY_GENERALE[, <span class="st">"Ecart_type"</span>]</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>stats_pays<span class="sc">$</span>Mediane <span class="ot">&lt;-</span> stats_pays<span class="sc">$</span>MOY_GENERALE[, <span class="st">"Mediane"</span>]</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>stats_pays<span class="sc">$</span>MOY_GENERALE <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>stats_pays <span class="ot">&lt;-</span> stats_pays[<span class="fu">order</span>(stats_pays<span class="sc">$</span>Moyenne, <span class="at">decreasing =</span> <span class="cn">TRUE</span>), ]</span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a>stats_pays</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Code_pays    N  Moyenne Ecart_type  Mediane
-68       SGP  322 568.4159   99.17797 579.7157
-44       MAC  254 550.6483   83.33051 551.4129
-27       HKG  262 550.0951   96.03888 561.2650
-74       TAP  316 537.5726  107.13672 542.2137
-37       JPN  251 535.8478   89.77650 545.4424
-40       KOR  310 533.3173   99.21628 541.8954
-20       EST  278 517.5357   79.79220 510.0404
-11       CHE  369 504.1222   90.01945 505.7974
-53       NLD  262 495.9276  103.92678 506.5118
-31       IRL  244 495.1519   74.97732 497.3648
-15       CZE  419 494.9611   89.99453 498.6483
-5        AUT  313 493.9695   94.91634 498.7355
-6        BEL  417 492.3067   92.98222 499.0144
-59       POL  305 489.1305   86.99086 490.4842
-4        AUS  661 488.9498   96.68290 490.0405
-10       CAN 1175 487.5137   88.47182 486.0477
-55       NZL  229 483.9506   92.33250 489.5967
-23       GBR  591 483.9324   90.06507 483.0036
-29       HUN  305 483.4910   88.81318 483.2705
-21       FIN  524 481.6765   85.74532 484.0395
-43       LVA  263 480.5655   73.70861 478.3159
-19       ESP 1590 480.1950   80.40743 482.1085
-72       SVN  336 479.2534   89.52301 470.9854
-73       SWE  312 477.0760   93.19529 480.9099
-34       ITA  521 476.5606   87.63168 479.7424
-17       DNK  294 475.7991   78.48238 479.4494
-16       DEU  325 474.4254   87.50358 476.6055
-49       MLT  136 473.3003   90.83916 476.5168
-78       USA  244 473.0408   96.86097 465.5183
-60       PRT  359 470.2558   86.96063 469.5032
-80       VNM  293 468.8266   67.32155 472.0286
-54       NOR  326 468.7881   91.16874 472.5835
-42       LTU  391 466.2973   81.94746 461.1105
-28       HRV  330 466.0640   85.63007 464.1147
-32       ISL  154 464.8937   85.61115 448.4808
-33       ISR  297 462.6642  102.45131 462.2802
-22       FRA  384 459.0963   95.61646 460.7825
-71       SVK  315 458.6644   95.85934 465.7898
-76       TUR  368 455.7019   80.95925 452.8052
-65       QUR  208 446.8371   82.22879 439.8843
-9        BRN  261 441.1565   81.37985 430.8872
-38       KAZ 1040 439.0968   78.58743 433.1004
-66       ROU  371 437.9120   96.36179 434.1574
-70       SRB  287 437.7981   80.94160 435.6180
-2        ARE 1251 435.3553   97.89221 427.0402
-25       GRC  331 431.4968   75.09826 432.9857
-12       CHL  341 429.7984   75.76400 428.1471
-51       MNG  322 424.2194   76.36904 416.5578
-7        BGR  314 416.8516   90.63655 415.0499
-46       MDA  297 415.4771   72.75930 415.8288
-77       URY  304 410.9598   71.27971 404.1056
-75       THA  420 409.8530   89.06072 391.4710
-52       MYS  337 407.6449   71.79163 404.7430
-63       QAT  376 407.5337   84.09852 394.3405
-50       MNE  286 404.8008   74.41840 400.7747
-47       MEX  307 402.4407   68.20783 397.3800
-13       COL  387 395.6724   70.68126 392.7504
-3        ARG  595 394.7901   70.79582 386.1794
-57       PER  319 394.0566   76.91332 381.2038
-64       QAZ  358 392.8743   74.46870 385.5068
-67       SAU  377 387.9569   57.65852 383.0911
-14       CRI  293 387.8220   66.68365 383.9511
-24       GEO  313 386.6268   75.92990 377.0763
-48       MKD  346 382.9997   75.29748 380.9835
-8        BRA  549 382.7537   70.34907 372.6575
-35       JAM  199 378.6354   73.43040 364.1549
-30       IDN  683 375.5144   64.48935 366.0121
-1        ALB  306 369.2417   70.51664 360.4055
-62       PSE  432 366.2426   61.37919 365.4977
-61       PRY  266 365.3754   71.68592 368.7026
-26       GTM  257 363.5290   61.73313 358.6690
-45       MAR  348 361.2253   57.05605 354.5049
-41       KSV  277 359.3422   60.59937 352.3024
-36       JOR  340 359.0231   57.94289 358.4978
-79       UZB  344 358.3248   60.67152 355.9994
-56       PAN  225 353.7078   68.23682 339.9596
-58       PHL  381 352.8514   62.83462 343.6333
-69       SLV  367 349.0619   56.69387 341.1169
-18       DOM  335 338.5659   50.37662 333.0077
-39       KHM  292 332.3247   54.07037 331.7131</code></pre>
+68       SGP  354 568.0710  101.71891 574.8397
+44       MAC  206 556.2013   87.68024 557.2330
+37       JPN  293 539.2368   94.51710 548.1403
+27       HKG  296 536.9332   94.52818 546.8553
+40       KOR  297 526.9533   98.40465 529.1267
+74       TAP  303 525.4058  108.67987 536.1574
+20       EST  328 519.0411   79.68974 519.8920
+15       CZE  381 505.7501   92.08819 507.1472
+11       CHE  358 504.7769   96.25349 496.7055
+6        BEL  402 497.3703   90.82974 498.8201
+59       POL  265 495.0075   85.67626 492.9852
+4        AUS  660 492.8447   93.25272 494.1266
+31       IRL  288 486.9809   76.14810 488.1517
+55       NZL  235 486.5922   98.34194 481.1442
+5        AUT  324 485.1239   87.08822 490.6704
+19       ESP 1523 484.3489   80.36323 489.6301
+23       GBR  675 483.5426   92.06823 481.3827
+10       CAN 1140 482.6923   85.79053 483.5442
+60       PRT  362 481.1824   84.39428 482.4483
+53       NLD  263 478.7283  106.04581 487.8122
+73       SWE  335 478.6674   93.32213 477.7890
+78       USA  224 478.4207   97.51169 474.6508
+17       DNK  343 477.5081   79.30747 474.3723
+43       LVA  251 476.8396   74.70207 476.4200
+21       FIN  510 472.1607   90.44586 468.7281
+29       HUN  347 471.9498   88.85018 469.9155
+16       DEU  290 471.8297   88.18151 477.3936
+42       LTU  355 470.8242   83.85546 474.2780
+54       NOR  327 469.6329   96.05371 472.9190
+22       FRA  335 469.0925   93.82197 464.2474
+33       ISR  331 468.9855  104.10293 468.3148
+72       SVN  335 468.3416   78.37868 471.5424
+71       SVK  257 468.1542   99.08802 475.7092
+34       ITA  471 467.6543   87.39686 464.1991
+49       MLT  141 464.1419   92.32213 468.6378
+28       HRV  297 463.5516   88.66078 459.7481
+80       VNM  279 458.7418   67.06869 461.3085
+32       ISL  184 458.2388   81.37224 453.0473
+65       QUR  203 449.2074   86.13420 451.5621
+76       TUR  342 448.0473   81.26556 441.0432
+9        BRN  297 444.7327   78.66031 440.3191
+25       GRC  328 438.8946   76.61238 440.6822
+70       SRB  317 437.7170   82.35241 430.8611
+38       KAZ  954 437.4058   80.52482 427.2827
+12       CHL  324 437.3760   80.75723 429.4918
+2        ARE 1293 433.8781   96.44603 425.7903
+66       ROU  375 426.5075   86.83736 422.8363
+7        BGR  296 418.8709   97.76792 411.3635
+63       QAT  393 413.3535   83.51387 406.5226
+51       MNG  321 412.0256   80.07679 397.9097
+77       URY  316 408.7831   80.76555 402.6633
+46       MDA  312 407.6213   71.90498 399.9435
+75       THA  414 407.5070   88.28623 384.9011
+52       MYS  348 403.0872   70.67137 399.8220
+50       MNE  320 402.8797   76.51294 393.8450
+47       MEX  329 398.7705   67.17301 396.1649
+13       COL  409 396.3815   70.98122 387.0908
+57       PER  349 394.5877   74.38793 384.0591
+3        ARG  637 391.7246   74.49116 385.2461
+64       QAZ  387 391.1253   76.58108 387.7073
+14       CRI  328 390.6273   60.80666 384.8261
+67       SAU  336 388.8063   56.94704 385.6445
+8        BRA  543 384.5495   75.73489 376.0307
+24       GEO  300 384.4384   79.94757 372.7210
+48       MKD  315 383.6616   78.78512 372.8197
+30       IDN  706 378.2888   62.54258 369.5722
+26       GTM  267 374.0413   62.19529 372.4972
+35       JAM  205 373.7077   69.02223 362.9930
+61       PRY  235 365.4377   72.07845 357.4621
+79       UZB  360 363.9267   60.78866 353.3375
+45       MAR  338 363.8108   57.00879 361.5134
+62       PSE  373 362.2638   61.49841 356.2575
+56       PAN  235 359.7551   59.62113 356.0737
+1        ALB  332 359.1111   68.17788 347.6943
+36       JOR  379 358.2594   54.57570 354.6967
+41       KSV  311 355.3559   56.42456 347.0453
+58       PHL  343 354.9854   64.68026 342.0694
+69       SLV  330 352.0082   56.49673 344.1272
+18       DOM  367 340.3118   48.52498 333.1747
+39       KHM  255 331.4025   50.60922 328.6167</code></pre>
 </div>
 </div>
 <p>Le calcul des statistiques classiques nous permet de montrer que les élèves de Singapour et du Japon dominent les autres pays de part leur moyenne générale (en moyenne). En revanche ce sont le cambodge et la république dominicaine qui se montre avoir des moyennes générales (en moyenne) plus faibles. Notons par ailleurs que l’écart-type semble plus élevé pour les meilleurs pays. On peut émettre l’hypothèse que certains élèves tirent la moyenne vers le haut en étant extêmement efficaces dans leurs examens.</p>
 <p>Maintenant, on se propose un bref apperçu de l’analyse de la moyenne générale selon l’appartenance au pays de l’OCDE.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  MOY_GENERALE <span class="sc">~</span> Pays_OCDE,</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_Moy_pays,</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"lightgray"</span>, <span class="st">"darkgray"</span>),</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Moyenne générale"</span>,</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">""</span>,</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Moyenne générale selon l'appartenance à l'OCDE"</span></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>  MOY_GENERALE <span class="sc">~</span> Pays_OCDE,</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_Moy_pays,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"lightgray"</span>, <span class="st">"darkgray"</span>),</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab =</span> <span class="st">"Moyenne générale"</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab =</span> <span class="st">""</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">main =</span> <span class="st">"Moyenne générale selon l'appartenance à l'OCDE"</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -645,23 +697,23 @@ MOY_GENERALE 826.7383</code></pre>
 <p>Graphiquement, les pays de l’OCDE montrent sur cet échantillon une moyenne générale plus élevée, avec une médiane à ~100 points de plus.</p>
 <p>D’autre part et plus généralement, on s’intéresse à toutes les moyennes les unes entre les autres.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>cor_mat <span class="ot">&lt;-</span> <span class="fu">cor</span>(</span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  Notes_moyennes[, <span class="fu">grep</span>(<span class="st">"^MOY_"</span>, <span class="fu">names</span>(Notes_moyennes))],</span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span></span>
-<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(</span>
-<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>  cor_mat,</span>
-<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"number"</span>,</span>
-<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"upper"</span>,</span>
-<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">tl.col =</span> <span class="st">"black"</span>,</span>
-<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">tl.srt =</span> <span class="dv">45</span>,</span>
-<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">number.cex =</span> <span class="fl">0.8</span></span>
-<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>cor_mat <span class="ot">&lt;-</span> <span class="fu">cor</span>(</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  Notes_moyennes[, <span class="fu">grep</span>(<span class="st">"^MOY_"</span>, <span class="fu">names</span>(Notes_moyennes))],</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  cor_mat,</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"number"</span>,</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"upper"</span>,</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">tl.col =</span> <span class="st">"black"</span>,</span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">tl.srt =</span> <span class="dv">45</span>,</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">number.cex =</span> <span class="fl">0.8</span></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -672,308 +724,308 @@ MOY_GENERALE 826.7383</code></pre>
 <h3 class="anchored" data-anchor-id="variables-explicatives">Variables explicatives</h3>
 <p>Ensuite, on construit une boucle permettant d’étudier toutes les variables d’intérêt à notre guise à l’aide de diagrammes circulaires ;</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>vars_a_visualiser <span class="ot">&lt;-</span> <span class="fu">names</span>(data_ech_etude)[<span class="dv">24</span><span class="sc">:</span><span class="dv">65</span>]</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (var <span class="cf">in</span> vars_a_visualiser) {</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>  tab <span class="ot">&lt;-</span> <span class="fu">table</span>(data_ech_etude[[var]])</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>  tab_pct <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> tab <span class="sc">/</span> <span class="fu">sum</span>(tab), <span class="dv">1</span>)</span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pie</span>(tab, </span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">paste0</span>(<span class="fu">names</span>(tab), <span class="st">" ("</span>, tab_pct, <span class="st">"%)"</span>),</span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Répartition de"</span>, var),</span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>,<span class="st">"orange"</span>, <span class="st">"yellow"</span>,<span class="st">"green"</span>, <span class="st">"cadetblue1"</span> ))</span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>vars_a_visualiser <span class="ot">&lt;-</span> <span class="fu">names</span>(data_ech_etude)[<span class="dv">24</span><span class="sc">:</span><span class="dv">65</span>]</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (var <span class="cf">in</span> vars_a_visualiser) {</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  tab <span class="ot">&lt;-</span> <span class="fu">table</span>(data_ech_etude[[var]])</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  tab_pct <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="dv">100</span> <span class="sc">*</span> tab <span class="sc">/</span> <span class="fu">sum</span>(tab), <span class="dv">1</span>)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pie</span>(tab, </span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">labels =</span> <span class="fu">paste0</span>(<span class="fu">names</span>(tab), <span class="st">" ("</span>, tab_pct, <span class="st">"%)"</span>),</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">"Répartition de"</span>, var),</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="fu">c</span>(<span class="st">"red"</span>,<span class="st">"orange"</span>, <span class="st">"yellow"</span>,<span class="st">"green"</span>, <span class="st">"cadetblue1"</span> ))</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-4.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-4.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-5.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-5.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-6.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-6.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-7.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-7.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-8.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-8.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-9.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-9.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-10.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-10.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-11.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-11.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-12.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-12.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-13.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-13.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-14.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-14.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-15.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-15.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-16.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-16.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-17.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-17.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-18.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-18.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-19.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-19.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-20.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-20.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-21.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-21.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-22.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-22.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-23.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-23.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-24.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-24.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-25.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-25.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-26.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-26.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-27.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-27.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-28.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-28.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-29.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-29.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-30.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-30.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-31.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-31.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-32.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-32.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-33.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-33.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-34.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-34.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-35.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-35.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-36.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-36.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-37.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-37.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-38.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-38.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-39.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-39.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-40.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-40.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-41.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-41.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="RapportQuartoStats_VO_files/figure-html/unnamed-chunk-25-42.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="RapportQuartoStats_files/figure-html/unnamed-chunk-27-42.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
