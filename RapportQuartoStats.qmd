@@ -19,7 +19,7 @@ bibliography: references.bib
 ## Installation des packages 
 
 ```{r} 
-packages <- c("ggplot2", "dplyr", "corrplot")
+packages <- c("ggplot2", "dplyr", "corrplot","GGally")
 
 to_install <- packages[!packages %in% rownames(installed.packages())]
 if(length(to_install)) install.packages(to_install, dependencies = TRUE)
@@ -46,7 +46,13 @@ taille = floor(nrow(data)*0.05)
 data_ech <- data[sample.int(nrow(data), taille), ]
 ```
 
+
+## Intro blabla
+
+
 ### Sélection et gestion des variables
+
+--blabla sélection de variables
 
 On décide ici de dicerner plusieurs types de variables, notamment celles en lien direct avec l'enseignent, celles concernant les cours de mathématiques, celles concernant la créativité, et les autres.
 
@@ -55,105 +61,49 @@ On les conserve toute et on aura l'occasion de créer des jeux de données disti
 Celles-ci seront nos variables explicatives.
 
 ```{r}
-vars_collector <- c("RELATST","TEACHSUP")
-
-vars_etude <- vars_collector[vars_collector %in% names(data_ech)]
-
-idx_vars_etude <- match(vars_etude, names(data_ech))
-
-data_ech_etude <- data_ech[, c(1,25,26, idx_vars_etude), drop = FALSE]
-```
-
-Récupérons maintenant les variables concernant la notation des élèves qu'on tachera d'expliquer par la relation avec l'enseignant.
-
-```{r}
 Notes <- data_ech %>% select(starts_with("PV"))
 Notes_NA <- data_ech %>% select(starts_with("PV"))
 Notes_NA <-lapply(Notes_NA, as.numeric)
 moyennes_NA <- lapply(Notes_NA, mean, na.rm = FALSE)
 ```
 
-Recodons nos données pour rendre le dataframe plus clair à étudier.
-
-Pour les variables de base :
-
 ```{r}
-data_ech_etude <- data_ech_etude %>%
-  rename(
-    Code_pays              = CNT,          # code du pays
-    Annee_naissance        = ST003D03T,      # année de naissance
-    Genre                  = ST004D01T       # genre
-  )
+matieres <- c(
+  "MATH", #Mathématiques générales
+  "READ", #Lecture
+  "SCIE" #Science
+)
 ```
 
-Pour les variables à intérêt dans notre étude (on précise en commentaire la question d'origine posée à l'élève) :
+Calculons toutes les moyennes des élèves :
 
 ```{r}
-data_ech_etude <- data_ech_etude %>%
-  rename(
-    # Questions en lien direct avec l’enseignant
-    enseignants_respectueux       = ST267Q01JA,  # The teachers at my school are respectful towards me
-    enseignants_inquiets          = ST267Q02JA,  # If I walked into my classes upset, my teachers would be concerned about me
-    enseignants_heureux_voir      = ST267Q03JA,  # If I came back to visit my school three years from now, my teachers would be excited to see me
-    enseignants_intimidants       = ST267Q04JA,  # I feel intimidated by the teachers at my school
-    enseignants_interesses        = ST267Q05JA,  # When my teachers ask how I am doing, they are really interested in my answer
-    enseignants_amicaux           = ST267Q06JA,  # The teachers at my school are friendly towards me
-    enseignants_bien_etre         = ST267Q07JA,  # The teachers at my school are interested in students' well-being
-    enseignants_mechants           = ST267Q08JA,  # The teachers at my school are mean towards me
+Notes_moyennes <- as.data.frame(
+  sapply(matieres, function(m) {
+    vars <- paste0("PV", 1:10, m)
+    rowMeans(Notes[, vars], na.rm = TRUE)
+  })
+)
 
-    # Questions sur le cours de Mathématiques
-    maths_pas_ecoute               = ST273Q01JA,  # Students do not listen to what the teacher said
-    maths_attente_calme            = ST273Q03JA,  # The teacher has to wait a long time for students to quiet down
-    maths_interet_apprentissage    = ST270Q01JA,  # The teacher shows an interest in every student's learning
-    maths_aide_extra               = ST270Q02JA,  # The teacher gives extra help when students need it
-    maths_aide                     = ST270Q03JA,  # The teacher helps students with their learning
-    maths_explique_tant_que_pas_compris = ST270Q04JA,  # The teacher continues teaching until the students understand
-    maths_resoudre_sans_calcul     = ST285Q01JA,  # The teacher asked us to solve mathematics problems without computing anything
-    maths_expliquer_solution       = ST285Q02JA,  # The teacher asked us to explain how we solved a mathematics problem
-    maths_expliquer_hypotheses     = ST285Q03JA,  # The teacher asked us to explain what assumptions we were making when solving a mathematics problem
-    maths_expliquer_raisonnement   = ST285Q04JA,  # The teacher asked us to explain our reasoning when solving a mathematics problem
-    maths_defendre_reponse         = ST285Q05JA,  # The teacher asked us to defend our answer to a mathematics problem
-    maths_relier_anciens_nouveaux  = ST285Q06JA,  # The teacher asked us to think about how new and old mathematics topics were related
-    maths_resoudre_autrement       = ST285Q07JA,  # The teacher encouraged us to think about how to solve mathematics problems in different ways than demonstrated in class
-    maths_persister                = ST285Q08JA,  # The teacher told us to keep trying even when we face difficulties with a mathematics task
-    maths_memoriser                = ST285Q09JA,  # The teacher taught us to memorize rules and apply them to solve mathematics problems
-    maths_problemes_quotidien      = ST283Q01JA,  # The teacher asked us to think of problems from everyday life that could be solved with new mathematics knowledge we learned
-    maths_utilite                  = ST283Q02JA,  # The teacher showed us how mathematics can be useful in our everyday lives
-    maths_penser_math              = ST283Q03JA,  # The teacher encouraged us to "think mathematically"
-    maths_logique                  = ST283Q04JA,  # The teacher taught us how to use mathematical logic when approaching new situations
-    maths_simplifier_problemes     = ST283Q05JA,  # The teacher showed us how some problems that look difficult can be solved more easily by understanding how the number system is organized
-    maths_decision                 = ST283Q06JA,  # The teacher gave problems from everyday life involving numbers and asked us to make a decision about the situation
-    maths_relier_concepts          = ST283Q07JA,  # The teacher asked us how different topics are connected to a bigger mathematical idea
-    maths_penser_quotidien         = ST283Q08JA,  # The teacher encouraged us to think about how a problem from everyday life could be solved using mathematics
-    maths_connexion_idees          = ST283Q09JA,  # The teacher explained how different mathematical ideas connect to a larger context
-    maths_attention                = ST293Q02JA,  # I paid attention when my mathematics teacher was speaking
+colnames(Notes_moyennes) <- paste0("MOY_", matieres)
 
-    # Questions sur la créativité
-    creativite_temps               = ST335Q01JA,  # My teachers give me enough time to come up with creative solutions on assignments
-    creativite_valeur              = ST335Q02JA,  # My teachers value students’ creativity
-    creativite_originalite          = ST335Q06JA,  # My teachers encourage me to come up with original answers
-
-    # Questions sur la COVID-19
-    covid_lecons_video             = ST351Q03JA,  # Real-time lessons by a teacher from my school on a video communication program
-    covid_materiel_envoye          = ST351Q05JA,  # Learning material my teachers sent via email or platform
-    covid_lecons_enregistrees       = ST351Q06JA,  # Recorded lessons or other digital material provided by teachers from my school
-    covid_disponibilite_enseignant = ST354Q03JA,  # My teachers were available when I needed help
-    covid_preparation_enseignant    = ST354Q08JA,  # My teachers were well prepared to provide instruction remotely
-
-    # Questions indirectes
-    bruit_desordre                 = ST273Q02JA   # There is noise and disorder
-  )
-
+Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
 ```
+
+```{r}
+vars_collector <- c("RELATST","TEACHSUP","ESCS","ST016Q01NA","ST272Q01JA", "EXPWB")
+
+vars_etude <- vars_collector[vars_collector %in% names(data_ech)]
+
+idx_vars_etude <- match(vars_etude, names(data_ech))
+
+data_ech_etude <- c(data_ech[, c(1,26, idx_vars_etude), drop = FALSE],Notes_moyennes)
+data_ech_etude <- as.data.frame(data_ech_etude)
+```
+
+
 
 Par ailleurs, les données de réponses aux questions sont décrites comme une echelle de 1 à 4 pour affirmer un total désacord, un désacord, un accord et un accord total. On aura l'occasion de transformes ces valeurs pour rendre le jeu plus clair, mais seulement après nos études préliminaires pour conserver la possibilité de calculer des statistiques de base (moyenne, mediane, EIQ...).
-
-D'autre part, on ne possède aucune information sur les variables "CNTSCHID" "CNTSTUID" et "CYC" donc on se permet de les supprimer du jeu de données.
-
-```{r}
-data_ech_etude <- data_ech_etude %>%
-  select(-CNTSCHID, -CNTSTUID, -CYC)
-```
 
 Regardons maintenant les types de nos variables :
 
@@ -167,9 +117,7 @@ On ne remarque pas de gros problème au sein nos types de variables. On peut mal
 
 ```{r}
 vars_factor <- c(
-  "Genre", "Option_une_heure", "Option_enseignant", "Option_parent",
-  "Option_bien_etre", "Option_ICT", "Option_litteratie_fin", "Option_pensee_creative",
-  "Mode_administration", "Pays_OCDE"
+  "Genre"
 )
 
 data_ech_etude[, vars_factor] <- lapply(data_ech_etude[, vars_factor], factor)
@@ -220,11 +168,39 @@ barplot(
 On peut ainsi noter une grande quantité de valeurs manquantes qui nous pénalisera dans la suite de l'étude si on décide de simplement supprimer les données des étudiants qui ne répondent parfois pas à certaines question. On se proposera alors d'imputer les données par la moyenne. 
 
 ## Analyses univariées
+-> à faire sur les indices RELATST et TEACHSUP
+### Variable expliquée 
 
-### Variable expliquée
 
-Premièrement il peut être pertinent d'analyser séparément nos variables explicatives et notre variable expliquée. Ainsi on se concentre d'abord sur la réussite scolaire de l'élève, par le biais des notes de l'élève. 
 
+Variable explicatives = age etc
+variables expliquée = 2 indices
+
+Premièrement il peut être pertinent d'analyser séparément nos variables explicatives et notre variable expliquée.
+Nos varaibles expliquées sont celles caractérisant au mieux la relation élèves enseignants: RELATST et TEACHSUP --blabla explication des indices
+Les reste contituera les variables explicatives
+
+```{r}
+summary(data_ech_etude)
+```
+
+
+```{r}
+pairs(
+  data_ech_etude[, !(names(data_ech_etude) %in% "CNT")],
+  pch = 19,
+  col = "orange",
+  lower.panel = panel.smooth
+)
+```
+
+## Ananlyse bivariée
+```{r}
+ggpairs(
+  data_ech_etude %>% dplyr::select(-CNT)
+)
+```
+## Analyse des notes (en faire quoi ?)
 ```{r}
 sum(is.na(Notes))
 ```
@@ -241,36 +217,7 @@ Etudions maintenant concrètement ces notes.
 
 D'abord on distingue toutes les matières dans le dataframe suivant :
 
-```{r}
-matieres <- c(
-  "MATH", #Mathématiques générales
-  "READ", #Lecture
-  "SCIE", #Science
-  "MCCR", #Mathématiques : Changement et relation
-  "MCQN", #Mathématiques : Quantitatif
-  "MCSS", #Mathématiques : Espace et formes
-  "MCUD", #Mathématiques : Incertitude et données
-  "MPEM", #Mathématiques : Employer des concepts mathématiques, définitions et théorèmes
-  "MPFS", #Mathématiques : Formuler des situations mathématiquement
-  "MPIN", #Mathématiques : Interpréter, appliquer et analyser des sorties mathématiques
-  "MPRE"  #Mathématiques : Raisonnement
-)
-```
 
-Calculons toutes les moyennes des élèves :
-
-```{r}
-Notes_moyennes <- as.data.frame(
-  sapply(matieres, function(m) {
-    vars <- paste0("PV", 1:10, m)
-    rowMeans(Notes[, vars], na.rm = TRUE)
-  })
-)
-
-colnames(Notes_moyennes) <- paste0("MOY_", matieres)
-
-Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
-```
 
 Etablissons maintenant quelques statistiques descriptives de nos moyennes par matières pour une première approche.
 
@@ -423,7 +370,7 @@ boxplot(
 ```
 Graphiquement, les pays de l'OCDE montrent sur cet échantillon une moyenne générale plus élevée, avec une médiane à ~100 points de plus.
 
-D'autre part et plus généralement, on s'intéresse à toutes les moyennes les unes entre les autres.
+D'autre part et plus généralement, on s'intéresse à toutes les moyennes les unes entre les autres. 
 
 ```{r}
 cor_mat <- cor(
@@ -443,7 +390,7 @@ corrplot(
 ```
 
 On note qu'elles semblent toutes corrélées les unes des autres. Cela fait sens car 8 moyennes de notes sur 11 sont des sous-parties des mathématiques et sont donc incluses dans la même matière. De plus on a une 9ème variable de pure moyenne de l'élève en mathématique.
-On aurait pu s'attendre à de tels résultats. A noter tout de même que les moyennes en mathématiques, en lecture et en sciences sont fortement corrélées.
+On aurait pu s'attendre à de tels résultats. A noter tout de même que les moyennes en mathématiques, en lecture et en sciences sont fortement corrélées. (graph utile à mettre en annexe pour expliquer pourquoi on a pas pris toutes les moyennes)
  
 ### Variables explicatives
 
