@@ -55,19 +55,13 @@ On les conserve toute et on aura l'occasion de créer des jeux de données disti
 Celles-ci seront nos variables explicatives.
 
 ```{r}
-vars_collector <- c("ST267Q01JA", "ST267Q02JA", "ST267Q03JA", "ST267Q04JA", "ST267Q05JA", "ST267Q06JA", "ST267Q07JA", "ST267Q08JA",
-                    
-                    "ST273Q01JA", "ST273Q03JA", "ST270Q01JA", "ST270Q02JA", "ST270Q03JA", "ST270Q04JA", "ST285Q01JA", "ST285Q02JA", "ST285Q03JA", "ST285Q04JA", "ST285Q05JA", "ST285Q06JA", "ST285Q07JA", "ST285Q08JA", "ST285Q09JA", "ST283Q01JA", "ST283Q02JA", "ST283Q03JA", "ST283Q04JA", "ST283Q05JA", "ST283Q06JA", "ST283Q07JA", "ST283Q08JA", "ST283Q09JA", "ST293Q02JA",
-                    
-                    "ST335Q01JA", "ST335Q02JA", "ST335Q06JA", 
-                    
-                    "ST351Q03JA", "ST351Q05JA", "ST351Q06JA", "ST354Q03JA", "ST354Q08JA", "ST273Q02JA")
+vars_collector <- c("RELATST","TEACHSUP")
 
 vars_etude <- vars_collector[vars_collector %in% names(data_ech)]
 
 idx_vars_etude <- match(vars_etude, names(data_ech))
 
-data_ech_etude <- data_ech[, c(1:26, idx_vars_etude), drop = FALSE]
+data_ech_etude <- data_ech[, c(1,25,26, idx_vars_etude), drop = FALSE]
 ```
 
 Récupérons maintenant les variables concernant la notation des élèves qu'on tachera d'expliquer par la relation avec l'enseignant.
@@ -87,30 +81,6 @@ Pour les variables de base :
 data_ech_etude <- data_ech_etude %>%
   rename(
     Code_pays              = CNT,          # code du pays
-    ID_pays                = CNTRYID,       # identifiant du pays
-    Code_centre_national   = NatCen,        # code du centre national
-    Stratum_ID             = STRATUM,       # identifiant de la strate
-    Code_sous_region       = SUBNATIO,      # code de sous-région
-    Region                 = REGION,        # région
-    Pays_OCDE              = OECD,          # pays OCDE
-    Mode_administration    = ADMINMODE,     # mode d’administration
-
-    Langue_questionnaire   = LANGTEST_QQQ,  # langue du questionnaire élève
-    Langue_evaluation      = LANGTEST_COG,  # langue de l’évaluation
-    Langue_parent          = LANGTEST_PAQ,  # langue du questionnaire parent
-
-    Option_pensee_creative = Option_CT,     # option pensée créative
-    Option_litteratie_fin  = Option_FL,     # option littératie financière
-    Option_ICT             = Option_ICTQ,   # option questionnaire TIC
-    Option_bien_etre       = Option_WBQ,    # option bien-être
-    Option_parent          = Option_PQ,     # option parent
-    Option_enseignant      = Option_TQ,     # option enseignant
-    Option_une_heure       = Option_UH,     # option une heure
-
-    ID_livret              = BOOKID,        # identifiant du livret
-
-    Niveau_scolaire        = ST001D01T,      # niveau scolaire
-    Mois_naissance         = ST003D02T,      # mois de naissance
     Annee_naissance        = ST003D03T,      # année de naissance
     Genre                  = ST004D01T       # genre
   )
