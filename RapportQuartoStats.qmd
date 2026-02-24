@@ -14,11 +14,19 @@ output:
 bibliography: references.bib
 ---
 
-# Relation élèves enseignants
+# Introduction
 
-## Installation des packages 
+La REE est une notion peu commune que l’on peut se proposer de définir par construction. En effet, on entend tout d’abord par relation, un rapport, une liaison qui existe, est conçu comme existant entre deux choses, deux grandeurs, deux phénomènes. Celle-ci est dans notre cas à visée pédagogique, s’inscrit dans le cadre d’une transmission de savoir. Une relation peut également être de nature horizontale (si les deux phénomènes, objets sont considérés dans une même mesure) ou bien verticale si un parti à l’ascendant (pas forcément physique) sur l’autre. Dans notre cadre d’étude, la relation élève-enseignant sera verticale (le prof enseigne et l’élève écoute …). La relation peut également être d’ordre subjective ou objective. Toutefois, comme il est difficile de mesurer le degré de subjectivité/objectivité d’une relation, nous nous fierons seulement à l’enquête PISA qui nous a été fournie, même si les réponses peuvent être inconsciemment biaisées. Par ailleurs, nous définirons un élève comme un enfant, ou jeune, recevant l’enseignement d’un établissement scolaire ou d’une école spécialisée, âgé de 15 ans, pouvant habiter dans 85 pays différents. Il est également possible d’effectuer une typologie du type d’élève, c’est-à-dire de classer les élèves en fonction de plusieurs caractéristiques scolaires (amical, attentif, travailleur, participe beaucoup, …). Enfin, nous définirons un enseignant comme un adulte ayant pour fonction d’enseigner une matière et provenant de différents pays. Nous nous concentrerons ici particulièrement sur les professeurs de mathématiques puisque c’est la matière qui comporte le plus d’informations sur la qualité d’enseignement des professeurs ainsi que sur les caractéristiques des élèves dans ce cours. Finalement, la REE peut se définir comme les interactions ,qu’elles soient positives ou négatives, entretenues entre les élèves et les enseignants.
+
+Ainsi, pour étudier la REE il faut d’abord en proposer une mesure. Nous avons alors choisi de travailler sur seulement 2 types de REE : une REE globale qui comprend les questions générales sur le ressenti de l’élève quant à ses relations avec les enseignants mais reposant aussi sur des critères de créativité, et une REE en mathématiques caractérisée par la relation des élèves avec leur professeur en cours de mathématiques. Une potentielle limite de notre mesure est, que les résultats obtenus pour réaliser ces différents indices reposent uniquement sur les réponses données par les élèves sur leurs enseignants et non les enseignants sur leurs élèves.
+
+En outre, mesurer la REE nous permettra de mettre en exergue l’effet des REE sur différentes variables expliquées telles que la réussite scolaire des élèves, les divergences de REE selon les pays étudiés et leurs effets sur les notes en mathématiques par exemple. Ainsi, nous demanderons alors si:
+
+Problématique : Une bonne REE se traduit-elle par une bonne réussite en mathématiques selon différents pays (Enquête PISA 2022) ?
+
 
 ```{r, echo=False} 
+# Installation des packages 
 packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra")
 
 to_install <- packages[!packages %in% rownames(installed.packages())]
@@ -26,7 +34,7 @@ if(length(to_install)) install.packages(to_install, dependencies = TRUE)
 
 lapply(packages, library, character.only = TRUE)
 ```
-```{r}
+```{r, echo=False} 
 library(tidyverse)
 library(psych)
 library(FactoMineR)
@@ -34,47 +42,67 @@ library(factoextra)
 library(corrplot)
 ```
 
-## Import des données
-
-```{r}
+```{r, echo=False} 
+# Import des données
 data <- readRDS("stu_qqq.rds")
-```
-
-
-```{r}
+``
+```{r, echo=False} 
 dim(data)
 ```
 
-Par souci d'efficacité, le jeu de données contenant plus de 600.000 individus, nous élaborerons nos analyses exploratoires sur un échantillon de 5% de celui-ci.
+
+### Caractérisation de la REE
+
+Pour les variables rendant comptes de la REE, nous avons décidé de nous concentrer principalement sur deux questions du questionnaires élèves. Elles nous permettent de faire état de la REE, et plus particulierement de la relation avec les enseignants de mathématiques, d’après les affirmations des élèves. 
+La première question (ST267) s’intéresse à l’attention que le corps enseignant porte à l’élève : 
+- Les enseignants étaient respectueux envers lui/elle    (ST267Q01JA)
+- Les enseignants se préoccupent de l’élève en cas de retard    (ST267Q02JA)
+- Les enseignants seraient heureux de le/la revoir 3 ans après  (ST267Q03JA) 	
+- Les enseignants intimident l’élève   (ST267Q04JA)
+- Les enseignants étaient amicaux avec lui/elle   (ST267Q06JA)
+- Les enseignants se soucient du bien-être de l’élève    (ST267Q07JA)
+- Les enseignants sont méchants avec l’élève	  (ST267Q08JA)
+La deuxième question (ST270) permet de se concentrer sur la REE en cours de mathématiques : 
+- Les enseignants s’inquiète de la scolarité de chacun de ses élèves	(ST270Q01JA)
+- Les enseignants s'intéressent à l’apprentissage de tous les élèves. (ST270Q01JA)
+- Les enseignants donnent de l’aide supplémentaire aux élèves qui en ont besoin. (ST270Q02JA)
+- Les enseignants aident les élèves dans leur apprentissage. (ST270Q03JA)
+- Les enseignants continuent à enseigner jusqu’à ce que les élèves comprennent. (ST270Q04JA)
+
+Les variables générées par ces questions peuvent être résumées par deux indices de l’OCDE qui nous intéressent dans l’étude de la REE. L’indice de qualité des relations entre élèves et enseignants (RELATST) permet de savoir lorsque l’élève fait l’état d’une meilleure relation que l’état moyen des pays de l’OCDE. Cet indice est réalisé à partir des réponses de la question 267. Le second indice concerne quant à lui la question 270 sur le soutien du professeur de mathématiques (TEACHSUP). Il fonctionne de la même manière que le premier indice, plus il est positif, plus l’élève affirme bénéficier d’un soutien de son enseignant plus important qu’en moyenne.
+
+Ces variables, résumées par deux indices, seront étudiées avec les variables concernant le pays de scolarisation, le statut social et culturel, le genre, les notes et le sentiment de bien-être. 
+
+Pour ce faire, nous utiliserons d’autres indices construits par l’OCDE. 
+Le statut social et culturel (ESCS) est un indice composite complexe issus du questionnaire élève. Il réutilise d’autres indices que sont le statut professionnel le plus élevé des parents (HISEI), le niveau d’éducation le plus élevé des parents (PAREDINT) et les biens possédés par le foyer (HOMEPOS). Le statut socio-économique sera donc considéré à partir du statut professionnel, du niveau d’éducation et du revenu du foyer. Lorsque l’un des trois indices utilisés affiche une valeur manquante, celle-ci a été remplacé par une prédiction. Dans le cas où plusieurs données étaient manquantes, la valeur NA a été retenue. Les indices ont été standardisés afin de permettre une contribution égale de chaque pays de l’OCDE. La moyenne de l’indice ESCS est à 0 tandis que sont écart-type est à 1. 
+
+Pour les variables concernant les notes des élèves lors des épreuves PISA en mathématiques, science et lecture, l’étude se basera sur les moyennes des 10 valeurs plausibles estimées par l’OCDE (de type “PV…”) afin de standardiser les résultats obtenus par les élèves dans chaque domaines. Afin d’étudier les REE, notre étude utilisera 3 notes par élèves, et notamment celle en mathématiques,ainsi qu’une moyenne de ces notes.
+
+Pour estimer le bien-être des élèves des pays de l’OCDE, nous utliserons l’indice de bien-être ressenti durant les jours précédants (EXPWB). Cet indice est construit à partir de la question WB178, du questionnaire sur le bien-être. L’indice s’affiche comme manquant lorsque l’élève n’a pas répondu “Oui” à la question “La journée d’hier était-elle une journée comme les autres ?”
 
 
-```{r}
-taille = floor(nrow(data)*0.05)
-data_ech <- data[sample.int(nrow(data), taille), ]
-```
+Note : les indices suivants peuvent être étudiés dans un deuxième temps afin d’élargir l’analyse et de comprendre quels éléments influencent plus particulièrement les REE comme le harcèlement, l’usage croissant des ordinateurs, etc.
+D’autres variables et indices peuvent être retenu pour expliquer la REE telles que l’indice d’anxiété concernant les mathématiques (ANXMAT), l’indice sur le sentiment d’appartenance à l’école (BELONG), l’indice de harcèlement (BULLIED) ou encore l’indice d’utilisation des appareils numériques dans les différents cours (ICTSUBJ).
+
+L’indice sur l’anxiété ressentie concernant les cours de mathématiques (ANXMAT) permet d’approfondir l’analyse de l’indice de soutien de l’enseignant de mathématiques. Il est construit à partir de la question ST292 concernant la crainte des difficultés en cours de mathématiques ou la crainte de l’échec. (voir PISA 2021 pour la méthodologie)
+
+L’indice sur le sentiment d’appartenance (BELONG), représente le sentiment d’appartenance de l’élève à son école ainsi que l’existence de relations avec d’autres à l’école (ST034). (voir PISA 2018 pour méthodologie)
+
+L’indice sur le harcèlement (BULLIED) repose sur la fréquence de plusieurs signes de harcèlement durant les 12 derniers mois (ST038), d’après les élèves. (voir PISA 2018 pour méthodologie)
+
+L’indice sur l’utilisation des technologies de l’information et de la communication (TIC) en rapport avec la matière enseignée (ICTSUBJ) est construit à partir de la question IC173. Cette question concerne la fréquence d’utilisation des TIC.
+
+Lien pour plus de détails méthodologiques concernant les indices construits par l’OCDE : https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/03/pisa-2022-technical-report_599753f0/01820d6d-en.pdf
 
 
-## Intro blabla
-
-
-### Sélection et gestion des variables
-
---blabla sélection de variables
-
-On décide ici de dicerner plusieurs types de variables, notamment celles en lien direct avec l'enseignent, celles concernant les cours de mathématiques, celles concernant la créativité, et les autres.
-
-On les conserve toute et on aura l'occasion de créer des jeux de données distincts selon les types de variables.
-
-Celles-ci seront nos variables explicatives.
-
-```{r}
+```{r, echo=False} 
 Notes <- data_ech %>% select(starts_with("PV"))
 Notes_NA <- data_ech %>% select(starts_with("PV"))
 Notes_NA <-lapply(Notes_NA, as.numeric)
 moyennes_NA <- lapply(Notes_NA, mean, na.rm = FALSE)
 ```
 
-```{r}
+```{r, echo=False} 
 matieres <- c(
   "MATH", #Mathématiques générales
   "READ", #Lecture
@@ -84,7 +112,7 @@ matieres <- c(
 
 Calculons toutes les moyennes des élèves :
 
-```{r}
+```{r, echo=False} 
 Notes_moyennes <- as.data.frame(
   sapply(matieres, function(m) {
     vars <- paste0("PV", 1:10, m)
@@ -97,7 +125,7 @@ colnames(Notes_moyennes) <- paste0("MOY_", matieres)
 Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
 ```
 
-```{r}
+```{r, echo=False} 
 vars_collector <- c("RELATST","TEACHSUP","ESCS","ST016Q01NA","ST272Q01JA", "EXPWB")
 
 vars_etude <- vars_collector[vars_collector %in% names(data_ech)]
@@ -114,7 +142,7 @@ Par ailleurs, les données de réponses aux questions sont décrites comme une e
 
 Regardons maintenant les types de nos variables :
 
-```{r}
+```{r, echo=False} 
 #| echo: true
 #| output: false
 str(data_ech_etude)
@@ -122,7 +150,7 @@ str(data_ech_etude)
 
 On ne remarque pas de gros problème au sein nos types de variables. On peut malgré tout convertir en facteur celles qui ne sont pas destinées à élaborer des calculs.
 
-```{r}
+```{r, echo=False} 
 vars_factor <- c(
   "ST004D01T"
 )
@@ -134,7 +162,7 @@ data_ech_etude[, vars_factor] <- lapply(data_ech_etude[, vars_factor], factor)
 
 Etudions les valeurs manquantes selon le pays des individus étudiés afin de mieux nous préparer à l'analyse monovariée :
 
-```{r}
+```{r, echo=False} 
 prop_NA_par_ligne <- rowMeans(is.na(data_ech))
 
 pct_NA_par_pays <- tapply(prop_NA_par_ligne, data_ech$CNT, mean) * 100
@@ -152,7 +180,7 @@ barplot(
 ```
 Le nombre de pays étant important, on peut plus simplement regrouper les pays selon le pourcentage de possession de valeurs manquantes. On établit 3 groupes : le premier entre 0 et 40% de valeurs manquantes, le deuxième entre 40 et 60% et le dernier entre 60 et 100%.
 
-```{r}
+```{r, echo=False} 
 groupes <- cut(
   pct_NA_par_pays,
   breaks = c(-Inf, 40, 60, Inf),
@@ -175,7 +203,7 @@ barplot(
 On peut ainsi noter une grande quantité de valeurs manquantes qui nous pénalisera dans la suite de l'étude si on décide de simplement supprimer les données des étudiants qui ne répondent parfois pas à certaines question. On se proposera alors d'imputer les données par la moyenne. 
 
 
-```{r}
+```{r, echo=False} 
 # Sélection des variables quantitatives
 vars_quanti <- data_ech_etude %>%
   select(RELATST, TEACHSUP, ESCS,
@@ -200,16 +228,16 @@ data_ech_etude_imp[, names(vars_quanti_imp)] <- vars_quanti_imp
 -> à faire sur les indices RELATST et TEACHSUP
 
 
-```{r}
+```{r, echo=False} 
 describe(vars_quanti_imp)
 ```
-```{r}
+```{r, echo=False} 
 summary(data_ech_etude)
 ```
 
 
 #### distribution teachsup et relasts
-```{r}
+```{r, echo=False} 
 ggplot(data_ech_etude_imp, aes(x = TEACHSUP)) +
   geom_histogram(bins = 40) +
   theme_minimal()
@@ -219,7 +247,7 @@ ggplot(data_ech_etude_imp, aes(x = RELATST)) +
   theme_minimal()
 ```
 #### COmparaison selon le genre
-```{r}
+```{r, echo=False} 
 data_ech_etude_imp$ST004D01T <- as.factor(data_ech_etude_imp$ST004D01T)
 
 ggplot(data_ech_etude_imp, aes(x = ST004D01T, y = TEACHSUP)) +
@@ -231,7 +259,7 @@ ggplot(data_ech_etude_imp, aes(x = ST004D01T, y = RELATST)) +
   theme_minimal()
 ```
 #### Comparaison selon pays
-```{r}
+```{r, echo=False} 
 data_ech_etude_imp %>%
   group_by(CNT) %>%
   summarise(mean_RELATST = mean(RELATST),
@@ -252,7 +280,7 @@ Les reste contituera les variables explicatives
 
 
 
-```{r}
+```{r, echo=False} 
 pairs(
   data_ech_etude[, !(names(data_ech_etude) %in% "CNT")],
   pch = 19,
@@ -263,29 +291,29 @@ pairs(
 
 ## Ananlyse bivariée
 
-```{python}
+```{r, echo=False} 
 cor_mat <- cor(vars_quanti_imp)
 
 corrplot(cor_mat, method = "color", type = "upper")
 ```
 
-```{r}
+```{r, echo=False} 
 ggpairs(
   data_ech_etude %>% dplyr::select(-CNT)
 )
 ```
 
 #### corrélation teachsup et relasts
-```{r}
+```{r, echo=False} 
 cor(data_ech_etude_imp$TEACHSUP, data_ech_etude_imp$RELATST)
 ```
 #### liens avec performances scolaires
-```{r}
+```{r, echo=False} 
 cor(data_ech_etude_imp$TEACHSUP, data_ech_etude_imp$MOY_GENERALE)
 cor(data_ech_etude_imp$RELATST, data_ech_etude_imp$MOY_GENERALE)
 ```
 
-```{r}
+```{r, echo=False} 
 cor(data_ech_etude_imp$TEACHSUP, data_ech_etude_imp$RELATST)
 cor(data_ech_etude_imp$TEACHSUP, data_ech_etude_imp$MOY_GENERALE)
 cor(data_ech_etude_imp$RELATST, data_ech_etude_imp$MOY_GENERALE)
@@ -294,21 +322,21 @@ cor(data_ech_etude_imp$RELATST, data_ech_etude_imp$EXPWB)
 
 
 #### regression linéaire
-```{r}
+```{r, echo=False} 
 modele1 <- lm(RELATST ~ TEACHSUP + ESCS + EXPWB + MOY_GENERALE,
               data = data_ech_etude_imp)
 
 summary(modele1)
 ```
 ## Analyse multivariée
-```{r}
+```{r, echo=False} 
 acp_data <- scale(vars_quanti_imp)
 
 res_pca <- PCA(acp_data, graph = FALSE)
 
 fviz_eig(res_pca)
 ```
-```{r}
+```{r, echo=False} 
 fviz_pca_var(res_pca, col.var = "contrib")
 ```
 ```{r}
@@ -319,7 +347,7 @@ fviz_pca_ind(res_pca,
 
 
 
-```{r}
+```{r, echo=False} 
 ggplot(data_ech_etude_imp, aes(x=CNT, y=RELATST)) +
   geom_boxplot() +
   theme_minimal() +
@@ -334,13 +362,13 @@ ggplot(data_ech_etude_imp, aes(x=CNT, y=TEACHSUP)) +
 ```
 
 ## Analyse des notes (en faire quoi ?)
-```{r}
+```{r, echo=False} 
 sum(is.na(Notes))
 ```
 
 On note que la variable qu'on cherche à expliquer se traduit par des notes dans différentes matières. Certaines notes sont vraissemblablement manquantes et l'on souligne 85600 valeurs manquantes sur 30687 élèves multipliés par 110 variables, soit (85600/(30687x110))x100 N.A en pourcentage.
 
-```{r}
+```{r, echo=False} 
 (85600/(30687*110))*100
 ```
 
@@ -354,7 +382,7 @@ D'abord on distingue toutes les matières dans le dataframe suivant :
 
 Etablissons maintenant quelques statistiques descriptives de nos moyennes par matières pour une première approche.
 
-```{r}
+```{r, echo=False} 
 stats_matieres <- t(
   sapply(
     Notes_moyennes[, grep("^MOY_", names(Notes_moyennes))],
@@ -378,7 +406,7 @@ stats_matieres
 
 On peut alors tracer par exemple l'histogramme représentant les moyennes en mathématiques en densité d'effectif, et y ajouter la courbe de la fonction de densité :
 
-```{r}
+```{r, echo=False} 
 hist(
   Notes_moyennes$MOY_MATH,
   breaks = 30,
@@ -393,7 +421,7 @@ lines(densite, col = "black",lwd=3)
 ```
 On s'apperçoit que les moyennes des élèves semblent tendre vers une loi gaussienne. On pourrait par la suite effectuer des tests d'adéquation tels que la droite de Henry ou un QQ-plot.
 
-```{r}
+```{r, echo=False} 
 qqnorm(Notes_moyennes$MOY_GENERALE)
 qqline(Notes_moyennes$MOY_GENERALE, col = "red")
 ```
@@ -402,7 +430,7 @@ Grâce à ces méthodes, on est capable d'identifier que la moyenne générale d
 
 Par ailleurs, on discrétise ces notes en classes pour obtenir des proportions d'élèves appartenant à une certaine classe/note.
 
-```{r}
+```{r, echo=False} 
 Notes_moy_class = data.frame(Notes_moyennes$MOY_MATH)
 Notes_moy_class <- Notes_moyennes %>%
   mutate(
@@ -434,7 +462,7 @@ tab_pct <- prop.table(tab) * 100
 
 On trace le diagramme en barre des 10 classes de moyennes de mathématiques :
 
-```{r}
+```{r, echo=False} 
 barplot(
   tab_pct,
   las = 2,                
@@ -449,7 +477,7 @@ On lit : "Environ 20% des élèves de l'échantillon possèdent une moyenne en m
 Plus précisément et avant les analyses multivariées, on peut par curiosité regarder si certains pays influencent cette moyenne.
 On crée le dataframe ;
 
-```{r}
+```{r, echo=False} 
 df_Moy_pays <- data.frame(
   MOY_GENERALE = Notes_moyennes$MOY_GENERALE,
   Code_pays = data_ech_etude$Code_pays,
@@ -463,7 +491,7 @@ df_Moy_pays <- data.frame(
 
 On réalise alors des statistiques descriptives une nouvelle fois ;
 
-```{r}
+```{r, echo=False} 
 stats_pays <- aggregate(
   MOY_GENERALE ~ Code_pays,
   data = df_Moy_pays,
@@ -491,7 +519,7 @@ Le calcul des statistiques classiques nous permet de montrer que les élèves de
 
 Maintenant, on se propose un bref apperçu de l'analyse de la moyenne générale selon l'appartenance au pays de l'OCDE.
 
-```{r}
+```{r, echo=False} 
 boxplot(
   MOY_GENERALE ~ Pays_OCDE,
   data = df_Moy_pays,
@@ -505,7 +533,7 @@ Graphiquement, les pays de l'OCDE montrent sur cet échantillon une moyenne gén
 
 D'autre part et plus généralement, on s'intéresse à toutes les moyennes les unes entre les autres. 
 
-```{r}
+```{r, echo=False} 
 cor_mat <- cor(
   Notes_moyennes[, grep("^MOY_", names(Notes_moyennes))],
   use = "pairwise.complete.obs"
@@ -529,7 +557,7 @@ On aurait pu s'attendre à de tels résultats. A noter tout de même que les moy
 
 Ensuite, on construit une boucle permettant d'étudier toutes les variables d'intérêt à notre guise à l'aide de diagrammes circulaires ;
 
-```{r}
+```{r, echo=False} 
 vars_a_visualiser <- names(data_ech_etude)[24:65]
 
 for (var in vars_a_visualiser) {
