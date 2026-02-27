@@ -24,9 +24,31 @@ nocite: "@*"
 
 # Introduction
 
-Problématique
+Accroche : Trouver une phrase, une statistique qui suscite de l’intérêt … Tout ceci mène à nous intéresser au sujet suivant : La relation entre élèves et enseignants (REE)
 
-* Comment se caractérise la relation entre élèves et enseignants et en quoi cette relation influence-t-elle la scolarité des élèves ?
+La REE est une notion peu commune que l’on peut se proposer de définir par construction. En effet, on entend tout d’abord par relation, un rapport, une liaison qui existe, est conçu comme existant entre deux choses, deux grandeurs, deux phénomènes. Celle-ci est dans notre cas à visée pédagogique, s’inscrit dans le cadre d’une transmission de savoir. Une relation peut également être de nature horizontale (si les deux phénomènes, objets sont considérés dans une même mesure) ou bien verticale si un parti à l’ascendant (pas forcément physique) sur l’autre. Dans notre cadre d’étude, la relation élève-enseignant sera verticale (le prof enseigne et l’élève écoute …). La relation peut également être d’ordre subjective ou objective. Toutefois, comme il est difficile de mesurer le degré de subjectivité/objectivité d’une relation, nous nous fierons seulement à l’enquête PISA qui nous a été fournie, même si les réponses peuvent être inconsciemment biaisées. Par ailleurs, nous définirons un élève comme un enfant, ou jeune, recevant l’enseignement d’un établissement scolaire ou d’une école spécialisée, âgé de 15 ans, pouvant habiter dans 85 pays différents. Il est également possible d’effectuer une typologie du type d’élève, c’est-à-dire de classer les élèves en fonction de plusieurs caractéristiques scolaires (amical, attentif, travailleur, participe beaucoup, …). Enfin, nous définirons un enseignant comme un adulte ayant pour fonction d’enseigner une matière et provenant de différents pays. Nous nous concentrerons ici particulièrement sur les professeurs de mathématiques puisque c’est la matière qui comporte le plus d’informations sur la qualité d’enseignement des professeurs ainsi que sur les caractéristiques des élèves dans ce cours. Finalement, la REE peut se définir comme les interactions ,qu’elles soient positives ou négatives, entretenues entre les élèves et les enseignants.
+
+Ainsi, pour étudier la REE il faut d’abord en proposer une mesure. Nous avons alors choisi de travailler sur seulement 2 types de REE : une REE globale qui comprend les questions générales sur le ressenti de l’élève quant à ses relations avec les enseignants mais reposant aussi sur des critères de créativité, et une REE en mathématiques caractérisée par la relation des élèves avec leur professeur en cours de mathématiques. Une potentielle limite de notre mesure est, que les résultats obtenus pour réaliser ces différents indices reposent uniquement sur les réponses données par les élèves sur leurs enseignants et non les enseignants sur leurs élèves.
+
+En outre, mesurer la REE nous permettra de mettre en exergue l’effet des REE sur différentes variables expliquées telles que la réussite scolaire des élèves, les divergences de REE selon les pays étudiés et leurs effets sur les notes en mathématiques par exemple. Ainsi, nous demanderons alors si:
+
+Problématique : Comment se caractérise la relation entre élèves et enseignants et en quoi cette relation influence-t-elle la scolarité des élèves ?
+
+SYNTHÈSE BIBLIOGRAPHIQUE (à fusionner avec l'intro): 
+
+L’article de Graciella Arrascue [1] réalise une synthèse des récentes études concernant l’influence de la relation enseignant-élève (REE) sur les résultats scolaires, les comportements et le développement socio-émotionnel des élèves, de la maternelle à la seconde. Sa méthodologie repose sur une revue de littérature exhaustive qui assimile des données issues de recherches qualitatives et quantitatives, telles que des études longitudinales, des observations directes en classe, des entretiens et des questionnaires standardisés (comme le Student Teacher Relationship Scale). Cette approche permet de croiser les perspectives des enseignants et des élèves sur l'ensemble du parcours scolaire . Les résultats indiquent qu’une REE de qualité peut être associée à un engagement scolaire plus élevé et à une meilleure satisfaction en classe, notamment par le soutien apporté aux élèves dans différentes situations d’apprentissage. Il convient toutefois de souligner que ces résultats reposent sur des associations statistiques et que leur portée peut varier selon les contextes scolaires étudiés.
+
+D’autres études montrent les bienfaits d’une bonne REE. L’article de Longobardi [2] analyse les effets d’une bonne REE sur la transition des élèves entre le collège et le lycée. Cette période est très compliquée pour les élèves en raison de changements personnels et émotionnels importants.
+Pour analyser statistiquement les effets, deux questionnaires sur la qualité des REE et sur leurs résultats scolaires ont été envoyés aux professeurs et aux élèves, l’un la dernière année de leur collège, et l’autre la première année de leur lycée. Après réception des deux questionnaires, les chercheurs ont mené une étude statistique basée sur des t-test, des régressions multiples et des statistiques descriptives.
+Les résultats mettent en évidence une association positive entre la qualité perçue de la REE et certains indicateurs de réussite scolaire, ainsi qu’une relation entre des interactions positives avec les enseignants et une diminution des comportements problématiques. À l’inverse, des relations perçues comme conflictuelles sont associées à davantage de difficultés comportementales.
+Les analyses de régression suggèrent que les évolutions de la qualité de la REE lors de la transition scolaire sont liées à des variations des performances académiques et de certains comportements, sans permettre d’établir un lien de causalité directe. 
+
+Nous pouvons aussi nous appuyer sur les recherches de Quin [3] qui a analysé le rôle des REE dans l’évolution de l'engagement scolaire des adolescents au fil du temps. L'engagement scolaire comprend les engagements comportemental, émotionnel et cognitif. Cette étude suit les mêmes étudiants sur plusieurs années pour observer l’évolution de leur engagement scolaire. Les analyses s’appuient sur des questionnaires auto-rapportés. 
+Les résultats montrent qu’une REE perçue comme positive est associée à une augmentation de l’engagement scolaire au fil du temps. Par ailleurs, les élèves déjà engagés tendent également à développer des relations plus favorables avec leurs enseignants, ce qui suggère une dynamique réciproque entre engagement et relation enseignant-élève.
+Ces résultats soulignent le rôle potentiel de la REE comme facteur de soutien de l’engagement scolaire, en particulier dans des périodes de transition, tout en nécessitant une interprétation prudente en raison de la nature déclarative des données.
+
+En synthèse, la littérature indique que la qualité de la relation enseignant-élève est fréquemment associée à de meilleurs résultats scolaires, à un engagement accru et à un développement socio-émotionnel plus favorable. Ces liens semblent s’appuyer sur des mécanismes tels que le soutien perçu, la confiance et le sentiment d’être considéré par l’enseignant. Cependant, l’intensité et la nature de ces associations varient selon les contextes, les niveaux scolaires et les méthodologies employées.
+
 
 Note : pour plus de chose à dire on peut rajouter les différence entre pays pour faire des sous parties ou faire des zoom sur des variables précise et ainsi rajouter des analyse univariée car très peu pour le moment
 
@@ -115,123 +137,8 @@ Les variables générées par ces questions peuvent être résumées par deux in
 
 
 Afin d'étudier la REE en elle-même, il est plus pertinent de baser nos analyses sur les réponses aux questions plutôt que sur les indices. En effet, la répartition de l'indice de qualité de la REE ne nous permet pas d'en déduire la qualité intrasèque de la relation (cf. historgramme en annexe). Les indices seront donc utiles ultérieurement afin de réaliser des comparaisons entre différentes caractéristiques des élèves. 
-```{r, echo = FALSE}
-# Pas sûre de concerver cette partie comme elle est résumée par la suite
-options(scipen = 999) # pour éviter les puissances de 10
 
-data_relatst <- data %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
-
-# Les enseignants étaient respectueux envers lui/elle
-data_relatst$ST267Q01JA <- factor(
-  data_relatst$ST267Q01JA,
-  levels = c(1, 2, 3, 4),
-  labels = c("Pas d'accord", "Pas d'accord", "D'accord", "D'accord"))
-data_relatst$ST267Q01JA <- droplevels(data_relatst$ST267Q01JA)
-
-ggplot(data_relatst, aes(x = ST267Q01JA)) +
-  geom_bar(fill = "darkcyan", width = 0.7) +
-  labs(title = "Les enseignants étaient respectueux envers lui/elle", x = "", y = "Nombre de répondants") +
-  geom_text(aes(y = after_stat(count / sum(count) * 100),
-                label = paste0(round(after_stat(count / sum(count) * 100), 1), "%")),
-                stat = "count", vjust = -0.3, size = 4) # permet l'affichage du pourcentage de réponses pour chaque barre
-
-# Les enseignants se préoccupent de l’élève en cas de retard
-data_relatst$ST267Q02JA <- factor(
-  data_relatst$ST267Q02JA,
-  levels = c(1, 2, 3, 4),
-  labels = c("Pas d'accord", "Pas d'accord", "D'accord", "D'accord"))
-data_relatst$ST267Q01JA <- droplevels(data_relatst$ST267Q01JA)
-
-ggplot(data_relatst, aes(x = ST267Q02JA)) +
-  geom_bar(fill = "darkcyan", width = 0.7) +
-  labs(title = "Les enseignants se préoccupent de l’élève en cas de retard", x = "", y = "Nombre de répondants") +
-  geom_text(aes(y = after_stat(count / sum(count) * 100),
-                label = paste0(round(after_stat(count / sum(count) * 100), 1), "%")),
-                stat = "count", vjust = -0.3, size = 4)
-
-# Les enseignants seraient heureux de le/la revoir 3 ans après
-data_relatst$ST267Q03JA <- factor(
-  data_relatst$ST267Q03JA,
-  levels = c(1, 2, 3, 4),
-  labels = c("Pas d'accord", "Pas d'accord", "D'accord", "D'accord"))
-data_relatst$ST267Q01JA <- droplevels(data_relatst$ST267Q01JA)
-
-ggplot(data_relatst, aes(x = ST267Q03JA)) +
-  geom_bar(fill = "darkcyan", width = 0.7) +
-  labs(title = "Les enseignants seraient heureux de le/la revoir 3 ans après", x = "", y = "Nombre de répondants") +
-  geom_text(aes(y = after_stat(count / sum(count) * 100),
-                label = paste0(round(after_stat(count / sum(count) * 100), 1), "%")),
-                stat = "count", vjust = -0.3, size = 4)
-
-# Les enseignants intimident l’élève
-data_relatst$ST267Q04JA <- factor(
-  data_relatst$ST267Q04JA,
-  levels = c(1, 2, 3, 4),
-  labels = c("Pas d'accord", "Pas d'accord", "D'accord", "D'accord"))
-data_relatst$ST267Q01JA <- droplevels(data_relatst$ST267Q01JA)
-
-ggplot(data_relatst, aes(x = ST267Q04JA)) +
-  geom_bar(fill = "coral", width = 0.7) +
-  labs(title = "Les enseignants intimident l’élève", x = "", y = "Nombre de répondants") +
-  geom_text(aes(y = after_stat(count / sum(count) * 100),
-                label = paste0(round(after_stat(count / sum(count) * 100), 1), "%")),
-                stat = "count", vjust = -0.3, size = 4)
-
-# Lorsque les enseignants me demandent comment je vais, ils sont vraiment intéressés par ma réponse
-data_relatst$ST267Q05JA <- factor(
-  data_relatst$ST267Q05JA,
-  levels = c(1, 2, 3, 4),
-  labels = c("Pas d'accord", "Pas d'accord", "D'accord", "D'accord"))
-data_relatst$ST267Q01JA <- droplevels(data_relatst$ST267Q01JA)
-
-ggplot(data_relatst, aes(x = ST267Q05JA)) +
-  geom_bar(fill = "darkcyan", width = 0.7) +
-  labs(title = "Lorsque les enseignants me demandent comment je vais, ils sont vraiment intéressés par ma réponse", x = "", y = "Nombre de répondants") +
-  geom_text(aes(y = after_stat(count / sum(count) * 100),
-                label = paste0(round(after_stat(count / sum(count) * 100), 1), "%")),
-                stat = "count", vjust = -0.3, size = 4)
-
-# Les enseignants étaient amicaux avec lui/elle
-data_relatst$ST267Q06JA <- factor(
-  data_relatst$ST267Q06JA,
-  levels = c(1, 2, 3, 4),
-  labels = c("Pas d'accord", "Pas d'accord", "D'accord", "D'accord"))
-data_relatst$ST267Q01JA <- droplevels(data_relatst$ST267Q01JA)
-ggplot(data_relatst, aes(x = ST267Q06JA)) +
-  geom_bar(fill = "darkcyan", width = 0.7) +
-  labs(title = "Les enseignants étaient amicaux avec lui/elle", x = "", y = "Nombre de répondants") +
-  geom_text(aes(y = after_stat(count / sum(count) * 100),
-                label = paste0(round(after_stat(count / sum(count) * 100), 1), "%")),
-                stat = "count", vjust = -0.3, size = 4)
-
-# Les enseignants se soucient du bien-être de l’élève
-data_relatst$ST267Q07JA <- factor(
-  data_relatst$ST267Q07JA,
-  levels = c(1, 2, 3, 4),
-  labels = c("Pas d'accord", "Pas d'accord", "D'accord", "D'accord"))
-data_relatst$ST267Q01JA <- droplevels(data_relatst$ST267Q01JA)
-ggplot(data_relatst, aes(x = ST267Q07JA)) +
-  geom_bar(fill = "darkcyan", width = 0.7) +
-  labs(title = "Les enseignants se soucient du bien-être de l’élève", x = "", y = "Nombre de répondants") +
-  geom_text(aes(y = after_stat(count / sum(count) * 100),
-                label = paste0(round(after_stat(count / sum(count) * 100), 1), "%")),
-                stat = "count", vjust = -0.3, size = 4)
-
-# Les enseignants sont méchants avec l’élève
-data_relatst$ST267Q08JA <- factor(
-  data_relatst$ST267Q08JA,
-  levels = c(1, 2, 3, 4),
-  labels = c("Pas d'accord", "Pas d'accord", "D'accord", "D'accord"))
-data_relatst$ST267Q01JA <- droplevels(data_relatst$ST267Q01JA) 
-
-ggplot(data_relatst, aes(x = ST267Q08JA)) +
-  geom_bar(fill = "coral", width = 0.7) +
-  labs(title = "Les enseignants sont méchants avec l’élève", x = "", y = "Nombre de répondants") +
-  geom_text(aes(y = after_stat(count / sum(count) * 100),
-                label = paste0(round(after_stat(count / sum(count) * 100), 1), "%")),
-                stat = "count", vjust = -0.3, size = 4)
-```
-```{r}
+```{r, echo=FALSE}
 data_relatst <- data %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
 
 # Questions sur la REE positive
@@ -274,8 +181,10 @@ ggplot(data_plot_p, aes(x = Question,
   ylim(0, 100)
 
 ```
+
 Parmi l'ensemble des élèves interrogés, on constate que moins de la moitié affirment avoir une relation positive avec leurs enseignants. 
-Or, environ 1/3 des élèves n'ont pas répondu à ces questions. Ce chiffre nous pousse à s'interroger sur le profil des élèves à l'orgine des non-réponse. 
+
+Or, environ 1/3 des élèves n'ont pas répondu à ces questions. Ce chiffre nous pousse à s'interroger sur le profil des élèves à l'orgine des non-réponses. 
 
 
 ```{r, echo = FALSE}
@@ -321,7 +230,8 @@ ggplot(data_plot_p, aes(x = Question,
   geom_text(aes(label = round(Pourcentage,1)), hjust = -0.2, size = 4) +
   ylim(0, 100)
 ```
-Si on ne prend pas en compte les non-réponses, on constate que la REE est largement positives, d'après les élèves. 
+
+Si on ne prend pas en compte les non-réponses, on constate que la REE est largement décrite comme étant positive, d'après les élèves. 
 
 ## Les profils des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant
 
@@ -329,7 +239,18 @@ A faire
 
 # 2 La REE influence-t-elle les résultats académiques des élèves ?
 
-Croisement avec les notes + catégorie socio-éco
+Plan dans l'idéal :
+
+## La corrélation entre une REE jugée positive et les notes de l'OCDE
+## L'influence de la REE sur les notes étant donnés les profils socio-économiques des élèves
+## Ne serait-ce pas le niveau académique qui influence la relation avec les enseignants ?
+
+Hypothèse : La REE influence les notes des élèves (meilleure est la relation meilleures sont les notes) mais les notes sont avant tout influencée par le profil socio-économique des élèves (ESCS). Il faudra donc essayer d'étudier l'influence de la REE dans les notes en excluant l'influence du milieu social. 
+
+Le statut social et culturel (ESCS) est un indice composite complexe issus du questionnaire élève. Il réutilise d’autres indices que sont le statut professionnel le plus élevé des parents (HISEI), le niveau d’éducation le plus élevé des parents (PAREDINT) et les biens possédés par le foyer (HOMEPOS). Le statut socio-économique sera donc considéré à partir du statut professionnel, du niveau d’éducation et du revenu du foyer. Lorsque l’un des trois indices utilisés affiche une valeur manquante, celle-ci a été remplacé par une prédiction. Dans le cas où plusieurs données étaient manquantes, la valeur NA a été retenue. Les indices ont été standardisés afin de permettre une contribution égale de chaque pays de l’OCDE. La moyenne de l’indice ESCS est à 0 tandis que sont écart-type est à 1. 
+
+Pour les variables concernant les notes des élèves lors des épreuves PISA en mathématiques, science et lecture, l’étude se basera sur les moyennes des 10 valeurs plausibles estimées par l’OCDE (de type “PV…”) afin de standardiser les résultats obtenus par les élèves dans chaque domaines. Afin d’étudier les REE, notre étude utilisera 3 notes par élèves, et notamment celle en mathématiques,ainsi qu’une moyenne de ces notes.
+
 
 on inclut ESCS dans les regression car la moyenne peut en effet s'expliquer par les REE mais il est evident qu'il l'est aussi par le contexte sociaux économique. Donc l'inclure permet de ne pas avoir des coeff trop élevé pour les indices REE et ainsi biaisé alors que les bonnes notes s'expliquent aussi par ESCS
 
@@ -428,7 +349,22 @@ colnames(Notes_moyennes) <- paste0("MOY_", matieres)
 
 Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
 ```
-## 3 La REE influence-t-elle le bien-être des élèves ? 
+
+## 3 Existe-t-il une relation entre la REE et le bien-être des élèves dans le cadre scolaire ? 
+
+Pour estimer le bien-être des élèves des pays de l’OCDE, nous utliserons l’indice de bien-être ressenti durant les jours précédants (EXPWB). Cet indice est construit à partir de la question WB178, du questionnaire sur le bien-être. L’indice s’affiche comme manquant lorsque l’élève n’a pas répondu “Oui” à la question “La journée d’hier était-elle une journée comme les autres ?”
+
+Les indices suivants peuvent être étudiés afin d’élargir l’analyse et de comprendre quels éléments influencent plus particulièrement les REE comme le harcèlement, l’usage croissant des ordinateurs, etc.
+D’autres variables et indices peuvent être retenu pour expliquer la REE telles que l’indice d’anxiété concernant les mathématiques (ANXMAT), l’indice sur le sentiment d’appartenance à l’école (BELONG), l’indice de harcèlement (BULLIED) ou encore l’indice d’utilisation des appareils numériques dans les différents cours (ICTSUBJ).
+
+L’indice sur l’anxiété ressentie concernant les cours de mathématiques (ANXMAT) permet d’approfondir l’analyse de l’indice de soutien de l’enseignant de mathématiques. Il est construit à partir de la question ST292 concernant la crainte des difficultés en cours de mathématiques ou la crainte de l’échec. (voir PISA 2021 pour la méthodologie)
+
+L’indice sur le sentiment d’appartenance (BELONG), représente le sentiment d’appartenance de l’élève à son école ainsi que l’existence de relations avec d’autres à l’école (ST034). (voir PISA 2018 pour méthodologie)
+
+L’indice sur le harcèlement (BULLIED) repose sur la fréquence de plusieurs signes de harcèlement durant les 12 derniers mois (ST038), d’après les élèves. (voir PISA 2018 pour méthodologie)
+
+L’indice sur l’utilisation des technologies de l’information et de la communication (TIC) en rapport avec la matière enseignée (ICTSUBJ) est construit à partir de la question IC173. Cette question concerne la fréquence d’utilisation des TIC.
+
 
 regression pour avoir l'impact d'une variable sur une autre (coeff beta)
 voir impact sur les indices en ajoutant ESCS (même raison que II)
