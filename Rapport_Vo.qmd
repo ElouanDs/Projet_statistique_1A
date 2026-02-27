@@ -19,23 +19,26 @@ geometry: top=1.5cm, bottom=1.5cm, left=2.5cm, right=2.5cm
 link-citations: true 
 nocite: "@*"
 ---
-Proposition problèmatique : La relation élève-enseignant constitue-t-elle un déterminant direct de la performance scolaire globale ou agit-elle principalement comme un facteur structurant du climat émotionnel et social des élèves, susceptible d’influencer indirectement leurs résultats académiques ?
+\renewcommand{\contentsname}{Table des matières}
+\tableofcontents
 
-pour plus de chose à dire on peut rajouter les différence entre pays pour faire des sous parties ou faire des zoom sur des variables précise et ainsi rajouter des analyse univariée car très peu pour le moment
-# Relation élèves enseignants
+# Introduction
 
-## Installation des packages 
+Problématique
 
-```{r} 
-#| include: false
-#| warning: false
-#| message: false
+* Comment se caractérise la relation entre élèves et enseignants et en quoi cette relation influence-t-elle la scolarité des élèves ?
 
-packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse")
+Note : pour plus de chose à dire on peut rajouter les différence entre pays pour faire des sous parties ou faire des zoom sur des variables précise et ainsi rajouter des analyse univariée car très peu pour le moment
 
-# on fait pas l'installation pour le render car bug
+
+```{r, echo = FALSE, include = FALSE} 
+# installation des packages
+#| include: FALSE
+#| warning: FALSE
+#| message: FALSE
+
+# packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse")
 # install.packages(packages) 
-
 library(tidyverse)
 library(psych)
 library(FactoMineR)
@@ -43,105 +46,14 @@ library(factoextra)
 library(corrplot)
 ```
 
-## Import des données
-
-```{r}
+```{r, echo = FALSE, include = FALSE}
+# Importation des données
 data <- readRDS("stu_qqq.rds")
 ```
 
 
-```{r}
-dim(data)
-```
-
-Par souci d'efficacité, le jeu de données contenant plus de 600.000 individus, nous élaborerons nos analyses exploratoires sur un échantillon de 5% de celui-ci.
-
-## Intro blabla
-
-### Gestion des notes
-```{r}
-Notes <- data %>% select(starts_with("PV"))
-Notes_NA <- data %>% select(starts_with("PV"))
-Notes_NA <-lapply(Notes_NA, as.numeric)
-moyennes_NA <- lapply(Notes_NA, mean, na.rm = FALSE)
-```
-
-```{r}
-matieres <- c(
-"MATH", #Mathématiques générales
-"READ", #Lecture
-"SCIE", #Science
-"MCCR", #Mathématiques : Changement et relation
-"MCQN", #Mathématiques : Quantitatif
-"MCSS", #Mathématiques : Espace et formes
-"MCUD", #Mathématiques : Incertitude et données
-"MPEM", #Mathématiques : Employer des concepts mathématiques, définitions et théorèmes
-"MPFS", #Mathématiques : Formuler des situations mathématiquement
-"MPIN", #Mathématiques : Interpréter, appliquer et analyser des sorties mathématiques
-"MPRE" #Mathématiques : Raisonnement
-)
-```
-
-```{r}
-Notes_moyennes <- as.data.frame(
-  sapply(matieres, function(m) {
-    vars <- paste0("PV", 1:10, m)
-    rowMeans(Notes[, vars], na.rm = TRUE)
-  })
-)
-
-colnames(Notes_moyennes) <- paste0("MOY_", matieres)
-
-Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
-```
-
-```{r}
-cor_mat <- cor(
-  Notes_moyennes[, grep("^MOY_", names(Notes_moyennes))],
-  use = "pairwise.complete.obs"
-)
-
-corrplot(
-  cor_mat,
-  method = "number",
-  type = "upper",
-  tl.col = "black",
-  tl.srt = 45,
-  number.cex = 0.8
-)
-
-```
-
-```{r}
-matieres <- c(
-  "MATH", #Mathématiques générales
-  "READ", #Lecture
-  "SCIE" #Science
-)
-```
-
-```{r}
-Notes_moyennes <- as.data.frame(
-  sapply(matieres, function(m) {
-    vars <- paste0("PV", 1:10, m)
-    rowMeans(Notes[, vars], na.rm = TRUE)
-  })
-)
-
-colnames(Notes_moyennes) <- paste0("MOY_", matieres)
-
-Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
-```
-### Sélection et gestion des variables
---blabla sélection de variables
-
-On décide ici de dicerner plusieurs types de variables, notamment celles en lien direct avec l'enseignent, celles concernant les cours de mathématiques, celles concernant la créativité, et les autres.
-
-On les conserve toute et on aura l'occasion de créer des jeux de données distincts selon les types de variables.
-
-Celles-ci seront nos variables explicatives.
-
-```{r}
+```{r, echo = FALSE, include = FALSE}
+# Selection des indices + variables explicatives
 vars_collector <- c("RELATST","TEACHSUP","ESCS","ST016Q01NA","ST272Q01JA", "EXPWB","BELONG","BULLIED","ANXMAT")
 
 vars_etude <- vars_collector[vars_collector %in% names(data)]
@@ -152,69 +64,7 @@ data_etude <- c(data[, c(1,26, idx_vars_etude), drop = FALSE],Notes_moyennes)
 data_etude <- as.data.frame(data_etude)
 ```
 
-
-
-Regardons maintenant les types de nos variables :
-
-```{r}
-#| echo: true
-#| output: false
-str(data_etude)
-```
-
-On ne remarque pas de gros problème au sein nos types de variables. On peut malgré tout convertir en facteur celles qui ne sont pas destinées à élaborer des calculs.
-
-```{r}
-
-data_etude$ST004D01T <- as.factor(data_etude$ST004D01T)
-```
-
-### Etude des valeurs manquantes - à mettre en annexe pour moi 
-
-Etudions les valeurs manquantes selon le pays des individus étudiés afin de mieux nous préparer à l'analyse monovariée :
-
-```{r}
-prop_NA_par_ligne <- rowMeans(is.na(data))
-
-pct_NA_par_pays <- tapply(prop_NA_par_ligne, data$CNT, mean) * 100
-
-pct_NA_par_pays_tri <- sort(pct_NA_par_pays)
-
-barplot(
-  pct_NA_par_pays_tri,
-  las = 2,              
-  col = "darkorange",
-  main = "Proportion moyenne de NA par pays",
-  ylab = "% de valeurs manquantes",
-  cex.names = 0.7
-)
-```
-Le nombre de pays étant important, on peut plus simplement regrouper les pays selon le pourcentage de possession de valeurs manquantes. On établit 3 groupes : le premier entre 0 et 40% de valeurs manquantes, le deuxième entre 40 et 60% et le dernier entre 60 et 100%.
-
-```{r}
-groupes <- cut(
-  pct_NA_par_pays,
-  breaks = c(-Inf, 40, 60, Inf),
-  labels = c("< 40%", "40-60%", "> 60%")
-)
-
-table(groupes)
-
-pct_groupes <- tapply(pct_NA_par_pays, groupes, mean)
-
-pct_groupes
-
-barplot(
-  pct_groupes,
-  col = 'orange',
-  main = "Proportion moyenne de NA par groupe de pays",
-  ylab = "% de valeurs manquantes"
-)
-```
-On peut ainsi noter une grande quantité de valeurs manquantes qui nous pénalisera dans la suite de l'étude si on décide de simplement supprimer les données des étudiants qui ne répondent parfois pas à certaines question. On se proposera alors d'imputer les données par la moyenne. 
-
-
-```{r}
+```{r, echo = FALSE, include = FALSE}
 # Sélection des variables quantitatives
 vars_quanti <- data_etude %>%
   select(RELATST, TEACHSUP, ESCS,
@@ -235,35 +85,265 @@ data_etude_imp <- data_etude
 data_etude_imp[, names(vars_quanti_imp)] <- vars_quanti_imp
 ```
 
-rajouter peut être une partie univariée
-## Partie 1 - Les indices REE influence le climat émoitionnel et sociale de l'élève ?
-```{r}
-vars_psy <- data_etude_imp %>%
-  select(RELATST, TEACHSUP, BELONG, BULLIED, ANXMAT)
-
-cor_psy <- cor(vars_psy)
-corrplot(cor_psy, method="number", type="upper")
+```{r, echo = FALSE, include = FALSE}
+# Conversion en facteur
+data_etude$ST004D01T <- as.factor(data_etude$ST004D01T)
 ```
 
-```{r}
-res_pca_psy <- PCA(scale(vars_psy), graph = FALSE)
+# 1 Caractériser la relation élève-enseignant
 
-fviz_eig(res_pca_psy)
-fviz_pca_var(res_pca_psy, col.var = "contrib")
+## Une étude de la relation au travers du vécu de l'élève
+
+Pour les variables rendant comptes de la REE, nous avons décidé de nous concentrer principalement sur deux questions du questionnaires élèves. Elles nous permettent de faire état de la REE, et plus particulierement de la relation avec les enseignants de mathématiques, d’après les affirmations des élèves. 
+La première question (ST267) s’intéresse à l’attention que le corps enseignant porte à l’élève : 
+* Les enseignants étaient respectueux envers lui/elle    (ST267Q01JA)
+* Les enseignants se préoccupent de l’élève en cas de retard    (ST267Q02JA)
+* Les enseignants seraient heureux de le/la revoir 3 ans après  (ST267Q03JA) 	
+* Les enseignants intimident l’élève   (ST267Q04JA)
+* Lorsque les enseignants me demandent comment je vais, ils sont vraiment intéressés par ma réponse (ST267Q05JA)
+* Les enseignants étaient amicaux avec lui/elle   (ST267Q06JA)
+* Les enseignants se soucient du bien-être de l’élève    (ST267Q07JA)
+* Les enseignants sont méchants avec l’élève	  (ST267Q08JA)
+La deuxième question (ST270) permet de se concentrer sur la REE en cours de mathématiques : 
+* Les enseignants s’inquiète de la scolarité de chacun de ses élèves	(ST270Q01JA)
+* Les enseignants s'intéressent à l’apprentissage de tous les élèves. (ST270Q01JA)
+* Les enseignants donnent de l’aide supplémentaire aux élèves qui en ont besoin. (ST270Q02JA)
+* Les enseignants aident les élèves dans leur apprentissage. (ST270Q03JA)
+* Les enseignants continuent à enseigner jusqu’à ce que les élèves comprennent. (ST270Q04JA)
+
+Les variables générées par ces questions peuvent être résumées par deux indices de l’OCDE qui nous intéressent dans l’étude de la REE. L’indice de qualité des relations entre élèves et enseignants (RELATST) permet de savoir lorsque l’élève fait l’état d’une meilleure relation que l’état moyen des pays de l’OCDE. Cet indice est réalisé à partir des réponses de la question 267. Le second indice concerne quant à lui la question 270 sur le soutien du professeur de mathématiques (TEACHSUP). Il fonctionne de la même manière que le premier indice, plus il est positif, plus l’élève affirme bénéficier d’un soutien de son enseignant plus important qu’en moyenne.
+
+
+Afin d'étudier la REE en elle-même, il est plus pertinent de baser nos analyses sur les réponses aux questions plutôt que sur les indices. En effet, la répartition de l'indice de qualité de la REE ne nous permet pas d'en déduire la qualité intrasèque de la relation (cf. historgramme en annexe). Les indices seront donc utiles ultérieurement afin de réaliser des comparaisons entre différentes caractéristiques des élèves. 
+```{r, echo = FALSE}
+# Pas sûre de concerver cette partie comme elle est résumée par la suite
+options(scipen = 999) # pour éviter les puissances de 10
+
+data_relatst <- data %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
+
+# Les enseignants étaient respectueux envers lui/elle
+data_relatst$ST267Q01JA <- factor(
+  data_relatst$ST267Q01JA,
+  levels = c(1, 2, 3, 4),
+  labels = c("Pas d'accord", "Pas d'accord", "D'accord", "D'accord"))
+data_relatst$ST267Q01JA <- droplevels(data_relatst$ST267Q01JA)
+
+ggplot(data_relatst, aes(x = ST267Q01JA)) +
+  geom_bar(fill = "darkcyan", width = 0.7) +
+  labs(title = "Les enseignants étaient respectueux envers lui/elle", x = "", y = "Nombre de répondants") +
+  geom_text(aes(y = after_stat(count / sum(count) * 100),
+                label = paste0(round(after_stat(count / sum(count) * 100), 1), "%")),
+                stat = "count", vjust = -0.3, size = 4) # permet l'affichage du pourcentage de réponses pour chaque barre
+
+# Les enseignants se préoccupent de l’élève en cas de retard
+data_relatst$ST267Q02JA <- factor(
+  data_relatst$ST267Q02JA,
+  levels = c(1, 2, 3, 4),
+  labels = c("Pas d'accord", "Pas d'accord", "D'accord", "D'accord"))
+data_relatst$ST267Q01JA <- droplevels(data_relatst$ST267Q01JA)
+
+ggplot(data_relatst, aes(x = ST267Q02JA)) +
+  geom_bar(fill = "darkcyan", width = 0.7) +
+  labs(title = "Les enseignants se préoccupent de l’élève en cas de retard", x = "", y = "Nombre de répondants") +
+  geom_text(aes(y = after_stat(count / sum(count) * 100),
+                label = paste0(round(after_stat(count / sum(count) * 100), 1), "%")),
+                stat = "count", vjust = -0.3, size = 4)
+
+# Les enseignants seraient heureux de le/la revoir 3 ans après
+data_relatst$ST267Q03JA <- factor(
+  data_relatst$ST267Q03JA,
+  levels = c(1, 2, 3, 4),
+  labels = c("Pas d'accord", "Pas d'accord", "D'accord", "D'accord"))
+data_relatst$ST267Q01JA <- droplevels(data_relatst$ST267Q01JA)
+
+ggplot(data_relatst, aes(x = ST267Q03JA)) +
+  geom_bar(fill = "darkcyan", width = 0.7) +
+  labs(title = "Les enseignants seraient heureux de le/la revoir 3 ans après", x = "", y = "Nombre de répondants") +
+  geom_text(aes(y = after_stat(count / sum(count) * 100),
+                label = paste0(round(after_stat(count / sum(count) * 100), 1), "%")),
+                stat = "count", vjust = -0.3, size = 4)
+
+# Les enseignants intimident l’élève
+data_relatst$ST267Q04JA <- factor(
+  data_relatst$ST267Q04JA,
+  levels = c(1, 2, 3, 4),
+  labels = c("Pas d'accord", "Pas d'accord", "D'accord", "D'accord"))
+data_relatst$ST267Q01JA <- droplevels(data_relatst$ST267Q01JA)
+
+ggplot(data_relatst, aes(x = ST267Q04JA)) +
+  geom_bar(fill = "coral", width = 0.7) +
+  labs(title = "Les enseignants intimident l’élève", x = "", y = "Nombre de répondants") +
+  geom_text(aes(y = after_stat(count / sum(count) * 100),
+                label = paste0(round(after_stat(count / sum(count) * 100), 1), "%")),
+                stat = "count", vjust = -0.3, size = 4)
+
+# Lorsque les enseignants me demandent comment je vais, ils sont vraiment intéressés par ma réponse
+data_relatst$ST267Q05JA <- factor(
+  data_relatst$ST267Q05JA,
+  levels = c(1, 2, 3, 4),
+  labels = c("Pas d'accord", "Pas d'accord", "D'accord", "D'accord"))
+data_relatst$ST267Q01JA <- droplevels(data_relatst$ST267Q01JA)
+
+ggplot(data_relatst, aes(x = ST267Q05JA)) +
+  geom_bar(fill = "darkcyan", width = 0.7) +
+  labs(title = "Lorsque les enseignants me demandent comment je vais, ils sont vraiment intéressés par ma réponse", x = "", y = "Nombre de répondants") +
+  geom_text(aes(y = after_stat(count / sum(count) * 100),
+                label = paste0(round(after_stat(count / sum(count) * 100), 1), "%")),
+                stat = "count", vjust = -0.3, size = 4)
+
+# Les enseignants étaient amicaux avec lui/elle
+data_relatst$ST267Q06JA <- factor(
+  data_relatst$ST267Q06JA,
+  levels = c(1, 2, 3, 4),
+  labels = c("Pas d'accord", "Pas d'accord", "D'accord", "D'accord"))
+data_relatst$ST267Q01JA <- droplevels(data_relatst$ST267Q01JA)
+ggplot(data_relatst, aes(x = ST267Q06JA)) +
+  geom_bar(fill = "darkcyan", width = 0.7) +
+  labs(title = "Les enseignants étaient amicaux avec lui/elle", x = "", y = "Nombre de répondants") +
+  geom_text(aes(y = after_stat(count / sum(count) * 100),
+                label = paste0(round(after_stat(count / sum(count) * 100), 1), "%")),
+                stat = "count", vjust = -0.3, size = 4)
+
+# Les enseignants se soucient du bien-être de l’élève
+data_relatst$ST267Q07JA <- factor(
+  data_relatst$ST267Q07JA,
+  levels = c(1, 2, 3, 4),
+  labels = c("Pas d'accord", "Pas d'accord", "D'accord", "D'accord"))
+data_relatst$ST267Q01JA <- droplevels(data_relatst$ST267Q01JA)
+ggplot(data_relatst, aes(x = ST267Q07JA)) +
+  geom_bar(fill = "darkcyan", width = 0.7) +
+  labs(title = "Les enseignants se soucient du bien-être de l’élève", x = "", y = "Nombre de répondants") +
+  geom_text(aes(y = after_stat(count / sum(count) * 100),
+                label = paste0(round(after_stat(count / sum(count) * 100), 1), "%")),
+                stat = "count", vjust = -0.3, size = 4)
+
+# Les enseignants sont méchants avec l’élève
+data_relatst$ST267Q08JA <- factor(
+  data_relatst$ST267Q08JA,
+  levels = c(1, 2, 3, 4),
+  labels = c("Pas d'accord", "Pas d'accord", "D'accord", "D'accord"))
+data_relatst$ST267Q01JA <- droplevels(data_relatst$ST267Q01JA) 
+
+ggplot(data_relatst, aes(x = ST267Q08JA)) +
+  geom_bar(fill = "coral", width = 0.7) +
+  labs(title = "Les enseignants sont méchants avec l’élève", x = "", y = "Nombre de répondants") +
+  geom_text(aes(y = after_stat(count / sum(count) * 100),
+                label = paste0(round(after_stat(count / sum(count) * 100), 1), "%")),
+                stat = "count", vjust = -0.3, size = 4)
 ```
-## Partie II - Les indices REE influence les résultats acadèmiques ?
+```{r}
+data_relatst <- data %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
+
+# Questions sur la REE positive
+data_relatst$ST267Q01JA <- ifelse(data_relatst$ST267Q01JA %in% c(3,4), 1, 0)
+data_relatst$ST267Q02JA <- ifelse(data_relatst$ST267Q02JA %in% c(3,4), 1, 0)
+data_relatst$ST267Q03JA <- ifelse(data_relatst$ST267Q03JA %in% c(3,4), 1, 0)
+data_relatst$ST267Q04JA <- ifelse(data_relatst$ST267Q04JA %in% c(1,2), 1, 0)
+data_relatst$ST267Q05JA <- ifelse(data_relatst$ST267Q05JA %in% c(3,4), 1, 0)
+data_relatst$ST267Q06JA <- ifelse(data_relatst$ST267Q06JA %in% c(3,4), 1, 0)
+data_relatst$ST267Q07JA <- ifelse(data_relatst$ST267Q07JA %in% c(3,4), 1, 0)
+data_relatst$ST267Q08JA <- ifelse(data_relatst$ST267Q08JA %in% c(1,2), 1, 0)
+
+data_long_p <- data_relatst %>%
+  select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q05JA, ST267Q06JA, ST267Q07JA) %>%
+  pivot_longer(cols = everything(),
+               names_to = "Question",
+               values_to = "Relation_positive")
+
+data_plot_p <- data_long_p %>%
+  group_by(Question) %>%
+  summarise(Pourcentage = mean(Relation_positive, na.rm = TRUE) * 100)
+
+ggplot(data_plot_p, aes(x = Question,
+                      y = Pourcentage)) +
+  geom_col(fill = "darkcyan", width = 0.7) +
+  coord_flip() +
+  scale_x_discrete(labels = c(
+    ST267Q01JA = "Les enseignants sont respectueux",
+    ST267Q02JA = "Les enseignants font attention aux élèves en cas de retard",
+    ST267Q03JA = "Les enseignants seront heureux de revoir l'élève dans 3 ans",
+    ST267Q04JA = "Les enseignants ne sont pas intimidants",
+    ST267Q05JA = "Les enseignants s'intéressent aux élèves",
+    ST267Q06JA = "Les enseignants sont amicaux",
+    ST267Q07JA = "Les enseignants se soucient du bien-être des élèves",
+    ST267Q08JA = "Les enseignants ne sont pas méchants")) +
+  labs(title = "Réponses indiquant une relation positive",
+       x = "",
+       y = "Pourcentage (%)", caption = "Note de lecture : 49% des élèves interrogés affirment que leurs enseignants sont respectueux envers eux. \nSource : Enquête PISA 2022, OCDE") +
+  geom_text(aes(label = round(Pourcentage,1)), hjust = -0.2, size = 4) +
+  ylim(0, 100)
+
+```
+Parmi l'ensemble des élèves interrogés, on constate que moins de la moitié affirment avoir une relation positive avec leurs enseignants. 
+Or, environ 1/3 des élèves n'ont pas répondu à ces questions. Ce chiffre nous pousse à s'interroger sur le profil des élèves à l'orgine des non-réponse. 
+
+
+```{r, echo = FALSE}
+data_relatst <- data %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
+data_relatst <- na.omit(data_relatst)
+# Questions sur la REE positive
+
+data_relatst$ST267Q01JA <- ifelse(data_relatst$ST267Q01JA %in% c(3,4), 1, 0)
+data_relatst$ST267Q02JA <- ifelse(data_relatst$ST267Q02JA %in% c(3,4), 1, 0)
+data_relatst$ST267Q03JA <- ifelse(data_relatst$ST267Q03JA %in% c(3,4), 1, 0)
+data_relatst$ST267Q04JA <- ifelse(data_relatst$ST267Q04JA %in% c(1,2), 1, 0)
+data_relatst$ST267Q05JA <- ifelse(data_relatst$ST267Q05JA %in% c(3,4), 1, 0)
+data_relatst$ST267Q06JA <- ifelse(data_relatst$ST267Q06JA %in% c(3,4), 1, 0)
+data_relatst$ST267Q07JA <- ifelse(data_relatst$ST267Q07JA %in% c(3,4), 1, 0)
+data_relatst$ST267Q08JA <- ifelse(data_relatst$ST267Q08JA %in% c(1,2), 1, 0)
+
+data_long_p <- data_relatst %>%
+  select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q05JA, ST267Q06JA, ST267Q07JA) %>%
+  pivot_longer(cols = everything(),
+               names_to = "Question",
+               values_to = "Relation_positive")
+
+data_plot_p <- data_long_p %>%
+  group_by(Question) %>%
+  summarise(Pourcentage = mean(Relation_positive, na.rm = TRUE) * 100)
+
+ggplot(data_plot_p, aes(x = Question,
+                      y = Pourcentage)) +
+  geom_col(fill = "darkcyan", width = 0.7) +
+  coord_flip() +
+  scale_x_discrete(labels = c(
+    ST267Q01JA = "Les enseignants sont respectueux",
+    ST267Q02JA = "Les enseignants font attention aux élèves en cas de retard",
+    ST267Q03JA = "Les enseignants seront heureux de revoir l'élève dans 3 ans",
+    ST267Q04JA = "Les enseignants ne sont pas intimidants",
+    ST267Q05JA = "Les enseignants s'intéressent aux élèves",
+    ST267Q06JA = "Les enseignants sont amicaux",
+    ST267Q07JA = "Les enseignants se soucient du bien-être des élèves",
+    ST267Q08JA = "Les enseignants ne sont pas méchants")) +
+  labs(title = "Réponses indiquant une relation positive",
+       x = "",
+       y = "Pourcentage (%)", caption = "Note de lecture : 85% des élèves ayant répondus affirment que leurs enseignants sont respectueux envers eux. \nSource : Enquête PISA 2022, OCDE") +
+  geom_text(aes(label = round(Pourcentage,1)), hjust = -0.2, size = 4) +
+  ylim(0, 100)
+```
+Si on ne prend pas en compte les non-réponses, on constate que la REE est largement positives, d'après les élèves. 
+
+## Les profils des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant
+
+A faire
+
+# 2 La REE influence-t-elle les résultats académiques des élèves ?
+
+Croisement avec les notes + catégorie socio-éco
+
 on inclut ESCS dans les regression car la moyenne peut en effet s'expliquer par les REE mais il est evident qu'il l'est aussi par le contexte sociaux économique. Donc l'inclure permet de ne pas avoir des coeff trop élevé pour les indices REE et ainsi biaisé alors que les bonnes notes s'expliquent aussi par ESCS
-```{r}
+
+```{r, echo = FALSE, include = FALSE}
 cor(data_etude_imp$TEACHSUP, data_etude_imp$MOY_MATH)
 cor(data_etude_imp$RELATST, data_etude_imp$MOY_MATH)
 ```
-```{r}
+```{r, echo = FALSE, include = FALSE}
 modele_direct <- lm(MOY_MATH ~ TEACHSUP + RELATST + ESCS,
                     data = data_etude_imp)
 
 summary(modele_direct)
 ```
-```{r}
+```{r, echo = FALSE, include = FALSE}
 data_etude_imp %>%
   group_by(CNT) %>%
   summarise(
@@ -272,29 +352,193 @@ data_etude_imp %>%
   )
 ```
 
-## partie III - Est-ce que cela a un effet indirect ?
+```{r, echo = FALSE, include = FALSE}
+## Gestion des notes
+Notes <- data %>% select(starts_with("PV"))
+Notes_NA <- data %>% select(starts_with("PV"))
+Notes_NA <-lapply(Notes_NA, as.numeric)
+moyennes_NA <- lapply(Notes_NA, mean, na.rm = FALSE)
+```
+
+```{r, echo = FALSE, include = FALSE}
+matieres <- c(
+"MATH", #Mathématiques générales
+"READ", #Lecture
+"SCIE", #Science
+"MCCR", #Mathématiques : Changement et relation
+"MCQN", #Mathématiques : Quantitatif
+"MCSS", #Mathématiques : Espace et formes
+"MCUD", #Mathématiques : Incertitude et données
+"MPEM", #Mathématiques : Employer des concepts mathématiques, définitions et théorèmes
+"MPFS", #Mathématiques : Formuler des situations mathématiquement
+"MPIN", #Mathématiques : Interpréter, appliquer et analyser des sorties mathématiques
+"MPRE" #Mathématiques : Raisonnement
+)
+```
+
+```{r, echo = FALSE, include = FALSE}
+Notes_moyennes <- as.data.frame(
+  sapply(matieres, function(m) {
+    vars <- paste0("PV", 1:10, m)
+    rowMeans(Notes[, vars], na.rm = TRUE)
+  })
+)
+
+colnames(Notes_moyennes) <- paste0("MOY_", matieres)
+
+Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
+```
+
+```{r, echo = FALSE}
+cor_mat <- cor(
+  Notes_moyennes[, grep("^MOY_", names(Notes_moyennes))],
+  use = "pairwise.complete.obs"
+)
+
+corrplot(
+  cor_mat,
+  method = "color",
+  type = "upper",
+  col = colorRampPalette(c("#2c7bb6", "white", "#d7191c"))(200),
+  tl.col = "black",
+  tl.srt = 45,
+  addCoef.col = "black",
+  number.cex = 0.7,
+  diag = FALSE
+)
+```
+
+```{r, echo = FALSE, include = FALSE}
+matieres <- c(
+  "MATH", #Mathématiques générales
+  "READ", #Lecture
+  "SCIE" #Science
+)
+```
+
+```{r, echo = FALSE, include = FALSE}
+Notes_moyennes <- as.data.frame(
+  sapply(matieres, function(m) {
+    vars <- paste0("PV", 1:10, m)
+    rowMeans(Notes[, vars], na.rm = TRUE)
+  })
+)
+
+colnames(Notes_moyennes) <- paste0("MOY_", matieres)
+
+Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
+```
+## 3 La REE influence-t-elle le bien-être des élèves ? 
+
 regression pour avoir l'impact d'une variable sur une autre (coeff beta)
 voir impact sur les indices en ajoutant ESCS (même raison que II)
 ne pas regarder que R² car celui-ci pas efficace (modèle trop compliqué pour avoir R² efficace) regarder surtout beta et p-value
-```{r}
+
+```{r, echo = FALSE, include = FALSE}
 modele_anx <- lm(ANXMAT ~ TEACHSUP + RELATST + ESCS,
                  data = data_etude_imp)
 
 summary(modele_anx)
 ```
 
-```{r}
+```{r, echo = FALSE, include = FALSE}
 modele_belong <- lm(BELONG ~ TEACHSUP + RELATST + ESCS,
                     data = data_etude_imp)
 
 summary(modele_belong)
 ```
 
-```{r}
+```{r, echo = FALSE, include = FALSE}
 modele_tout <- lm(MOY_MATH ~ TEACHSUP + RELATST +
                          ANXMAT + BELONG + ESCS,
                        data = data_etude_imp)
 
 summary(modele_tout)
 ```
+
+```{r, echo = FALSE}
+vars_psy <- data_etude_imp %>%
+  select(RELATST, TEACHSUP, BELONG, BULLIED, ANXMAT)
+
+cor_psy <- cor(vars_psy)
+
+corrplot(
+  cor_psy,
+  method = "color",
+  type = "upper",
+  col = colorRampPalette(c("#2c7bb6", "white", "#d7191c"))(200),
+  tl.col = "black",
+  tl.srt = 45,
+  addCoef.col = "black",
+  number.cex = 0.7,
+  diag = FALSE
+)
+```
+
+```{r, echo = FALSE, include = FALSE}
+res_pca_psy <- PCA(scale(vars_psy), graph = FALSE)
+
+fviz_eig(res_pca_psy)
+```
+```{r, echo = FALSE}
+fviz_pca_var(
+  res_pca_psy,
+  col.var = "contrib",
+  gradient.cols = c("grey90", "grey60", "black"),
+  repel = TRUE)
+```
+
+
+# Annexe
+
+### Valeurs manquantes
+
+```{r, echo = FALSE}
+# Etude des NA selon les pays
+prop_NA_par_ligne <- rowMeans(is.na(data))
+
+pct_NA_par_pays <- tapply(prop_NA_par_ligne, data$CNT, mean) * 100
+
+pct_NA_par_pays_tri <- sort(pct_NA_par_pays)
+
+barplot(
+  pct_NA_par_pays_tri,
+  las = 2,              
+  col = "darkorange",
+  main = "Proportion moyenne de NA par pays",
+  ylab = "% de valeurs manquantes",
+  cex.names = 0.7
+)
+```
+
+```{r, echo = FALSE}
+# Le nombre de pays étant important, on peut plus simplement regrouper les pays selon le pourcentage de possession de valeurs manquantes. On établit 3 groupes : le premier entre 0 et 40% de valeurs manquantes, le deuxième entre 40 et 60% et le dernier entre 60 et 100%.
+
+groupes <- cut(
+  pct_NA_par_pays,
+  breaks = c(-Inf, 40, 60, Inf),
+  labels = c("< 40%", "40-60%", "> 60%")
+)
+
+table(groupes)
+
+pct_groupes <- tapply(pct_NA_par_pays, groupes, mean)
+
+pct_groupes
+
+barplot(
+  pct_groupes,
+  col = 'orange',
+  main = "Proportion moyenne de NA par groupe de pays",
+  ylab = "% de valeurs manquantes"
+)
+```
+
+On peut ainsi noter une grande quantité de valeurs manquantes qui nous pénalise au sein de l'étude si on décide de simplement supprimer les données des étudiants qui ne répondent parfois pas à certaines question. On se proposera alors d'imputer les données par la moyenne. 
+
+```{r, echo = FALSE}
+# Histogramme de la répartition de l'indice de qualité de la REE
+hist(data_etude$RELATST, main = "Répartition de l'indice de qualité de la REE", xlab = "indice", ylab = "fréquence")
+```
+
 
