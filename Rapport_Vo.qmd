@@ -73,6 +73,42 @@ library(corrplot)
 data <- readRDS("stu_qqq.rds")
 ```
 
+```{r, echo = FALSE, include = FALSE}
+matieres <- c(
+"MATH", #Mathématiques générales
+"READ", #Lecture
+"SCIE", #Science
+"MCCR", #Mathématiques : Changement et relation
+"MCQN", #Mathématiques : Quantitatif
+"MCSS", #Mathématiques : Espace et formes
+"MCUD", #Mathématiques : Incertitude et données
+"MPEM", #Mathématiques : Employer des concepts mathématiques, définitions et théorèmes
+"MPFS", #Mathématiques : Formuler des situations mathématiquement
+"MPIN", #Mathématiques : Interpréter, appliquer et analyser des sorties mathématiques
+"MPRE" #Mathématiques : Raisonnement
+)
+```
+
+```{r, echo = FALSE, include = FALSE}
+## Gestion des notes
+Notes <- data %>% select(starts_with("PV"))
+Notes_NA <- data %>% select(starts_with("PV"))
+Notes_NA <-lapply(Notes_NA, as.numeric)
+moyennes_NA <- lapply(Notes_NA, mean, na.rm = FALSE)
+```
+
+```{r, echo = FALSE, include = FALSE}
+Notes_moyennes <- as.data.frame(
+  sapply(matieres, function(m) {
+    vars <- paste0("PV", 1:10, m)
+    rowMeans(Notes[, vars], na.rm = TRUE)
+  })
+)
+
+colnames(Notes_moyennes) <- paste0("MOY_", matieres)
+
+Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
+```
 
 ```{r, echo = FALSE, include = FALSE}
 # Selection des indices + variables explicatives
@@ -111,6 +147,26 @@ data_etude_imp[, names(vars_quanti_imp)] <- vars_quanti_imp
 # Conversion en facteur
 data_etude$ST004D01T <- as.factor(data_etude$ST004D01T)
 ```
+
+```{r, echo = FALSE, include = FALSE}
+cor(data_etude_imp$TEACHSUP, data_etude_imp$MOY_MATH)
+cor(data_etude_imp$RELATST, data_etude_imp$MOY_MATH)
+```
+```{r, echo = FALSE, include = FALSE}
+modele_direct <- lm(MOY_MATH ~ TEACHSUP + RELATST + ESCS,
+                    data = data_etude_imp)
+
+summary(modele_direct)
+```
+```{r, echo = FALSE, include = FALSE}
+data_etude_imp %>%
+  group_by(CNT) %>%
+  summarise(
+    corr_TEACH = cor(TEACHSUP, MOY_MATH),
+    corr_REL = cor(RELATST, MOY_MATH)
+  )
+```
+
 
 # 1 Caractériser la relation élève-enseignant
 
@@ -239,7 +295,7 @@ A faire
 
 # 2 La REE influence-t-elle les résultats académiques des élèves ?
 
-Plan dans l'idéal :
+Plan dans l'idéal (spoiler, ça marche pas du tout):
 
 ## La corrélation entre une REE jugée positive et les notes de l'OCDE
 ## L'influence de la REE sur les notes étant donnés les profils socio-économiques des élèves
@@ -254,60 +310,24 @@ Pour les variables concernant les notes des élèves lors des épreuves PISA en 
 
 on inclut ESCS dans les regression car la moyenne peut en effet s'expliquer par les REE mais il est evident qu'il l'est aussi par le contexte sociaux économique. Donc l'inclure permet de ne pas avoir des coeff trop élevé pour les indices REE et ainsi biaisé alors que les bonnes notes s'expliquent aussi par ESCS
 
-```{r, echo = FALSE, include = FALSE}
+```{r}
 cor(data_etude_imp$TEACHSUP, data_etude_imp$MOY_MATH)
 cor(data_etude_imp$RELATST, data_etude_imp$MOY_MATH)
 ```
-```{r, echo = FALSE, include = FALSE}
+```{r}
 modele_direct <- lm(MOY_MATH ~ TEACHSUP + RELATST + ESCS,
                     data = data_etude_imp)
 
 summary(modele_direct)
 ```
-```{r, echo = FALSE, include = FALSE}
+
+```{r}
 data_etude_imp %>%
   group_by(CNT) %>%
   summarise(
     corr_TEACH = cor(TEACHSUP, MOY_MATH),
     corr_REL = cor(RELATST, MOY_MATH)
   )
-```
-
-```{r, echo = FALSE, include = FALSE}
-## Gestion des notes
-Notes <- data %>% select(starts_with("PV"))
-Notes_NA <- data %>% select(starts_with("PV"))
-Notes_NA <-lapply(Notes_NA, as.numeric)
-moyennes_NA <- lapply(Notes_NA, mean, na.rm = FALSE)
-```
-
-```{r, echo = FALSE, include = FALSE}
-matieres <- c(
-"MATH", #Mathématiques générales
-"READ", #Lecture
-"SCIE", #Science
-"MCCR", #Mathématiques : Changement et relation
-"MCQN", #Mathématiques : Quantitatif
-"MCSS", #Mathématiques : Espace et formes
-"MCUD", #Mathématiques : Incertitude et données
-"MPEM", #Mathématiques : Employer des concepts mathématiques, définitions et théorèmes
-"MPFS", #Mathématiques : Formuler des situations mathématiquement
-"MPIN", #Mathématiques : Interpréter, appliquer et analyser des sorties mathématiques
-"MPRE" #Mathématiques : Raisonnement
-)
-```
-
-```{r, echo = FALSE, include = FALSE}
-Notes_moyennes <- as.data.frame(
-  sapply(matieres, function(m) {
-    vars <- paste0("PV", 1:10, m)
-    rowMeans(Notes[, vars], na.rm = TRUE)
-  })
-)
-
-colnames(Notes_moyennes) <- paste0("MOY_", matieres)
-
-Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
 ```
 
 ```{r, echo = FALSE}
@@ -329,26 +349,30 @@ corrplot(
 )
 ```
 
-```{r, echo = FALSE, include = FALSE}
-matieres <- c(
-  "MATH", #Mathématiques générales
-  "READ", #Lecture
-  "SCIE" #Science
-)
+
+```{r, echo = FALSE}
+# Pas de lien entre notes et REE
+
+cor_notes <- data.frame(relation = data$RELATST, notes = Notes_moyennes$MOY_MATH)
+cor_notes <- cor(cor_notes[, c("relation", "notes")], use = "complete.obs", method = "pearson")
+
+
+cor_ESCS <- data.frame(relation = data$RELATST , notes = Notes_moyennes$MOY_GENERALE, escs = data$ESCS)
+ggplot(cor_ESCS, aes(x = relation, y = notes, color = escs)) +
+  geom_smooth(method = "lm", se = FALSE) +
+  scale_color_gradient2(low = "blue",
+                        mid = "white",
+                        high = "red",
+                        midpoint = 0) +
+  geom_point(alpha = 0.6) +
+  labs(title = "Relation entre la qualité de la REE et la moyenne générale selon la catégorie socio-économique",
+       x = "Indice de la qualité de la REE",
+       y = "Moyenne générale",
+       color = "Catégorie socio-éco")
 ```
 
-```{r, echo = FALSE, include = FALSE}
-Notes_moyennes <- as.data.frame(
-  sapply(matieres, function(m) {
-    vars <- paste0("PV", 1:10, m)
-    rowMeans(Notes[, vars], na.rm = TRUE)
-  })
-)
+On constate que la corrélation entre le qualité de la REE et la moyenne générale n'est pas évidente. En effet, les données utilisées,notamment l'indice RELATST, sont requalibrées par l'OCDE afin d'être centrée sur la moyenne des observations. 
 
-colnames(Notes_moyennes) <- paste0("MOY_", matieres)
-
-Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
-```
 
 ## 3 Existe-t-il une relation entre la REE et le bien-être des élèves dans le cadre scolaire ? 
 
@@ -476,5 +500,3 @@ On peut ainsi noter une grande quantité de valeurs manquantes qui nous pénalis
 # Histogramme de la répartition de l'indice de qualité de la REE
 hist(data_etude$RELATST, main = "Répartition de l'indice de qualité de la REE", xlab = "indice", ylab = "fréquence")
 ```
-
-
