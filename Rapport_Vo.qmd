@@ -4,14 +4,29 @@ author: "Barbeau Faustine - Combes Florent - Dumas Elouan - Malzieu Yann"
 format:
   pdf:
     documentclass: report
+    classoption: oneside
     pdf-engine: pdflatex 
     toc: true
     header-includes: |
-      \usepackage[utf8]{inputenc}
-      \usepackage[T1]{fontenc}
-      \usepackage{enumitem}
-      \setlist[itemize]{label=$\bullet$}
-      \setlength{\parindent}{2em}
+      \usepackage{graphicx}
+      \usepackage{fancyhdr}
+      
+      \pagestyle{fancy}
+      \fancyhf{}
+      
+      \fancyfoot[C]{\thepage}
+      
+      \fancyfoot[L]{\raisebox{-0.3cm}{\includegraphics[width=2cm]{ensai_logo_1.png}}}
+      
+      \renewcommand{\headrulewidth}{0pt}
+      \renewcommand{\footrulewidth}{0pt}
+      
+      \fancypagestyle{plain}{
+        \fancyhf{}
+        \fancyfoot[C]{\thepage}
+        \fancyfoot[L]{\raisebox{-0.3cm}{\includegraphics[width=2cm]{ensai_logo_1.png}}}
+        \renewcommand{\headrulewidth}{0pt}
+      }
 lang: fr
 fontsize: 11pt
 papersize: a4
@@ -19,6 +34,7 @@ geometry: top=1.5cm, bottom=1.5cm, left=2.5cm, right=2.5cm
 link-citations: true 
 nocite: "@*"
 ---
+
 \renewcommand{\contentsname}{Table des matières}
 \tableofcontents
 
@@ -374,7 +390,7 @@ ggplot(cor_ESCS, aes(x = relation, y = notes, color = escs)) +
 On constate que la corrélation entre le qualité de la REE et la moyenne générale n'est pas évidente. En effet, les données utilisées,notamment l'indice RELATST, sont requalibrées par l'OCDE afin d'être centrée sur la moyenne des observations. 
 
 
-## 3 Existe-t-il une relation entre la REE et le bien-être des élèves dans le cadre scolaire ? 
+# 3 Existe-t-il une relation entre la REE et le bien-être des élèves dans le cadre scolaire ? 
 
 Pour estimer le bien-être des élèves des pays de l’OCDE, nous utliserons l’indice de bien-être ressenti durant les jours précédants (EXPWB). Cet indice est construit à partir de la question WB178, du questionnaire sur le bien-être. L’indice s’affiche comme manquant lorsque l’élève n’a pas répondu “Oui” à la question “La journée d’hier était-elle une journée comme les autres ?”
 
@@ -389,9 +405,12 @@ L’indice sur le harcèlement (BULLIED) repose sur la fréquence de plusieurs s
 
 L’indice sur l’utilisation des technologies de l’information et de la communication (TIC) en rapport avec la matière enseignée (ICTSUBJ) est construit à partir de la question IC173. Cette question concerne la fréquence d’utilisation des TIC.
 
+## Etude des variables de bien-être entre elles
 
-regression pour avoir l'impact d'une variable sur une autre (coeff beta)
-voir impact sur les indices en ajoutant ESCS (même raison que II)
+Avant de s'intéresser à la liaison entre les variables de bien-être et la REE, on cherche à vérifier que chaque variable de bien-être possède une utilité dans notre étude, soit, n'est pas combinaison linéaire d'une autre.
+
+On construit une regression pour avoir l'impact d'une variable sur une autre (coefficient beta)
+On peut ainsi voir l'impact sur les indices en ajoutant ESCS (même raison que II)
 ne pas regarder que R² car celui-ci pas efficace (modèle trop compliqué pour avoir R² efficace) regarder surtout beta et p-value
 
 ```{r, echo = FALSE, include = FALSE}
@@ -435,18 +454,21 @@ corrplot(
 )
 ```
 
+Aussi, on élabore alors une analyse en composantes principales sur nos variables de bien-être, puis on trace le cercle des corrélation et contributions des variables :
+
 ```{r, echo = FALSE, include = FALSE}
 res_pca_psy <- PCA(scale(vars_psy), graph = FALSE)
 
 fviz_eig(res_pca_psy)
 ```
+
 ```{r, echo = FALSE}
-fviz_pca_var(
-  res_pca_psy,
-  col.var = "contrib",
-  gradient.cols = c("grey90", "grey60", "black"),
-  repel = TRUE)
+fviz_pca_var( res_pca_psy, col.var = "contrib", gradient.cols = c("grey90", "grey60", "black"), repel = TRUE)
 ```
+
+TEACHSUP contribue grandement à l'analyse et se montre déjà presque en lien avec RELATST. A contrario il semble ne pas posséder de lien direct avec les autres variables de bien-être.
+
+
 
 
 # Annexe
