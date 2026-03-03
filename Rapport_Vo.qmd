@@ -296,14 +296,20 @@ Si on ne prend pas en compte les non-réponses, on constate que la REE est large
 
 ## Les profils des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant
 
-A faire
+~~~
 
 # 2 La REE influence-t-elle les résultats académiques des élèves ?
 
 Plan dans l'idéal (spoiler, ça marche pas du tout):
 
 ## La corrélation entre une REE jugée positive et les notes de l'OCDE
+
+~~~
+
 ## L'influence de la REE sur les notes étant donnés les profils socio-économiques des élèves
+
+~~~
+
 ## Ne serait-ce pas le niveau académique qui influence la relation avec les enseignants ?
 
 Hypothèse : La REE influence les notes des élèves (meilleure est la relation meilleures sont les notes) mais les notes sont avant tout influencée par le profil socio-économique des élèves (ESCS). Il faudra donc essayer d'étudier l'influence de la REE dans les notes en excluant l'influence du milieu social. 
@@ -312,13 +318,13 @@ Le statut social et culturel (ESCS) est un indice composite complexe issus du qu
 
 Pour les variables concernant les notes des élèves lors des épreuves PISA en mathématiques, science et lecture, l’étude se basera sur les moyennes des 10 valeurs plausibles estimées par l’OCDE (de type “PV…”) afin de standardiser les résultats obtenus par les élèves dans chaque domaine. Afin d’étudier les REE, notre étude utilisera 3 notes par élèves, notamment celles en mathématiques, ainsi qu’une moyenne de ces notes.
 
-
 On inclut ici ESCS dans les régressions car la moyenne peut en effet s'expliquer par les REE mais il est évident qu'il l'est aussi par le contexte socio-économique. Donc l'inclure permet de ne pas avoir des coefficients trop élevés pour les indices REE et ainsi biaisé alors que les bonnes notes s'expliquent aussi par ESCS.
 
 ```{r, include = FALSE}
 cor(data_etude_imp$TEACHSUP, data_etude_imp$MOY_MATH)
 cor(data_etude_imp$RELATST, data_etude_imp$MOY_MATH)
 ```
+
 ```{r, include = FALSE}
 modele_direct <- lm(MOY_MATH ~ TEACHSUP + RELATST + ESCS,
                     data = data_etude_imp)
@@ -354,6 +360,7 @@ corrplot(
 )
 ```
 
+On souligne ici que toutes les moyennes semblent très fortement corrélées. Les élèves ayant des moyennes générales élevées en mathématiques, en ont aussi une en lecture et en science. On pourra ainsi s'intéresser plus particulièrement aux moyennes mathématiques et généraliser nos résultats à la moyenne générale.
 
 ```{r, echo = FALSE, warning=FALSE}
 # Pas de lien entre notes et REE
@@ -376,7 +383,7 @@ ggplot(cor_ESCS, aes(x = relation, y = notes, color = escs)) +
        color = "Catégorie socio-éco")
 ```
 
-On constate que la corrélation entre le qualité de la REE et la moyenne générale n'est pas évidente. En effet, les données utilisées,notamment l'indice RELATST, sont requalibrées par l'OCDE afin d'être centrée sur la moyenne des observations. 
+En revanche on constate que la corrélation entre le qualité de la REE et la moyenne générale n'est pas évidente. En effet, les données utilisées,notamment l'indice RELATST, sont requalibrées par l'OCDE afin d'être centrée sur la moyenne des observations. 
 
 
 # 3 Existe-t-il une relation entre la REE et le bien-être des élèves dans le cadre scolaire ? 
