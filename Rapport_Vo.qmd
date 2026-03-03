@@ -235,7 +235,8 @@ ggplot(data_plot_p, aes(x = Question,
     ST267Q08JA = "Les enseignants ne sont pas méchants")) +
   labs(title = "Réponses indiquant une relation positive",
        x = "",
-       y = "Pourcentage (%)", caption = "Note de lecture : 49% des élèves interrogés affirment que leurs enseignants sont respectueux envers eux. \nSource : Enquête PISA 2022, OCDE") +
+       y = "Pourcentage (%)", caption = "Note de lecture : 49% des élèves interrogés affirment que leurs enseignants sont respectueux envers eux. 
+       \nSource : Enquête PISA 2022, OCDE") +
   geom_text(aes(label = round(Pourcentage,1)), hjust = -0.2, size = 4) +
   ylim(0, 100)
 
@@ -285,8 +286,9 @@ ggplot(data_plot_p, aes(x = Question,
     ST267Q08JA = "Les enseignants ne sont pas méchants")) +
   labs(title = "Réponses indiquant une relation positive",
        x = "",
-       y = "Pourcentage (%)", caption = "Note de lecture : 85% des élèves ayant répondus affirment que leurs enseignants sont respectueux envers eux. \nSource : Enquête PISA 2022, OCDE") +
-  geom_text(aes(label = round(Pourcentage,1)), hjust = -0.2, size = 4) +
+       y = "Pourcentage (%)", caption = "Note de lecture : 85% des élèves ayant répondus affirment que leurs enseignants sont respectueux envers eux. 
+       \nSource : Enquête PISA 2022, OCDE") +
+  geom_text(aes(label = round(Pourcentage,1)), hjust = +0.2, size = 4) +
   ylim(0, 100)
 ```
 
@@ -308,23 +310,23 @@ Hypothèse : La REE influence les notes des élèves (meilleure est la relation 
 
 Le statut social et culturel (ESCS) est un indice composite complexe issus du questionnaire élève. Il réutilise d’autres indices que sont le statut professionnel le plus élevé des parents (HISEI), le niveau d’éducation le plus élevé des parents (PAREDINT) et les biens possédés par le foyer (HOMEPOS). Le statut socio-économique sera donc considéré à partir du statut professionnel, du niveau d’éducation et du revenu du foyer. Lorsque l’un des trois indices utilisés affiche une valeur manquante, celle-ci a été remplacé par une prédiction. Dans le cas où plusieurs données étaient manquantes, la valeur NA a été retenue. Les indices ont été standardisés afin de permettre une contribution égale de chaque pays de l’OCDE. La moyenne de l’indice ESCS est à 0 tandis que sont écart-type est à 1. 
 
-Pour les variables concernant les notes des élèves lors des épreuves PISA en mathématiques, science et lecture, l’étude se basera sur les moyennes des 10 valeurs plausibles estimées par l’OCDE (de type “PV…”) afin de standardiser les résultats obtenus par les élèves dans chaque domaines. Afin d’étudier les REE, notre étude utilisera 3 notes par élèves, et notamment celle en mathématiques,ainsi qu’une moyenne de ces notes.
+Pour les variables concernant les notes des élèves lors des épreuves PISA en mathématiques, science et lecture, l’étude se basera sur les moyennes des 10 valeurs plausibles estimées par l’OCDE (de type “PV…”) afin de standardiser les résultats obtenus par les élèves dans chaque domaine. Afin d’étudier les REE, notre étude utilisera 3 notes par élèves, notamment celles en mathématiques, ainsi qu’une moyenne de ces notes.
 
 
-on inclut ESCS dans les regression car la moyenne peut en effet s'expliquer par les REE mais il est evident qu'il l'est aussi par le contexte sociaux économique. Donc l'inclure permet de ne pas avoir des coeff trop élevé pour les indices REE et ainsi biaisé alors que les bonnes notes s'expliquent aussi par ESCS
+On inclut ici ESCS dans les régressions car la moyenne peut en effet s'expliquer par les REE mais il est évident qu'il l'est aussi par le contexte socio-économique. Donc l'inclure permet de ne pas avoir des coefficients trop élevés pour les indices REE et ainsi biaisé alors que les bonnes notes s'expliquent aussi par ESCS.
 
-```{r}
+```{r, include = FALSE}
 cor(data_etude_imp$TEACHSUP, data_etude_imp$MOY_MATH)
 cor(data_etude_imp$RELATST, data_etude_imp$MOY_MATH)
 ```
-```{r}
+```{r, include = FALSE}
 modele_direct <- lm(MOY_MATH ~ TEACHSUP + RELATST + ESCS,
                     data = data_etude_imp)
 
 summary(modele_direct)
 ```
 
-```{r}
+```{r, include = FALSE}
 data_etude_imp %>%
   group_by(CNT) %>%
   summarise(
@@ -333,7 +335,7 @@ data_etude_imp %>%
   )
 ```
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, warning=FALSE}
 cor_mat <- cor(
   Notes_moyennes[, grep("^MOY_", names(Notes_moyennes))],
   use = "pairwise.complete.obs"
@@ -353,7 +355,7 @@ corrplot(
 ```
 
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, warning=FALSE}
 # Pas de lien entre notes et REE
 
 cor_notes <- data.frame(relation = data$RELATST, notes = Notes_moyennes$MOY_MATH)
@@ -422,7 +424,7 @@ modele_tout <- lm(MOY_MATH ~ TEACHSUP + RELATST +
 summary(modele_tout)
 ```
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, warning=FALSE}
 vars_psy <- data_etude_imp %>%
   select(RELATST, TEACHSUP, BELONG, BULLIED, ANXMAT)
 
