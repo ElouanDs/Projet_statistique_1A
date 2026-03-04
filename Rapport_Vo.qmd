@@ -16,7 +16,7 @@ format:
       
       \fancyfoot[C]{\thepage}
       
-      \fancyfoot[L]{\raisebox{-0.3cm}{\includegraphics[width=2cm]{ensai_logo_1.png}}}
+      \fancyhead[R]{\raisebox{-0.3cm}{\includegraphics[width=2cm]{ensai_logo_1.png}}}
       
       \renewcommand{\headrulewidth}{0pt}
       \renewcommand{\footrulewidth}{0pt}
@@ -24,7 +24,7 @@ format:
       \fancypagestyle{plain}{
         \fancyhf{}
         \fancyfoot[C]{\thepage}
-        \fancyfoot[L]{\raisebox{-0.3cm}{\includegraphics[width=2cm]{ensai_logo_1.png}}}
+        \fancyhead[R]{\raisebox{-0.3cm}{\includegraphics[width=2cm]{ensai_logo_1.png}}}
         \renewcommand{\headrulewidth}{0pt}
       }
 lang: fr
@@ -36,7 +36,7 @@ nocite: "@*"
 ---
 
 \renewcommand{\contentsname}{Table des matières}
-\tableofcontents
+
 
 # Introduction
 
@@ -51,9 +51,6 @@ En outre, mesurer la REE nous permettra de mettre en exergue l’effet des REE s
 
 Nous nous demanderons alors, dans quelle mesure une bonne relation entre élève et enseignant influence positivement la scolarité des élèves à différentes échelles ?
 
-
-
-Note : pour plus de chose à dire on peut rajouter les différence entre pays pour faire des sous parties ou faire des zoom sur des variables précise et ainsi rajouter des analyse univariée car très peu pour le moment
 
 
 ```{r, echo = FALSE, include = FALSE} 
@@ -175,27 +172,31 @@ data_etude_imp %>%
 
 ## Une étude de la relation au travers du vécu de l'élève
 
-Pour les variables rendant comptes de la REE, nous avons décidé de nous concentrer principalement sur deux questions du questionnaires élèves. Elles nous permettent de faire état de la REE, et plus particulierement de la relation avec les enseignants de mathématiques, d’après les affirmations des élèves. 
-La première question (ST267) s’intéresse à l’attention que le corps enseignant porte à l’élève : 
-* Les enseignants étaient respectueux envers lui/elle    (ST267Q01JA)
-* Les enseignants se préoccupent de l’élève en cas de retard    (ST267Q02JA)
-* Les enseignants seraient heureux de le/la revoir 3 ans après  (ST267Q03JA) 	
-* Les enseignants intimident l’élève   (ST267Q04JA)
-* Lorsque les enseignants me demandent comment je vais, ils sont vraiment intéressés par ma réponse (ST267Q05JA)
-* Les enseignants étaient amicaux avec lui/elle   (ST267Q06JA)
-* Les enseignants se soucient du bien-être de l’élève    (ST267Q07JA)
-* Les enseignants sont méchants avec l’élève	  (ST267Q08JA)
+Pour les variables rendant compte de la REE, nous avons décidé de nous concentrer principalement sur deux questions du questionnaires élèves. Elles nous permettent de faire état de la REE, et plus particulierement de la relation avec les enseignants de mathématiques, d’après les affirmations des élèves. 
+
+La première question (ST267) s’intéresse à l’attention que le corps enseignant porte à l’élève :
+
+  - Les enseignants étaient respectueux envers lui/elle    (ST267Q01JA)
+  - Les enseignants se préoccupent de l’élève en cas de retard    (ST267Q02JA)
+  - Les enseignants seraient heureux de le/la revoir 3 ans après  (ST267Q03JA)
+  - Les enseignants intimident l’élève   (ST267Q04JA)
+  - Lorsque les enseignants me demandent comment je vais, ils sont vraiment intéressés par ma réponse (ST267Q05JA)
+  - Les enseignants étaient amicaux avec lui/elle   (ST267Q06JA)
+  - Les enseignants se soucient du bien-être de l’élève    (ST267Q07JA)
+  - Les enseignants sont méchants avec l’élève	  (ST267Q08JA)*
+
 La deuxième question (ST270) permet de se concentrer sur la REE en cours de mathématiques : 
-* Les enseignants s’inquiète de la scolarité de chacun de ses élèves	(ST270Q01JA)
-* Les enseignants s'intéressent à l’apprentissage de tous les élèves. (ST270Q01JA)
-* Les enseignants donnent de l’aide supplémentaire aux élèves qui en ont besoin. (ST270Q02JA)
-* Les enseignants aident les élèves dans leur apprentissage. (ST270Q03JA)
-* Les enseignants continuent à enseigner jusqu’à ce que les élèves comprennent. (ST270Q04JA)
+
+  - Les enseignants s’inquiète de la scolarité de chacun de ses élèves	(ST270Q01JA)
+  - Les enseignants s'intéressent à l’apprentissage de tous les élèves. (ST270Q01JA)
+  - Les enseignants donnent de l’aide supplémentaire aux élèves qui en ont besoin. (ST270Q02JA)
+  - Les enseignants aident les élèves dans leur apprentissage. (ST270Q03JA)
+  - Les enseignants continuent à enseigner jusqu’à ce que les élèves comprennent. (ST270Q04JA)
 
 Les variables générées par ces questions peuvent être résumées par deux indices de l’OCDE qui nous intéressent dans l’étude de la REE. L’indice de qualité des relations entre élèves et enseignants (RELATST) permet de savoir lorsque l’élève fait l’état d’une meilleure relation que l’état moyen des pays de l’OCDE. Cet indice est réalisé à partir des réponses de la question 267. Le second indice concerne quant à lui la question 270 sur le soutien du professeur de mathématiques (TEACHSUP). Il fonctionne de la même manière que le premier indice, plus il est positif, plus l’élève affirme bénéficier d’un soutien de son enseignant plus important qu’en moyenne.
 
 
-Afin d'étudier la REE en elle-même, il est plus pertinent de baser nos analyses sur les réponses aux questions plutôt que sur les indices. En effet, la répartition de l'indice de qualité de la REE ne nous permet pas d'en déduire la qualité intrasèque de la relation (cf. historgramme en annexe). Les indices seront donc utiles ultérieurement afin de réaliser des comparaisons entre différentes caractéristiques des élèves. 
+Afin d'étudier la REE en elle-même, il est plus pertinent de baser nos analyses sur les réponses aux questions plutôt que sur les indices. En effet, la répartition de l'indice de qualité de la REE ne nous permet pas d'en déduire la qualité intrinsèque de la relation (cf. historgramme en annexe). Les indices seront donc utiles ultérieurement afin de réaliser des comparaisons entre différentes caractéristiques des élèves. 
 
 ```{r, echo=FALSE}
 data_relatst <- data %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
@@ -244,7 +245,7 @@ ggplot(data_plot_p, aes(x = Question,
 
 Parmi l'ensemble des élèves interrogés, on constate que moins de la moitié affirment avoir une relation positive avec leurs enseignants. 
 
-Or, environ 1/3 des élèves n'ont pas répondu à ces questions. Ce chiffre nous pousse à s'interroger sur le profil des élèves à l'orgine des non-réponses. 
+Or, environ un tiers des élèves n'ont pas répondu à ces questions. Ce chiffre nous pousse à s'interroger sur le profil des élèves à l'origine des non-réponses. 
 
 
 ```{r, echo = FALSE}
@@ -288,15 +289,20 @@ ggplot(data_plot_p, aes(x = Question,
        x = "",
        y = "Pourcentage (%)", caption = "Note de lecture : 85% des élèves ayant répondus affirment que leurs enseignants sont respectueux envers eux. 
        \nSource : Enquête PISA 2022, OCDE") +
-  geom_text(aes(label = round(Pourcentage,1)), hjust = +0.2, size = 4) +
-  ylim(0, 100)
+  geom_text(aes(label = round(Pourcentage,1)), hjust = 0, size = 4) +
+  ylim(0, 100)+
+  theme(
+    plot.title = element_text(hjust=1),
+    plot.caption = element_text(hjust = 0.85),
+    plot.margin = margin(5, 0.5, 5, 5)
+  )
 ```
 
-Si on ne prend pas en compte les non-réponses, on constate que la REE est largement décrite comme étant positive, d'après les élèves. 
+Ainsi, si on ne prend pas en compte les non-réponses, on constate que la REE est largement décrite comme étant positive, d'après les élèves. 
 
 ## Les profils des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant
 
-~~~
+
 
 # 2 La REE influence-t-elle les résultats académiques des élèves ?
 
@@ -304,17 +310,17 @@ Plan dans l'idéal (spoiler, ça marche pas du tout):
 
 ## La corrélation entre une REE jugée positive et les notes de l'OCDE
 
-~~~
+
 
 ## L'influence de la REE sur les notes étant donnés les profils socio-économiques des élèves
 
-~~~
+
 
 ## Ne serait-ce pas le niveau académique qui influence la relation avec les enseignants ?
 
-Hypothèse : La REE influence les notes des élèves (meilleure est la relation meilleures sont les notes) mais les notes sont avant tout influencée par le profil socio-économique des élèves (ESCS). Il faudra donc essayer d'étudier l'influence de la REE dans les notes en excluant l'influence du milieu social. 
+Par hypothèse, nous pourrions affirmer que la REE influence les notes des élèves (meilleure est la relation meilleures sont les notes). Toutefois, les notes sont avant tout influencées par le profil socio-économique des élèves (ESCS). Il faudra donc essayer d'étudier l'influence de la REE dans les notes en excluant l'influence du milieu social. 
 
-Le statut social et culturel (ESCS) est un indice composite complexe issus du questionnaire élève. Il réutilise d’autres indices que sont le statut professionnel le plus élevé des parents (HISEI), le niveau d’éducation le plus élevé des parents (PAREDINT) et les biens possédés par le foyer (HOMEPOS). Le statut socio-économique sera donc considéré à partir du statut professionnel, du niveau d’éducation et du revenu du foyer. Lorsque l’un des trois indices utilisés affiche une valeur manquante, celle-ci a été remplacé par une prédiction. Dans le cas où plusieurs données étaient manquantes, la valeur NA a été retenue. Les indices ont été standardisés afin de permettre une contribution égale de chaque pays de l’OCDE. La moyenne de l’indice ESCS est à 0 tandis que sont écart-type est à 1. 
+Le statut social et culturel (ESCS) est un indice composite complexe issu du questionnaire élève. Il réutilise d’autres indices que sont le statut professionnel le plus élevé des parents (HISEI), le niveau d’éducation le plus élevé des parents (PAREDINT) et les biens possédés par le foyer (HOMEPOS). Le statut socio-économique sera donc considéré à partir du statut professionnel, du niveau d’éducation et du revenu du foyer. Lorsque l’un des trois indices utilisés affiche une valeur manquante, celle-ci a été remplacé par une prédiction. Dans le cas où plusieurs données étaient manquantes, la valeur NA a été retenue. Les indices ont été standardisés afin de permettre une contribution égale de chaque pays de l’OCDE. La moyenne de l’indice ESCS est à 0 tandis que sont écart-type est à 1. 
 
 Pour les variables concernant les notes des élèves lors des épreuves PISA en mathématiques, science et lecture, l’étude se basera sur les moyennes des 10 valeurs plausibles estimées par l’OCDE (de type “PV…”) afin de standardiser les résultats obtenus par les élèves dans chaque domaine. Afin d’étudier les REE, notre étude utilisera 3 notes par élèves, notamment celles en mathématiques, ainsi qu’une moyenne de ces notes.
 
@@ -323,7 +329,7 @@ On inclut ici ESCS dans les régressions car la moyenne peut en effet s'explique
 ```{r, include = FALSE}
 cor(data_etude_imp$TEACHSUP, data_etude_imp$MOY_MATH)
 cor(data_etude_imp$RELATST, data_etude_imp$MOY_MATH)
-```
+``` 
 
 ```{r, include = FALSE}
 modele_direct <- lm(MOY_MATH ~ TEACHSUP + RELATST + ESCS,
