@@ -172,8 +172,8 @@ data_etude_imp %>%
 La relation entre élèves et enseignants largement décrite comme étant positive, d'après les élèves. Pour autant, environ un tiers des élèves n'ont pas répondu à aux questions portant sur la REE.
 
 ```{r, echo = FALSE}
-data_relatst <- data %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
-data_relatst <- na.omit(data_relatst)
+data_relatst_na <- data %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
+data_relatst <- na.omit(data_relatst_na)
 # Questions sur la REE positive
 
 data_relatst$ST267Q01JA <- ifelse(data_relatst$ST267Q01JA %in% c(3,4), 1, 0)
@@ -210,8 +210,7 @@ ggplot(data_plot_p, aes(x = Question,
     ST267Q08JA = "Les enseignants ne sont pas méchants")) +
   labs(title = "Réponses indiquant une relation positive",
        x = "",
-       y = "Pourcentage (%)", caption = "Note de lecture : 85% des élèves ayant répondus affirment que leurs enseignants sont respectueux envers eux. 
-       \nSource : Enquête PISA 2022, OCDE") +
+       y = "Pourcentage (%)") +
   geom_text(aes(label = round(Pourcentage,1)), hjust = 0, size = 4) +
   ylim(0, 100)+
   theme(
@@ -220,12 +219,101 @@ ggplot(data_plot_p, aes(x = Question,
     plot.margin = margin(5, 0.5, 5, 5)
   )
 ```
+Source : Enquête PISA 2022, OCDE
+Note de lecture : 85% des élèves ayant répondu affirment que leurs enseignants sont respectueux envers eux.
 
-Le chiffre de non-réponse nous pousses à s'interroger sur le profil des élèves qui ne répondent pas.
+```{r}
+data_teachsup_na <- data %>% select(ST270Q01JA, ST270Q02JA, ST270Q03JA, ST270Q04JA)
+data_teachsup <- na.omit(data_teachsup_na)
+# Questions sur la REE positive
+
+data_teachsup$ST270Q01JA <- ifelse(data_teachsup$ST270Q01JA %in% c(3,4), 1, 0)
+data_teachsup$ST270Q02JA <- ifelse(data_teachsup$ST270Q02JA %in% c(3,4), 1, 0)
+data_teachsup$ST270Q03JA <- ifelse(data_teachsup$ST270Q03JA %in% c(3,4), 1, 0)
+data_teachsup$ST270Q04JA <- ifelse(data_teachsup$ST270Q04JA %in% c(3,4), 1, 0)
+
+data_long_t <- data_teachsup %>%
+  select(ST270Q01JA, ST270Q02JA, ST270Q03JA, ST270Q04JA) %>%
+  pivot_longer(cols = everything(),
+               names_to = "Question",
+               values_to = "Soutien")
+
+data_plot_t <- data_long_t %>%
+  group_by(Question) %>%
+  summarise(Pourcentage = mean(Soutien, na.rm = TRUE) * 100)
+
+ggplot(data_plot_t, aes(x = Question,
+                      y = Pourcentage)) +
+  geom_col(fill = "darkcyan", width = 0.7) +
+  coord_flip() +
+  scale_x_discrete(labels = c(
+    ST270Q01JA = "L'enseignant montre de l'intérêt pour l'apprentissage des élèves.",
+    ST270Q02JA = "L'enseignant apporte de l'aide supplémentaire si besoin.",
+    ST270Q03JA = "L'enseignant aide les élèves dans leur apprentissage.",
+    ST270Q04JA = "L'enseignant continue d'enseigner jusqu'à ce que les élèves comprennent.")) +
+  labs(title = "L'enseignant de mathématiques apporte du soutien aux élèves",
+       x = "",
+       y = "Pourcentage (%)") +
+  geom_text(aes(label = round(Pourcentage,1)), hjust = 0, size = 4) +
+  ylim(0, 100)+
+  theme(
+    plot.title = element_text(hjust=1),
+    plot.caption = element_text(hjust = 0.85),
+    plot.margin = margin(5, 0.5, 5, 5)
+  )
+```
+```{r}
+mean(is.na(data_relatst_na))*100
+mean(is.na(data_teachsup_na))*100
+```
+
+
+
+Le chiffre de non-réponse nous poussent à s'interroger sur le profil des élèves qui ne répondent pas. En effet, les questions concernant la relation élèves enseignants en général ont un taux de non réponse d'environ 43%. Pour les questions sur le soutien de l'enseignant de mathématiques, cela concerne 15% des réponses.
 
 ## Les profils des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant
 
 Conserver les profils NA aux deux questions et résumer les informations sur leur pays, leur genre, leur note,...
+```{r}
+relatst_NA_ligne <- rowMeans(is.na(data_relatst_na))
+
+relatst_NA_pays <- tapply(relatst_NA_ligne, data$CNT, mean) * 100
+
+relatst_NA_pays_tri <- sort(relatst_NA_pays)
+
+barplot(
+  relatst_NA_pays_tri,
+  las = 2,              
+  col = "darkcyan",
+  main = "Proportion de non réponse par pays concernant la qualité de la REE",
+  ylab = "% de valeurs manquantes",
+  cex.names = 0.7
+)
+```
+```{r}
+relatst_critiques <- relatst_NA_pays_tri[relatst_NA_pays_tri > 50]
+names(relatst_critiques)
+```
+En Albanie, au Cananda et en Israël, plus de la moitié des élèves n'ont pas répondu aux questions sur la qualité de la REE.
+
+```{r}
+groupes_notes <- cut(Notes_moyennes$MOY_GENERALE, 
+                     breaks = c(100, 200, 300, 400, 500, 600, 700, 800, 900),
+                     labels = c("100-200", "200-300", "300-400", "400-500", "500-600", "600-700", "700-800", "800-900"))
+
+relatst_NA_groupes <- tapply(relatst_NA_ligne, groupes_notes, mean) * 100
+
+barplot(
+  relatst_NA_groupes,
+  las = 1,
+  col = "darkcyan",
+  main = "Proportion de non-réponse par tranches de notes",
+  ylab = "% de valeurs manquantes",
+  xlab = "Notes moyennes",
+  cex.names = 0.8
+)
+```
+
 
 # Partie 2 
 
@@ -243,6 +331,34 @@ Conserver les profils NA aux deux questions et résumer les informations sur leu
 
 ## Peut-on établir un lien entre une REE jugée positive et l'appréciation des matières étudiées à l'école ?
 
+```{r}
+aimer_matieres <- data %>%
+  select(RELATST, TEACHSUP, ST268Q01JA, ST268Q02JA, ST268Q03JA)
+
+aimer_matieres <- na.omit(aimer_matieres)
+
+cor_aimer <- cor(aimer_matieres)
+
+corrplot(
+  cor_aimer,
+  method = "color",
+  type = "upper",
+  col = colorRampPalette(c("#2c7bb6", "white", "#d7191c"))(200),
+  tl.col = "black",
+  tl.srt = 45,
+  addCoef.col = "black",
+  number.cex = 0.7,
+  diag = FALSE
+)
+```
+
+
+ST268Q01JA Mathematics is one of my favourite 
+subjects.
+ST268Q02JA <Test language> is one of my 
+favourite subjects.
+ST268Q03JA <Science> is one of my favourite 
+subjects.
 
 
 # 3 Existe-t-il une relation entre la REE et le bien-être des élèves dans le cadre scolaire ?
