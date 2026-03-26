@@ -55,8 +55,8 @@ Nous nous demanderons alors, dans quelle mesure une bonne relation entre élève
 #| warning: FALSE
 #| message: FALSE
 
-# packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse")
-# install.packages(packages) 
+#packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse")
+#install.packages(packages) 
 library(tidyverse)
 library(psych)
 library(FactoMineR)
@@ -312,18 +312,105 @@ barplot(
   xlab = "Notes moyennes",
   cex.names = 0.8
 )
-```
 
+```
+```{r}
+# Essayer de créer une colonne moyenne dans data : data$MOYENNE <- 
+data$statut_NA <- ifelse(is.na(data$RELATST), "Manquant", "Présent")
+ggplot(data, aes(x = PV1MATH, fill = statut_NA)) +
+  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
+  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
+  labs(
+    title = "Nombre d'élèves par note et statut de réponse",
+    x = "Note PV1MATH",
+    y = "Nombre d'élèves",
+    fill = "Statut"
+  ) +
+  theme_minimal()
+```
+On constate que les élèves ayant un niveau académique plus faible ont tendance à moins répondre aux questions concernant leur relation avec le corps enseignant. 
 
 # Partie 2 
 
 ## Les élèves ayant une meilleure REE qu'en moyenne ont-il un meilleur niveau scolaire ? 
 
 (croiser notes et qualité REE)
+```{r}
+REE_notes <- data %>%
+  select(RELATST, TEACHSUP, PV1MATH)
+
+REE_notes <- na.omit(REE_notes)
+
+cor_REE_notes <- cor(REE_notes)
+
+corrplot(
+  cor_REE_notes,
+  method = "color",
+  type = "upper",
+  col = colorRampPalette(c("#2c7bb6", "white", "#d7191c"))(200),
+  tl.col = "black",
+  tl.srt = 45,
+  addCoef.col = "black",
+  number.cex = 0.7,
+  diag = FALSE
+)
+```
+
 
 ## Le niveau académique est-il meilleur dans les pays où il y a une meilleure REE ? 
 
 (croiser notes, moyenne de l'indice REE par pays)
+```{r}
+bilan_pays <- data %>%
+  group_by(CNT) %>%
+  summarise(
+    REE_moyen = mean(RELATST, na.rm = TRUE),
+    Note_moyenne = mean(PV1MATH, na.rm = TRUE),
+    Effectif = n()
+  ) %>%
+  filter(!is.na(REE_moyen))
+
+cor.test(bilan_pays$REE_moyen, bilan_pays$Note_moyenne)
+
+ggplot(bilan_pays, aes(x = REE_moyen, y = Note_moyenne)) +
+  geom_point(aes(size = Effectif), color = "darkcyan", alpha = 0.6) + 
+  geom_smooth(method = "lm", color = "red", se = TRUE) + # Ligne de tendance
+  geom_text(aes(label = CNT), vjust = -1, size = 3) + # Affiche le nom des pays
+  labs(
+    title = "Lien entre Relation Élève-Enseignant et Performance par Pays",
+    x = "Indice REE Moyen (RELATST)",
+    y = "Note Moyenne (Maths)",
+    size = "Nombre d'élèves"
+  ) +
+  theme_minimal()
+```
+Il existe une corrélation négative entre la qualité de la REE et la note moyenne de chaque pays (r =~ -0,30). Plus l'indice de Relation Élève-Enseignant est élevé (supérieur à la moyenne de l'OCDE) dans un pays plus la note moyenne dans ce pays a tendance à être faible. La REE n'explique que partiellement le niveau académique mais d'autres facteurs entre en compte. Etant donné que le p-value est <0,05, on peut en conclure que la corrélation est significative. 
+
+```{r}
+modele <- lm(Note_moyenne ~ REE_moyen, data = bilan_pays)
+bilan_pays$ecart <- residuals(modele)
+tops <- bilan_pays %>% arrange(desc(ecart)) %>% head(5)
+bottoms <- bilan_pays %>% arrange(ecart) %>% head(5)
+
+print("Pays avec des notes bien plus hautes que prévu :")
+print(tops[, c("CNT", "Note_moyenne", "REE_moyen")])
+
+print("Pays avec des notes bien plus basses que prévu :")
+print(bottoms[, c("CNT", "Note_moyenne", "REE_moyen")])
+```
+```{r}
+ggplot(bilan_pays, aes(x = REE_moyen, y = Note_moyenne)) +
+  geom_smooth(method = "lm", color = "grey", linetype = "dashed", se = FALSE) +
+  geom_point(color = "darkcyan", alpha = 0.5) +
+  # On ajoute les noms uniquement pour les pays atypiques
+  geom_text(data = rbind(tops, bottoms), 
+            aes(label = CNT), vjust = -1, color = "red", fontface = "bold") +
+  labs(title = "Focus sur les pays atypiques",
+       subtitle = "En rouge : les pays qui s'écartent le plus de la tendance",
+       x = "Indice Relation (REE)", y = "Note Moyenne") +
+  theme_minimal()
+```
+
 
 ## La qualité de la REE dépend-t-elle des orgines socio-économiques des élèves ?
 
