@@ -55,8 +55,8 @@ Nous nous demanderons alors, dans quelle mesure une bonne relation entre élève
 #| warning: FALSE
 #| message: FALSE
 
-#packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse")
-#install.packages(packages) 
+packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse")
+install.packages(packages) 
 library(tidyverse)
 library(psych)
 library(FactoMineR)
@@ -108,13 +108,13 @@ Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
 
 ```{r, echo = FALSE, include = FALSE}
 # Selection des indices + variables explicatives
-vars_collector <- c("RELATST","TEACHSUP","ESCS","ST016Q01NA","ST272Q01JA", "EXPWB","BELONG","BULLIED","ANXMAT")
+vars_collector <- c("RELATST","TEACHSUP","ESCS","ST016Q01NA","ST272Q01JA", "EXPWB","BELONG","BULLIED","ANXMAT","ST267Q01JA", "ST267Q02JA", "ST267Q03JA", "ST267Q04JA", "ST267Q05JA", "ST267Q06JA", "ST267Q07JA", "ST267Q08JA","ST270Q01JA", "ST270Q02JA", "ST270Q03JA", "ST270Q04JA","ST268Q01JA","ST268Q02JA", "ST268Q03JA")
 
 vars_etude <- vars_collector[vars_collector %in% names(data)]
 
 idx_vars_etude <- match(vars_etude, names(data))
 
-data_etude <- c(data[, c(1,26, idx_vars_etude), drop = FALSE],Notes_moyennes)
+data_etude <- c(data[, c(1,26, idx_vars_etude), drop = FALSE],Notes_moyennes[c(1,12)])
 data_etude <- as.data.frame(data_etude)
 ```
 
@@ -122,9 +122,7 @@ data_etude <- as.data.frame(data_etude)
 # Sélection des variables quantitatives
 vars_quanti <- data_etude %>%
   select(RELATST, TEACHSUP, ESCS,
-         ST016Q01NA, ST272Q01JA,
-         EXPWB, MOY_MATH, MOY_READ,
-         MOY_SCIE, MOY_GENERALE, ANXMAT,BELONG,BULLIED)
+         EXPWB, MOY_MATH, MOY_GENERALE, ANXMAT,BELONG,BULLIED)
 
 # Fonction d'imputation par la moyenne
 impute_mean <- function(x){
@@ -135,8 +133,7 @@ impute_mean <- function(x){
 vars_quanti_imp <- as.data.frame(lapply(vars_quanti, impute_mean))
 
 # Réintégration dans le dataset
-data_etude_imp <- data_etude
-data_etude_imp[, names(vars_quanti_imp)] <- vars_quanti_imp
+data_etude[, names(vars_quanti_imp)] <- vars_quanti_imp
 ```
 
 ```{r, echo = FALSE, include = FALSE}
@@ -145,19 +142,19 @@ data_etude$ST004D01T <- as.factor(data_etude$ST004D01T)
 ```
 
 ```{r, echo = FALSE, include = FALSE}
-cor(data_etude_imp$TEACHSUP, data_etude_imp$MOY_MATH)
-cor(data_etude_imp$RELATST, data_etude_imp$MOY_MATH)
+cor(data_etude$TEACHSUP, data_etude$MOY_MATH)
+cor(data_etude$RELATST, data_etude$MOY_MATH)
 ```
 
 ```{r, echo = FALSE, include = FALSE}
 modele_direct <- lm(MOY_MATH ~ TEACHSUP + RELATST + ESCS,
-                    data = data_etude_imp)
+                    data = data_etude)
 
 summary(modele_direct)
 ```
 
 ```{r, echo = FALSE, include = FALSE}
-data_etude_imp %>%
+data_etude %>%
   group_by(CNT) %>%
   summarise(
     corr_TEACH = cor(TEACHSUP, MOY_MATH),
@@ -172,7 +169,7 @@ data_etude_imp %>%
 La relation entre élèves et enseignants largement décrite comme étant positive, d'après les élèves. Pour autant, environ un tiers des élèves n'ont pas répondu à aux questions portant sur la REE.
 
 ```{r, echo = FALSE}
-data_relatst_na <- data %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
+data_relatst_na <- data_etude %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
 data_relatst <- na.omit(data_relatst_na)
 # Questions sur la REE positive
 
@@ -186,7 +183,7 @@ data_relatst$ST267Q07JA <- ifelse(data_relatst$ST267Q07JA %in% c(3,4), 1, 0)
 data_relatst$ST267Q08JA <- ifelse(data_relatst$ST267Q08JA %in% c(1,2), 1, 0)
 
 data_long_p <- data_relatst %>%
-  select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q05JA, ST267Q06JA, ST267Q07JA) %>%
+  select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA,ST267Q08JA) %>%
   pivot_longer(cols = everything(),
                names_to = "Question",
                values_to = "Relation_positive")
@@ -223,7 +220,7 @@ Source : Enquête PISA 2022, OCDE
 Note de lecture : 85% des élèves ayant répondu affirment que leurs enseignants sont respectueux envers eux.
 
 ```{r}
-data_teachsup_na <- data %>% select(ST270Q01JA, ST270Q02JA, ST270Q03JA, ST270Q04JA)
+data_teachsup_na <- data_etude %>% select(ST270Q01JA, ST270Q02JA, ST270Q03JA, ST270Q04JA)
 data_teachsup <- na.omit(data_teachsup_na)
 # Questions sur la REE positive
 
@@ -251,7 +248,7 @@ ggplot(data_plot_t, aes(x = Question,
     ST270Q02JA = "L'enseignant apporte de l'aide supplémentaire si besoin.",
     ST270Q03JA = "L'enseignant aide les élèves dans leur apprentissage.",
     ST270Q04JA = "L'enseignant continue d'enseigner jusqu'à ce que les élèves comprennent.")) +
-  labs(title = "L'enseignant de mathématiques apporte du soutien aux élèves",
+  labs(title = "Réponses indiquant une relation positive",
        x = "",
        y = "Pourcentage (%)") +
   geom_text(aes(label = round(Pourcentage,1)), hjust = 0, size = 4) +
@@ -267,11 +264,26 @@ mean(is.na(data_relatst_na))*100
 mean(is.na(data_teachsup_na))*100
 ```
 
+Le chiffre de non-réponse nous poussent à s'interroger sur le profil des élèves qui ne répondent pas. En effet, les questions concernant la relation élèves enseignants en général ont un taux de non réponse d'environ 43% par élève. Pour les questions sur le soutien de l'enseignant de mathématiques, cela concerne 15% des réponses.
 
 
-Le chiffre de non-réponse nous poussent à s'interroger sur le profil des élèves qui ne répondent pas. En effet, les questions concernant la relation élèves enseignants en général ont un taux de non réponse d'environ 43%. Pour les questions sur le soutien de l'enseignant de mathématiques, cela concerne 15% des réponses.
 
 ## Les profils des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant
+
+```{r}
+data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q02JA), "Manquant", "Présent")
+ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
+  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
+  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
+  labs(
+    title = "Nombre d'élèves par note et statut de réponse",
+    x = "moyenne générale",
+    y = "Nombre d'élèves",
+    fill = "Statut"
+  ) +
+  theme_minimal()
+```
+Ce graphique nous indique le nombre d'élèves n'ayant pas répondu sur une question concernant leur rélation avec le professeur en fonction de leur moyenne générale. On constate que pour cette question, les élèves ayant un niveau académique plus faible ont tendance à moins répondre aux questions concernant leur relation avec le corps enseignant. De plus ce même résultats est aussi visible sur les autres questions visibles en annexes. Cela biaise donc nos résultats concernant les notes et la relation élèves-enseignants.
 
 Conserver les profils NA aux deux questions et résumer les informations sur leur pays, leur genre, leur note,...
 ```{r}
@@ -296,39 +308,10 @@ names(relatst_critiques)
 ```
 En Albanie, au Cananda et en Israël, plus de la moitié des élèves n'ont pas répondu aux questions sur la qualité de la REE.
 
-```{r}
-groupes_notes <- cut(Notes_moyennes$MOY_GENERALE, 
-                     breaks = c(100, 200, 300, 400, 500, 600, 700, 800, 900),
-                     labels = c("100-200", "200-300", "300-400", "400-500", "500-600", "600-700", "700-800", "800-900"))
 
-relatst_NA_groupes <- tapply(relatst_NA_ligne, groupes_notes, mean) * 100
 
-barplot(
-  relatst_NA_groupes,
-  las = 1,
-  col = "darkcyan",
-  main = "Proportion de non-réponse par tranches de notes",
-  ylab = "% de valeurs manquantes",
-  xlab = "Notes moyennes",
-  cex.names = 0.8
-)
 
-```
-```{r}
-# Essayer de créer une colonne moyenne dans data : data$MOYENNE <- 
-data$statut_NA <- ifelse(is.na(data$RELATST), "Manquant", "Présent")
-ggplot(data, aes(x = PV1MATH, fill = statut_NA)) +
-  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
-  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
-  labs(
-    title = "Nombre d'élèves par note et statut de réponse",
-    x = "Note PV1MATH",
-    y = "Nombre d'élèves",
-    fill = "Statut"
-  ) +
-  theme_minimal()
-```
-On constate que les élèves ayant un niveau académique plus faible ont tendance à moins répondre aux questions concernant leur relation avec le corps enseignant. 
+
 
 # Partie 2 
 
@@ -336,7 +319,7 @@ On constate que les élèves ayant un niveau académique plus faible ont tendanc
 
 (croiser notes et qualité REE)
 ```{r}
-REE_notes <- data %>%
+REE_notes <- data_etude %>%
   select(RELATST, TEACHSUP, PV1MATH)
 
 REE_notes <- na.omit(REE_notes)
@@ -361,7 +344,7 @@ corrplot(
 
 (croiser notes, moyenne de l'indice REE par pays)
 ```{r}
-bilan_pays <- data %>%
+bilan_pays <- data_etude %>%
   group_by(CNT) %>%
   summarise(
     REE_moyen = mean(RELATST, na.rm = TRUE),
@@ -419,7 +402,7 @@ ggplot(bilan_pays, aes(x = REE_moyen, y = Note_moyenne)) +
 ## Peut-on établir un lien entre une REE jugée positive et l'appréciation des matières étudiées à l'école ?
 
 ```{r}
-aimer_matieres <- data %>%
+aimer_matieres <- data_etude %>%
   select(RELATST, TEACHSUP, ST268Q01JA, ST268Q02JA, ST268Q03JA)
 
 aimer_matieres <- na.omit(aimer_matieres)
@@ -470,14 +453,14 @@ On construit une regression pour avoir l'impact d'une variable sur une autre (co
 
 ```{r, echo = FALSE, include = FALSE}
 modele_anx <- lm(ANXMAT ~ TEACHSUP + RELATST + ESCS,
-                 data = data_etude_imp)
+                 data = data_etude)
 
 summary(modele_anx)
 ```
 
 ```{r, echo = FALSE, include = FALSE}
 modele_belong <- lm(BELONG ~ TEACHSUP + RELATST + ESCS,
-                    data = data_etude_imp)
+                    data = data_etude)
 
 summary(modele_belong)
 ```
@@ -485,13 +468,13 @@ summary(modele_belong)
 ```{r, echo = FALSE, include = FALSE}
 modele_tout <- lm(MOY_MATH ~ TEACHSUP + RELATST +
                          ANXMAT + BELONG + ESCS,
-                       data = data_etude_imp)
+                       data = data_etude)
 
 summary(modele_tout)
 ```
 
 ```{r, echo = FALSE, warning=FALSE}
-vars_psy <- data_etude_imp %>%
+vars_psy <- data_etude %>%
   select(RELATST, TEACHSUP, BELONG, BULLIED, ANXMAT)
 
 cor_psy <- cor(vars_psy)
@@ -549,9 +532,9 @@ Lien pour plus de détails méthodologiques concernant les indices construits pa
 
 ```{r, echo = FALSE}
 # Etude des NA selon les pays
-prop_NA_par_ligne <- rowMeans(is.na(data))
+prop_NA_par_ligne <- rowMeans(is.na(data_etude))
 
-pct_NA_par_pays <- tapply(prop_NA_par_ligne, data$CNT, mean) * 100
+pct_NA_par_pays <- tapply(prop_NA_par_ligne, data_etude$CNT, mean) * 100
 
 pct_NA_par_pays_tri <- sort(pct_NA_par_pays)
 
@@ -593,4 +576,97 @@ On peut ainsi noter une grande quantité de valeurs manquantes qui nous pénalis
 ```{r, echo = FALSE}
 # Histogramme de la répartition de l'indice de qualité de la REE
 hist(data_etude$RELATST, main = "Répartition de l'indice de qualité de la REE", xlab = "indice", ylab = "fréquence")
+```
+
+## Densité de non réponse en fonction des notes
+```{r}
+data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q01JA), "Manquant", "Présent")
+ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
+  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
+  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
+  labs(
+    title = "Nombre d'élèves par note et statut de réponse",
+    x = "moyenne générale",
+    y = "Nombre d'élèves",
+    fill = "Statut"
+  ) +
+  theme_minimal()
+```
+```{r}
+data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q03JA), "Manquant", "Présent")
+ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
+  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
+  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
+  labs(
+    title = "Nombre d'élèves par note et statut de réponse",
+    x = "moyenne générale",
+    y = "Nombre d'élèves",
+    fill = "Statut"
+  ) +
+  theme_minimal()
+```
+```{r}
+data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q04JA), "Manquant", "Présent")
+ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
+  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
+  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
+  labs(
+    title = "Nombre d'élèves par note et statut de réponse",
+    x = "moyenne générale",
+    y = "Nombre d'élèves",
+    fill = "Statut"
+  ) +
+  theme_minimal()
+```
+```{r}
+data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q05JA), "Manquant", "Présent")
+ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
+  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
+  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
+  labs(
+    title = "Nombre d'élèves par note et statut de réponse",
+    x = "moyenne générale",
+    y = "Nombre d'élèves",
+    fill = "Statut"
+  ) +
+  theme_minimal()
+```
+```{r}
+data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q06JA), "Manquant", "Présent")
+ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
+  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
+  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
+  labs(
+    title = "Nombre d'élèves par note et statut de réponse",
+    x = "moyenne générale",
+    y = "Nombre d'élèves",
+    fill = "Statut"
+  ) +
+  theme_minimal()
+```
+```{r}
+data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q07JA), "Manquant", "Présent")
+ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
+  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
+  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
+  labs(
+    title = "Nombre d'élèves par note et statut de réponse",
+    x = "moyenne générale",
+    y = "Nombre d'élèves",
+    fill = "Statut"
+  ) +
+  theme_minimal()
+```
+```{r}
+data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q08JA), "Manquant", "Présent")
+ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
+  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
+  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
+  labs(
+    title = "Nombre d'élèves par note et statut de réponse",
+    x = "moyenne générale",
+    y = "Nombre d'élèves",
+    fill = "Statut"
+  ) +
+  theme_minimal()
 ```
