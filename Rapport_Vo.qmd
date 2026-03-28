@@ -167,7 +167,7 @@ data_etude_imp %>%
 
 # 1 Comprendre la relation élève-enseignant
 
-## Une relation décrite comme positive au travers du vécu de l'élève
+## Une relation décrite comme positive au travers du vécu de l'élève.
 
 La relation entre élèves et enseignants largement décrite comme étant positive, d'après les élèves. Pour autant, environ un tiers des élèves n'ont pas répondu à aux questions portant sur la REE.
 
