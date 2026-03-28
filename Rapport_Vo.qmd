@@ -59,8 +59,8 @@ Note : pour plus de chose à dire on peut rajouter les différence entre pays po
 #| warning: FALSE
 #| message: FALSE
 
-# packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse")
-# install.packages(packages) 
+#packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse")
+#install.packages(packages) 
 library(tidyverse)
 library(psych)
 library(FactoMineR)
@@ -152,12 +152,14 @@ data_etude$ST004D01T <- as.factor(data_etude$ST004D01T)
 cor(data_etude_imp$TEACHSUP, data_etude_imp$MOY_MATH)
 cor(data_etude_imp$RELATST, data_etude_imp$MOY_MATH)
 ```
+
 ```{r, echo = FALSE, include = FALSE}
 modele_direct <- lm(MOY_MATH ~ TEACHSUP + RELATST + ESCS,
                     data = data_etude_imp)
 
 summary(modele_direct)
 ```
+
 ```{r, echo = FALSE, include = FALSE}
 data_etude_imp %>%
   group_by(CNT) %>%
