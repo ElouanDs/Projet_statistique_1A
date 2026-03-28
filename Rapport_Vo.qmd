@@ -264,7 +264,7 @@ mean(is.na(data_relatst_na))*100
 mean(is.na(data_teachsup_na))*100
 ```
 
-Le chiffre de non-réponse nous poussent à s'interroger sur le profil des élèves qui ne répondent pas. En effet, les questions concernant la relation élèves enseignants en général ont un taux de non réponse d'environ 43% par élève. Pour les questions sur le soutien de l'enseignant de mathématiques, cela concerne 15% des réponses.
+Le chiffre de non-réponse nous poussent à s'interroger sur le profil des élèves qui ne répondent pas. En effet, les questions concernant la relation élèves enseignants en général ont un taux de non réponse d'environ 43% par élève. Pour les questions sur le soutien de l'enseignant de mathématiques, cela concerne 15% des réponses. Pour la suite nous allons donc nous focaliser sur le profil des élèves ne répondant pas aux questions concernant la relation élèves enseignants.
 
 
 
@@ -287,9 +287,9 @@ Ce graphique nous indique le nombre d'élèves n'ayant pas répondu sur une ques
 
 Conserver les profils NA aux deux questions et résumer les informations sur leur pays, leur genre, leur note,...
 ```{r}
-relatst_NA_ligne <- rowMeans(is.na(data_relatst_na))
+relatst_NA_ligne <- is.na(data$TEACHSUP)
 
-relatst_NA_pays <- tapply(relatst_NA_ligne, data$CNT, mean) * 100
+relatst_NA_pays <- tapply(relatst_NA_ligne, data_etude$CNT, mean) * 100
 
 relatst_NA_pays_tri <- sort(relatst_NA_pays)
 
@@ -303,14 +303,10 @@ barplot(
 )
 ```
 ```{r}
-relatst_critiques <- relatst_NA_pays_tri[relatst_NA_pays_tri > 50]
+relatst_critiques <- relatst_NA_pays_tri[relatst_NA_pays_tri == 100]
 names(relatst_critiques)
 ```
-En Albanie, au Cananda et en Israël, plus de la moitié des élèves n'ont pas répondu aux questions sur la qualité de la REE.
-
-
-
-
+Le profil des élèves peut être enrichi par le pays d'étude de l'élève. Les résultats montrent que 2 pays ont un taux de non réponses de 100%: le Canada et Israël. On peut donc en conclure que dans ces deux pays, la partie du questionnaire concernant cette question n'a pas été transmise aux élèves. 
 
 
 # Partie 2 
