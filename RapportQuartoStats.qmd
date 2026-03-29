@@ -36,18 +36,18 @@ nocite: "@*"
 ---
 
 \renewcommand{\contentsname}{Table des matières}
-
 # Introduction
 
 En France, d'après Direction de l'évaluation de la prospective et de la performance (DEPP), à la rentrée scolaire 2022/2023, le nombre moyen d'élèves par classe et enseignant est de 25.9, tous établissements du second degré confondus (hors SEGPA) soit 20% de plus que la moyenne européenne (21 élèves). Ceci serait-il facteur d'une plus ou moins bonne réussite scolaire ? Cela aurait-il un impact sur le bien-être des élèves en classe ? Tout ceci mène à nous intéresser au sujet suivant : La relation entre élèves et enseignants (REE).
 
-La REE est une notion peu commune que l’on peut se proposer de définir par construction. En effet, on entend tout d’abord par relation, un rapport, une liaison qui existe, est conçu comme existant entre deux choses, deux grandeurs, deux phénomènes. Celle-ci est dans notre cas à visée pédagogique, s’inscrit dans le cadre d’une transmission de savoir. Une relation peut également être de nature horizontale (si les deux phénomènes, objets sont considérés dans une même mesure) ou bien verticale si un parti à l’ascendant (pas forcément physique) sur l’autre. Dans notre cadre d’étude, la relation élève-enseignant sera verticale dans la mesure où le professeur sait et où les élèves ne savent pas encore. La relation peut également être d’ordre subjective ou objective. Toutefois, comme il est difficile de mesurer le degré de subjectivité/objectivité d’une relation, nous nous fierons seulement à l’enquête PISA qui nous a été fournie, même si les réponses peuvent être inconsciemment biaisées. Par ailleurs, nous définirons un élève comme un enfant, ou jeune, recevant l’enseignement d’un établissement scolaire ou d’une école spécialisée, âgé de 15 ans, pouvant habiter dans 85 pays différents. Il est également possible d’effectuer une typologie du type d’élève, c’est-à-dire de classer les élèves en fonction de plusieurs caractéristiques scolaires (amical, attentif, travailleur, participe beaucoup, …). Enfin, nous définirons un enseignant comme un adulte ayant pour fonction d’enseigner une matière et provenant de différents pays. Nous nous concentrerons ici particulièrement sur les professeurs de mathématiques puisque c’est la matière qui comporte le plus d’informations sur la qualité d’enseignement des professeurs ainsi que sur les caractéristiques des élèves dans ce cours. Finalement, la REE peut se définir comme les interactions ,qu’elles soient positives ou négatives, entretenues entre les élèves et les enseignants.
+La relation élèves enseignants caractérise une intéraction, qu'elle soit poisitive ou négative, entretenue entre les élèves et les enseignants. Cette relation s'inscrit dans une dynamique de transmission des savoirs et peut être qualifiée de verticale, dans la mesure où l'enseignant détient un savoir que l'élève est en train d'acquérir. Elle possède également une dimension subjective, puisqu'elle repose en grande partie sur le ressenti des élèves. Ainsi sa meusre repose nécessairement sur des données déclarative, susceptible de comporter certain biais.
 
-Ainsi, pour étudier la REE il faut d’abord en proposer une mesure. Nous avons alors choisi de travailler sur seulement 2 types de REE : une REE globale qui comprend les questions générales sur le ressenti de l’élève quant à ses relations avec les enseignants mais reposant aussi sur des critères de créativité, et une REE en mathématiques caractérisée par la relation des élèves avec leur professeur en cours de mathématiques. Une potentielle limite de notre mesure est, que les résultats obtenus pour réaliser ces différents indices reposent uniquement sur les réponses données par les élèves sur leurs enseignants et non les enseignants sur leurs élèves.
+Dans notre étude nous allons donc mesurer cette REE, et nous nous demanderons si une bonne relation entre élèves et enseignants influence positivement la scolarité des élèves à différentes échelles.
 
-En outre, mesurer la REE nous permettra de mettre en exergue l’effet des REE sur différentes variables expliquées. De nombreux travaux montrent les bienfaits d'une bonne REE (via le soutien d'apprentissage), sur le parcours scolaire et le développement socio-émotionnel des enfants se traduisant concrètement par : un engagement des enfants plus marqué en classe selon les articles Graciella Arrascue (2023) et de Quin (2017), une meilleure transition collège/lycée contrairement aux relations conflictuelles étant caractérisées comme moins prévisibles sur le comportement des élèves (Longobardi, 2016). On peut également souligner, d'après Herry (1999), que l'utilisation de bonnes pratiques pédagogiques par l'enseignant permet d'améliorer en partie les résultats scolaires des élèves en mathématiques. Toutefois, ces résulats restent encore à prouver avec le questionnaire PISA 2023 que ce soit en fonction des différents types d'élèves, des pays d'origine, ou bien d'autres facteurs du jeu de données.
+Dans un premier temps, il s’agira de comprendre ce qu’est la relation élèves-enseignants à travers la manière dont elle est perçue par les élèves, ainsi que d’analyser les cas de non-réponse. Ensuite, nous étudierons les liens entre la REE et la réussite scolaire, en tenant compte des performances individuelles, des différences entre pays et du contexte socio-économique. Enfin, nous nous intéresserons aux relations entre la REE et le bien-être des élèves dans le cadre scolaire, notamment en termes d’anxiété et de relations entre pairs.
 
-Nous nous demanderons alors, dans quelle mesure une bonne relation entre élève et enseignant influence positivement la scolarité des élèves à différentes échelles ?
+Les données utilisées sont issues de l'enquête PISA 2022, qui interroge des élèves âgés de 15 habitant dans 85 pays. Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économique des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants.
+
 
 ```{r, echo = FALSE, include = FALSE}
 # installation des packages
@@ -55,13 +55,15 @@ Nous nous demanderons alors, dans quelle mesure une bonne relation entre élève
 #| warning: FALSE
 #| message: FALSE
 
-#packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse")
+#packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse", "ggrepel")
+
 #install.packages(packages) 
 library(tidyverse)
 library(psych)
 library(FactoMineR)
 library(factoextra)
 library(corrplot)
+library(ggrepel)
 ```
 
 ```{r, echo = FALSE, include = FALSE}
@@ -108,35 +110,14 @@ Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
 
 ```{r, echo = FALSE, include = FALSE}
 # Selection des indices + variables explicatives
-vars_collector <- c("RELATST","TEACHSUP","ESCS","ST016Q01NA","ST272Q01JA", "EXPWB","BELONG","BULLIED","ANXMAT")
+vars_collector <- c("RELATST","TEACHSUP","ESCS","ST016Q01NA","ST272Q01JA", "EXPWB","BELONG","BULLIED","ANXMAT","ST267Q01JA", "ST267Q02JA", "ST267Q03JA", "ST267Q04JA", "ST267Q05JA", "ST267Q06JA", "ST267Q07JA", "ST267Q08JA","ST270Q01JA", "ST270Q02JA", "ST270Q03JA", "ST270Q04JA","ST268Q01JA","ST268Q02JA", "ST268Q03JA")
 
 vars_etude <- vars_collector[vars_collector %in% names(data)]
 
 idx_vars_etude <- match(vars_etude, names(data))
 
-data_etude <- c(data[, c(1,26, idx_vars_etude), drop = FALSE],Notes_moyennes)
+data_etude <- c(data[, c(1,26, idx_vars_etude), drop = FALSE],Notes_moyennes[c(1,12)])
 data_etude <- as.data.frame(data_etude)
-```
-
-```{r, echo = FALSE, include = FALSE}
-# Sélection des variables quantitatives
-vars_quanti <- data_etude %>%
-  select(RELATST, TEACHSUP, ESCS,
-         ST016Q01NA, ST272Q01JA,
-         EXPWB, MOY_MATH, MOY_READ,
-         MOY_SCIE, MOY_GENERALE, ANXMAT,BELONG,BULLIED)
-
-# Fonction d'imputation par la moyenne
-impute_mean <- function(x){
-  x[is.na(x)] <- mean(x, na.rm = TRUE)
-  return(x)
-}
-
-vars_quanti_imp <- as.data.frame(lapply(vars_quanti, impute_mean))
-
-# Réintégration dans le dataset
-data_etude_imp <- data_etude
-data_etude_imp[, names(vars_quanti_imp)] <- vars_quanti_imp
 ```
 
 ```{r, echo = FALSE, include = FALSE}
@@ -144,20 +125,9 @@ data_etude_imp[, names(vars_quanti_imp)] <- vars_quanti_imp
 data_etude$ST004D01T <- as.factor(data_etude$ST004D01T)
 ```
 
-```{r, echo = FALSE, include = FALSE}
-cor(data_etude_imp$TEACHSUP, data_etude_imp$MOY_MATH)
-cor(data_etude_imp$RELATST, data_etude_imp$MOY_MATH)
-```
 
 ```{r, echo = FALSE, include = FALSE}
-modele_direct <- lm(MOY_MATH ~ TEACHSUP + RELATST + ESCS,
-                    data = data_etude_imp)
-
-summary(modele_direct)
-```
-
-```{r, echo = FALSE, include = FALSE}
-data_etude_imp %>%
+data_etude %>%
   group_by(CNT) %>%
   summarise(
     corr_TEACH = cor(TEACHSUP, MOY_MATH),
@@ -167,7 +137,12 @@ data_etude_imp %>%
 
 # 1 Comprendre la relation élève-enseignant
 
+## Cadre d'analyse de la REE
+
+
 ## Une relation décrite comme positive au travers du vécu de l'élève.
+
+
 
 La relation entre élèves et enseignants largement décrite comme étant positive, d'après les élèves. Pour autant, environ un tiers des élèves n'ont pas répondu à aux questions portant sur la REE.
 
@@ -315,10 +290,10 @@ On constate que les élèves ayant un niveau académique plus faible ont tendanc
 
 ## Les élèves ayant une meilleure REE qu'en moyenne ont-il un meilleur niveau scolaire ? 
 
-(croiser notes et qualité REE)
 ```{r}
-REE_notes <- data %>%
-  select(RELATST, TEACHSUP, PV1MATH)
+REE_notes <- data_etude %>%
+  select(RELATST, TEACHSUP, MOY_GENERALE, MOY_MATH)
+colnames(REE_notes) <- c("REE", "REE maths", "Moyenne G", "Notes maths")
 
 REE_notes <- na.omit(REE_notes)
 
@@ -342,60 +317,64 @@ corrplot(
 
 (croiser notes, moyenne de l'indice REE par pays)
 ```{r}
-bilan_pays <- data %>%
+# Test de corrélation entre la note moyenne d'un pays et son indice RELATST moyen
+bilan_pays <- data_etude %>%
   group_by(CNT) %>%
   summarise(
     REE_moyen = mean(RELATST, na.rm = TRUE),
-    Note_moyenne = mean(PV1MATH, na.rm = TRUE),
+    Note_moyenne = mean(MOY_GENERALE, na.rm = TRUE),
+    Effectif = n()) %>%
+  filter(!is.na(REE_moyen))
+cor.test(bilan_pays$REE_moyen, bilan_pays$Note_moyenne)
+```
+Il existe une corrélation négative entre la qualité de la REE et la note moyenne de chaque pays (r =~ -0,28). Plus l'indice de Relation Élève-Enseignant est élevé (supérieur à la moyenne de l'OCDE) dans un pays plus la note moyenne dans ce pays a tendance à être faible. La REE n'explique que partiellement le niveau académique mais d'autres facteurs entre en compte. Etant donné que le p-value est <0,05, on peut en conclure que la corrélation est significative. ????
+
+En mathématiques : 
+
+```{r}
+# Test de corrélation entre la note moyenne d'un pays et son indice TEACHSUP moyen
+bilan_pays_maths <- data_etude %>%
+  group_by(CNT) %>%
+  summarise(
+    REE_maths = mean(TEACHSUP, na.rm = TRUE),
+    Note_moyenne = mean(MOY_MATH, na.rm = TRUE),
     Effectif = n()
   ) %>%
-  filter(!is.na(REE_moyen))
+  filter(!is.na(REE_maths))
 
-cor.test(bilan_pays$REE_moyen, bilan_pays$Note_moyenne)
-
-ggplot(bilan_pays, aes(x = REE_moyen, y = Note_moyenne)) +
-  geom_point(aes(size = Effectif), color = "darkcyan", alpha = 0.6) + 
-  geom_smooth(method = "lm", color = "red", se = TRUE) + # Ligne de tendance
-  geom_text(aes(label = CNT), vjust = -1, size = 3) + # Affiche le nom des pays
-  labs(
-    title = "Lien entre Relation Élève-Enseignant et Performance par Pays",
-    x = "Indice REE Moyen (RELATST)",
-    y = "Note Moyenne (Maths)",
-    size = "Nombre d'élèves"
-  ) +
-  theme_minimal()
+cor.test(bilan_pays_maths$REE_maths, bilan_pays_maths$Note_moyenne)
 ```
-Il existe une corrélation négative entre la qualité de la REE et la note moyenne de chaque pays (r =~ -0,30). Plus l'indice de Relation Élève-Enseignant est élevé (supérieur à la moyenne de l'OCDE) dans un pays plus la note moyenne dans ce pays a tendance à être faible. La REE n'explique que partiellement le niveau académique mais d'autres facteurs entre en compte. Etant donné que le p-value est <0,05, on peut en conclure que la corrélation est significative. 
 
-```{r}
-modele <- lm(Note_moyenne ~ REE_moyen, data = bilan_pays)
-bilan_pays$ecart <- residuals(modele)
-tops <- bilan_pays %>% arrange(desc(ecart)) %>% head(5)
-bottoms <- bilan_pays %>% arrange(ecart) %>% head(5)
+Plus un pays a un niveau en mathématiques élevé selon les notes de l'OCDE, moins la relation entre les élèves et les enseignants de mathématiques est jugée positive. En effet, on constate une corrélation négative (r =~ -0.56, p-value =~ 8e-08) entre la qualité de la REE moyenne d'un pays et sa note OCDE moyenne concernant les mathématiques. 
 
-print("Pays avec des notes bien plus hautes que prévu :")
-print(tops[, c("CNT", "Note_moyenne", "REE_moyen")])
-
-print("Pays avec des notes bien plus basses que prévu :")
-print(bottoms[, c("CNT", "Note_moyenne", "REE_moyen")])
-```
-```{r}
-ggplot(bilan_pays, aes(x = REE_moyen, y = Note_moyenne)) +
+```{r, echo = FALSE, warning= FALSE}
+# Regression linéaire entre l'indice RELATST moyen d'un pays et la note moyenne obtenue par ce pays
+modele_TEACHSUP <- lm(Note_moyenne ~ REE_maths, data = bilan_pays_maths)
+bilan_pays_maths$ecart <- residuals(modele_TEACHSUP)
+ggplot(bilan_pays_maths, aes(x = REE_maths, y = Note_moyenne)) +
   geom_smooth(method = "lm", color = "grey", linetype = "dashed", se = FALSE) +
-  geom_point(color = "darkcyan", alpha = 0.5) +
-  # On ajoute les noms uniquement pour les pays atypiques
-  geom_text(data = rbind(tops, bottoms), 
-            aes(label = CNT), vjust = -1, color = "red", fontface = "bold") +
-  labs(title = "Focus sur les pays atypiques",
-       subtitle = "En rouge : les pays qui s'écartent le plus de la tendance",
-       x = "Indice Relation (REE)", y = "Note Moyenne") +
-  theme_minimal()
+  geom_point(aes(color = abs(ecart) > 50), alpha = 0.5) + # Colore les outliers
+  # Utilisation de geom_text_repel à la place de geom_text
+  geom_text_repel( aes(label = CNT),
+                  size = 3,
+                  box.padding = 0.5, 
+                  point.padding = 0.3,
+                  segment.color = "grey50") +
+  scale_color_manual(values = c("darkcyan", "red")) +
+  geom_hline(yintercept = mean(bilan_pays_maths$Note_moyenne, na.rm = TRUE), 
+             linetype = "dotted", color = "#2c7bb6", size = 0.8) +
+  labs(title = "Corrélation entre la note moyenne en maths et la relation avec \nl'enseignant de mathématiques", subtitle = "En rouge, les pays ne confirmant pas la corrélation. \nLa ligne en pointillée bleue correspond à la note moyenne. ", x = "Indice de relation moyen avec l'enseignant de maths", y = "Note OCDE moyenne en mathématiques")+
+  theme_minimal() +
+  theme(legend.position = "none")
 ```
+Certains pays ne suivent pas cette corrélation négative, comme Singapour (SGP) où la relation avec les enseignants de mathématiques est plus postive de 0.4 point qu'en moyenne dans les pays de l'OCDE. De plus, le niveau moyen en mathématiques y est le plus élevé.
+Le Guatemala (GTM) confirme bien notre lien de corrélation. Le niveau moyen en mathématiques est largement en dessous de la moyenne, alors qu'on y retrouve la meilleure REE moyenne.
 
 
 ## La qualité de la REE dépend-t-elle des orgines socio-économiques des élèves ?
 
 ```{r, echo=FALSE, warning=FALSE}
+# Dispersion de l'indice RELATST en fonction des quartiles socio-éco
 etude_ESCS <- data_etude %>% mutate(Quartile_Social = ntile(ESCS, 4))
 etude_ESCS %>%
   filter(!is.na(Quartile_Social)) %>% 
@@ -419,7 +398,9 @@ etude_ESCS %>%
     plot.title = element_text(face = "bold", size = 12),
     axis.text.x = element_text(size = 10)
   )
-
+```
+```{r}
+# Dispersion de l'indice TEACHSUP en fonction des quartiles socio-éco
 etude_ESCS <- data_etude %>% mutate(Quartile_Social = ntile(ESCS, 4))
 etude_ESCS %>%
   filter(!is.na(Quartile_Social)) %>% 
@@ -440,41 +421,9 @@ etude_ESCS %>%
   theme(
     legend.position = "none",
     panel.grid.minor = element_blank(),
-    plot.title = element_text(face = "bold", size = 11),
+    plot.title = element_text(face = "bold", size = 10),
     axis.text.x = element_text(size = 9)
   )
-```
-```{r}
-tab_cor_pays <- data_etude %>%
-  group_by(CNT) %>%
-  summarise(
-    correlation = if(sum(!is.na(ESCS) & !is.na(RELATST)) > 10) {
-                    cor(ESCS, RELATST, use = "complete.obs")
-                  } else { 
-                    NA_real_ 
-                  },
-    nb_complet = sum(!is.na(ESCS) & !is.na(RELATST))
-  ) %>%
-  arrange(desc(correlation))
-
-pays_sans_donnees <- tab_cor_pays %>% filter(is.na(correlation))
-print(pays_sans_donnees)
-print(tab_cor_pays)
-
-# Choisissons quelques pays pour comparer (ex: France, Japon, Mexique, Finlande)
-pays_selection <- c("FRA", "JPN", "MEX", "FIN", "SGP", "DOM")
-
-etude_ESCS %>%
-  filter(CNT %in% pays_selection) %>%
-  filter(!is.na(Quartile_Social)) %>%
-  ggplot(aes(x = factor(Quartile_Social), y = RELATST, fill = factor(Quartile_Social))) +
-  geom_boxplot(outlier.shape = NA, alpha = 0.7) +
-  facet_wrap(~CNT, scales = "free_y") + # Un graphique par pays
-  theme_minimal() +
-  labs(title = "Comparaison de l'équité relationnelle par pays",
-       x = "Quartile Social", y = "Indice REE") +
-  theme(legend.position = "none")
-
 ```
 
 
