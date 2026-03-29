@@ -395,37 +395,88 @@ ggplot(bilan_pays, aes(x = REE_moyen, y = Note_moyenne)) +
 
 ## La qualité de la REE dépend-t-elle des orgines socio-économiques des élèves ?
 
-(croiser indice REE et ESCS)
+```{r, echo=FALSE, warning=FALSE}
+etude_ESCS <- data_etude %>% mutate(Quartile_Social = ntile(ESCS, 4))
+etude_ESCS %>%
+  filter(!is.na(Quartile_Social)) %>% 
+  ggplot(aes(x = factor(Quartile_Social), y = RELATST, fill = factor(Quartile_Social))) +
+  geom_boxplot(alpha = 0.6, outlier.shape = NA, width = 0.6) +
+  stat_summary(fun = mean, geom = "point", shape = 18, size = 3, color = "red") +
+  scale_x_discrete(labels = c("1\n25% les plus défavorisés", "2", "3", "4\n25% les plus favorisés")) +
+  scale_fill_viridis_d(option = "mako", begin = 0.3, end = 0.8) +
+  coord_cartesian(ylim = c(-2.5, 2.5)) +
+  labs(
+    title = "La relation élève-enseignant selon le statut socio-économique des parents",
+    subtitle = "L'origine sociale n'apparaît pas comme un facteur déterminant de la REE",
+    x = "Quartiles socio-économiques",
+    y = "Indice REE",
+    caption = "Source : Données PISA 2022"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(face = "bold", size = 12),
+    axis.text.x = element_text(size = 10)
+  )
 
-```{r}
-etude_ESCS <- data_etude %>%
-  mutate(Quartile_Social = ntile(ESCS, 20))
-bilan_social <- etude_ESCS %>%
-  group_by(Quartile_Social) %>%
-  summarise(REE_moyen = mean(RELATST, na.rm = TRUE))
-
-ggplot(bilan_social, aes(x = factor(Quartile_Social), y = REE_moyen, fill = factor(Quartile_Social))) +
-  geom_col() +
-  labs(title = "Qualité de la REE selon l'origine sociale",
-       x = "Quartiles de l'indice social",
-       y = "Indice REE moyen (par rapport au 0 OCDE)") +
-  theme_minimal()
+etude_ESCS <- data_etude %>% mutate(Quartile_Social = ntile(ESCS, 4))
+etude_ESCS %>%
+  filter(!is.na(Quartile_Social)) %>% 
+  ggplot(aes(x = factor(Quartile_Social), y = TEACHSUP, fill = factor(Quartile_Social))) +
+  geom_boxplot(alpha = 0.6, outlier.shape = NA, width = 0.6) +
+  stat_summary(fun = mean, geom = "point", shape = 18, size = 3, color = "red") +
+  scale_x_discrete(labels = c("1\n25% les plus défavorisés", "2", "3", "4\n25% les plus favorisés")) +
+  scale_fill_viridis_d(option = "mako", begin = 0.3, end = 0.8) +
+  coord_cartesian(ylim = c(-2.5, 2.5)) +
+  labs(
+    title = "La relation avec l'enseignant de mathématique selon le statut socio-économique des parents",
+    subtitle = "L'origine sociale n'apparaît pas comme un facteur déterminant de la REE",
+    x = "Quartiles socio-économiques",
+    y = "Indice REE",
+    caption = "Source : Données PISA 2022"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(face = "bold", size = 11),
+    axis.text.x = element_text(size = 9)
+  )
 ```
 ```{r}
-etude_ESCS <- data_etude %>%
-  mutate(Quartile_Social = ntile(ESCS, 20))
-bilan_social <- etude_ESCS %>%
-  group_by(Quartile_Social) %>%
-  summarise(REE_moyen = mean(RELATST, na.rm = TRUE))
-bilan_social <- bilan_social %>% filter(!is.na(Quartile_Social))
+tab_cor_pays <- data_etude %>%
+  group_by(CNT) %>%
+  summarise(
+    correlation = if(sum(!is.na(ESCS) & !is.na(RELATST)) > 10) {
+                    cor(ESCS, RELATST, use = "complete.obs")
+                  } else { 
+                    NA_real_ 
+                  },
+    nb_complet = sum(!is.na(ESCS) & !is.na(RELATST))
+  ) %>%
+  arrange(desc(correlation))
 
-ggplot(bilan_social, aes(x = factor(Quartile_Social), y = REE_moyen, fill = factor(Quartile_Social))) +
-  geom_col() +
-  labs(title = "Qualité de la REE selon l'origine sociale",
-       x = "Quartiles de l'indice social",
-       y = "Indice REE moyen (par rapport au 0 OCDE)") +
-  theme_minimal()
+pays_sans_donnees <- tab_cor_pays %>% filter(is.na(correlation))
+print(pays_sans_donnees)
+print(tab_cor_pays)
+
+# Choisissons quelques pays pour comparer (ex: France, Japon, Mexique, Finlande)
+pays_selection <- c("FRA", "JPN", "MEX", "FIN", "SGP", "DOM")
+
+etude_ESCS %>%
+  filter(CNT %in% pays_selection) %>%
+  filter(!is.na(Quartile_Social)) %>%
+  ggplot(aes(x = factor(Quartile_Social), y = RELATST, fill = factor(Quartile_Social))) +
+  geom_boxplot(outlier.shape = NA, alpha = 0.7) +
+  facet_wrap(~CNT, scales = "free_y") + # Un graphique par pays
+  theme_minimal() +
+  labs(title = "Comparaison de l'équité relationnelle par pays",
+       x = "Quartile Social", y = "Indice REE") +
+  theme(legend.position = "none")
+
 ```
+
 
 
 ## Peut-on établir un lien entre une REE jugée positive et l'appréciation des matières étudiées à l'école ?
