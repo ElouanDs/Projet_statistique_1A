@@ -16,7 +16,7 @@ format:
       
       \fancyfoot[C]{\thepage}
       
-      \fancyhead[R]{\raisebox{-0.3cm}{\includegraphics[width=2cm]{ensai_logo_1.png}}}
+      \fancyhead[R]{\raisebox{-0.3cm}{\includegraphics[width=2cm]{Images/ensai_logo_1.png}}}
       
       \renewcommand{\headrulewidth}{0pt}
       \renewcommand{\footrulewidth}{0pt}
@@ -24,7 +24,7 @@ format:
       \fancypagestyle{plain}{
         \fancyhf{}
         \fancyfoot[C]{\thepage}
-        \fancyhead[R]{\raisebox{-0.3cm}{\includegraphics[width=2cm]{ensai_logo_1.png}}}
+        \fancyhead[R]{\raisebox{-0.3cm}{\includegraphics[width=2cm]{Images/ensai_logo_1.png}}}
         \renewcommand{\headrulewidth}{0pt}
       }
 lang: fr
@@ -41,13 +41,14 @@ nocite: "@*"
 
 En France, d'après Direction de l'évaluation de la prospective et de la performance (DEPP), à la rentrée scolaire 2022/2023, le nombre moyen d'élèves par classe et enseignant est de 25.9, tous établissements du second degré confondus (hors SEGPA) soit 20% de plus que la moyenne européenne (21 élèves). Ceci serait-il facteur d'une plus ou moins bonne réussite scolaire ? Cela aurait-il un impact sur le bien-être des élèves en classe ? Tout ceci mène à nous intéresser au sujet suivant : La relation entre élèves et enseignants (REE).
 
-La REE est une notion peu commune que l’on peut se proposer de définir par construction. En effet, on entend tout d’abord par relation, un rapport, une liaison qui existe, est conçu comme existant entre deux choses, deux grandeurs, deux phénomènes. Celle-ci est dans notre cas à visée pédagogique, s’inscrit dans le cadre d’une transmission de savoir. Une relation peut également être de nature horizontale (si les deux phénomènes, objets sont considérés dans une même mesure) ou bien verticale si un parti à l’ascendant (pas forcément physique) sur l’autre. Dans notre cadre d’étude, la relation élève-enseignant sera verticale dans la mesure où le professeur sait et où les élèves ne savent pas encore. La relation peut également être d’ordre subjective ou objective. Toutefois, comme il est difficile de mesurer le degré de subjectivité/objectivité d’une relation, nous nous fierons seulement à l’enquête PISA qui nous a été fournie, même si les réponses peuvent être inconsciemment biaisées. Par ailleurs, nous définirons un élève comme un enfant, ou jeune, recevant l’enseignement d’un établissement scolaire ou d’une école spécialisée, âgé de 15 ans, pouvant habiter dans 85 pays différents. Il est également possible d’effectuer une typologie du type d’élève, c’est-à-dire de classer les élèves en fonction de plusieurs caractéristiques scolaires (amical, attentif, travailleur, participe beaucoup, …). Enfin, nous définirons un enseignant comme un adulte ayant pour fonction d’enseigner une matière et provenant de différents pays. Nous nous concentrerons ici particulièrement sur les professeurs de mathématiques puisque c’est la matière qui comporte le plus d’informations sur la qualité d’enseignement des professeurs ainsi que sur les caractéristiques des élèves dans ce cours. Finalement, la REE peut se définir comme les interactions ,qu’elles soient positives ou négatives, entretenues entre les élèves et les enseignants.
+La relation élèves enseignants caractérise une intéraction, qu'elle soit poisitive ou négative, entretenue entre les élèves et les enseignants. Cette relation s'inscrit dans une dynamique de transmission des savoirs et peut être qualifiée de verticale, dans la mesure où l'enseignant détient un savoir que l'élève est en train d'acquérir. Elle possède également une dimension subjective, puisqu'elle repose en grande partie sur le ressenti des élèves. Ainsi sa meusre repose nécessairement sur des données déclarative, susceptible de comporter certain biais.
 
-Ainsi, pour étudier la REE il faut d’abord en proposer une mesure. Nous avons alors choisi de travailler sur seulement 2 types de REE : une REE globale qui comprend les questions générales sur le ressenti de l’élève quant à ses relations avec les enseignants mais reposant aussi sur des critères de créativité, et une REE en mathématiques caractérisée par la relation des élèves avec leur professeur en cours de mathématiques. Une potentielle limite de notre mesure est, que les résultats obtenus pour réaliser ces différents indices reposent uniquement sur les réponses données par les élèves sur leurs enseignants et non les enseignants sur leurs élèves.
+Dans notre étude nous allons donc mesurer cette REE, et nous nous demanderons si une bonne relation entre élèves et enseignants influence positivement la scolarité des élèves à différentes échelles.
 
-En outre, mesurer la REE nous permettra de mettre en exergue l’effet des REE sur différentes variables expliquées. De nombreux travaux montrent les bienfaits d'une bonne REE (via le soutien d'apprentissage), sur le parcours scolaire et le développement socio-émotionnel des enfants se traduisant concrètement par : un engagement des enfants plus marqué en classe selon les articles Graciella Arrascue (2023) et de Quin (2017), une meilleure transition collège/lycée contrairement aux relations conflictuelles étant caractérisées comme moins prévisibles sur le comportement des élèves (Longobardi, 2016). On peut également souligner, d'après Herry (1999), que l'utilisation de bonnes pratiques pédagogiques par l'enseignant permet d'améliorer en partie les résultats scolaires des élèves en mathématiques. Toutefois, ces résulats restent encore à prouver avec le questionnaire PISA 2023 que ce soit en fonction des différents types d'élèves, des pays d'origine, ou bien d'autres facteurs du jeu de données.
+Dans un premier temps, il s’agira de comprendre ce qu’est la relation élèves-enseignants à travers la manière dont elle est perçue par les élèves, ainsi que d’analyser les cas de non-réponse. Ensuite, nous étudierons les liens entre la REE et la réussite scolaire, en tenant compte des performances individuelles, des différences entre pays et du contexte socio-économique. Enfin, nous nous intéresserons aux relations entre la REE et le bien-être des élèves dans le cadre scolaire, notamment en termes d’anxiété et de relations entre pairs.
 
-Nous nous demanderons alors, dans quelle mesure une bonne relation entre élève et enseignant influence positivement la scolarité des élèves à différentes échelles ?
+Les données utilisées sont issues de l'enquête PISA 2022, qui interroge des élèves âgés de 15 habitant dans 85 pays. Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économique des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants.
+
 
 ```{r, echo = FALSE, include = FALSE}
 # installation des packages
@@ -55,8 +56,8 @@ Nous nous demanderons alors, dans quelle mesure une bonne relation entre élève
 #| warning: FALSE
 #| message: FALSE
 
-packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse")
-install.packages(packages) 
+#packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse")
+#install.packages(packages) 
 library(tidyverse)
 library(psych)
 library(FactoMineR)
@@ -119,39 +120,10 @@ data_etude <- as.data.frame(data_etude)
 ```
 
 ```{r, echo = FALSE, include = FALSE}
-# Sélection des variables quantitatives
-vars_quanti <- data_etude %>%
-  select(RELATST, TEACHSUP, ESCS,
-         EXPWB, MOY_MATH, MOY_GENERALE, ANXMAT,BELONG,BULLIED)
-
-# Fonction d'imputation par la moyenne
-impute_mean <- function(x){
-  x[is.na(x)] <- mean(x, na.rm = TRUE)
-  return(x)
-}
-
-vars_quanti_imp <- as.data.frame(lapply(vars_quanti, impute_mean))
-
-# Réintégration dans le dataset
-data_etude[, names(vars_quanti_imp)] <- vars_quanti_imp
-```
-
-```{r, echo = FALSE, include = FALSE}
 # Conversion en facteur
 data_etude$ST004D01T <- as.factor(data_etude$ST004D01T)
 ```
 
-```{r, echo = FALSE, include = FALSE}
-cor(data_etude$TEACHSUP, data_etude$MOY_MATH)
-cor(data_etude$RELATST, data_etude$MOY_MATH)
-```
-
-```{r, echo = FALSE, include = FALSE}
-modele_direct <- lm(MOY_MATH ~ TEACHSUP + RELATST + ESCS,
-                    data = data_etude)
-
-summary(modele_direct)
-```
 
 ```{r, echo = FALSE, include = FALSE}
 data_etude %>%
@@ -164,9 +136,12 @@ data_etude %>%
 
 # 1 Comprendre la relation élève-enseignant
 
+## Cadre d'analyse de la REE
+
+
 ## Une relation décrite comme positive au travers du vécu de l'élève.
 
-La relation entre élèves et enseignants largement décrite comme étant positive, d'après les élèves. Pour autant, environ un tiers des élèves n'ont pas répondu à aux questions portant sur la REE.
+
 
 ```{r, echo = FALSE}
 data_relatst_na <- data_etude %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
@@ -196,15 +171,16 @@ ggplot(data_plot_p, aes(x = Question,
                       y = Pourcentage)) +
   geom_col(fill = "darkcyan", width = 0.7) +
   coord_flip() +
-  scale_x_discrete(labels = c(
-    ST267Q01JA = "Les enseignants sont respectueux",
-    ST267Q02JA = "Les enseignants font attention aux élèves en cas de retard",
-    ST267Q03JA = "Les enseignants seront heureux de revoir l'élève dans 3 ans",
-    ST267Q04JA = "Les enseignants ne sont pas intimidants",
-    ST267Q05JA = "Les enseignants s'intéressent aux élèves",
-    ST267Q06JA = "Les enseignants sont amicaux",
-    ST267Q07JA = "Les enseignants se soucient du bien-être des élèves",
-    ST267Q08JA = "Les enseignants ne sont pas méchants")) +
+  scale_x_discrete(labels = function(x) stringr::str_wrap(c(
+  ST267Q01JA = "Les enseignants sont respectueux",
+  ST267Q02JA = "Les enseignants font attention aux élèves en cas de retard",
+  ST267Q03JA = "Les enseignants seront heureux de revoir l'élève dans 3 ans",
+  ST267Q04JA = "Les enseignants ne sont pas intimidants",
+  ST267Q05JA = "Les enseignants s'intéressent aux élèves",
+  ST267Q06JA = "Les enseignants sont amicaux",
+  ST267Q07JA = "Les enseignants se soucient du bien-être des élèves",
+  ST267Q08JA = "Les enseignants ne sont pas méchants"
+)[x], width = 40)) +
   labs(title = "Réponses indiquant une relation positive",
        x = "",
        y = "Pourcentage (%)") +
@@ -212,14 +188,15 @@ ggplot(data_plot_p, aes(x = Question,
   ylim(0, 100)+
   theme(
     plot.title = element_text(hjust=1),
-    plot.caption = element_text(hjust = 0.85),
-    plot.margin = margin(5, 0.5, 5, 5)
+    plot.caption = element_text(hjust = 0.20),
+    plot.margin = margin(5, 0.5, 5, 5),
+
   )
 ```
 Source : Enquête PISA 2022, OCDE
 Note de lecture : 85% des élèves ayant répondu affirment que leurs enseignants sont respectueux envers eux.
 
-```{r}
+```{r, echo = FALSE}
 data_teachsup_na <- data_etude %>% select(ST270Q01JA, ST270Q02JA, ST270Q03JA, ST270Q04JA)
 data_teachsup <- na.omit(data_teachsup_na)
 # Questions sur la REE positive
@@ -243,11 +220,11 @@ ggplot(data_plot_t, aes(x = Question,
                       y = Pourcentage)) +
   geom_col(fill = "darkcyan", width = 0.7) +
   coord_flip() +
-  scale_x_discrete(labels = c(
+  scale_x_discrete(labels = function(x) stringr::str_wrap(c(
     ST270Q01JA = "L'enseignant montre de l'intérêt pour l'apprentissage des élèves.",
     ST270Q02JA = "L'enseignant apporte de l'aide supplémentaire si besoin.",
     ST270Q03JA = "L'enseignant aide les élèves dans leur apprentissage.",
-    ST270Q04JA = "L'enseignant continue d'enseigner jusqu'à ce que les élèves comprennent.")) +
+    ST270Q04JA = "L'enseignant continue d'enseigner jusqu'à ce que les élèves comprennent.")[x], width = 40)) +
   labs(title = "Réponses indiquant une relation positive",
        x = "",
        y = "Pourcentage (%)") +
@@ -255,7 +232,7 @@ ggplot(data_plot_t, aes(x = Question,
   ylim(0, 100)+
   theme(
     plot.title = element_text(hjust=1),
-    plot.caption = element_text(hjust = 0.85),
+    plot.caption = element_text(hjust = 0.3),
     plot.margin = margin(5, 0.5, 5, 5)
   )
 ```
@@ -270,7 +247,7 @@ Le chiffre de non-réponse nous poussent à s'interroger sur le profil des élè
 
 ## Les profils des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant
 
-```{r}
+```{r, echo = FALSE}
 data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q02JA), "Manquant", "Présent")
 ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
@@ -286,7 +263,7 @@ ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
 Ce graphique nous indique le nombre d'élèves n'ayant pas répondu sur une question concernant leur rélation avec le professeur en fonction de leur moyenne générale. On constate que pour cette question, les élèves ayant un niveau académique plus faible ont tendance à moins répondre aux questions concernant leur relation avec le corps enseignant. De plus ce même résultats est aussi visible sur les autres questions visibles en annexes. Cela biaise donc nos résultats concernant les notes et la relation élèves-enseignants.
 
 Conserver les profils NA aux deux questions et résumer les informations sur leur pays, leur genre, leur note,...
-```{r}
+```{r, echo = FALSE}
 relatst_NA_ligne <- is.na(data$TEACHSUP)
 
 relatst_NA_pays <- tapply(relatst_NA_ligne, data_etude$CNT, mean) * 100
@@ -302,7 +279,7 @@ barplot(
   cex.names = 0.7
 )
 ```
-```{r}
+```{r, echo = FALSE}
 relatst_critiques <- relatst_NA_pays_tri[relatst_NA_pays_tri == 100]
 names(relatst_critiques)
 ```
@@ -314,9 +291,9 @@ Le profil des élèves peut être enrichi par le pays d'étude de l'élève. Les
 ## Les élèves ayant une meilleure REE qu'en moyenne ont-il un meilleur niveau scolaire ? 
 
 (croiser notes et qualité REE)
-```{r}
+```{r, echo = FALSE}
 REE_notes <- data_etude %>%
-  select(RELATST, TEACHSUP, PV1MATH)
+  select(RELATST, TEACHSUP, MOY_GENERALE)
 
 REE_notes <- na.omit(REE_notes)
 
@@ -339,12 +316,12 @@ corrplot(
 ## Le niveau académique est-il meilleur dans les pays où il y a une meilleure REE ? 
 
 (croiser notes, moyenne de l'indice REE par pays)
-```{r}
+```{r, echo = FALSE}
 bilan_pays <- data_etude %>%
   group_by(CNT) %>%
   summarise(
     REE_moyen = mean(RELATST, na.rm = TRUE),
-    Note_moyenne = mean(PV1MATH, na.rm = TRUE),
+    Note_moyenne = mean(MOY_GENERALE, na.rm = TRUE),
     Effectif = n()
   ) %>%
   filter(!is.na(REE_moyen))
@@ -365,7 +342,7 @@ ggplot(bilan_pays, aes(x = REE_moyen, y = Note_moyenne)) +
 ```
 Il existe une corrélation négative entre la qualité de la REE et la note moyenne de chaque pays (r =~ -0,30). Plus l'indice de Relation Élève-Enseignant est élevé (supérieur à la moyenne de l'OCDE) dans un pays plus la note moyenne dans ce pays a tendance à être faible. La REE n'explique que partiellement le niveau académique mais d'autres facteurs entre en compte. Etant donné que le p-value est <0,05, on peut en conclure que la corrélation est significative. 
 
-```{r}
+```{r, echo = FALSE}
 modele <- lm(Note_moyenne ~ REE_moyen, data = bilan_pays)
 bilan_pays$ecart <- residuals(modele)
 tops <- bilan_pays %>% arrange(desc(ecart)) %>% head(5)
@@ -397,7 +374,7 @@ ggplot(bilan_pays, aes(x = REE_moyen, y = Note_moyenne)) +
 
 ## Peut-on établir un lien entre une REE jugée positive et l'appréciation des matières étudiées à l'école ?
 
-```{r}
+```{r, echo = FALSE}
 aimer_matieres <- data_etude %>%
   select(RELATST, TEACHSUP, ST268Q01JA, ST268Q02JA, ST268Q03JA)
 
@@ -575,7 +552,7 @@ hist(data_etude$RELATST, main = "Répartition de l'indice de qualité de la REE"
 ```
 
 ## Densité de non réponse en fonction des notes
-```{r}
+```{r, echo = FALSE}
 data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q01JA), "Manquant", "Présent")
 ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
@@ -588,7 +565,7 @@ ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   ) +
   theme_minimal()
 ```
-```{r}
+```{r, echo = FALSE}
 data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q03JA), "Manquant", "Présent")
 ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
@@ -601,7 +578,7 @@ ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   ) +
   theme_minimal()
 ```
-```{r}
+```{r, echo = FALSE}
 data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q04JA), "Manquant", "Présent")
 ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
@@ -614,7 +591,7 @@ ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   ) +
   theme_minimal()
 ```
-```{r}
+```{r, echo = FALSE}
 data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q05JA), "Manquant", "Présent")
 ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
@@ -627,7 +604,7 @@ ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   ) +
   theme_minimal()
 ```
-```{r}
+```{r, echo = FALSE}
 data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q06JA), "Manquant", "Présent")
 ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
@@ -640,7 +617,7 @@ ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   ) +
   theme_minimal()
 ```
-```{r}
+```{r, echo = FALSE}
 data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q07JA), "Manquant", "Présent")
 ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
@@ -653,7 +630,7 @@ ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   ) +
   theme_minimal()
 ```
-```{r}
+```{r, echo = FALSE}
 data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q08JA), "Manquant", "Présent")
 ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
