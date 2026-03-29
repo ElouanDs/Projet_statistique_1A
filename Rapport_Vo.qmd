@@ -49,20 +49,20 @@ Dans un premier temps, il s’agira de comprendre ce qu’est la relation élèv
 
 Les données utilisées sont issues de l'enquête PISA 2022, qui interroge des élèves âgés de 15 habitant dans 85 pays. Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économique des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants.
 
-
 ```{r, echo = FALSE, include = FALSE}
 # installation des packages
 #| include: FALSE
 #| warning: FALSE
 #| message: FALSE
 
-#packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse")
+#packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse","ggrepel")
 #install.packages(packages) 
 library(tidyverse)
 library(psych)
 library(FactoMineR)
 library(factoextra)
 library(corrplot)
+library(ggrepel)
 ```
 
 ```{r, echo = FALSE, include = FALSE}
@@ -117,13 +117,13 @@ idx_vars_etude <- match(vars_etude, names(data))
 
 data_etude <- c(data[, c(1,26, idx_vars_etude), drop = FALSE],Notes_moyennes[c(1,12)])
 data_etude <- as.data.frame(data_etude)
+rm(data,Notes,Notes_moyennes,Notes_NA)
 ```
 
 ```{r, echo = FALSE, include = FALSE}
 # Conversion en facteur
 data_etude$ST004D01T <- as.factor(data_etude$ST004D01T)
 ```
-
 
 ```{r, echo = FALSE, include = FALSE}
 data_etude %>%
@@ -137,11 +137,11 @@ data_etude %>%
 # 1 Comprendre la relation élève-enseignant
 
 ## Cadre d'analyse de la REE
+-> introduire indices
 
-
-## Une relation décrite comme positive au travers du vécu de l'élève.
-
-
+## Une relation décrite comme globalement positive au travers du vécu de l'élève.
+Il est maintenant intéressant de s'interresser à la qualité de cette relation et savoir comment elle est perçue par les élèves. Car un indice relève en effet de la qualité au global de la relation mais il est aussi immportant de savoir le détail par question. Pour cela nous avons récupéré le taux de réponse positives par question en ce qui concerne la relation élève-enseignant au global et celle sur les professeurs de mathématiques, seulement pour les élèves ayant répondu à la question. 
+On remarque que les résultats sont très positives, la question ayant le moins bon résultat est "Les enseignants font attention aux élèves en cas de retard", avec 72,7% de réponses positives. Donc pour seulement 27.3% les élèves l'enseignant ne fait pas attention. Quand aux autres résultats, ils se situent entre 79.4% et 94.2% de réponses positives donc seulement 20.6% et 4.8% de réponses négatives. On peut conclure que les trois qualités qui caratérisent au mieux cette relation positive sont un enseignant qui n'est pas méchant, qui est amical et qui se soucit du bien-être des élèves.
 
 ```{r, echo = FALSE}
 data_relatst_na <- data_etude %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
@@ -193,9 +193,11 @@ ggplot(data_plot_p, aes(x = Question,
 
   )
 ```
-Source : Enquête PISA 2022, OCDE
+Figure 1: Illustration du taux de réponses positives par question
 Note de lecture : 85% des élèves ayant répondu affirment que leurs enseignants sont respectueux envers eux.
 
+Cette relation étant très positive en ce qui concerne les enseignant au global, maintenant interessons nous aux enseignants de mathèmatiques. On a donc sur la figure suivant le taux de réponse positive pour les questions concernant les enseignants de mathématiques. 
+Les résultats sont très différents de ce qu'on a pu observer avec les enseignants dans leur globalité. En effet les taux de réponses positives se trouve seulement entre 25.4% et 32.2%, on se retrouve donc avec une majorité de réponses négatives contrairement à la relation globale.
 ```{r, echo = FALSE}
 data_teachsup_na <- data_etude %>% select(ST270Q01JA, ST270Q02JA, ST270Q03JA, ST270Q04JA)
 data_teachsup <- na.omit(data_teachsup_na)
@@ -236,17 +238,64 @@ ggplot(data_plot_t, aes(x = Question,
     plot.margin = margin(5, 0.5, 5, 5)
   )
 ```
-```{r}
+Figure 2: Illustration du taux de réponses positives par question concernant les professeurs de mathématiques
+Note de lecture : 32.2% des élèves ayant répondu affirment que leur enseignant montre de l'intérêt pour l'apprentissage des éléves.
+
+```{r, echo=FALSE}
 mean(is.na(data_relatst_na))*100
 mean(is.na(data_teachsup_na))*100
+rm(data_long_p,data_long_t,data_plot_p,data_plot_t,data_relatst,data_relatst_na,data_teachsup,data_teachsup_na)
 ```
 
-Le chiffre de non-réponse nous poussent à s'interroger sur le profil des élèves qui ne répondent pas. En effet, les questions concernant la relation élèves enseignants en général ont un taux de non réponse d'environ 43% par élève. Pour les questions sur le soutien de l'enseignant de mathématiques, cela concerne 15% des réponses. Pour la suite nous allons donc nous focaliser sur le profil des élèves ne répondant pas aux questions concernant la relation élèves enseignants.
+Cependant, nous avons affichés les résultats seulement pour les élèves ayant répondu aux questions. Si l'on regarde le taux de non réponses nous avons 43.04% de non réponses concernant la relations dans la globalité et 15.53% pour la relation avec les professeurs de mathématiques. Le chiffre de non-réponse nous poussent à s'interroger sur le profil des élèves qui ne répondent pas pour comprendre en quoi cela pourrait biaiser nos analyses futures.
 
+
+## Les non-réponses : un indicateur à part entière
+Une solution simple permettant de faire les anaylses est d'imputer les valeurs manquantes par la moyenne. Cependant lorsqu'on regarde en détail ces non réponses on retrouve quelques informations très importantes.
+
+L'enquête PISA se base sur un questionnaire distribuée par les pays dans les écoles, cependant chaque partie du questionnaire étant facultative, un pays a pu refuser sa distribution pour certaines raisons. Pour l'indice mesurant la relation entre élèves et enseignant dans la globalité on retrouve de nombreux pays avec un taux de non-réponses égal à 100%. Les pays sont Brunei, Canada, Indonésie, Israël, Cambodge, Macao, Maroc, Malaisie, Philippines et Ouzbékistan. Cependant d'après nos recherches aucune raison officielle ne permet de conclure sur la raison de la non distribution de cette partie du questionnaire.
+
+Il serait donc non approprié d'amputer seulement toutes les non-réponses par la moyenne totale pour les pays n'ayant pas distribués cette partie du questionnaire correspondant à la construction de l'indice. Nous allons donc supprimés ces pays de notre jeu de données. Pour les autres pays, on amputera les non-réponses par la moyenne.
+
+```{r, echo = FALSE}
+relatst_NA_ligne <- is.na(data_etude$RELATST)
+
+relatst_NA_pays <- tapply(relatst_NA_ligne, data_etude$CNT, mean) * 100
+
+relatst_NA_pays_tri <- sort(relatst_NA_pays)
+
+barplot(
+  relatst_NA_pays_tri,
+  las = 2,              
+  col = "darkcyan",
+  main = "Proportion de non réponse par pays concernant la qualité de la REE",
+  ylab = "% de valeurs manquantes",
+  cex.names = 0.7
+)
+```
+Figure 2: Illustration du taux de non-réponses pour l'indice de relation entre élèves et enseignants.
+Note de lecture : Le Brunei a un taux de non réponse de 100% sur les données concernant l'indice de qualité de la relation entre élèves et enseignants.
+
+```{r, echo = FALSE}
+relatst_critiques <- relatst_NA_pays_tri[relatst_NA_pays_tri == 100]
+names(relatst_critiques)
+```
+
+
+```{r, echo = FALSE}
+#Enlever pays à 100% non réponse
+data_etude <- data_etude %>%
+  group_by(CNT) %>%
+  filter(!all(is.na(RELATST))) %>%
+  ungroup()
+
+
+
+```
 
 
 ## Les profils des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant
-
+Maintenant que nos données sont nettoyés, nous 
 ```{r, echo = FALSE}
 data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q02JA), "Manquant", "Présent")
 ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
@@ -263,29 +312,20 @@ ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
 Ce graphique nous indique le nombre d'élèves n'ayant pas répondu sur une question concernant leur rélation avec le professeur en fonction de leur moyenne générale. On constate que pour cette question, les élèves ayant un niveau académique plus faible ont tendance à moins répondre aux questions concernant leur relation avec le corps enseignant. De plus ce même résultats est aussi visible sur les autres questions visibles en annexes. Cela biaise donc nos résultats concernant les notes et la relation élèves-enseignants.
 
 Conserver les profils NA aux deux questions et résumer les informations sur leur pays, leur genre, leur note,...
-```{r, echo = FALSE}
-relatst_NA_ligne <- is.na(data$TEACHSUP)
 
-relatst_NA_pays <- tapply(relatst_NA_ligne, data_etude$CNT, mean) * 100
 
-relatst_NA_pays_tri <- sort(relatst_NA_pays)
+```{r,echo = FALSE}
+#Imputation par moyenne
+vars_quanti <- c("RELATST", "TEACHSUP", "ESCS", "ST016Q01NA", 
+                 "ST272Q01JA", "EXPWB", "BELONG", "BULLIED", "ANXMAT",
+                 "MOY_MATH", "MOY_GENERALE")
 
-barplot(
-  relatst_NA_pays_tri,
-  las = 2,              
-  col = "darkcyan",
-  main = "Proportion de non réponse par pays concernant la qualité de la REE",
-  ylab = "% de valeurs manquantes",
-  cex.names = 0.7
-)
+for (var in vars_quanti) {
+  
+  data_etude[[var]] <- impute_mean(data_etude[[var]])
+  
+}
 ```
-```{r, echo = FALSE}
-relatst_critiques <- relatst_NA_pays_tri[relatst_NA_pays_tri == 100]
-names(relatst_critiques)
-```
-Le profil des élèves peut être enrichi par le pays d'étude de l'élève. Les résultats montrent que 2 pays ont un taux de non réponses de 100%: le Canada et Israël. On peut donc en conclure que dans ces deux pays, la partie du questionnaire concernant cette question n'a pas été transmise aux élèves. 
-
-
 # Partie 2 
 
 ## Les élèves ayant une meilleure REE qu'en moyenne ont-il un meilleur niveau scolaire ? 
