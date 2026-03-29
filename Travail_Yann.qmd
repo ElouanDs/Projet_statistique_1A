@@ -39,7 +39,7 @@ nocite: "@*"
 
 # Introduction
 
-En France, d'après Direction de l'évaluation de la prospective et de la performance (DEPP), à la rentrée scolaire 2022/2023, le nombre moyen d'élèves par classe et enseignant est de 25.9, tous établissements du second degré confondus (hors SEGPA) soit 20% de plus que la moyenne européenne (21 élèves). Ceci serait-il facteur d'une plus ou moins bonne réussite scolaire ? Cela aurait-il un impact sur le bien-être des élèves en classe ? Tout ceci mène à nous intéresser au sujet suivant : La relation entre élèves et enseignants (REE).
+"La relation élève-enseignant s'intéresse à ce qui se passe entre l'enseignant et ses élèves, à l'école, d'un point de vue à la fois cognitif, affectif et social, au-delà des savoirs scolaires" (Espinosa, 2016). Selon lui, l'enseignement constitue un facteur à part entière de l'éducation des élèves, car même si cette dernière relève majoritairement de la responsabilité des parents, l'impact des professeurs dans la vie des élèves reste non negligeable. Ainsi, cette affirmation s'observe-t-elle réellement dans la réalité ? La relation entre les élèves et leurs enseignants ne se limite-t-elle pas uniquement à un cadre scolaire ? Une bonne relation élève/enseignant implique-t-elle la performance académique de l'élève ? Toutes ces interrogations nous amènent à nous intéresser au sujet suivant : La relation entre élèves et enseignants (REE).
 
 La relation élèves enseignants caractérise une intéraction, qu'elle soit poisitive ou négative, entretenue entre les élèves et les enseignants. Cette relation s'inscrit dans une dynamique de transmission des savoirs et peut être qualifiée de verticale, dans la mesure où l'enseignant détient un savoir que l'élève est en train d'acquérir. Elle possède également une dimension subjective, puisqu'elle repose en grande partie sur le ressenti des élèves. Ainsi sa meusre repose nécessairement sur des données déclarative, susceptible de comporter certain biais.
 
@@ -125,19 +125,14 @@ rm(data,Notes,Notes_moyennes,Notes_NA)
 data_etude$ST004D01T <- as.factor(data_etude$ST004D01T)
 ```
 
-```{r, echo = FALSE, include = FALSE}
-data_etude %>%
-  group_by(CNT) %>%
-  summarise(
-    corr_TEACH = cor(TEACHSUP, MOY_MATH),
-    corr_REL = cor(RELATST, MOY_MATH)
-  )
-```
-
 # 1 Comprendre la relation élève-enseignant
 
 ## Cadre d'analyse de la REE
--> introduire indices
+En premier lieu, afin de définir le cadre dans lequel nous nous plaçons, il faut avant tout préciser comment se caractérisent élèves et enseignants dans le questionnaire PISA. En effet, pour un élève, il s'agit ici d'un enfant âgé d'environ 15 ans unscrut dans un établissement scolaire public, privé ou bien spécialisé et pouvant provenir de 85 pays différents pour l'édition 2022. Par ailleurs, les enseignants sont, par définition, les professeurs des élèves interrogés dans l'enquête PISA.
+
+Ainsi, nous nous plaçons dans un contexte particulier d'analyse puisqu'il faut dan notre cas, étudier la REE grâce aux données présentes sur les questionnaire PISA 2022. Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économiques des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants. C'est pourquoi, afin de pouvoir réaliser notre étude, il nous fallait proposer une mesure des différents types de REE sur lesquels nous souhaitons nous appuyer. Ainsi, nous avons utilise deux indices déjà créés par l'OCDE afin de caractérier cette relation. En particulier, nous avons choisi de travailler avec l'indice RELATST pour la REE globale, qui comprend des questions générales sur le ressenti de l'élève quant à ses interactions avec leur enseignants, mais également l'indice TEACHSUP pour la REE ciblée sur les professeurs de mathématiques (voir annexe pour la construction des indices). 
+
+Toutefois, une potentielle limite de notre analyse mais inhérente au questionnaire PISA, est qu'il ne prend en compte la REE dans un seul sens. En effet, dans la réalité, les enseignants ont une influence sur leurs élèves mais l'inverse est aussi véridique, les élèves peuvent modifier le comportement de leurs professeurs. Cependant, ce deuxième sens dans la REE ne peut être vérifiée dans cette enquête, car seuls les élèves expriment leur opinion sur leurs professeurs.
 
 ## Une relation décrite comme globalement positive au travers du vécu de l'élève.
 Il est maintenant intéressant de s'interresser à la qualité de cette relation et savoir comment elle est perçue par les élèves. Car un indice relève en effet de la qualité au global de la relation mais il est aussi immportant de savoir le détail par question. Pour cela nous avons récupéré le taux de réponse positives par question en ce qui concerne la relation élève-enseignant au global et celle sur les professeurs de mathématiques, seulement pour les élèves ayant répondu à la question. 
@@ -255,7 +250,7 @@ Une solution simple permettant de faire les anaylses est d'imputer les valeurs m
 
 L'enquête PISA se base sur un questionnaire distribuée par les pays dans les écoles, cependant chaque partie du questionnaire étant facultative, un pays a pu refuser sa distribution pour certaines raisons. Pour l'indice mesurant la relation entre élèves et enseignant dans la globalité on retrouve de nombreux pays avec un taux de non-réponses égal à 100%. Les pays sont Brunei, Canada, Indonésie, Israël, Cambodge, Macao, Maroc, Malaisie, Philippines et Ouzbékistan. Cependant d'après nos recherches aucune raison officielle ne permet de conclure sur la raison de la non distribution de cette partie du questionnaire.
 
-Il serait donc non approprié d'amputer seulement toutes les non-réponses par la moyenne totale pour les pays n'ayant pas distribués cette partie du questionnaire correspondant à la construction de l'indice. Nous allons donc supprimés ces pays de notre jeu de données. Pour les autres pays, on amputera les non-réponses par la moyenne.
+Il serait donc non approprié d'amputer seulement toutes les non-réponses par la moyenne totale pour les pays n'ayant pas distribués cette partie du questionnaire correspondant à la construction de l'indice. Nous allons donc supprimés ces pays de notre jeu de données. 
 
 ```{r, echo = FALSE}
 relatst_NA_ligne <- is.na(data_etude$RELATST)
@@ -277,8 +272,8 @@ Figure 2: Illustration du taux de non-réponses pour l'indice de relation entre 
 Note de lecture : Le Brunei a un taux de non réponse de 100% sur les données concernant l'indice de qualité de la relation entre élèves et enseignants.
 
 ```{r, echo = FALSE}
-relatst_critiques <- relatst_NA_pays_tri[relatst_NA_pays_tri == 100]
-names(relatst_critiques)
+relatst_100 <- relatst_NA_pays_tri[relatst_NA_pays_tri == 100]
+names(relatst_100)
 ```
 
 
@@ -295,10 +290,10 @@ data_etude <- data_etude %>%
 
 
 ## Les profils des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant
-Maintenant que nos données sont nettoyés, nous 
+Maintenant que nos données sont nettoyés, nous pouvons faire une analyse du profil des élèves qui n'ont pas répondu aux questions sur leur relation avec le corps enseignant. Pour cela nous regardons 
 ```{r, echo = FALSE}
-data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q02JA), "Manquant", "Présent")
-ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
+data_etude$statut_NA <- ifelse(is.na(data_etude$TEACHSUP), "Manquant", "Présent")
+ggplot(data_etude, aes(x = MOY_MATH, fill = statut_NA)) +
   geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
   scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
   labs(
@@ -319,6 +314,10 @@ Conserver les profils NA aux deux questions et résumer les informations sur leu
 vars_quanti <- c("RELATST", "TEACHSUP", "ESCS", "ST016Q01NA", 
                  "ST272Q01JA", "EXPWB", "BELONG", "BULLIED", "ANXMAT",
                  "MOY_MATH", "MOY_GENERALE")
+impute_mean <- function(x){
+  x[is.na(x)] <- mean(x, na.rm = TRUE)
+  return(x)
+}
 
 for (var in vars_quanti) {
   
@@ -591,95 +590,3 @@ On peut ainsi noter une grande quantité de valeurs manquantes qui nous pénalis
 hist(data_etude$RELATST, main = "Répartition de l'indice de qualité de la REE", xlab = "indice", ylab = "fréquence")
 ```
 
-## Densité de non réponse en fonction des notes
-```{r, echo = FALSE}
-data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q01JA), "Manquant", "Présent")
-ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
-  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
-  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
-  labs(
-    title = "Nombre d'élèves par note et statut de réponse",
-    x = "moyenne générale",
-    y = "Nombre d'élèves",
-    fill = "Statut"
-  ) +
-  theme_minimal()
-```
-```{r, echo = FALSE}
-data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q03JA), "Manquant", "Présent")
-ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
-  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
-  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
-  labs(
-    title = "Nombre d'élèves par note et statut de réponse",
-    x = "moyenne générale",
-    y = "Nombre d'élèves",
-    fill = "Statut"
-  ) +
-  theme_minimal()
-```
-```{r, echo = FALSE}
-data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q04JA), "Manquant", "Présent")
-ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
-  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
-  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
-  labs(
-    title = "Nombre d'élèves par note et statut de réponse",
-    x = "moyenne générale",
-    y = "Nombre d'élèves",
-    fill = "Statut"
-  ) +
-  theme_minimal()
-```
-```{r, echo = FALSE}
-data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q05JA), "Manquant", "Présent")
-ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
-  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
-  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
-  labs(
-    title = "Nombre d'élèves par note et statut de réponse",
-    x = "moyenne générale",
-    y = "Nombre d'élèves",
-    fill = "Statut"
-  ) +
-  theme_minimal()
-```
-```{r, echo = FALSE}
-data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q06JA), "Manquant", "Présent")
-ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
-  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
-  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
-  labs(
-    title = "Nombre d'élèves par note et statut de réponse",
-    x = "moyenne générale",
-    y = "Nombre d'élèves",
-    fill = "Statut"
-  ) +
-  theme_minimal()
-```
-```{r, echo = FALSE}
-data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q07JA), "Manquant", "Présent")
-ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
-  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
-  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
-  labs(
-    title = "Nombre d'élèves par note et statut de réponse",
-    x = "moyenne générale",
-    y = "Nombre d'élèves",
-    fill = "Statut"
-  ) +
-  theme_minimal()
-```
-```{r, echo = FALSE}
-data_etude$statut_NA <- ifelse(is.na(data_etude$ST267Q08JA), "Manquant", "Présent")
-ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
-  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
-  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
-  labs(
-    title = "Nombre d'élèves par note et statut de réponse",
-    x = "moyenne générale",
-    y = "Nombre d'élèves",
-    fill = "Statut"
-  ) +
-  theme_minimal()
-```
