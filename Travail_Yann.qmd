@@ -3,6 +3,7 @@ title: "Relation élèves enseignants"
 author: "Barbeau Faustine - Combes Florent - Dumas Elouan - Malzieu Yann"
 format:
   pdf:
+    dpi: 150
     documentclass: report
     classoption: oneside
     pdf-engine: pdflatex 
@@ -49,11 +50,8 @@ Dans un premier temps, il s’agira de comprendre ce qu’est la relation élèv
 
 Les données utilisées sont issues de l'enquête PISA 2022, qui interroge des élèves âgés de 15 habitant dans 85 pays. Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économique des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants.
 
-```{r, echo = FALSE, include = FALSE}
-# installation des packages
-#| include: FALSE
-#| warning: FALSE
-#| message: FALSE
+```{r, echo = FALSE, include = FALSE, warning=FALSE, message = FALSE}
+
 
 #packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse","ggrepel")
 #install.packages(packages) 
@@ -595,7 +593,7 @@ corrplot(
 )
 ```
 
-```{r,echo = FALSE}
+```{r,echo = FALSE,dev="png", dpi= 150}
 ggplot(vars, aes(x = RELATST, y = EXPWB)) +
   geom_point(alpha = 0.3) +
   geom_smooth(method = "lm", color = "red") +
@@ -658,7 +656,7 @@ vars_csp %>%
 Comparons nos classes selon le bien-être, et la REE, de leurs individus.
 La CSP semble peu agir sur cela. Toutefois on remarque que les élèves issus de parents avec des catégories socio professionnelles élevées montrent une moins bonne relation entre élève et enseignant. 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, dev= "png", dpi= 150}
 ggplot(vars_csp, aes(x = RELATST, y = EXPWB, color = CSP_cat)) +
   geom_point(alpha = 0.3) +
   geom_smooth(method = "lm") +
@@ -730,7 +728,7 @@ On remarque par des statistiques descriptives simples et des représentations vi
 Par ailleurs, la relation entre les hommes et leur enseignant est la même que celle des femmes avec leur enseignant.
 
 
-```{r}
+```{r, echo=FALSE, dev= "png", dpi= 150}
 ggplot(vars_sex, aes(x = RELATST, y = EXPWB, color = sexe)) +
   geom_point(alpha = 0.3) +
   geom_smooth(method = "lm") +
@@ -815,7 +813,7 @@ Par ailleurs, les élèves de l'OCDE semblent avoir un sentiment d'appartenance 
 
 Etudions tout cela plus en profondeur ;
 
-```{r,echo=FALSE}
+```{r,echo=FALSE, dev= "png", dpi= 150}
 ggplot(vars_oecd, aes(x = TEACHSUP, y = EXPWB, color = OCDE_cat)) +
   geom_point(alpha = 0.3) +
   geom_smooth(method = "lm") +
