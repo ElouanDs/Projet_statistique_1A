@@ -522,7 +522,7 @@ La qualité perçue des cours de mathématiques est positivement corrélée avec
 
 Nous étudierons ainsi dans quelle mesure cette relation d'enseignant à élève peut impacter le bien-être de ces derniers.
 
-Pour estimer le bien-être des élèves des pays de l’OCDE, nous utliserons l’indice de bien-être ressenti durant les jours précédants. Cet indice est construit grâce à la partie du questionnaire sur le bien-être. L’indice s’affiche comme manquant lorsque l’élève n’a pas répondu “Oui” à la question “La journée d’hier était-elle une journée comme les autres ?”
+Pour estimer le bien-être des élèves des pays de l’OCDE, nous utliserons l’indice de bien-être ressenti durant les jours précédants (EXPWB). Cet indice est construit grâce à la partie du questionnaire sur le bien-être. L’indice s’affiche comme manquant lorsque l’élève n’a pas répondu “Oui” à la question “La journée d’hier était-elle une journée comme les autres ?”
 
 Les indices suivants peuvent être étudiés afin d’élargir l’analyse et de comprendre quels éléments influencent plus particulièrement les REE comme le harcèlement, etc. D’autres variables et indices peuvent être retenu pour expliquer la REE telles que l’indice d’anxiété concernant les mathématiques, l’indice sur le sentiment d’appartenance à l’école ou l’indice de harcèlement.
 
@@ -549,7 +549,7 @@ fviz_pca_var(
 )
 ```
 
-
+Grâce à l'ACP, nous pouvons relever que les variables sont structurées autour de deux axes principaux expliquant 54.1% de la variance totale. La premier axe (34.3%) met en evidence une opposition entre un pôle "bien-être" qui est constitué de la qualité de la relation élève-enseignant, du soutient perçu de l'enseignant de mathématiques et du sentiment d'appartenance à l'école, et un pôle "mal-être" regroupant l'anxiété en mathématiques et le harcèlement. Cette opposition traduit une échelle de bien être: les élèves qui perçoivent une relation positives avec leurs enseignants et un fort soutient pédagogique tendent également à se sentir davantage intégrés à leur établissement.tandis que ceux qui présentent des niveaux élevés d’anxiété et de harcèlement se situent à l’opposé. Le second axe (19,8 %) apporte une nuance en distinguant partiellement le sentiment d’appartenance, qui apparaît comme une dimension spécifique du bien-être, relativement indépendante des autres variables relationnelles. Par ailleurs, la forte proximité entre RELATST et TEACHSUP indique une corrélation importante entre ces deux indicateurs, suggérant que le soutien perçu constitue une composante essentielle de la relation enseignant–élève. À l’inverse, leur opposition avec ANXMAT et BULLIED souligne qu’une relation de moindre qualité est associée à des formes de mal-être scolaire. Ainsi, cette analyse confirme que la relation enseignant–élève joue un rôle central dans le bien-être des élèves, en étant étroitement liée à des dimensions à la fois sociales, émotionnelles et scolaires.
 
 TEACHSUP contribue grandement à l'analyse et se montre déjà presque en lien avec RELATST. Ces deux variables représentent nos indices de qualité REE, donc cela fait sens.
 
@@ -563,7 +563,7 @@ Ainsi, pour renforcer l'analyse, nous chercherons à déterminer aussi quels son
 
 ```{r}
 vars <- data_etude %>%
-  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED,)
+  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED)
 
 ```
 
@@ -603,7 +603,7 @@ ggplot(vars, aes(x = RELATST, y = EXPWB)) +
 En regardant le nuage de point entre notre premier indice et le bien-être, on souligne que les individus ne semblent pas montrer une dépendance ces variables. De plus la matrice de corrélation nous permet de déterminer que la relation entre les différents indices de REE et le bien-être semble faible (0.21 pour EXPWP avec RELATST). 
 Cela dit, elle n'est pas invisible.  
 
-```{r, echo= FALSE}
+```{r, echo= FALSE, include = FALSE}
 model_A <- lm(EXPWB ~ RELATST + TEACHSUP + ANXMAT + BELONG + BULLIED,
               data = vars)
 
@@ -669,7 +669,7 @@ Même si la différence est faible, les élèves de haute CSP sont plus touchés
 
 Construisons maintenant un modèle comportant les CSP pour voir si celles-ci se montrent impactantes ;
 
-```{r,echo=FALSE}
+```{r,echo=FALSE, include = FALSE}
 model_B1 <- lm(EXPWB ~ RELATST * CSP_cat + TEACHSUP + ANXMAT + BELONG + BULLIED,
                data = vars_csp)
 
@@ -757,7 +757,7 @@ Les correlations entre REE et bien-être restent faibles, mais sont existantes t
 
 On se propose maintenant de créer le modèle linéaire expliquant le bien-être par la REE et le sexe de l'élève.
 
-```{r,echo=FALSE}
+```{r,echo=FALSE, include = FALSE}
 model_B2 <- lm(EXPWB ~ RELATST * sexe + TEACHSUP + ANXMAT + BELONG + BULLIED,
                data = vars_sex)
 
@@ -835,7 +835,7 @@ On peut alors expliquer le phénomène de la manière suivante ; Les élèves on
 
 En outre on construit le modèle correpondant pour vérifier les hypothèses émises.
 
-```{r,echo=FALSE}
+```{r,echo=FALSE, include = FALSE}
 model_B3 <- lm(EXPWB ~ RELATST * OCDE_cat + TEACHSUP + ANXMAT + BELONG + BULLIED,
                data = vars_oecd)
 
@@ -869,15 +869,7 @@ Le statut social et culturel (ESCS) est un indice composite complexe issus du qu
 
 Pour les variables concernant les notes des élèves lors des épreuves PISA en mathématiques, science et lecture, l’étude se basera sur les moyennes des 10 valeurs plausibles estimées par l’OCDE (de type “PV…”) afin de standardiser les résultats obtenus par les élèves dans chaque domaines. Afin d’étudier les REE, notre étude utilisera 3 notes par élèves, et notamment celle en mathématiques,ainsi qu’une moyenne de ces notes.
 
-Pour estimer le bien-être des élèves des pays de l’OCDE, nous utliserons l’indice de bien-être ressenti durant les jours précédants (EXPWB). Cet indice est construit à partir de la question WB178, du questionnaire sur le bien-être. L’indice s’affiche comme manquant lorsque l’élève n’a pas répondu “Oui” à la question “La journée d’hier était-elle une journée comme les autres ?”
 
-L’indice sur l’anxiété ressentie concernant les cours de mathématiques (ANXMAT) permet d’approfondir l’analyse de l’indice de soutien de l’enseignant de mathématiques. Il est construit à partir de la question ST292 concernant la crainte des difficultés en cours de mathématiques ou la crainte de l’échec. (voir PISA 2021 pour la méthodologie)
-
-L’indice sur le sentiment d’appartenance (BELONG), représente le sentiment d’appartenance de l’élève à son école ainsi que l’existence de relations avec d’autres à l’école (ST034). (voir PISA 2018 pour méthodologie)
-
-L’indice sur le harcèlement (BULLIED) repose sur la fréquence de plusieurs signes de harcèlement durant les 12 derniers mois (ST038), d’après les élèves. (voir PISA 2018 pour méthodologie)
-
-L’indice sur l’utilisation des technologies de l’information et de la communication (TIC) en rapport avec la matière enseignée (ICTSUBJ) est construit à partir de la question IC173. Cette question concerne la fréquence d’utilisation des TIC.
 
 Lien pour plus de détails méthodologiques concernant les indices construits par l’OCDE : https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/03/pisa-2022-technical-report_599753f0/01820d6d-en.pdf
 
