@@ -548,14 +548,10 @@ fviz_pca_var(
   repel = TRUE
 )
 ```
+Figure 7: Cercle de corrélation 
+Note de lecture: La variable TEACHSUP est très corrélée à la variable RELATST, de plus elle contribue bien à la construction des axes.
 
-Grâce à l'ACP, nous pouvons relever que les variables sont structurées autour de deux axes principaux expliquant 54.1% de la variance totale. La premier axe (34.3%) met en evidence une opposition entre un pôle "bien-être" qui est constitué de la qualité de la relation élève-enseignant, du soutient perçu de l'enseignant de mathématiques et du sentiment d'appartenance à l'école, et un pôle "mal-être" regroupant l'anxiété en mathématiques et le harcèlement. Cette opposition traduit une échelle de bien être: les élèves qui perçoivent une relation positives avec leurs enseignants et un fort soutient pédagogique tendent également à se sentir davantage intégrés à leur établissement.tandis que ceux qui présentent des niveaux élevés d’anxiété et de harcèlement se situent à l’opposé. Le second axe (19,8 %) apporte une nuance en distinguant partiellement le sentiment d’appartenance, qui apparaît comme une dimension spécifique du bien-être, relativement indépendante des autres variables relationnelles. Par ailleurs, la forte proximité entre RELATST et TEACHSUP indique une corrélation importante entre ces deux indicateurs, suggérant que le soutien perçu constitue une composante essentielle de la relation enseignant–élève. À l’inverse, leur opposition avec ANXMAT et BULLIED souligne qu’une relation de moindre qualité est associée à des formes de mal-être scolaire. Ainsi, cette analyse confirme que la relation enseignant–élève joue un rôle central dans le bien-être des élèves, en étant étroitement liée à des dimensions à la fois sociales, émotionnelles et scolaires.
-
-TEACHSUP contribue grandement à l'analyse et se montre déjà presque en lien avec RELATST. Ces deux variables représentent nos indices de qualité REE, donc cela fait sens.
-
-A contrario les indices ne semblent pas posséder de lien direct avec les autres variables de bien-être sur ces premiers axes.
-
-Voyons le en détail par la suite ;
+Grâce à l'ACP, nous pouvons relever que les variables sont structurées autour de deux axes principaux expliquant 54.1% de la variance totale. La premier axe met en evidence une opposition entre un pôle "bien-être" qui est constitué de la qualité de la relation élève-enseignant, du soutient perçu de l'enseignant de mathématiques et du sentiment d'appartenance à l'école, et un pôle "mal-être" regroupant l'anxiété en mathématiques et le harcèlement. Cette opposition traduit une échelle de bien être: les élèves qui perçoivent une relation positives avec leurs enseignants et un fort soutient pédagogique tendent également à se sentir davantage intégrés à leur établissement, tandis que ceux qui présentent des niveaux élevés d’anxiété et de harcèlement se situent à l’opposé. Par ailleurs, la forte proximité entre RELATST et TEACHSUP indique une corrélation importante entre ces deux indices, ce qui paraît logique. À l’inverse, leur opposition avec ANXMAT et BULLIED souligne qu’une relation de moindre qualité est associée à des formes de mal-être scolaire. Ainsi, cette analyse confirme que la relation enseignant–élève joue un rôle central dans le bien-être des élèves.
 
 ## 3.1 Existe t-il une relation entre la proximité de l'élève avec l'enseignant et son bien-être ressenti à l'école ?
 
@@ -567,7 +563,7 @@ vars <- data_etude %>%
 
 ```
 
-```{r}
+```{r, echo=FALSE}
 vars %>%
   pivot_longer(cols = everything()) %>%
   ggplot(aes(x = value)) +
@@ -578,7 +574,7 @@ vars %>%
 
 On note ici que les indices sont centrés autour de 0, ils ont été normalisés, ce qui facilite l'étude. De Plus on note que les dispersions sont plutôt symétrique à l'exception du harcelèment.
 
-```{r}
+```{r, echo=FALSE}
 cor_matrix <- cor(vars)
 corrplot(
   cor_matrix,
