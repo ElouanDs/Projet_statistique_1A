@@ -109,7 +109,7 @@ Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
 
 ```{r, echo = FALSE, include = FALSE}
 # Selection des indices + variables explicatives
-vars_collector <- c("RELATST","TEACHSUP","ESCS","ST272Q01JA", "EXPWB","BELONG","BULLIED","ANXMAT","ST267Q01JA", "ST267Q02JA", "ST267Q03JA", "ST267Q04JA", "ST267Q05JA", "ST267Q06JA", "ST267Q07JA", "ST267Q08JA","ST270Q01JA", "ST270Q02JA", "ST270Q03JA", "ST270Q04JA","ST268Q01JA","ST268Q02JA", "ST268Q03JA")
+vars_collector <- c("RELATST","TEACHSUP","ESCS","ST272Q01JA", "EXPWB","BELONG","BULLIED","ANXMAT","ST267Q01JA", "ST267Q02JA", "ST267Q03JA", "ST267Q04JA", "ST267Q05JA", "ST267Q06JA", "ST267Q07JA", "ST267Q08JA","ST270Q01JA", "ST270Q02JA", "ST270Q03JA", "ST270Q04JA","ST268Q01JA","ST268Q02JA", "ST268Q03JA","OECD")
 
 vars_etude <- vars_collector[vars_collector %in% names(data)]
 
@@ -130,7 +130,7 @@ data_etude$ST004D01T <- as.factor(data_etude$ST004D01T)
 ## Cadre d'analyse de la REE
 En premier lieu, afin de définir le cadre dans lequel nous nous plaçons, il faut avant tout préciser comment se caractérisent élèves et enseignants dans le questionnaire PISA. En effet, pour un élève, il s'agit ici d'un enfant âgé d'environ 15 ans unscrut dans un établissement scolaire public, privé ou bien spécialisé et pouvant provenir de 85 pays différents pour l'édition 2022. Par ailleurs, les enseignants sont, par définition, les professeurs des élèves interrogés dans l'enquête PISA.
 
-Ainsi, nous nous plaçons dans un contexte particulier d'analyse puisqu'il faut dan notre cas, étudier la REE grâce aux données présentes sur les questionnaire PISA 2022. Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économiques des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants. C'est pourquoi, afin de pouvoir réaliser notre étude, il nous fallait proposer une mesure des différents types de REE sur lesquels nous souhaitons nous appuyer. Ainsi, nous avons utilise deux indices déjà créés par l'OCDE afin de caractérier cette relation. En particulier, nous avons choisi de travailler avec l'indice mesurant la REE globale, qui comprend des questions générales sur le ressenti de l'élève quant à ses interactions avec leur enseignants, mais également l'indice mesurant la REE ciblée sur les professeurs de mathématiques (voir annexe pour la construction des indices). 
+Ainsi, nous nous plaçons dans un contexte particulier d'analyse puisqu'il faut dan notre cas, étudier la REE grâce aux données présentes sur les questionnaire PISA 2022. Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économiques des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants. C'est pourquoi, afin de pouvoir réaliser notre étude, il nous fallait proposer une mesure des différents types de REE sur lesquels nous souhaitons nous appuyer. Ainsi, nous avons utilise deux indices déjà créés par l'OCDE afin de caractérier cette relation. En particulier, nous avons choisi de travailler avec l'indice mesurant la REE globale (RELATST), qui comprend des questions générales sur le ressenti de l'élève quant à ses interactions avec leur enseignants, mais également l'indice mesurant la REE ciblée sur les professeurs de mathématiques(TEACHSUP) (voir annexe pour la construction des indices). 
 
 Toutefois, une potentielle limite de notre analyse mais inhérente au questionnaire PISA, est qu'il ne prend en compte la REE dans un seul sens. En effet, dans la réalité, les enseignants ont une influence sur leurs élèves mais l'inverse est aussi véridique, les élèves peuvent modifier le comportement de leurs professeurs. Cependant, ce deuxième sens dans la REE ne peut être vérifiée dans cette enquête, car seuls les élèves expriment leur opinion sur leurs professeurs.
 
@@ -236,7 +236,7 @@ ggplot(data_plot_t, aes(x = Question,
 Figure 2: Illustration du taux de réponses positives par question concernant les professeurs de mathématiques
 Note de lecture : 32.2% des élèves ayant répondu affirment que leur enseignant montre de l'intérêt pour l'apprentissage des éléves.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE,include= FALSE}
 mean(is.na(data_relatst_na))*100
 mean(is.na(data_teachsup_na))*100
 rm(data_long_p,data_long_t,data_plot_p,data_plot_t,data_relatst,data_relatst_na,data_teachsup,data_teachsup_na)
@@ -271,7 +271,7 @@ barplot(
 Figure 2: Illustration du taux de non-réponses pour l'indice de relation entre élèves et enseignants.
 Note de lecture : Le Brunei a un taux de non réponse de 100% sur les données concernant l'indice de qualité de la relation entre élèves et enseignants.
 
-```{r, echo = FALSE}
+```{r, echo = FALSE,include = FALSE}
 relatst_100 <- relatst_NA_pays_tri[relatst_NA_pays_tri == 100]
 names(relatst_100)
 ```
@@ -372,7 +372,6 @@ REE_notes <- data_etude %>%
   select(RELATST, TEACHSUP, MOY_GENERALE, MOY_MATH)
 colnames(REE_notes) <- c("REE", "REE maths", "Moyenne G", "Notes maths")
 
-REE_notes <- na.omit(REE_notes)
 
 cor_REE_notes <- cor(REE_notes)
 
@@ -402,8 +401,7 @@ bilan_pays <- data_etude %>%
   summarise(
     REE_moyen = mean(RELATST, na.rm = TRUE),
     Note_moyenne = mean(MOY_GENERALE, na.rm = TRUE),
-    Effectif = n()) %>%
-  filter(!is.na(REE_moyen))
+    Effectif = n()) 
 cor.test(bilan_pays$REE_moyen, bilan_pays$Note_moyenne)
 ```
 Il existe une corrélation négative très faible entre la qualité de la REE et la note moyenne de chaque pays (r =~ -0,26). La REE n'explique que partiellement le niveau académique mais d'autres facteurs entre en compte. On ne peut donc pas conclure d'une relation très forte entre ces deux indicateurs. 
@@ -418,8 +416,7 @@ bilan_pays_maths <- data_etude %>%
     REE_maths = mean(TEACHSUP, na.rm = TRUE),
     Note_moyenne = mean(MOY_MATH, na.rm = TRUE),
     Effectif = n()
-  ) %>%
-  filter(!is.na(REE_maths))
+  ) 
 
 cor.test(bilan_pays_maths$REE_maths, bilan_pays_maths$Note_moyenne)
 ```
@@ -456,7 +453,6 @@ Le Guatemala (GTM) confirme bien notre lien de corrélation. Le niveau moyen en 
 # Dispersion de l'indice RELATST en fonction des quartiles socio-éco
 etude_ESCS <- data_etude %>% mutate(Quartile_Social = ntile(ESCS, 4))
 etude_ESCS %>%
-  filter(!is.na(Quartile_Social)) %>% 
   ggplot(aes(x = factor(Quartile_Social), y = RELATST, fill = factor(Quartile_Social))) +
   geom_boxplot(alpha = 0.6, outlier.shape = NA, width = 0.6) +
   stat_summary(fun = mean, geom = "point", shape = 18, size = 3, color = "red") +
@@ -486,7 +482,6 @@ Le statut socio-économique des parents n'influence pas la qualité de la relati
 # Dispersion de l'indice TEACHSUP en fonction des quartiles socio-éco
 etude_ESCS <- data_etude %>% mutate(Quartile_Social = ntile(ESCS, 4))
 etude_ESCS %>%
-  filter(!is.na(Quartile_Social)) %>% 
   ggplot(aes(x = factor(Quartile_Social), y = TEACHSUP, fill = factor(Quartile_Social))) +
   geom_boxplot(alpha = 0.6, outlier.shape = NA, width = 0.6) +
   stat_summary(fun = mean, geom = "point", shape = 18, size = 3, color = "red") +
@@ -527,54 +522,68 @@ La qualité perçue des cours de mathématiques est positivement corrélée avec
 
 # 3 Existe-t-il une relation entre la REE et le bien-être des élèves dans le cadre scolaire ?
 
-Pour estimer le bien-être des élèves des pays de l’OCDE, nous utliserons l’indice de bien-être ressenti durant les jours précédants (EXPWB). Cet indice est construit à partir de la question WB178, du questionnaire sur le bien-être. L’indice s’affiche comme manquant lorsque l’élève n’a pas répondu “Oui” à la question “La journée d’hier était-elle une journée comme les autres ?”
+Nous étudierons ainsi dans quelle mesure cette relation d'enseignant à élève peut impacter le bien-être de ces derniers.
 
-Les indices suivants peuvent être étudiés afin d’élargir l’analyse et de comprendre quels éléments influencent plus particulièrement les REE comme le harcèlement, l’usage croissant des ordinateurs, etc. D’autres variables et indices peuvent être retenu pour expliquer la REE telles que l’indice d’anxiété concernant les mathématiques (ANXMAT), l’indice sur le sentiment d’appartenance à l’école (BELONG), l’indice de harcèlement (BULLIED) ou encore l’indice d’utilisation des appareils numériques dans les différents cours (ICTSUBJ).
+Pour estimer le bien-être des élèves des pays de l’OCDE, nous utliserons l’indice de bien-être ressenti durant les jours précédants. Cet indice est construit grâce à la partie du questionnaire sur le bien-être. L’indice s’affiche comme manquant lorsque l’élève n’a pas répondu “Oui” à la question “La journée d’hier était-elle une journée comme les autres ?”
 
-L’indice sur l’anxiété ressentie concernant les cours de mathématiques (ANXMAT) permet d’approfondir l’analyse de l’indice de soutien de l’enseignant de mathématiques. Il est construit à partir de la question ST292 concernant la crainte des difficultés en cours de mathématiques ou la crainte de l’échec. (voir PISA 2021 pour la méthodologie)
+Les indices suivants peuvent être étudiés afin d’élargir l’analyse et de comprendre quels éléments influencent plus particulièrement les REE comme le harcèlement, etc. D’autres variables et indices peuvent être retenu pour expliquer la REE telles que l’indice d’anxiété concernant les mathématiques, l’indice sur le sentiment d’appartenance à l’école ou l’indice de harcèlement.
 
-L’indice sur le sentiment d’appartenance (BELONG), représente le sentiment d’appartenance de l’élève à son école ainsi que l’existence de relations avec d’autres à l’école (ST034). (voir PISA 2018 pour méthodologie)
+L’indice sur l’anxiété ressentie concernant les cours de mathématiques permet d’approfondir l’analyse de l’indice de soutien de l’enseignant de mathématiques (ANXMAT). Il est construit avec les réponses aux questions concernant la crainte des difficultés en cours de mathématiques ou la crainte de l’échec. 
 
-L’indice sur le harcèlement (BULLIED) repose sur la fréquence de plusieurs signes de harcèlement durant les 12 derniers mois (ST038), d’après les élèves. (voir PISA 2018 pour méthodologie)
+L’indice sur le sentiment d’appartenance, représente le sentiment d’appartenance de l’élève à son école ainsi que l’existence de relations avec d’autres à l’école (BELONG). 
 
-L’indice sur l’utilisation des technologies de l’information et de la communication (TIC) en rapport avec la matière enseignée (ICTSUBJ) est construit à partir de la question IC173. Cette question concerne la fréquence d’utilisation des TIC.
+L’indice sur le harcèlement repose sur la fréquence de plusieurs signes de harcèlement durant les 12 derniers mois, d’après les élèves (BULLIED).
 
-## Etude des variables de bien-être entre elles
 
-Avant de s'intéresser à la liaison entre les variables de bien-être et la REE, on cherche à vérifier que chaque variable de bien-être possède une utilité dans notre étude, soit, n'est pas combinaison linéaire d'une autre.
+Enfin, on élabore alors une analyse en composantes principales sur nos variables de bien-être, puis on trace le cercle des corrélation et contributions des variables pour avoir une vue globale du problème, c'est à dire pré-déterminer quels seront les différents liens, et ce sur les 2 premiers axes de cette analyse en composante factorielle :
 
-On construit une regression pour avoir l'impact d'une variable sur une autre (coefficient beta) On peut ainsi voir l'impact sur les indices en ajoutant ESCS (même raison que II) ne pas regarder que R² car celui-ci pas efficace (modèle trop compliqué pour avoir R² efficace) regarder surtout beta et p-value
-
-```{r, echo = FALSE, include = FALSE}
-modele_anx <- lm(ANXMAT ~ TEACHSUP + RELATST + ESCS,
-                 data = data_etude)
-
-summary(modele_anx)
-```
-
-```{r, echo = FALSE, include = FALSE}
-modele_belong <- lm(BELONG ~ TEACHSUP + RELATST + ESCS,
-                    data = data_etude)
-
-summary(modele_belong)
-```
-
-```{r, echo = FALSE, include = FALSE}
-modele_tout <- lm(MOY_MATH ~ TEACHSUP + RELATST +
-                         ANXMAT + BELONG + ESCS,
-                       data = data_etude)
-
-summary(modele_tout)
-```
-
-```{r, echo = FALSE, warning=FALSE}
+```{r, echo = FALSE, warning= FALSE}
 vars_psy <- data_etude %>%
   select(RELATST, TEACHSUP, BELONG, BULLIED, ANXMAT)
 
-cor_psy <- cor(vars_psy)
+res_pca_psy <- PCA(scale(vars_psy), graph = FALSE)
 
+fviz_pca_var(
+  res_pca_psy,
+  col.var = "cos2",   
+  gradient.cols = c("yellow", "red"),  
+  repel = TRUE
+)
+```
+
+
+
+TEACHSUP contribue grandement à l'analyse et se montre déjà presque en lien avec RELATST. Ces deux variables représentent nos indices de qualité REE, donc cela fait sens.
+
+A contrario les indices ne semblent pas posséder de lien direct avec les autres variables de bien-être sur ces premiers axes.
+
+Voyons le en détail par la suite ;
+
+## 3.1 Existe t-il une relation entre la proximité de l'élève avec l'enseignant et son bien-être ressenti à l'école ?
+
+Ainsi, pour renforcer l'analyse, nous chercherons à déterminer aussi quels sont les facteurs de bien-être.
+
+```{r}
+vars <- data_etude %>%
+  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED,)
+
+```
+
+```{r}
+vars %>%
+  pivot_longer(cols = everything()) %>%
+  ggplot(aes(x = value)) +
+  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
+  facet_wrap(~name, scales = "free") +
+  theme_minimal()
+```
+
+On note ici que les indices sont centrés autour de 0, ils ont été normalisés, ce qui facilite l'étude. De Plus on note que les dispersions sont plutôt symétrique à l'exception du harcelèment.
+
+```{r}
+cor_matrix <- cor(vars)
 corrplot(
-  cor_psy,
+  cor_matrix,
   method = "color",
   type = "upper",
   col = colorRampPalette(c("#2c7bb6", "white", "#d7191c"))(200),
@@ -586,19 +595,271 @@ corrplot(
 )
 ```
 
-Aussi, on élabore alors une analyse en composantes principales sur nos variables de bien-être, puis on trace le cercle des corrélation et contributions des variables :
-
-```{r, echo = FALSE, include = FALSE}
-res_pca_psy <- PCA(scale(vars_psy), graph = FALSE)
-
-fviz_eig(res_pca_psy)
+```{r,echo = FALSE}
+ggplot(vars, aes(x = RELATST, y = EXPWB)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm", color = "red") +
+  theme_minimal()
 ```
 
-```{r, echo = FALSE}
-fviz_pca_var( res_pca_psy, col.var = "contrib", gradient.cols = c("grey90", "grey60", "black"), repel = TRUE)
+En regardant le nuage de point entre notre premier indice et le bien-être, on souligne que les individus ne semblent pas montrer une dépendance ces variables. De plus la matrice de corrélation nous permet de déterminer que la relation entre les différents indices de REE et le bien-être semble faible (0.21 pour EXPWP avec RELATST). 
+Cela dit, elle n'est pas invisible.  
+
+```{r, echo= FALSE}
+model_A <- lm(EXPWB ~ RELATST + TEACHSUP + ANXMAT + BELONG + BULLIED,
+              data = vars)
+
+summary(model_A)
+```
+En élaborant un modèle linéaire à l'aide de nos indicateurs, on voit que la p-value de chacun d'entre eux est très faible (vis-à-vis du test de significativité des coefficients). On en déduit qu'il n'y a visiblement pas de relation entre la REE et le bien-être, de manière générale.
+
+Nous nous proposons ainsi de ré-effectuer cette étude en la croisant avec de nouvelles variables.
+
+## 3.2 L'impact de variables externes sur le lien entre REE et bien-être 
+
+### 3.2.1 Dans quelles mesures le statut socio-économique des élèves influence leur bien-être, la REE, et donc l'impact du bien-être sur la REE ?
+
+Utilisons pour ce faire la variable ESCS.
+
+Dans les enquêtes PISA, l’ESCS (indice de statut économique, social et culturel) est un indicateur qui mesure le milieu socio-économique des élèves à partir du niveau d’éducation et de la profession des parents ainsi que des ressources du foyer (comme les livres ou l’accès à un ordinateur).
+
+```{r, echo=FALSE}
+vars_csp <- data_etude %>%
+  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED, ESCS)
 ```
 
-TEACHSUP contribue grandement à l'analyse et se montre déjà presque en lien avec RELATST. A contrario il semble ne pas posséder de lien direct avec les autres variables de bien-être.
+```{r,echo=FALSE}
+vars_csp$CSP_cat <- cut(vars_csp$ESCS,
+                        breaks = quantile(vars_csp$ESCS,
+                                          probs = c(0, 0.33, 0.66, 1),
+                                          na.rm = TRUE),
+                        labels = c("Faible", "Moyenne", "Élevée"),
+                        include.lowest = TRUE)
+```
+
+```{r,echo=FALSE}
+table(vars_csp$CSP_cat)
+```
+Par souci de compléxité, on décide de scinder l'indice de catégorie socio professionnelle en variable qualitative. 
+En utilisant 2 tertilles, on obtient directement tous les individus avec un indice de CSP faisant partis des 33% les plus faibles, ceux faisant partis des 66% les plus faibles ET des 66% les plus élevés, et faisant partis des 33% les plus élevés.
+On distingue alors 3 classes, les CSP faibles, moyennes, et élevées. 
+
+On remarque la robustesse statistique de notre jeu de données avec des effectifs très similaires dans chaque classe.
+
+```{r, echo= FALSE}
+vars_csp %>%
+  pivot_longer(cols = c(EXPWB, TEACHSUP)) %>%
+  ggplot(aes(x = CSP_cat, y = value, fill = CSP_cat)) +
+  geom_boxplot() +
+  facet_wrap(~name, scales = "free") +
+  theme_minimal()
+```
+
+Comparons nos classes selon le bien-être, et la REE, de leurs individus.
+La CSP semble peu agir sur cela. Toutefois on remarque que les élèves issus de parents avec des catégories socio professionnelles élevées montrent une moins bonne relation entre élève et enseignant. 
+
+```{r, echo=FALSE}
+ggplot(vars_csp, aes(x = RELATST, y = EXPWB, color = CSP_cat)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm") +
+  theme_minimal()
+```
+
+On trace sur le même nuage de points tous les individus, différenciés par leur CSP. 
+On note que la pente, ou coefficient directeur, de la regression (REE ~ Bien-être) est plus forte dans le cas des catégories socio professionnelles élevées. 
+Même si la différence est faible, les élèves de haute CSP sont plus touchés par les REE, c'est à dire que leur bien-être en dépend plus. Cela va dans le sens de notre analyse précédente ; si les élèves montrent être plus affectés par la REE, il fait sens que la REE ne soit pas "moyenne" et inéxistante, mais bien forte ou faible (faible dans ce cas-ci).
+
+Construisons maintenant un modèle comportant les CSP pour voir si celles-ci se montrent impactantes ;
+
+```{r,echo=FALSE}
+model_B1 <- lm(EXPWB ~ RELATST * CSP_cat + TEACHSUP + ANXMAT + BELONG + BULLIED,
+               data = vars_csp)
+
+summary(model_B1)
+```
+
+Finalement, les coefficients directeurs des différents milieux sociaux sont faibles et ne permettent pas de conclure à une dépendance entre la REE dans ces derniers et le bien-être.
+
+D'ailleurs, ce résultat peut-être généralisé dans l'autre sens, ie : 
+Le bien-être dans chaque contexte socio-professionnel n'explique pas la relation entre élève et enseignant. 
+
+
+Cela dit, l’indice ESCS est un indicateur synthétique du statut socio-économique, il permet des comparaisons standardisées, mais cache certaines différences spécifiques et repose sur des déclarations dites "auto-rapportées", ce qui nécessite plus de prudence dans l’interprétation des résultats.
+
+### 3.2.2 Le sexe de l'élève peut-il modifier la relation entre bien-être et REE ?
+
+Si les catégories socio-professionnelles des parents de l'élève ne semblent pas modifier le lien REE à bien-être, peut-être que le sexe le pourra.
+
+Ainsi l’objectif est d’identifier d’éventuelles inégalités ou sensibilités spécifiques des élèves selon leur sexe auprès de l'influence des REE sur leur bien-être.
+
+```{r,echo=FALSE}
+vars_sex <- data_etude %>%
+  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED, ST004D01T)%>%
+  na.omit()
+
+vars_sex$sexe <- factor(vars_sex$ST004D01T,
+                        levels = c(1, 2),
+                        labels = c("Femme", "Homme"))
+```
+
+```{r,echo=FALSE}
+table(vars_sex$sexe)
+```
+
+Pour commencer, on vérifie que l'échantillon est bien représentatif ;
+Ce dernier comporte 51% de femmes pour 49% d'hommes. Ce qui nous conviendra pour l'étude.
+
+```{r,echo=FALSE,warning=FALSE}
+vars_sex %>%
+  group_by(sexe) %>%
+  summarise(across(c(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED),
+                   list(mean = mean, sd = sd), na.rm = TRUE))
+```
+
+
+```{r,echo=FALSE}
+vars_sex %>%
+  pivot_longer(cols = c(EXPWB, RELATST, TEACHSUP)) %>%
+  ggplot(aes(x = sexe, y = value, fill = sexe)) +
+  geom_boxplot() +
+  facet_wrap(~name, scales = "free") +
+  theme_minimal()
+```
+
+On remarque par des statistiques descriptives simples et des représentations visuelles que les hommes montrent un bien-être plus élevé que les femmes. En revanche la relation entre élèves et enseignant semble être en moyenne de meilleure qualité en ce qui concerne les femmes.
+Par ailleurs, la relation entre les hommes et leur enseignant est la même que celle des femmes avec leur enseignant.
+
+
+```{r}
+ggplot(vars_sex, aes(x = RELATST, y = EXPWB, color = sexe)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm") +
+  theme_minimal()
+```
+
+Le graphique ci-dessus indique que la relation entre élève et enseignant impacte le bien-être de manière plus imortante chez les femmes. Les hommes n'en sont pas dépouvus non plus.
+
+Etudions le lien directement avec un coefficient de correlation différencié par sexe ;
+
+```{r,echo=FALSE}
+vars_sex2 <- data_etude %>%
+  select(EXPWB, RELATST, ST004D01T) %>%
+  na.omit()
+
+vars_sex2$sexe <- factor(vars_sex2$ST004D01T,
+                        levels = c(1, 2),
+                        labels = c("Femme", "Homme"))
+
+vars_sex2 %>%
+  group_by(sexe) %>%
+  summarise(correlation = cor(RELATST, EXPWB))
+```
+
+Les correlations entre REE et bien-être restent faibles, mais sont existantes tout de même. Une part du bien être s'explique donc par la REE, et ce, plus fortement chez les femmes.
+
+On se propose maintenant de créer le modèle linéaire expliquant le bien-être par la REE et le sexe de l'élève.
+
+```{r,echo=FALSE}
+model_B2 <- lm(EXPWB ~ RELATST * sexe + TEACHSUP + ANXMAT + BELONG + BULLIED,
+               data = vars_sex)
+
+summary(model_B2)
+```
+
+D'abord, on remarque que les coefficients directeurs concernant les modalités de sexe sont les plus élevées du modèle. 
+De plus, le R² de ce modèle est légèrement supérieur aux deux précédents.
+(0.1116 > 0.103 > 0.098)
+
+Dans notre étude, nous affirmons donc que le sexe doit être plus pris en compte que la catégorie socio-professionnelle dans l'analyse du bien-être selon la REE.
+
+### 3.2.3 En quoi l'appartenance où non d'un pays à l'OCDE influence ses élèves dans leur bien-être vis-à-vis de leur relation avec leur enseignant ?
+
+L’OCDE (Organisation de Coopération et de Développement Économiques) est une organisation internationale regroupant principalement des pays développés. Elle promouvoit des politiques publiques favorisant le bien-être social et l’amélioration des systèmes éducatifs. 
+Dans le cadre des enquêtes PISA, elle s'avère jouer un rôle central, permettant de déterminer si un élève étudié inscrit son parcours scolaire dans un contexte mélioratif ou non.
+ 
+```{r,echo=FALSE}
+vars_oecd <- data_etude %>%
+  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED, OECD) %>%
+  na.omit()
+
+vars_oecd$OCDE_cat <- factor(vars_oecd$OECD,
+                             levels = c(0, 1),
+                             labels = c("Non-OCDE", "OCDE"))
+```
+
+```{r,echo=FALSE}
+table(vars_oecd$OCDE_cat)
+```
+
+A l'inverse des variables externes précédentes, notre échantillon possède ici beaucoup plus d'élèves appartenant à une des modalités qu'une autre.
+En effet seulement 36% des élèves de l'échantillon n'appartiennent pas à un pays compris dans l'OCDE, contre 64% qui y appartiennent.
+
+```{r,echo=FALSE}
+vars_oecd %>%
+  group_by(OCDE_cat) %>%
+  summarise(across(c(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED),
+                   mean))
+```
+
+```{r,echo=FALSE}
+vars_oecd %>%
+  pivot_longer(cols = c(EXPWB, TEACHSUP, BELONG)) %>%
+  ggplot(aes(x = OCDE_cat, y = value, fill = OCDE_cat)) +
+  geom_boxplot() +
+  facet_wrap(~name, scales = "free") +
+  theme_minimal()
+```
+
+Tout d'abord, les élèves de l'OCDE semblent moins ressentir de bien-être, et beaucoup moins de relation avec les enseignants, si l'on s'en tient à l'indice TEACHSUP plutôt qu'à RELATST.
+Par ailleurs, les élèves de l'OCDE semblent avoir un sentiment d'appartenance plus fort à leur école.
+
+Etudions tout cela plus en profondeur ;
+
+```{r,echo=FALSE}
+ggplot(vars_oecd, aes(x = TEACHSUP, y = EXPWB, color = OCDE_cat)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm") +
+  theme_minimal()
+```
+```{r,echo=FALSE}
+ggplot(vars_oecd, aes(x = RELATST, y = EXPWB, color = OCDE_cat)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm") +
+  theme_minimal()
+```
+
+Pour plus de précisions et comme l'indice TEACHSUP se montre être plus intéressant dans ce cas là. On étudie les deux indices de REE établis par PISA.
+
+De prime abord, notons que dans chaque cas, la REE s'améliore avec le bien-être, et la non-appartenance à l'OCDE.
+En revanche, on voit que le coefficient directeur de la variable explicative est plus fort pour RELATST. 
+A noter que cet indicateur concerne moins les mathématiques que l'autre.
+On peut alors expliquer le phénomène de la manière suivante ; Les élèves ont un bien-être plus grandissant et lié à la relation avec leur professeur lorsque ceux-ci étudient moins les mathématiques. 
+
+En outre on construit le modèle correpondant pour vérifier les hypothèses émises.
+
+```{r,echo=FALSE}
+model_B3 <- lm(EXPWB ~ RELATST * OCDE_cat + TEACHSUP + ANXMAT + BELONG + BULLIED,
+               data = vars_oecd)
+
+summary(model_B3)
+```
+
+Les coefficients directeurs associés à l'appartenance ou non à l'OCDE sont les plus importants du modèle. 
+Le lien est toujours faible. 
+Cela dit, nous pouvons dire que le bien-être est déterminé par la REE, de manière plus marquée hors de l'OCDE.
+De plus cet appartenance ou non à cette organisation est la variable la plus efficace pour caractériser le bien-être selon la REE, en comparant aux autres variables externes. On utilise le critère du R² pour justifier cela (0.1122 > 0.1116 > 0.103 > 0.098).
+
+Toutefois, cette variable externe est aussi une varible binaire et donc très simplificatrice qui ne montre pas précisément quels sont les état de développement des pays étudiés.
+
+Cette classification peut ainsi cacher des différences importantes entre pays et ne permet pas de montrer la potentielle influence réelle des systèmes éducatifs sur la relation élève-enseignant et par conséquent le bien-être.
+
+## 3.3 Qu'en est-il réellement de l'impact de la relation entre élève et enseignant sur le bien-être de l'élève ?
+
+L’objectif de cette étude était d’analyser l’influence de la relation élève-enseignant sur le bien-être des élèves, en supposant l’existence d’un lien positif, potentiellement renforcé ou modulé par des variables comme le statut socio-économique, le sexe ou l’appartenance à l’OCDE.
+
+Toutefois, les résultats obtenus nuancent ces attentes : la relation élève-enseignant n’apparaît que faiblement liée au bien-être, et l’introduction de variables complémentaires n’a pas permis d’en améliorer significativement l’explication.
+
+Ces résultats suggèrent que le bien-être des élèves repose sur des facteurs plus complexes que ceux étudiés ici et invitent à adopter une approche plus globale de cette problématique.
 
 # Annexe
 
@@ -621,54 +882,4 @@ L’indice sur le harcèlement (BULLIED) repose sur la fréquence de plusieurs s
 L’indice sur l’utilisation des technologies de l’information et de la communication (TIC) en rapport avec la matière enseignée (ICTSUBJ) est construit à partir de la question IC173. Cette question concerne la fréquence d’utilisation des TIC.
 
 Lien pour plus de détails méthodologiques concernant les indices construits par l’OCDE : https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/03/pisa-2022-technical-report_599753f0/01820d6d-en.pdf
-
-### Valeurs manquantes
-
-```{r, echo = FALSE}
-# Etude des NA selon les pays
-prop_NA_par_ligne <- rowMeans(is.na(data_etude))
-
-pct_NA_par_pays <- tapply(prop_NA_par_ligne, data_etude$CNT, mean) * 100
-
-pct_NA_par_pays_tri <- sort(pct_NA_par_pays)
-
-barplot(
-  pct_NA_par_pays_tri,
-  las = 2,              
-  col = "darkorange",
-  main = "Proportion moyenne de NA par pays",
-  ylab = "% de valeurs manquantes",
-  cex.names = 0.7
-)
-```
-
-```{r, echo = FALSE}
-# Le nombre de pays étant important, on peut plus simplement regrouper les pays selon le pourcentage de possession de valeurs manquantes. On établit 3 groupes : le premier entre 0 et 40% de valeurs manquantes, le deuxième entre 40 et 60% et le dernier entre 60 et 100%.
-
-groupes <- cut(
-  pct_NA_par_pays,
-  breaks = c(-Inf, 40, 60, Inf),
-  labels = c("< 40%", "40-60%", "> 60%")
-)
-
-table(groupes)
-
-pct_groupes <- tapply(pct_NA_par_pays, groupes, mean)
-
-pct_groupes
-
-barplot(
-  pct_groupes,
-  col = 'orange',
-  main = "Proportion moyenne de NA par groupe de pays",
-  ylab = "% de valeurs manquantes"
-)
-```
-
-On peut ainsi noter une grande quantité de valeurs manquantes qui nous pénalise au sein de l'étude si on décide de simplement supprimer les données des étudiants qui ne répondent parfois pas à certaines question. On se proposera alors d'imputer les données par la moyenne.
-
-```{r, echo = FALSE}
-# Histogramme de la répartition de l'indice de qualité de la REE
-hist(data_etude$RELATST, main = "Répartition de l'indice de qualité de la REE", xlab = "indice", ylab = "fréquence")
-```
 
