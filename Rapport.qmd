@@ -54,14 +54,16 @@ Les données utilisées sont issues de l'enquête PISA 2022, qui interroge des �
 ```{r, echo = FALSE, include = FALSE, warning=FALSE, message = FALSE}
 
 
-#packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse","ggrepel")
-#install.packages(packages) 
+packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse","ggrepel","rnaturalearth","rnaturalearthdata","sf")
+install.packages(packages) 
 library(tidyverse)
 library(psych)
 library(FactoMineR)
 library(factoextra)
 library(corrplot)
 library(ggrepel)
+library(rnaturalearth)
+library(rnaturalearthdata)
 ```
 
 ```{r, echo = FALSE, include = FALSE}
@@ -133,8 +135,167 @@ Ainsi, nous nous plaçons dans un contexte particulier d'analyse puisqu'il faut 
 
 Toutefois, une potentielle limite de notre analyse mais inhérente au questionnaire PISA, est qu'il ne prend en compte la REE que dans un seul sens. En effet, dans la réalité, les enseignants ont une influence sur leurs élèves mais l'inverse est aussi véridique, les élèves peuvent modifier le comportement de leurs professeurs. Cependant, ce deuxième sens dans la REE ne peut être vérifié dans cette enquête, car seuls les élèves expriment leur opinion sur leurs professeurs.
 
+## 1.2 Les profils des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant
+Pour commencer notre analyse, nous allons regarder le profil des élèves qui n'ont pas d'indices REE global ou de REE ciblée sur les professeurs de mathématiques. 
 
-## 1.2 Une relation décrite comme globalement positive au travers du vécu de l'élève.
+```{r, echo = FALSE}
+
+
+# Profil des NA
+profil_NA <- data_etude %>%
+  filter(is.na(RELATST) | is.na(TEACHSUP)) %>%
+  summarise(
+    Groupe = "Manquant",
+    Pourcentage_filles = round(100 * mean(ST004D01T == 1, na.rm = TRUE), 2),
+    Origine_socioeco = mean(ESCS, na.rm = TRUE),
+    Anxiete_maths = mean(ANXMAT, na.rm = TRUE),
+    Appartenance = mean(BELONG, na.rm = TRUE),
+    Harcelement = mean(BULLIED, na.rm = TRUE),
+    Nombre_total = n()
+  )
+
+# Profil sans NA (cas complets sur RELATST)
+profil_nonNA <- data_etude %>%
+  filter(!is.na(RELATST) & !is.na(TEACHSUP)) %>%
+  summarise(
+    Groupe = "Sans NA",
+    Pourcentage_filles = round(100 * mean(ST004D01T == 1, na.rm = TRUE), 2),
+    Origine_socioeco = mean(ESCS, na.rm = TRUE),
+    Anxiete_maths = mean(ANXMAT, na.rm = TRUE),
+    Appartenance = mean(BELONG, na.rm = TRUE),
+    Harcelement = mean(BULLIED, na.rm = TRUE),
+    Nombre_total = n()
+  )
+
+
+
+# Fusion des trois groupes
+profil_quanti <- bind_rows(profil_NA, profil_nonNA)
+
+print(profil_quanti)
+```
+
+Ce tableau séparer les données en deux, les "manquant", c'est à dire les élèves n'ayant pas de REE global ou de REE ciblée sur les professeurs de mathématiques, et "Sans NA".
+
+Les manquants représentent 159590 données c'est-à-dire 26% de nos données. A partir de cela nous pouvons faire un premier profil des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant. En premier lieu, le groupe "manquant" comprend plus d'hommes que le groupe qui se positionne sur leur relation avec le corps enseignant, et est légèrement plus anxieux en mathématiques.  Trois indices ont une différences plus marquée, le premier montre que le sentimant d'appartenance pour le groupe "manquant" est plus faible que l'autre groupe avec un écart de 0.16 points. L'harcèlement augmente aussi, passant de -0.30 à -0.12 et enfin l'indice sur l'origine socio-économique diminue fortement, passant de -0.20 pour le groupe ayant répondu aux question à -0.67 pour le groupe "manquant". 
+
+Pour faire un résumé nos données manquant ont le profil suivant par rapport aux autres données: On y retrouve plus d'hommes, plus anxieux envers les mathématiques, plus harcelé et avec un moins bon sentiment d'appartenance et pour finir une origine socio-écono beaucoup plus faible.
+
+Cependant lorsqu'on regarde en détail ces non-réponses on retrouve quelques informations très importantes.
+
+
+```{r, echo = FALSE}
+relatst_NA_ligne <- is.na(data_etude$RELATST) & is.na(data_etude$TEACHSUP)
+
+relatst_NA_pays <- tapply(relatst_NA_ligne, data_etude$CNT, mean) * 100
+
+relatst_NA_pays_tri <- sort(relatst_NA_pays)
+
+barplot(
+  relatst_NA_pays_tri,
+  las = 2,              
+  col = "darkcyan",
+  main = "Proportion de non réponse par pays concernant la qualité de la REE",
+  ylab = "% de valeurs manquantes",
+  cex.names = 0.7
+)
+
+library(dplyr)
+library(ggplot2)
+library(rnaturalearth)
+library(rnaturalearthdata)
+
+
+# Données
+data <- data.frame(
+  iso3 = c("VNM","TUR","JPN","KAZ","SGP","IRL","MAC","ITA","KOR","TAP","MEX",
+           "THA","MNG","EST","CZE","HRV","PRT","AUT","PER","GRC","LTU","POL",
+           "SVN","CHE","ROU","SRB","MDA","HUN","LVA","NZL","SWE","CRI","ESP",
+           "AUS","FRA","SVK","FIN","ISL","GTM","NLD","MNE","BEL","DNK","SAU",
+           "HKG","CHL","IDN","USA","MLT","PRY","PHL","COL","NOR","URY","PSE",
+           "MYS","BRN","QUR","JOR","MKD","ARG","ARE","DOM","BRA","SLV","BGR",
+           "KSV","JAM","QAT","DEU","GEO","GBR","KHM","PAN","QAZ","ALB","UZB",
+           "ISR","MAR","CAN"),
+  
+  valeur = c(0.08,0.19,0.49,0.64,0.68,0.74,0.78,1.01,1.02,1.09,1.11,
+             1.15,1.20,1.49,1.54,1.56,1.68,1.97,2.02,2.06,2.09,2.16,
+             2.26,2.28,2.54,2.56,2.71,2.86,3.05,3.08,3.23,3.37,3.44,
+             3.45,3.46,3.52,3.76,3.81,3.85,3.88,4.42,4.45,4.53,4.58,
+             4.74,4.99,5.14,5.18,5.63,5.88,6.09,6.25,6.34,6.38,6.84,
+             7.00,7.03,7.61,7.68,7.96,8.06,8.17,8.49,8.79,9.16,9.32,
+             9.42,9.97,10.81,11.48,12.00,12.53,12.99,15.38,17.51,18.49,18.84,
+             21.26,26.07,100)
+)
+
+# ❌ Exclure le Canada
+
+# 📊 Création de classes (quantiles ici)
+data <- data %>%
+  mutate(classe = cut(valeur, breaks = c(0, 2, 5, 10, 20, 100)))
+
+# 🌍 Carte
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+map_data <- world %>%
+  left_join(data, by = c("iso_a3" = "iso3"))
+
+# 🎨 Plot
+ggplot(map_data) +
+  geom_sf(aes(fill = classe)) +
+  scale_fill_viridis_d(na.value = "lightgrey") +
+  theme_minimal() +
+  labs(title = "Cartographie par classes (Canada exclu)",
+       fill = "Classes")
+```
+Note de lecture : Le Brunei a un taux de non réponse de 100% sur les données concernant l'indice de qualité de la relation entre élèves et enseignants.
+
+L'enquête PISA se base sur un questionnaire distribué par les pays dans les écoles, toutefois, chaque partie du questionnaire étant facultative, un pays a pu refuser sa distribution pour certaines raisons. Pour les indices mesurant la relation entre élèves et enseignants dans la globalité et la relation avec le professeur de mathématiques on retrouve le CANADA avec un taux de non-réponses égal à 100%. . On peut donc améliorer notre profil en disant que  Les pays sont Brunei, Canada, Indonésie, Israël, Cambodge, Macao, Maroc, Malaisie, Philippines et Ouzbékistan. Cependant d'après nos recherches aucune raison officielle ne permet de conclure sur la raison de la non distribution de cette partie du questionnaire.
+
+
+
+```{r, echo = FALSE,include = FALSE}
+relatst_100 <- relatst_NA_pays_tri[relatst_NA_pays_tri == 100]
+names(relatst_100)
+```
+
+
+
+
+
+Après avoir “nettoyé” notre base de données, nous pouvons faire une analyse du profil des élèves qui n'ont pas répondu aux questions sur leur relation avec le corps enseignant. En premier lieu, nous voyons que dans la figure 3, il existe une relation entre le fait de ne pas avoir d'indice de REE et la moyenne générale. Ne pas avoir d'indice de REE signifie ne pas avoir répondu à toutes les questions qui servent à construire celui-ci. En effet on remarque que la distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE. On peut donc en conclure que les élèves qui ne se positionnent pas sur leur relation avec le corps enseignant sont des élèves avec une moyenne générale plus faible que ceux se positionnant.
+
+
+```{r, echo = FALSE}
+data_etude$statut_NA <- ifelse(is.na(data_etude$RELATST), "Manquant", "Présent")
+ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
+  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
+  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
+  labs(
+    title = " Distribution du nombre d'élèves par note et statut de réponse",
+    x = "moyenne générale",
+    y = "Nombre d'élèves",
+    fill = "Statut"
+  ) +
+  theme_minimal()
+```
+Note de lecture : La distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
+
+Concernant les autres variables nous pouvons analyser remarquer grâce au tableau 1, que les élèves n'ayant pas d'indice REE sont du genre plutôt masculin. En effet, on retrouve 38.2% de femmes pour un indice REE manquant quand celui-ci est à 49.7% pour l'ensemble des données. 
+
+
+
+Table 1: Comparaison entre les élèves ayant un indice REE et ceux n'en ayant pas .
+
+Note de lecture: Pour les élèves n'ayant pas d'indice REE, leur indice d'anxiété moyen relatif aux mathématiques est de 0.381.
+
+
+Blabla conclusion du profil
+```{r, echo = FALSE}
+data_etude <- data_etude[(!is.na(data_etude$RELATST)) & (!is.na(data_etude$TEACHSUP)), ]
+summary(data_etude)
+```
+
+## 1.4 Une relation décrite comme globalement positive au travers du vécu de l'élève.
 Il paraît maintenant pertinent de s'intéresser à la qualité de cette relation et savoir comment elle est perçue par les élèves. Car un indice relève en effet de la qualité globale de la relation, mais il est aussi important de savoir le détail par question. Pour cela nous avons récupéré le taux des réponses positives par question en ce qui concerne la relation élève-enseignant au global et celle sur les professeurs de mathématiques, seulement pour les élèves ayant répondu à la question. 
 On remarque que les résultats sont très positifs, la question ayant le moins bon résultat est "Les enseignants font attention aux élèves en cas de retard", avec 72,7% de réponses positives. Donc pour seulement 27.3% des élèves, l'enseignant ne fait pas attention. Quant aux autres résultats, ils se situent entre 79.4% et 94.2% de réponses positives donc seulement 20.6% et 4.8% de réponses négatives. On peut conclure que les trois qualités qui caractérisent au mieux cette relation positive sont un enseignant qui n'est pas méchant, qui est amical et qui se soucie du bien-être des élèves.
 
@@ -246,126 +407,8 @@ rm(data_long_p,data_long_t,data_plot_p,data_plot_t,data_relatst,data_relatst_na,
 
 Cependant, nous avons affiché les résultats seulement pour les élèves ayant répondu aux questions. Si l'on regarde le taux de non réponses nous avons 43.04% de non réponses concernant la relations dans la globalité et 15.53% pour la relation avec les professeurs de mathématiques. Le chiffre de non-réponse nous pousse à nous interroger sur le profil des élèves qui ne répondent pas pour comprendre en quoi cela pourrait biaiser nos futures analyses.
 
+-> Malgré qu'on ai enlevé les variables avec indice = Na, il y a encore des individus avec des NA en réponse aux questions, l'indice est donc construit pour ne pas prendre en compte des NA
 
-## 1.3 Les non-réponses : un indicateur à part entière
-Une solution simple permettant de faire les analyses est d'imputer les valeurs manquantes par la moyenne. Cependant lorsqu'on regarde en détail ces non-réponses on retrouve quelques informations très importantes.
-
-L'enquête PISA se base sur un questionnaire distribué par les pays dans les écoles, toutefois, chaque partie du questionnaire étant facultative, un pays a pu refuser sa distribution pour certaines raisons. Pour l'indice mesurant la relation entre élèves et enseignants dans la globalité on retrouve de nombreux pays avec un taux de non-réponses égal à 100%. Les pays sont Brunei, Canada, Indonésie, Israël, Cambodge, Macao, Maroc, Malaisie, Philippines et Ouzbékistan. Cependant d'après nos recherches aucune raison officielle ne permet de conclure sur la raison de la non distribution de cette partie du questionnaire.
-
-Il serait donc non approprié d'amputer seulement toutes les non-réponses par la moyenne totale pour les pays n'ayant pas distribué cette partie du questionnaire correspondant à la construction de l'indice. Nous allons donc supprimer ces pays de notre jeu de données. 
-
-```{r, echo = FALSE}
-relatst_NA_ligne <- is.na(data_etude$RELATST)
-
-relatst_NA_pays <- tapply(relatst_NA_ligne, data_etude$CNT, mean) * 100
-
-relatst_NA_pays_tri <- sort(relatst_NA_pays)
-
-barplot(
-  relatst_NA_pays_tri,
-  las = 2,              
-  col = "darkcyan",
-  main = "Proportion de non réponse par pays concernant la qualité de la REE",
-  ylab = "% de valeurs manquantes",
-  cex.names = 0.7
-)
-```
-Note de lecture : Le Brunei a un taux de non réponse de 100% sur les données concernant l'indice de qualité de la relation entre élèves et enseignants.
-
-```{r, echo = FALSE,include = FALSE}
-relatst_100 <- relatst_NA_pays_tri[relatst_NA_pays_tri == 100]
-names(relatst_100)
-```
-
-
-```{r, echo = FALSE}
-#Enlever pays à 100% non réponse
-data_etude <- data_etude %>%
-  group_by(CNT) %>%
-  filter(!all(is.na(RELATST))) %>%
-  ungroup()
-
-
-
-```
-
-
-## 1.4 Les profils des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant
-
-Après avoir “nettoyé” notre base de données, nous pouvons faire une analyse du profil des élèves qui n'ont pas répondu aux questions sur leur relation avec le corps enseignant. En premier lieu, nous voyons que dans la figure 3, il existe une relation entre le fait de ne pas avoir d'indice de REE et la moyenne générale. Ne pas avoir d'indice de REE signifie ne pas avoir répondu à toutes les questions qui servent à construire celui-ci. En effet on remarque que la distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE. On peut donc en conclure que les élèves qui ne se positionnent pas sur leur relation avec le corps enseignant sont des élèves avec une moyenne générale plus faible que ceux se positionnant.
-
-
-```{r, echo = FALSE}
-data_etude$statut_NA <- ifelse(is.na(data_etude$RELATST), "Manquant", "Présent")
-ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
-  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
-  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
-  labs(
-    title = " Distribution du nombre d'élèves par note et statut de réponse",
-    x = "moyenne générale",
-    y = "Nombre d'élèves",
-    fill = "Statut"
-  ) +
-  theme_minimal()
-```
-Note de lecture : La distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
-
-Concernant les autres variables nous pouvons analyser remarquer grâce au tableau 1, que les élèves n'ayant pas d'indice REE sont du genre plutôt masculin. En effet, on retrouve 38.2% de femmes pour un indice REE manquant quand celui-ci est à 49.7% pour l'ensemble des données. 
-
-
-```{r, echo = FALSE}
-
-# Profil des NA
-profil_NA <- data_etude %>%
-  filter(is.na(RELATST)) %>%
-  summarise(
-    Groupe = "Manquant",
-    Pourcentage_filles = round(100 * mean(ST004D01T == 1, na.rm = TRUE), 2),
-    Origine_socioeco = mean(ESCS, na.rm = TRUE),
-    Anxiete_maths = mean(ANXMAT, na.rm = TRUE),
-    Appartenance = mean(BELONG, na.rm = TRUE),
-    Harcelement = mean(BULLIED, na.rm = TRUE),
-    Nombre_total = n()
-  )
-
-# Profil global
-profil_total <- data_etude %>%
-  summarise(
-    Groupe = "Ensemble",
-    Pourcentage_filles = round(100 * mean(ST004D01T == 1, na.rm = TRUE), 2),
-    Origine_socioeco = mean(ESCS, na.rm = TRUE),
-    Anxiete_maths = mean(ANXMAT, na.rm = TRUE),
-    Appartenance = mean(BELONG, na.rm = TRUE),
-    Harcelement = mean(BULLIED, na.rm = TRUE),
-    Nombre_total = n()
-  )
-
-# Fusion
-profil_quanti <- bind_rows(profil_NA, profil_total)
-
-print(profil_quanti)
-```
-Table 1: Comparaison entre les élèves ayant un indice REE et ceux n'en ayant pas .
-
-Note de lecture: Pour les élèves n'ayant pas d'indice REE, leur indice d'anxiété moyen relatif aux mathématiques est de 0.381.
-
-
-```{r,echo = FALSE}
-# Sélection des colonnes numériques pour l'imputation
-vars_quanti <- c("RELATST", "TEACHSUP", "ESCS", "ST016Q01NA", 
-                 "ST272Q01JA", "EXPWB", "BELONG", "BULLIED", "ANXMAT",
-                 "MOY_MATH", "MOY_GENERALE")
-
-# Ne garder que celles qui existent dans data_etude
-vars_quanti <- intersect(vars_quanti, names(data_etude))
-
-# Imputation par la moyenne
-for (var in vars_quanti) {
-  if (is.numeric(data_etude[[var]])) {
-    data_etude[[var]][is.na(data_etude[[var]])] <- mean(data_etude[[var]], na.rm = TRUE)
-  }
-}
-```
 # 2 La REE et la réussite scolaire : une relation complexe
 
 ## 2.1 Relation entre REE et niveau académique individuel 
