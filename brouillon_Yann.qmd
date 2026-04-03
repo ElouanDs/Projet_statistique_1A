@@ -173,7 +173,31 @@ profil_nonNA <- data_etude %>%
 ```
 
 
-![Tableau 1: Comparaison NA et sans NA](tableau_manquants_NA.png)
+
+```{r, results='asis'}
+library(gridExtra)
+library(grid)
+
+# 1. Créer le tableau
+df <- data.frame(
+  Groupe = c("Manquant", "Sans NA"),
+  Pourcentage_filles = c(45.96, 51.18),
+  Origine_socioeco = c(-0.6687436, -0.1969157),
+  Anxiete_maths = c(0.3075299, 0.2216972),
+  Appartenance = c(-0.20697179, -0.04908496),
+  Harcelement = c(-0.1214952, -0.3056764),
+  Nombre_total = c(159590, 454154)
+)
+
+# 2. Ouvrir un fichier PNG
+png("images_rapports/tableau1_manquants_NA.png", width = 700, height = 300)
+
+# 3. Créer le tableau graphique
+grid.table(df)
+
+# 4. Fermer le PNG
+dev.off()
+```
 
 
 Ce tableau séparer les données en deux, les "manquant", c'est à dire les élèves n'ayant pas de REE global ou de REE ciblée sur les professeurs de mathématiques, et "Sans NA".
@@ -186,67 +210,51 @@ Cependant lorsqu'on regarde en détail ces non-réponses on retrouve quelques in
 
 
 ```{r, echo = FALSE}
+# 0. Chemin du fichier PNG
+png(filename = "images_rapports/figure1_top5_pays_NA.png", width = 800, height = 600)
+
+# 1. Préparation des données
 relatst_NA_ligne <- is.na(data_etude$RELATST) & is.na(data_etude$TEACHSUP)
-
 relatst_NA_pays <- tapply(relatst_NA_ligne, data_etude$CNT, mean) * 100
-
 relatst_NA_pays_tri <- sort(relatst_NA_pays)
 
-barplot(
-  relatst_NA_pays_tri,
-  las = 2,              
-  col = "darkcyan",
-  main = "Proportion de non réponse par pays concernant la qualité de la REE",
-  ylab = "% de valeurs manquantes",
-  cex.names = 0.7
+top5 <- tail(relatst_NA_pays_tri, 5)
+
+# 2. Création des noms complets
+noms_complets <- names(top5)
+noms_complets[noms_complets == "CAN"] <- "Canada"
+noms_complets[noms_complets == "MAR"] <- "Maroc"
+noms_complets[noms_complets == "ISR"] <- "Israel"
+noms_complets[noms_complets == "UZB"] <- "Ouzbékistan"
+noms_complets[noms_complets == "ALB"] <- "Albanie"
+
+# 3. Graphique du Top 5
+par(mar = c(5, 8, 4, 2)) # marge gauche pour noms longs
+
+bp <- barplot(
+  top5,
+  horiz = TRUE,
+  names.arg = noms_complets,
+  las = 1,
+  col = ifelse(names(top5) == "CAN", "firebrick", "darkcyan"),
+  main = "Top 5 des pays - Non réponse (Qualité REE)",
+  xlab = "% de valeurs manquantes",
+  xlim = c(0, 115),
+  border = "white"
 )
 
-library(dplyr)
-library(ggplot2)
-library(rnaturalearth)
-library(rnaturalearthdata)
-
-
-# Données
-data <- data.frame(
-  iso3 = c("VNM","TUR","JPN","KAZ","SGP","IRL","MAC","ITA","KOR","TAP","MEX",
-           "THA","MNG","EST","CZE","HRV","PRT","AUT","PER","GRC","LTU","POL",
-           "SVN","CHE","ROU","SRB","MDA","HUN","LVA","NZL","SWE","CRI","ESP",
-           "AUS","FRA","SVK","FIN","ISL","GTM","NLD","MNE","BEL","DNK","SAU",
-           "HKG","CHL","IDN","USA","MLT","PRY","PHL","COL","NOR","URY","PSE",
-           "MYS","BRN","QUR","JOR","MKD","ARG","ARE","DOM","BRA","SLV","BGR",
-           "KSV","JAM","QAT","DEU","GEO","GBR","KHM","PAN","QAZ","ALB","UZB",
-           "ISR","MAR","CAN"),
-  
-  valeur = c(0.08,0.19,0.49,0.64,0.68,0.74,0.78,1.01,1.02,1.09,1.11,
-             1.15,1.20,1.49,1.54,1.56,1.68,1.97,2.02,2.06,2.09,2.16,
-             2.26,2.28,2.54,2.56,2.71,2.86,3.05,3.08,3.23,3.37,3.44,
-             3.45,3.46,3.52,3.76,3.81,3.85,3.88,4.42,4.45,4.53,4.58,
-             4.74,4.99,5.14,5.18,5.63,5.88,6.09,6.25,6.34,6.38,6.84,
-             7.00,7.03,7.61,7.68,7.96,8.06,8.17,8.49,8.79,9.16,9.32,
-             9.42,9.97,10.81,11.48,12.00,12.53,12.99,15.38,17.51,18.49,18.84,
-             21.26,26.07,100)
+# 4. Ajout des pourcentages précis
+text(
+  x = top5, 
+  y = bp, 
+  labels = paste0(round(top5, 1), "%"), 
+  pos = 4, 
+  cex = 0.9, 
+  font = 2
 )
 
-# ❌ Exclure le Canada
-
-# 📊 Création de classes (quantiles ici)
-data <- data %>%
-  mutate(classe = cut(valeur, breaks = c(0, 2, 5, 10, 20, 100)))
-
-# 🌍 Carte
-world <- ne_countries(scale = "medium", returnclass = "sf")
-
-map_data <- world %>%
-  left_join(data, by = c("iso_a3" = "iso3"))
-
-# 🎨 Plot
-ggplot(map_data) +
-  geom_sf(aes(fill = classe)) +
-  scale_fill_viridis_d(na.value = "lightgrey") +
-  theme_minimal() +
-  labs(title = "Cartographie par classes (Canada exclu)",
-       fill = "Classes")
+# 5. Fermer le fichier PNG
+dev.off()
 ```
 Note de lecture : Le Brunei a un taux de non réponse de 100% sur les données concernant l'indice de qualité de la relation entre élèves et enseignants.
 
@@ -267,6 +275,7 @@ Après avoir “nettoyé” notre base de données, nous pouvons faire une analy
 
 
 ```{r, echo = FALSE}
+png(filename = "images_rapports/figure2_comparaison_NA_notes_relatst.png", width = 800, height = 600)
 data_etude$statut_NA <- ifelse(is.na(data_etude$RELATST), "Manquant", "Présent")
 ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
@@ -278,6 +287,23 @@ ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
     fill = "Statut"
   ) +
   theme_minimal()
+dev.off()
+
+```
+```{r, echo = FALSE}
+png(filename = "images_rapports/figure3_comparaison_NA_notesmaths_teachsup.png", width = 800, height = 600)
+data_etude$statut_NA <- ifelse(is.na(data_etude$TEACHSUP), "Manquant", "Présent")
+ggplot(data_etude, aes(x = MOY_MATH, fill = statut_NA)) +
+  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
+  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
+  labs(
+    title = " Distribution du nombre d'élèves par note et statut de réponse",
+    x = "moyenne générale",
+    y = "Nombre d'élèves",
+    fill = "Statut"
+  ) +
+  theme_minimal()
+dev.off()
 ```
 Note de lecture : La distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
 
@@ -295,7 +321,51 @@ Blabla conclusion du profil
 data_etude <- data_etude[(!is.na(data_etude$RELATST)) & (!is.na(data_etude$TEACHSUP)), ]
 summary(data_etude)
 ```
+```{r, echo = FALSE}
+library(gridExtra)
+library(grid)
 
+# 1. Sélection des colonnes
+cols_selection <- c("RELATST", "TEACHSUP", "ESCS", "EXPWB", "BELONG", "BULLIED", "ANXMAT")
+data_etude_clean <- data_etude[, cols_selection]
+
+# 2. Calcul des 6 statistiques de base (sans les NA)
+# On crée une fonction qui extrait uniquement Min, 1st Qu, Median, Mean, 3rd Qu, et Max
+get_clean_summary <- function(x) {
+  s <- summary(x, na.rm = TRUE)
+  # On ne garde que les 6 premières stats (on ignore la ligne NA's si elle existe)
+  return(as.vector(s)[1:6])
+}
+
+# Appliquer la fonction pour obtenir une matrice propre
+summary_mat <- sapply(data_etude_clean, get_clean_summary)
+
+# Conversion en data.frame
+summary_df <- as.data.frame(summary_mat)
+
+# Renommer les lignes explicitement
+rownames(summary_df) <- c("Min", "1st Qu.", "Median", "Mean", "3rd Qu.", "Max")
+
+# Arrondir à 3 décimales pour la précision
+summary_df <- round(summary_df, 3)
+
+# 3. Export en PNG
+# Augmentation de la taille et de la résolution pour un rendu pro
+png("summary_table.png", width = 1200, height = 500, res = 120)
+
+# Configuration du thème pour une meilleure lisibilité
+mon_theme <- ttheme_default(
+  base_size = 12,
+  colhead = list(fg_params = list(fontface = "bold", col="white"),
+                 bg_params = list(fill="#4F81BD")), # En-tête bleu pro
+  core = list(bg_params = list(fill = c("#D9E1F2", "white"))) # Lignes alternées
+)
+
+# Génération du tableau
+grid.table(summary_df, theme = mon_theme)
+
+dev.off()
+```
 ## 1.4 Une relation décrite comme globalement positive au travers du vécu de l'élève.
 Il paraît maintenant pertinent de s'intéresser à la qualité de cette relation et savoir comment elle est perçue par les élèves. Car un indice relève en effet de la qualité globale de la relation, mais il est aussi important de savoir le détail par question. Pour cela nous avons récupéré le taux des réponses positives par question en ce qui concerne la relation élève-enseignant au global et celle sur les professeurs de mathématiques, seulement pour les élèves ayant répondu à la question. 
 On remarque que les résultats sont très positifs, la question ayant le moins bon résultat est "Les enseignants font attention aux élèves en cas de retard", avec 72,7% de réponses positives. Donc pour seulement 27.3% des élèves, l'enseignant ne fait pas attention. Quant aux autres résultats, ils se situent entre 79.4% et 94.2% de réponses positives donc seulement 20.6% et 4.8% de réponses négatives. On peut conclure que les trois qualités qui caractérisent au mieux cette relation positive sont un enseignant qui n'est pas méchant, qui est amical et qui se soucie du bien-être des élèves.
