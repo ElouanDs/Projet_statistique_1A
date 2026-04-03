@@ -55,7 +55,7 @@ Les données utilisées sont issues de l'enquête PISA 2022, qui interroge des �
 ```{r, echo = FALSE, include = FALSE, warning=FALSE, message = FALSE}
 
 
-packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse","ggrepel")
+packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse","ggrepel", "cluster")
 install.packages(packages) 
 library(tidyverse)
 library(psych)
@@ -63,6 +63,7 @@ library(FactoMineR)
 library(factoextra)
 library(corrplot)
 library(ggrepel)
+library(cluster)
 ```
 
 ```{r, echo = FALSE, include = FALSE}
@@ -405,6 +406,10 @@ bilan_pays <- data_etude %>%
   summarise(
     REE_moyen = mean(RELATST, na.rm = TRUE),
     Note_moyenne = mean(MOY_GENERALE, na.rm = TRUE),
+    REE_maths = mean(TEACHSUP, na.rm = TRUE),
+    Note_maths = mean(MOY_MATH, na.rm = TRUE),
+    ESCS_moyen = mean(ESCS, na.rm = TRUE),
+    qualite_moyen = mean(ST272Q01JA, na.rm = TRUE),
     Effectif = n()) 
 cor.test(bilan_pays$REE_moyen, bilan_pays$Note_moyenne)
 ```
@@ -415,14 +420,6 @@ En se concentrant sur la REE avec les enseignants de mathématiques, on observe 
 
 ```{r, echo = FALSE, include=FALSE}
 # Test de corrélation entre la note moyenne d'un pays et son indice TEACHSUP moyen
-bilan_pays_maths <- data_etude %>%
-  group_by(CNT) %>%
-  summarise(
-    REE_maths = mean(TEACHSUP, na.rm = TRUE),
-    Note_moyenne = mean(MOY_MATH, na.rm = TRUE),
-    Effectif = n()
-  ) 
-
 cor.test(bilan_pays_maths$REE_maths, bilan_pays_maths$Note_moyenne)
 ```
 
@@ -430,21 +427,19 @@ Plus un pays dispose d’un niveau en mathématiques élevé selon les notes de 
 
 ```{r, echo = FALSE, warning= FALSE}
 # Regression linéaire entre l'indice RELATST moyen d'un pays et la note moyenne obtenue par ce pays
-modele_TEACHSUP <- lm(Note_moyenne ~ REE_maths, data = bilan_pays_maths)
-bilan_pays_maths$ecart <- residuals(modele_TEACHSUP)
-ggplot(bilan_pays_maths, aes(x = REE_maths, y = Note_moyenne)) +
+modele_TEACHSUP <- lm(Note_moyenne ~ REE_maths, data = bilan_pays)
+ggplot(bilan_pays, aes(x = REE_maths, y = Note_moyenne)) +
   geom_smooth(method = "lm", color = "grey", linetype = "dashed", se = FALSE) +
-  geom_point(aes(color = abs(ecart) > 50), alpha = 0.5) +
+  geom_point(alpha = 0.5, color = "darkcyan") +
   geom_text_repel( aes(label = CNT),
                   size = 3,
                   box.padding = 0.5, 
                   point.padding = 0.3,
                   segment.color = "grey50") +
-  scale_color_manual(values = c("darkcyan", "red")) +
-  geom_hline(yintercept = mean(bilan_pays_maths$Note_moyenne, na.rm = TRUE), 
+  geom_hline(yintercept = mean(bilan_pays$Note_moyenne, na.rm = TRUE), 
              linetype = "dotted", color = "#2c7bb6", size = 0.8) +
   labs(title = "Corrélation entre la note moyenne en maths et la relation avec \nl'enseignant de mathématiques", subtitle = "En rouge, les pays ne confirmant pas la corrélation. \nLes lignes en pointillée bleues correspondent aux moyennes. ", x = "Indice de relation moyen avec l'enseignant de maths", y = "Note OCDE moyenne en mathématiques")+
-  geom_vline(xintercept = mean(bilan_pays_maths$REE_maths, na.rm = TRUE),
+  geom_vline(xintercept = mean(bilan_pays$REE_maths, na.rm = TRUE),
              linetype = "dotted", color = "#2c7bb6", size = 0.8) +
   theme_minimal() +
   theme(legend.position = "none")
@@ -519,37 +514,27 @@ Note de lecture : L'indice moyen de relation avec l'enseignant de mathématiques
 Cette dispersion autour de la qualité de la REE moyenne de l'OCDE change lorsqu'on s'intéresse à la relation dans le cadre des mathématiques. Les "boîtes" des trois premiers quartiles sont plus hautes. Autrement dit, l'écart interquartile est plus important pour les 25% des élèves les plus défavorisés, qui ont un vécu de la REE avec l'enseignant de mathématiques plus hétérogène, allant de -0.3 à 1.5.
 
 ```{r, echo = FALSE, include=FALSE}
-bilan_pays_ESCS <- data_etude %>%
-  group_by(CNT) %>%
-  summarise(
-    ESCS_moyen = mean(ESCS, na.rm = TRUE),
-    REE = mean(RELATST, na.rm = TRUE),
-    Effectif = n()
-  ) 
-cor.test(bilan_pays_ESCS$ESCS_moyen, bilan_pays_ESCS$REE)
-
+cor.test(bilan_pays$ESCS_moyen, bilan_pays$REE_moyen)
 ```
 
 A l'échelle nationale, la REE et le statut socio-économique sont corrélés négativement (-0.41). Lorsque dans un pays le statut socio-économique moyen a tendance à être plus défavorisés, les élèves observent en moyenne une meilleure relation avec leurs enseignants. Inversement, dans les pays avec un statut socio-économique moyen davatange favorisé, la REE est jugée plus négativement.
 
+
 ```{r, echo=FALSE}
-modele_ESCS <- lm(ESCS_moyen ~ REE, data = bilan_pays_ESCS)
-bilan_pays_ESCS$ecart <- residuals(modele_ESCS)
-ggplot(bilan_pays_ESCS, aes(x = REE, y = ESCS_moyen)) +
+modele_ESCS <- lm(ESCS_moyen ~ REE_moyen, data = bilan_pays)
+ggplot(bilan_pays, aes(x = REE_moyen, y = ESCS_moyen)) +
   geom_smooth(method = "lm", color = "grey", linetype = "dashed", se = FALSE) +
-  geom_point(aes(color = abs(ecart) > 50), alpha = 0.5) + # Colore les outliers
-  # Utilisation de geom_text_repel à la place de geom_text
+  geom_point(alpha = 0.5, color = "darkcyan") +
   geom_text_repel( aes(label = CNT),
                   size = 3,
                   box.padding = 0.5, 
                   point.padding = 0.3,
                   segment.color = "grey50") +
-  scale_color_manual(values = c("darkcyan", "red")) +
-  geom_hline(yintercept = mean(bilan_pays_ESCS$ESCS_moyen, na.rm = TRUE), 
+  geom_hline(yintercept = mean(bilan_pays$ESCS_moyen, na.rm = TRUE), 
              linetype = "dotted", color = "#2c7bb6", size = 0.8) +
-  geom_vline(xintercept = mean(bilan_pays_ESCS$REE, na.rm = TRUE), 
+  geom_vline(xintercept = mean(bilan_pays$REE_moyen, na.rm = TRUE), 
              linetype = "dotted", color = "#2c7bb6", size = 0.8) +
-  labs(title = "Corrélation entre le statut socio-économique moyen et \nla REE moyenne des pays", subtitle = "En rouge, les pays ne confirmant pas la corrélation. \nLes lignes en pointillée bleues correspondent aux moyennes. ", x = "Indice de relation moyen avec les enseignants", y = "Indice de statut socio-économique moyen")+
+  labs(title = "Corrélation entre le statut socio-économique moyen et \nla REE moyenne des pays", subtitle = "Les lignes en pointillée bleues correspondent aux moyennes. ", x = "Indice de relation moyen avec les enseignants", y = "Indice de statut socio-économique moyen")+
   theme_minimal() +
   theme(legend.position = "none")
 ```
@@ -583,6 +568,60 @@ cor.test(data_etude$TEACHSUP, data_etude$ST272Q01JA)
 L'appréciation des mathématiques comme étant l'une des matières préférées de l'élève est légérement corrélée avec la qualité de la relation avec l'enseignement de cette matière. La corrélation s'élève à environ 0.21 (p-value \< 2.2e-16), ce qui permet de dire qu'il y a bel et bien un lien entre ces deux éléments mais celui-ci reste faible. Alors, aimer les maths ne suffit pas à expliquer une bonne relation entre un élève et son enseignant de mathématiques.
 
 La qualité perçue des cours de mathématiques est positivement corrélée avec la qualité de la relation avec l'enseignant de mathématiques. En effet, la corrélation est de 0.41 et est significative (p-value \< 2.2e-16). La qualité de la REE en maths est donc dépendante de la qualité observée des cours de mathématiques au cours de l'année.
+
+```{r,echo=False, include=FALSE}
+cor.test(bilan_pays$qualite_moyen, bilan_pays$REE_moyen)
+```
+
+Lorsqu'on change d'échelle, en regardant la qualité observée moyenne des cours de mathématiques par pays, on constate une importante corrélation positive entre qualité des cours et qualité de la REE (0.62, p-value \< 1e-08). Alors, meilleure est la qualité des cours de mathématique, meilleure est la relation entre les élèves et les enseignants. 
+
+```{r, echo=FALSE}
+modele_qualite <- lm(qualite_moyen ~ REE_moyen, data = bilan_pays)
+ggplot(bilan_pays, aes(x = REE_moyen, y = qualite_moyen)) +
+  geom_smooth(method = "lm", color = "grey", linetype = "dashed", se = FALSE) +
+  geom_point(alpha = 0.5, color = "darkcyan") +
+  geom_text_repel( aes(label = CNT),
+                  size = 3,
+                  box.padding = 0.5, 
+                  point.padding = 0.3,
+                  segment.color = "grey50") +
+  
+  geom_hline(yintercept = mean(bilan_pays$qualite_moyen, na.rm = TRUE), 
+             linetype = "dotted", color = "#2c7bb6", size = 0.8) +
+  geom_vline(xintercept = mean(bilan_pays$REE_moyen, na.rm = TRUE), 
+             linetype = "dotted", color = "#2c7bb6", size = 0.8) +
+  labs(title = "Corrélation entre le statut socio-économique moyen et \nla REE moyenne des pays", subtitle = "Les lignes en pointillée bleues correspondent aux moyennes. ", x = "Indice de relation moyen avec les enseignants", y = "Indice de statut socio-économique moyen")+
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+Note de lecture :
+Avec ce nuage de points, on retrouve la même répartition des différents pays en miroir par rapport aux corrélations avec les notes et le statut socio-économique. On peut se demander si il n'y aurait pas des profils de pays selon la qualité de REE. 
+
+Profil pays ?
+```{r}
+df_cluster <- bilan_pays %>%
+  select(CNT, REE_moyen, Note_moyenne, qualite_moyen) %>%
+  na.omit() %>% 
+  column_to_rownames("CNT")
+
+df_scaled <- scale(df_cluster)
+
+set.seed(123)
+res_km <- kmeans(df_scaled, centers = 4, nstart = 25)
+
+df_cluster$Groupe <- as.factor(res_km$cluster)
+
+fviz_cluster(res_km, data = df_scaled,
+             palette = "jco",
+             geom = "point",
+             ellipse.type = "convex", 
+             ggtheme = theme_minimal(),
+             main = "Typologie des pays selon la performance et le climat")
+df_cluster %>%
+  group_by(Groupe) %>%
+  summarise(across(everything(), mean))
+```
+
 
 # 3 Existe-t-il une relation entre la REE et le bien-être des élèves dans le cadre scolaire ?
 
