@@ -170,14 +170,10 @@ profil_nonNA <- data_etude %>%
   )
 
 
-
-# Fusion des trois groupes
-profil_quanti <- bind_rows(profil_NA, profil_nonNA)
-
-print(profil_quanti)
 ```
 
 
+![Tableau 1: Comparaison NA et sans NA](tableau_manquants_NA.png)
 
 
 Ce tableau séparer les données en deux, les "manquant", c'est à dire les élèves n'ayant pas de REE global ou de REE ciblée sur les professeurs de mathématiques, et "Sans NA".
