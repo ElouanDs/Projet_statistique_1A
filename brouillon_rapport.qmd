@@ -677,10 +677,36 @@ Profil pays ?
 
 ```{r}
 mes_couleurs <- c("aquamarine3", "brown3", "darkolivegreen3", "darkgoldenrod2")
+library(dplyr)
+library(tibble)
+
+# Création du dictionnaire (extrait de votre liste)
+correspondance_pays <- data.frame(
+  iso_a3 = c("ALB", "ARG", "AUS", "AUT", "QAZ", "BEL", "BRA", "BRN", "BGR", "KHM", 
+             "CAN", "CHL", "TAP", "COL", "CRI", "HRV", "QCY", "CZE", "DNK", "DOM", 
+             "SLV", "EST", "FIN", "FRA", "GEO", "DEU", "GRC", "GTM", "HKG", "HUN", 
+             "ISL", "IDN", "IRL", "ISR", "ITA", "JAM", "JPN", "JOR", "KAZ", "KOR", 
+             "KSV", "LVA", "LTU", "MAC", "MYS", "MLT", "MEX", "MNG", "MNE", "MAR", 
+             "NLD", "NZL", "MKD", "NOR", "PSE", "PAN", "PRY", "PER", "PHL", "POL", 
+             "PRT", "QAT", "MDA", "ROU", "SAU", "SRB", "SGP", "SVK", "SVN", "ESP", 
+             "SWE", "CHE", "THA", "TUR", "QUR", "ARE", "QUK", "QSC", "USA", "URY", "UZB", "VNM", "GBR"),
+  nom_complet = c("Albania", "Argentina", "Australia", "Austria", "Baku (Azerbaijan)", "Belgium", "Brazil", "Brunei", "Bulgaria", "Cambodia","Canada", "Chile", "Chinese Taipei", "Colombia", "Costa Rica", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Dominican Republic", "El Salvador", "Estonia", "Finland", "France", "Georgia", "Germany", "Greece", "Guatemala", "Hong Kong", "Hungary","Iceland", "Indonesia", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Korea","Kosovo", "Latvia", "Lithuania", "Macao", "Malaysia", "Malta", "Mexico", "Mongolia", "Montenegro", "Morocco","Netherlands", "New Zealand", "North Macedonia", "Norway", "Palestinian Authority", "Panama", "Paraguay", "Peru", "Philippines", "Poland","Portugal", "Qatar", "Moldova", "Romania", "Saudi Arabia", "Serbia", "Singapore", "Slovak Republic", "Slovenia", "Spain","Sweden", "Switzerland", "Thailand", "Türkiye", "Ukraine", "United Arab Emirates", "United Kingdom", "Scotland", "United States", "Uruguay", "Uzbekistan", "Viet Nam", "Great Britain")
+)
+
+
 df_cluster <- bilan_pays %>%
   select(CNT, REE_moyen, Note_moyenne, qualite_moyen) %>%
   na.omit() %>% 
   column_to_rownames("CNT")
+
+# On transforme le tableau pour intégrer les noms complets
+df_cluster <- df_cluster %>%
+  rownames_to_column("iso_a3") %>%
+  left_join(correspondance_pays, by = "iso_a3") %>%
+  # Si un pays n'est pas dans la liste, on garde son code par défaut
+  mutate(nom_complet = ifelse(is.na(nom_complet), iso_a3, nom_complet)) %>%
+  select(-iso_a3) %>%             # On enlève l'ancien code
+  column_to_rownames("nom_complet") # On met le nom complet en identifiant de ligne
 
 df_scaled <- scale(df_cluster)
 
@@ -706,10 +732,10 @@ df_cluster %>%
 
 ```{r}
 # 1. Calcul de la matrice des distances (Euclidienne)
-dist_pays <- dist(df_scaled, method = "euclidean")
+dist_complet <- dist(scale(df_cluster %>% select(-Groupe)))
 
-# 2. Lancement de l'algorithme (Méthode de Ward : minimise la variance dans les groupes)
-res_cah <- hclust(dist_pays, method = "ward.D2")
+
+res_cah <- hclust(dist_complet, method = "ward.D2")
 
 # 3. Affichage du dendrogramme (L'arbre)
 plot(res_cah, 
@@ -736,12 +762,18 @@ library(sf)
 # 1. Créer la variable de groupe D'ABORD
 # On coupe l'arbre pour obtenir 4 groupes à partir de ton résultat CAH
 groupes <- cutree(res_cah, k = 4)
-df_cluster$Groupe_CAH <- as.factor(groupes)
+df_cluster$Groupe <- as.factor(groupes)
 
 # 2. Préparer les données pour la fusion
 # On transforme les noms de lignes (codes ISO) en une vraie colonne
-df_map <- df_cluster %>% 
-  rownames_to_column("iso_a3")
+df_map_final <- df_cluster %>% 
+  rownames_to_column("iso_a3") %>% # On garde le code ici
+  left_join(correspondance_pays, by = "iso_a3") %>%
+  mutate(nom_complet = ifelse(is.na(nom_complet), iso_a3, nom_complet))
+
+# 2. On s'assure que Groupe_CAH est bien dedans (cas où il aurait sauté)
+# On réutilise les groupes issus de votre dernière CAH
+df_map_final$Groupe_CAH <- as.factor(cutree(res_cah, k = 4))
 
 # 3. Récupérer les contours du monde
 world <- ne_countries(scale = "medium", returnclass = "sf")
@@ -758,7 +790,7 @@ world_data <- world %>%
 
 # 3. On relance la carte
 ggplot(data = world_data) +
-  geom_sf(aes(fill = Groupe_CAH), color = "white", size = 0.1) +
+  geom_sf(aes(fill = Groupe), color = "white", size = 0.1) +
   scale_fill_manual(values = mes_couleurs, na.value = "lightgrey") +
   theme_minimal() +
   labs(title = "Répartition mondiale des modèles de relation élève-enseignant",
