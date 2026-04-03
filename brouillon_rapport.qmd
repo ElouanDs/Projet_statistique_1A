@@ -42,15 +42,26 @@ editor:
 
 # Introduction
 
-"La relation élève-enseignant s'intéresse à ce qui se passe entre l'enseignant et ses élèves, à l'école, d'un point de vue à la fois cognitif, affectif et social, au-delà des savoirs scolaires" (Espinosa, 2016). Selon lui, l'enseignement constitue un facteur à part entière de l'éducation des élèves, car même si cette dernière relève majoritairement de la responsabilité des parents, l'impact des professeurs dans la vie des élèves reste non negligeable. Ainsi, cette affirmation s'observe-t-elle réellement dans la réalité ? La relation entre les élèves et leurs enseignants ne se limite-t-elle pas uniquement à un cadre scolaire ? Une bonne relation élève/enseignant implique-t-elle la performance académique de l'élève ? Toutes ces interrogations nous amènent à nous intéresser au sujet suivant : La relation entre élèves et enseignants (REE).
+"La relation élève-enseignant s'intéresse à ce qui se passe entre l'enseignant et ses élèves, à l'école, d'un point de vue à la fois cognitif, affectif et social, au-delà des savoirs scolaires" (Espinosa, 2016).
+Selon lui, l'enseignement constitue un facteur à part entière de l'éducation des élèves, car même si cette dernière relève majoritairement de la responsabilité des parents, l'impact des professeurs dans la vie des élèves reste non negligeable.
+Ainsi, cette affirmation s'observe-t-elle réellement dans la réalité ?
+La relation entre les élèves et leurs enseignants ne se limite-t-elle pas uniquement à un cadre scolaire ?
+Une bonne relation élève/enseignant implique-t-elle la performance académique de l'élève ?
+Toutes ces interrogations nous amènent à nous intéresser au sujet suivant : La relation entre élèves et enseignants (REE).
 
-La relation élèves enseignants caractérise une intéraction, qu'elle soit poisitive ou négative, entretenue entre les élèves et les enseignants. Cette relation s'inscrit dans une dynamique de transmission des savoirs et peut être qualifiée de verticale, dans la mesure où l'enseignant détient un savoir que l'élève est en train d'acquérir. Elle possède également une dimension subjective, puisqu'elle repose en grande partie sur le ressenti des élèves. Ainsi sa meusre repose nécessairement sur des données déclarative, susceptible de comporter certain biais.
+La relation élèves enseignants caractérise une intéraction, qu'elle soit poisitive ou négative, entretenue entre les élèves et les enseignants.
+Cette relation s'inscrit dans une dynamique de transmission des savoirs et peut être qualifiée de verticale, dans la mesure où l'enseignant détient un savoir que l'élève est en train d'acquérir.
+Elle possède également une dimension subjective, puisqu'elle repose en grande partie sur le ressenti des élèves.
+Ainsi sa meusre repose nécessairement sur des données déclarative, susceptible de comporter certain biais.
 
 Dans notre étude nous allons donc mesurer cette REE, et nous nous demanderons si une bonne relation entre élèves et enseignants influence positivement la scolarité des élèves à différentes échelles.
 
-Dans un premier temps, il s’agira de comprendre ce qu’est la relation élèves-enseignants à travers la manière dont elle est perçue par les élèves, ainsi que d’analyser les cas de non-réponse. Ensuite, nous étudierons les liens entre la REE et la réussite scolaire, en tenant compte des performances individuelles, des différences entre pays et du contexte socio-économique. Enfin, nous nous intéresserons aux relations entre la REE et le bien-être des élèves dans le cadre scolaire, notamment en termes d’anxiété et de relations entre pairs.
+Dans un premier temps, il s’agira de comprendre ce qu’est la relation élèves-enseignants à travers la manière dont elle est perçue par les élèves, ainsi que d’analyser les cas de non-réponse.
+Ensuite, nous étudierons les liens entre la REE et la réussite scolaire, en tenant compte des performances individuelles, des différences entre pays et du contexte socio-économique.
+Enfin, nous nous intéresserons aux relations entre la REE et le bien-être des élèves dans le cadre scolaire, notamment en termes d’anxiété et de relations entre pairs.
 
-Les données utilisées sont issues de l'enquête PISA 2022, qui interroge des élèves âgés de 15 habitant dans 85 pays. Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économique des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants.
+Les données utilisées sont issues de l'enquête PISA 2022, qui interroge des élèves âgés de 15 habitant dans 85 pays.
+Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économique des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants.
 
 ```{r, echo = FALSE, include = FALSE, warning=FALSE, message = FALSE}
 
@@ -130,19 +141,31 @@ data_etude$ST004D01T <- as.factor(data_etude$ST004D01T)
 
 ## 1.1 Cadre d'analyse de la REE
 
-En premier lieu, afin de définir le cadre dans lequel nous nous plaçons, il faut avant tout préciser comment se caractérisent élèves et enseignants dans le questionnaire PISA. En effet, pour un élève, il s'agit ici d'un enfant âgé d'environ 15 ans unscrut dans un établissement scolaire public, privé ou bien spécialisé et pouvant provenir de 85 pays différents pour l'édition 2022. Par ailleurs, les enseignants sont, par définition, les professeurs des élèves interrogés dans l'enquête PISA.
+En premier lieu, afin de définir le cadre dans lequel nous nous plaçons, il faut avant tout préciser comment se caractérisent élèves et enseignants dans le questionnaire PISA.
+En effet, pour un élève, il s'agit ici d'un enfant âgé d'environ 15 ans unscrut dans un établissement scolaire public, privé ou bien spécialisé et pouvant provenir de 85 pays différents pour l'édition 2022.
+Par ailleurs, les enseignants sont, par définition, les professeurs des élèves interrogés dans l'enquête PISA.
 
-Ainsi, nous nous plaçons dans un contexte particulier d'analyse puisqu'il faut dan notre cas, étudier la REE grâce aux données présentes sur les questionnaire PISA 2022. Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économiques des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants. C'est pourquoi, afin de pouvoir réaliser notre étude, il nous fallait proposer une mesure des différents types de REE sur lesquels nous souhaitons nous appuyer. Ainsi, nous avons utilise deux indices déjà créés par l'OCDE afin de caractérier cette relation. En particulier, nous avons choisi de travailler avec l'indice mesurant la REE globale (RELATST), qui comprend des questions générales sur le ressenti de l'élève quant à ses interactions avec leur enseignants, mais également l'indice mesurant la REE ciblée sur les professeurs de mathématiques(TEACHSUP) (voir annexe pour la construction des indices).
+Ainsi, nous nous plaçons dans un contexte particulier d'analyse puisqu'il faut dan notre cas, étudier la REE grâce aux données présentes sur les questionnaire PISA 2022.
+Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économiques des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants.
+C'est pourquoi, afin de pouvoir réaliser notre étude, il nous fallait proposer une mesure des différents types de REE sur lesquels nous souhaitons nous appuyer.
+Ainsi, nous avons utilise deux indices déjà créés par l'OCDE afin de caractérier cette relation.
+En particulier, nous avons choisi de travailler avec l'indice mesurant la REE globale (RELATST), qui comprend des questions générales sur le ressenti de l'élève quant à ses interactions avec leur enseignants, mais également l'indice mesurant la REE ciblée sur les professeurs de mathématiques(TEACHSUP) (voir annexe pour la construction des indices).
 
-Toutefois, une potentielle limite de notre analyse mais inhérente au questionnaire PISA, est qu'il ne prend en compte la REE dans un seul sens. En effet, dans la réalité, les enseignants ont une influence sur leurs élèves mais l'inverse est aussi véridique, les élèves peuvent modifier le comportement de leurs professeurs. Cependant, ce deuxième sens dans la REE ne peut être vérifiée dans cette enquête, car seuls les élèves expriment leur opinion sur leurs professeurs.
+Toutefois, une potentielle limite de notre analyse mais inhérente au questionnaire PISA, est qu'il ne prend en compte la REE dans un seul sens. En effet, dans la réalité, les enseignants ont une influence sur leurs élèves mais l'inverse est aussi véridique, les élèves peuvent modifier le comportement de leurs professeurs.
+Cependant, ce deuxième sens dans la REE ne peut être vérifiée dans cette enquête, car seuls les élèves expriment leur opinion sur leurs professeurs.
 
 ## 1.2 L'absence de certains pays dans l'étude de la REE
 
-Une solution simple permettant de faire les anaylses est d'imputer les valeurs manquantes par la moyenne. Cependant lorsqu'on regarde en détail ces non réponses on retrouve quelques informations très importantes.
+Une solution simple permettant de faire les anaylses est d'imputer les valeurs manquantes par la moyenne.
+Cependant lorsqu'on regarde en détail ces non réponses on retrouve quelques informations très importantes.
 
-L'enquête PISA se base sur un questionnaire distribuée par les pays dans les écoles, cependant chaque partie du questionnaire étant facultative, un pays a pu refuser sa distribution pour certaines raisons. Pour l'indice mesurant la relation entre élèves et enseignant dans la globalité on retrouve de nombreux pays avec un taux de non-réponses égal à 100%. Les pays sont Brunei, Canada, Indonésie, Israël, Cambodge, Macao, Maroc, Malaisie, Philippines et Ouzbékistan. Cependant d'après nos recherches aucune raison officielle ne permet de conclure sur la raison de la non distribution de cette partie du questionnaire.
+L'enquête PISA se base sur un questionnaire distribuée par les pays dans les écoles, cependant chaque partie du questionnaire étant facultative, un pays a pu refuser sa distribution pour certaines raisons.
+Pour l'indice mesurant la relation entre élèves et enseignant dans la globalité on retrouve de nombreux pays avec un taux de non-réponses égal à 100%.
+Les pays sont Brunei, Canada, Indonésie, Israël, Cambodge, Macao, Maroc, Malaisie, Philippines et Ouzbékistan.
+Cependant d'après nos recherches aucune raison officielle ne permet de conclure sur la raison de la non distribution de cette partie du questionnaire.
 
-Il serait donc non approprié d'amputer seulement toutes les non-réponses par la moyenne totale pour les pays n'ayant pas distribués cette partie du questionnaire correspondant à la construction de l'indice. Nous allons donc supprimés ces pays de notre jeu de données.
+Il serait donc non approprié d'amputer seulement toutes les non-réponses par la moyenne totale pour les pays n'ayant pas distribués cette partie du questionnaire correspondant à la construction de l'indice.
+Nous allons donc supprimés ces pays de notre jeu de données.
 
 ```{r, echo = FALSE}
 relatst_NA_ligne <- is.na(data_etude$RELATST)
@@ -161,7 +184,8 @@ barplot(
 )
 ```
 
-Figure 2: Illustration du taux de non-réponses pour l'indice de relation entre élèves et enseignants. Note de lecture : Le Brunei a un taux de non réponse de 100% sur les données concernant l'indice de qualité de la relation entre élèves et enseignants.
+Figure 2: Illustration du taux de non-réponses pour l'indice de relation entre élèves et enseignants.
+Note de lecture : Le Brunei a un taux de non réponse de 100% sur les données concernant l'indice de qualité de la relation entre élèves et enseignants.
 
 ```{r, echo = FALSE,include = FALSE}
 relatst_100 <- relatst_NA_pays_tri[relatst_NA_pays_tri == 100]
@@ -181,7 +205,11 @@ data_etude <- data_etude %>%
 
 ## 1.3 Les profils des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant
 
-Maintenant que nos données sont nettoyés, nous pouvons faire une analyse du profil des élèves qui n'ont pas répondu aux questions sur leur relation avec le corps enseignant. En premier lieu nous voyons que dans la figure 3, il existe une relation entre le fait de ne pas avoir d'incide de REE et la moyenne générale. Ne pas avoir d'incide de REE signifie ne pas avoir répondu à toutes les questions qui servent à construire de celui-ci. En effet on remarque que la distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE. On peut donc en conclure que les élèves qui ne se positionnement pas sur leur relation avec le corps enseignants sont des élèves avec une moyenne générale plus faible que ceux se positionnant.
+Maintenant que nos données sont nettoyés, nous pouvons faire une analyse du profil des élèves qui n'ont pas répondu aux questions sur leur relation avec le corps enseignant.
+En premier lieu nous voyons que dans la figure 3, il existe une relation entre le fait de ne pas avoir d'incide de REE et la moyenne générale.
+Ne pas avoir d'incide de REE signifie ne pas avoir répondu à toutes les questions qui servent à construire de celui-ci.
+En effet on remarque que la distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
+On peut donc en conclure que les élèves qui ne se positionnement pas sur leur relation avec le corps enseignants sont des élèves avec une moyenne générale plus faible que ceux se positionnant.
 
 ```{r, echo = FALSE}
 data_etude$statut_NA <- ifelse(is.na(data_etude$RELATST), "Manquant", "Présent")
@@ -197,9 +225,11 @@ ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   theme_minimal()
 ```
 
-Figure 3: Graphique indiquant la distribution de la moyenne générale en fonction de la présence d'un indice de REE ou non. Note de lecture : La distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
+Figure 3: Graphique indiquant la distribution de la moyenne générale en fonction de la présence d'un indice de REE ou non.
+Note de lecture : La distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
 
-Concernant les autres variables nous pouvons analyser grâce aux tableau 1, que les élèves n'ayant pas d'indice REE sont du genre plutôt masculin. En effet on retrouve 38.2% de femmes pour un indice REE manquant quand celui-ci est à 49.7% pour l'ensemble des données.
+Concernant les autres variables nous pouvons analyser grâce aux tableau 1, que les élèves n'ayant pas d'indice REE sont du genre plutôt masculin.
+En effet on retrouve 38.2% de femmes pour un indice REE manquant quand celui-ci est à 49.7% pour l'ensemble des données.
 
 ```{r, echo = FALSE}
 
@@ -255,7 +285,13 @@ for (var in vars_quanti) {
 
 ## 1.4 Une relation décrite comme globalement positive
 
-Il est maintenant intéressant de s'interresser à la qualité de cette relation et savoir comment elle est perçue par les élèves. Car un indice relève en effet de la qualité au global de la relation mais il est aussi immportant de savoir le détail par question. Pour cela nous avons récupéré le taux de réponse positives par question en ce qui concerne la relation élève-enseignant au global et celle sur les professeurs de mathématiques, seulement pour les élèves ayant répondu à la question. On remarque que les résultats sont très positives, la question ayant le moins bon résultat est "Les enseignants font attention aux élèves en cas de retard", avec 72,7% de réponses positives. Donc pour seulement 27.3% les élèves l'enseignant ne fait pas attention. Quand aux autres résultats, ils se situent entre 79.4% et 94.2% de réponses positives donc seulement 20.6% et 4.8% de réponses négatives. On peut conclure que les trois qualités qui caratérisent au mieux cette relation positive sont un enseignant qui n'est pas méchant, qui est amical et qui se soucit du bien-être des élèves.
+Il est maintenant intéressant de s'interresser à la qualité de cette relation et savoir comment elle est perçue par les élèves.
+Car un indice relève en effet de la qualité au global de la relation mais il est aussi immportant de savoir le détail par question.
+Pour cela nous avons récupéré le taux de réponse positives par question en ce qui concerne la relation élève-enseignant au global et celle sur les professeurs de mathématiques, seulement pour les élèves ayant répondu à la question.
+On remarque que les résultats sont très positives, la question ayant le moins bon résultat est "Les enseignants font attention aux élèves en cas de retard", avec 72,7% de réponses positives.
+Donc pour seulement 27.3% les élèves l'enseignant ne fait pas attention.
+Quand aux autres résultats, ils se situent entre 79.4% et 94.2% de réponses positives donc seulement 20.6% et 4.8% de réponses négatives.
+On peut conclure que les trois qualités qui caratérisent au mieux cette relation positive sont un enseignant qui n'est pas méchant, qui est amical et qui se soucit du bien-être des élèves.
 
 ```{r, echo = FALSE}
 data_relatst_na <- data_etude %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
@@ -310,7 +346,10 @@ ggplot(data_plot_p, aes(x = Question,
 
 Figure 1: Illustration du taux de réponses positives par question Note de lecture : 85% des élèves ayant répondu affirment que leurs enseignants sont respectueux envers eux.
 
-Cette relation étant très positive en ce qui concerne les enseignant au global, maintenant interessons nous aux enseignants de mathèmatiques. On a donc sur la figure suivant le taux de réponse positive pour les questions concernant les enseignants de mathématiques. Les résultats sont très différents de ce qu'on a pu observer avec les enseignants dans leur globalité. En effet les taux de réponses positives se trouve seulement entre 25.4% et 32.2%, on se retrouve donc avec une majorité de réponses négatives contrairement à la relation globale.
+Cette relation étant très positive en ce qui concerne les enseignant au global, maintenant interessons nous aux enseignants de mathèmatiques.
+On a donc sur la figure suivant le taux de réponse positive pour les questions concernant les enseignants de mathématiques.
+Les résultats sont très différents de ce qu'on a pu observer avec les enseignants dans leur globalité.
+En effet les taux de réponses positives se trouve seulement entre 25.4% et 32.2%, on se retrouve donc avec une majorité de réponses négatives contrairement à la relation globale.
 
 ```{r, echo = FALSE}
 data_teachsup_na <- data_etude %>% select(ST270Q01JA, ST270Q02JA, ST270Q03JA, ST270Q04JA)
@@ -361,13 +400,19 @@ mean(is.na(data_teachsup_na))*100
 rm(data_long_p,data_long_t,data_plot_p,data_plot_t,data_relatst,data_relatst_na,data_teachsup,data_teachsup_na)
 ```
 
-Cependant, nous avons affichés les résultats seulement pour les élèves ayant répondu aux questions. Si l'on regarde le taux de non réponses nous avons 43.04% de non réponses concernant la relations dans la globalité et 15.53% pour la relation avec les professeurs de mathématiques. Le chiffre de non-réponse nous poussent à s'interroger sur le profil des élèves qui ne répondent pas pour comprendre en quoi cela pourrait biaiser nos analyses futures.
+Cependant, nous avons affichés les résultats seulement pour les élèves ayant répondu aux questions.
+Si l'on regarde le taux de non réponses nous avons 43.04% de non réponses concernant la relations dans la globalité et 15.53% pour la relation avec les professeurs de mathématiques.
+Le chiffre de non-réponse nous poussent à s'interroger sur le profil des élèves qui ne répondent pas pour comprendre en quoi cela pourrait biaiser nos analyses futures.
 
 # 2 La REE et la réussite scolaire : une relation complexe
 
 ## 2.1 Relation entre REE et niveau académique individuel
 
-La relation élèves-enseignant peut être étudiée dans le cadre de la réussite scolaire et plus précisemment concernant le niveau académique des élèves. Comme la REE est une relation prenant place au sein des établissements scolaires, il est tout à fait naturel de s'interroger sur l'influence de la REE sur le niveau des élèves et inversement. Le niveau scolaire est ici étudié au travers des notes établies par l'OCDE lors de l'enquête PISA 2022. Celle-ci permettent de connaître le niveau relatif des élèves concernant différents domaines d'études. Pour comprendre au mieux la relation que le niveau scolaire peut entretenir avec la REE, les analyses vont se porter sur la moyenne générale obtenue par les élèves ainsi que la moyenne de mathématiques.
+La relation élèves-enseignant peut être étudiée dans le cadre de la réussite scolaire et plus précisemment concernant le niveau académique des élèves.
+Comme la REE est une relation prenant place au sein des établissements scolaires, il est tout à fait naturel de s'interroger sur l'influence de la REE sur le niveau des élèves et inversement.
+Le niveau scolaire est ici étudié au travers des notes établies par l'OCDE lors de l'enquête PISA 2022.
+Celle-ci permettent de connaître le niveau relatif des élèves concernant différents domaines d'études.
+Pour comprendre au mieux la relation que le niveau scolaire peut entretenir avec la REE, les analyses vont se porter sur la moyenne générale obtenue par les élèves ainsi que la moyenne de mathématiques.
 
 ```{r, echo=FALSE}
 REE_notes <- data_etude %>%
@@ -393,11 +438,16 @@ corrplot(
 
 Note de lecture : La corrélation entre la relation élèves-enseignants (REE) et la moyenne générale est de 0.06.
 
-Ainsi, contrairement à ce que l’on peut penser a priori, le niveau académique des élèves n'explique pas la qualité de la relation avec leurs enseignants. Le lien de corrélation est presque nul (0.06). Par conséquent, un élève peut potentiellement bien s’entendre avec son professeur sans pour autant que cela ait une influence sur ses résultats scolaires. D’autres facteurs semblent donc être à la source de la réussite scolaire des élèves qu’une bonne relation entre élève et enseignant au niveau global.
+Ainsi, contrairement à ce que l’on peut penser a priori, le niveau académique des élèves n'explique pas la qualité de la relation avec leurs enseignants.
+Le lien de corrélation est presque nul (0.06).
+Par conséquent, un élève peut potentiellement bien s’entendre avec son professeur sans pour autant que cela ait une influence sur ses résultats scolaires.
+D’autres facteurs semblent donc être à la source de la réussite scolaire des élèves qu’une bonne relation entre élève et enseignant au niveau global.
 
 ## 2.2 Relation entre REE et niveau académique national
 
-Comme on constate qu'il n'y a pas de lien entre REE et notes pour les élèves, on peut aussi étudier cette relation à l'échelle des pays. Dans cette analyse, on utilise la moyenne de REE dans chaque pays et la moyenne des notes obtenues. Cela permet de comparer les niveau nationaux et donc de comparer les différents systèmes éducatifs et leurs influences sur la REE.
+Comme on constate qu'il n'y a pas de lien entre REE et notes pour les élèves, on peut aussi étudier cette relation à l'échelle des pays.
+Dans cette analyse, on utilise la moyenne de REE dans chaque pays et la moyenne des notes obtenues.
+Cela permet de comparer les niveau nationaux et donc de comparer les différents systèmes éducatifs et leurs influences sur la REE.
 
 ```{r, echo=FALSE, include=FALSE}
 # Test de corrélation entre la note moyenne d'un pays et son indice RELATST moyen
@@ -414,16 +464,20 @@ bilan_pays <- data_etude %>%
 cor.test(bilan_pays$REE_moyen, bilan_pays$Note_moyenne)
 ```
 
-Il existe une corrélation négative très faible entre la qualité de la REE et la note moyenne de chaque pays (r =\~ -0,26). La REE n'explique que partiellement le niveau académique mais d'autres facteurs entre en compte. On ne peut donc pas conclure d'une relation très forte entre ces deux indicateurs.
+Il existe une corrélation négative très faible entre la qualité de la REE et la note moyenne de chaque pays (r =\~ -0,26).
+La REE n'explique que partiellement le niveau académique mais d'autres facteurs entre en compte.
+On ne peut donc pas conclure d'une relation très forte entre ces deux indicateurs.
 
-En se concentrant sur la REE avec les enseignants de mathématiques, on observe des résultats plus marqués. La note moyenne utilisée est désormais celle des mathématiques et non plus la moyenne générale.
+En se concentrant sur la REE avec les enseignants de mathématiques, on observe des résultats plus marqués.
+La note moyenne utilisée est désormais celle des mathématiques et non plus la moyenne générale.
 
 ```{r, echo = FALSE, include=FALSE}
 # Test de corrélation entre la note moyenne d'un pays et son indice TEACHSUP moyen
 cor.test(bilan_pays_maths$REE_maths, bilan_pays_maths$Note_moyenne)
 ```
 
-Plus un pays dispose d’un niveau en mathématiques élevé selon les notes de l'OCDE, moins la relation entre les élèves et les enseignants de mathématiques est jugée positive. En effet, on constate une corrélation négative (r =\~ -0.51, p-value =\~ 5e-06) entre la qualité de la REE moyenne d'un pays et sa note OCDE moyenne concernant les mathématiques.
+Plus un pays dispose d’un niveau en mathématiques élevé selon les notes de l'OCDE, moins la relation entre les élèves et les enseignants de mathématiques est jugée positive.
+En effet, on constate une corrélation négative (r =\~ -0.51, p-value =\~ 5e-06) entre la qualité de la REE moyenne d'un pays et sa note OCDE moyenne concernant les mathématiques.
 
 ```{r, echo = FALSE, warning= FALSE}
 # Regression linéaire entre l'indice RELATST moyen d'un pays et la note moyenne obtenue par ce pays
@@ -447,11 +501,15 @@ ggplot(bilan_pays, aes(x = REE_maths, y = Note_moyenne)) +
 
 Note de lecture : Le Kazakhstan (KAZ) a un niveau moyen en mathématiques (445) équivalent à la moyenne des pays interrogés et un indice de REE moyen plus positif qu'en moyenne (0.45).
 
-Certains pays ne suivent pas cette corrélation négative, comme Singapour (SGP) où la relation avec les enseignants de mathématiques est plus postive de 0.4 point qu'en moyenne dans les pays de l'OCDE. De plus, le niveau moyen en mathématiques y est le plus élevé. Le Guatemala (GTM) confirme bien le lien de corrélation. Le niveau moyen en mathématiques est largement en dessous de la moyenne, alors qu'on y retrouve la meilleure REE moyenne.
+Certains pays ne suivent pas cette corrélation négative, comme Singapour (SGP) où la relation avec les enseignants de mathématiques est plus postive de 0.4 point qu'en moyenne dans les pays de l'OCDE.
+De plus, le niveau moyen en mathématiques y est le plus élevé.
+Le Guatemala (GTM) confirme bien le lien de corrélation.
+Le niveau moyen en mathématiques est largement en dessous de la moyenne, alors qu'on y retrouve la meilleure REE moyenne.
 
 ## 2.3 La REE et l'influence du statut socio-économique
 
-Si les notes et la REE sont corrélées, on peut tout de même s'interroger sur l'influence du statut socio-économique des parents dans la relation qu'entretient l'élève avec les enseignants. Autrement dit, les origines sociales des élèves modifient-elles la manière dont ils intéragissent avec le corps enseignant ?
+Si les notes et la REE sont corrélées, on peut tout de même s'interroger sur l'influence du statut socio-économique des parents dans la relation qu'entretient l'élève avec les enseignants.
+Autrement dit, les origines sociales des élèves modifient-elles la manière dont ils intéragissent avec le corps enseignant ?
 
 ```{r, echo=FALSE, warning=FALSE}
 # Dispersion de l'indice RELATST en fonction des quartiles socio-éco
@@ -480,9 +538,12 @@ etude_ESCS %>%
 
 Note de lecture : Les 50 % d'élèves situés parmi les plus défavorisés (quartile 1) rapportent des scores d'indice de REE compris entre environ -0,7 et +0,8.
 
-Note : L'indice REE est une variable composite : une valeur positive indique une perception de la relation plus chaleureuse et soutenante que la moyenne de l'OCDE, tandis qu'une valeur négative indique une relation perçue comme plus distante ou moins aidante. Les losanges rouges représentent la moyenne arithmétique de chaque groupe, tandis que la ligne noire horizontale à l'intérieur de chaque boîte indique la médiane (50 % des élèves se situent au-dessus, 50 % en dessous).
+Note : L'indice REE est une variable composite : une valeur positive indique une perception de la relation plus chaleureuse et soutenante que la moyenne de l'OCDE, tandis qu'une valeur négative indique une relation perçue comme plus distante ou moins aidante.
+Les losanges rouges représentent la moyenne arithmétique de chaque groupe, tandis que la ligne noire horizontale à l'intérieur de chaque boîte indique la médiane (50 % des élèves se situent au-dessus, 50 % en dessous).
 
-Le statut socio-économique des parents n'influence pas la qualité de la relation entre élèves et enseignants, comme le montre le graphique ci-dessus. Le vécu des élèves apparaît comme similaire quelques soient les origines sociales. Les écarts inter-quartile sont très similaires pour les quatres groupes socio-économiques, tout comme les moyennes et les médianes.
+Le statut socio-économique des parents n'influence pas la qualité de la relation entre élèves et enseignants, comme le montre le graphique ci-dessus.
+Le vécu des élèves apparaît comme similaire quelques soient les origines sociales.
+Les écarts inter-quartile sont très similaires pour les quatres groupes socio-économiques, tout comme les moyennes et les médianes.
 
 ```{r, echo = FALSE, warning = FALSE}
 # Dispersion de l'indice TEACHSUP en fonction des quartiles socio-éco
@@ -511,14 +572,17 @@ etude_ESCS %>%
 
 Note de lecture : L'indice moyen de relation avec l'enseignant de mathématiques pour les élèves appartenant au quart le plus défavorisé de la population (quartile 1) se situe entre -0.3 et 1.5 pour la moitié d'entre eux (dans la "boîte").
 
-Cette dispersion autour de la qualité de la REE moyenne de l'OCDE change lorsqu'on s'intéresse à la relation dans le cadre des mathématiques. Les "boîtes" des trois premiers quartiles sont plus hautes. Autrement dit, l'écart interquartile est plus important pour les 25% des élèves les plus défavorisés, qui ont un vécu de la REE avec l'enseignant de mathématiques plus hétérogène, allant de -0.3 à 1.5.
+Cette dispersion autour de la qualité de la REE moyenne de l'OCDE change lorsqu'on s'intéresse à la relation dans le cadre des mathématiques.
+Les "boîtes" des trois premiers quartiles sont plus hautes.
+Autrement dit, l'écart interquartile est plus important pour les 25% des élèves les plus défavorisés, qui ont un vécu de la REE avec l'enseignant de mathématiques plus hétérogène, allant de -0.3 à 1.5.
 
 ```{r, echo = FALSE, include=FALSE}
 cor.test(bilan_pays$ESCS_moyen, bilan_pays$REE_moyen)
 ```
 
-A l'échelle nationale, la REE et le statut socio-économique sont corrélés négativement (-0.41). Lorsque dans un pays le statut socio-économique moyen a tendance à être plus défavorisés, les élèves observent en moyenne une meilleure relation avec leurs enseignants. Inversement, dans les pays avec un statut socio-économique moyen davatange favorisé, la REE est jugée plus négativement.
-
+A l'échelle nationale, la REE et le statut socio-économique sont corrélés négativement (-0.41).
+Lorsque dans un pays le statut socio-économique moyen a tendance à être plus défavorisés, les élèves observent en moyenne une meilleure relation avec leurs enseignants.
+Inversement, dans les pays avec un statut socio-économique moyen davatange favorisé, la REE est jugée plus négativement.
 
 ```{r, echo=FALSE}
 modele_ESCS <- lm(ESCS_moyen ~ REE_moyen, data = bilan_pays)
@@ -541,20 +605,26 @@ ggplot(bilan_pays, aes(x = REE_moyen, y = ESCS_moyen)) +
 
 Note de lecture : L'Albanie (ALB) a un indice socio-économique moyen inférieur à la moyenne des pays interrogés (-0.75) ainsi qu'un indice de REE moyen supérieur à la moyenne (0.3).
 
-Le grapique illustre les différences de systèmes éducatifs entre les différents pays interrogés. En effet, si à l'échelle individuelle on ne constate pas de relation de corrélation significative entre les orgines sociales et la qualité de la REE, en comparant les différents pays, on peut conclure d'une influence. Cette corrélation négative oppose des systèmes éducatifs tels que ceux du Vietnam (VNM) ou du Guatemala (GTM) et ceux de la Pologne (POL) ou de la Tchéquie (CZE). D'un côté, on retouve des pays dont les élèves ont des origines davantage défavorisées et une REE plutôt positive, de l'autre côté des pays dont les élèves ont un statut scoio-économique correspondant à la moyenne OCDE et une REE jugée plus négativement qu'en moyenne au sein des pays de l'OCDE.
+Le grapique illustre les différences de systèmes éducatifs entre les différents pays interrogés.
+En effet, si à l'échelle individuelle on ne constate pas de relation de corrélation significative entre les orgines sociales et la qualité de la REE, en comparant les différents pays, on peut conclure d'une influence.
+Cette corrélation négative oppose des systèmes éducatifs tels que ceux du Vietnam (VNM) ou du Guatemala (GTM) et ceux de la Pologne (POL) ou de la Tchéquie (CZE).
+D'un côté, on retouve des pays dont les élèves ont des origines davantage défavorisées et une REE plutôt positive, de l'autre côté des pays dont les élèves ont un statut scoio-économique correspondant à la moyenne OCDE et une REE jugée plus négativement qu'en moyenne au sein des pays de l'OCDE.
 
 On peut en conclure que si, au niveau individuel, aucune corrélation significative n'est observée, une corrélation modérée à forte apparaît au niveau agrégé, c'est-à-dire au niveau des pays.
 
-Cette différence suggère que le lien entre la qualité de la REE et le statut social n'est pas individuel, mais une caractéristique systémique. Cela révèle le fonctionnement des systèmes éducatifs et leur capacité à créer une relation plus ou moins positive entre les élèves et les enseignants.
+Cette différence suggère que le lien entre la qualité de la REE et le statut social n'est pas individuel, mais une caractéristique systémique.
+Cela révèle le fonctionnement des systèmes éducatifs et leur capacité à créer une relation plus ou moins positive entre les élèves et les enseignants.
 
-::: {.callout-note icon=false}
+::: {.callout-note icon="false"}
 ### Lien entre le statut socio-économique et le niveau scolaire des élèves
 
-Comme le présente de nombreuses études, le statut socio-économique des parents est positivement corrélée avec le niveau scolaire. Il est même possible de parler d'une relation de causalité. Avoir davantage de ressources économiques et culturelles favorisent la réussite scolaire, comme l'affirme l'OCDE dans son rapport sur l'enquête PISA 2022 : "La performance des élèves est associée au statut socio-économique, mais il ne s’agit pas d’une relation immuable.". En effet, "En moyenne, dans les pays de l’OCDE, les élèves socio-économiquement favorisé ont obtenu 93 points de plus en mathématiques que les élèves défavorisés."
+Comme le présente de nombreuses études, le statut socio-économique des parents est positivement corrélée avec le niveau scolaire.
+Il est même possible de parler d'une relation de causalité.
+Avoir davantage de ressources économiques et culturelles favorisent la réussite scolaire, comme l'affirme l'OCDE dans son rapport sur l'enquête PISA 2022 : "La performance des élèves est associée au statut socio-économique, mais il ne s’agit pas d’une relation immuable.".
+En effet, "En moyenne, dans les pays de l’OCDE, les élèves socio-économiquement favorisé ont obtenu 93 points de plus en mathématiques que les élèves défavorisés."
 
 Cette relation entre l'origine sociale et le niveau scolaire explique donc la présence de résultats similaires concernant la corrélation entre la qualité de la REE et le niveau académique puis avec le statut socio-économique.
 :::
-
 
 ## 2.4 REE et rapport aux apprentissages
 
@@ -565,15 +635,20 @@ cor.test(data_etude$TEACHSUP, data_etude$ST268Q01JA)
 cor.test(data_etude$TEACHSUP, data_etude$ST272Q01JA)
 ```
 
-L'appréciation des mathématiques comme étant l'une des matières préférées de l'élève est légérement corrélée avec la qualité de la relation avec l'enseignement de cette matière. La corrélation s'élève à environ 0.21 (p-value \< 2.2e-16), ce qui permet de dire qu'il y a bel et bien un lien entre ces deux éléments mais celui-ci reste faible. Alors, aimer les maths ne suffit pas à expliquer une bonne relation entre un élève et son enseignant de mathématiques.
+L'appréciation des mathématiques comme étant l'une des matières préférées de l'élève est légérement corrélée avec la qualité de la relation avec l'enseignement de cette matière.
+La corrélation s'élève à environ 0.21 (p-value \< 2.2e-16), ce qui permet de dire qu'il y a bel et bien un lien entre ces deux éléments mais celui-ci reste faible.
+Alors, aimer les maths ne suffit pas à expliquer une bonne relation entre un élève et son enseignant de mathématiques.
 
-La qualité perçue des cours de mathématiques est positivement corrélée avec la qualité de la relation avec l'enseignant de mathématiques. En effet, la corrélation est de 0.41 et est significative (p-value \< 2.2e-16). La qualité de la REE en maths est donc dépendante de la qualité observée des cours de mathématiques au cours de l'année.
+La qualité perçue des cours de mathématiques est positivement corrélée avec la qualité de la relation avec l'enseignant de mathématiques.
+En effet, la corrélation est de 0.41 et est significative (p-value \< 2.2e-16).
+La qualité de la REE en maths est donc dépendante de la qualité observée des cours de mathématiques au cours de l'année.
 
 ```{r,echo=False, include=FALSE}
 cor.test(bilan_pays$qualite_moyen, bilan_pays$REE_moyen)
 ```
 
-Lorsqu'on change d'échelle, en regardant la qualité observée moyenne des cours de mathématiques par pays, on constate une importante corrélation positive entre qualité des cours et qualité de la REE (0.62, p-value \< 1e-08). Alors, meilleure est la qualité des cours de mathématique, meilleure est la relation entre les élèves et les enseignants. 
+Lorsqu'on change d'échelle, en regardant la qualité observée moyenne des cours de mathématiques par pays, on constate une importante corrélation positive entre qualité des cours et qualité de la REE (0.62, p-value \< 1e-08).
+Alors, meilleure est la qualité des cours de mathématique, meilleure est la relation entre les élèves et les enseignants.
 
 ```{r, echo=FALSE}
 modele_qualite <- lm(qualite_moyen ~ REE_moyen, data = bilan_pays)
@@ -594,11 +669,14 @@ ggplot(bilan_pays, aes(x = REE_moyen, y = qualite_moyen)) +
   theme_minimal() +
   theme(legend.position = "none")
 ```
-Note de lecture :
-Avec ce nuage de points, on retrouve la même répartition des différents pays en miroir par rapport aux corrélations avec les notes et le statut socio-économique. On peut se demander si il n'y aurait pas des profils de pays selon la qualité de REE. 
+
+Note de lecture : Avec ce nuage de points, on retrouve la même répartition des différents pays en miroir par rapport aux corrélations avec les notes et le statut socio-économique.
+On peut se demander si il n'y aurait pas des profils de pays selon la qualité de REE.
 
 Profil pays ?
+
 ```{r}
+mes_couleurs <- c("aquamarine3", "brown3", "darkolivegreen3", "darkgoldenrod2")
 df_cluster <- bilan_pays %>%
   select(CNT, REE_moyen, Note_moyenne, qualite_moyen) %>%
   na.omit() %>% 
@@ -613,25 +691,98 @@ df_cluster$Groupe <- as.factor(res_km$cluster)
 
 fviz_cluster(res_km, data = df_scaled,
              palette = "jco",
-             geom = "point",
+             geom = c("point", "text"),
+             labelsize = 8,
+             repel = TRUE,
              ellipse.type = "convex", 
              ggtheme = theme_minimal(),
              main = "Typologie des pays selon la performance et le climat")
+
 df_cluster %>%
   group_by(Groupe) %>%
   summarise(across(everything(), mean))
+
 ```
+
+```{r}
+# 1. Calcul de la matrice des distances (Euclidienne)
+dist_pays <- dist(df_scaled, method = "euclidean")
+
+# 2. Lancement de l'algorithme (Méthode de Ward : minimise la variance dans les groupes)
+res_cah <- hclust(dist_pays, method = "ward.D2")
+
+# 3. Affichage du dendrogramme (L'arbre)
+plot(res_cah, 
+     labels = rownames(df_scaled), 
+     cex = 0.7, 
+     hang = -1,
+     main = "Dendrogramme des proximités nationales",
+     xlab = "Pays", 
+     sub = "")
+
+# Ajouter les rectangles de couleur pour les 4 groupes
+rect.hclust(res_cah, k = 4, border = mes_couleurs)
+```
+
+```{r}
+#install.packages("rnaturalearth")
+#install.packages("rnaturalearthdata")
+#install.packages("sf")
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(sf)
+
+
+# 1. Créer la variable de groupe D'ABORD
+# On coupe l'arbre pour obtenir 4 groupes à partir de ton résultat CAH
+groupes <- cutree(res_cah, k = 4)
+df_cluster$Groupe_CAH <- as.factor(groupes)
+
+# 2. Préparer les données pour la fusion
+# On transforme les noms de lignes (codes ISO) en une vraie colonne
+df_map <- df_cluster %>% 
+  rownames_to_column("iso_a3")
+
+# 3. Récupérer les contours du monde
+world <- ne_countries(scale = "medium", returnclass = "sf")
+
+# Nettoyage et traduction des codes
+# 1. On s'assure que notre table de données a bien "FRA" sans espaces
+df_map <- df_cluster %>% 
+  rownames_to_column("code_pisa") %>%
+  mutate(code_pisa = trimws(code_pisa))
+
+# 2. On fait la jointure sur une colonne plus large du fond de carte
+world_data <- world %>%
+  left_join(df_map, by = c("iso_a3_eh" = "code_pisa")) 
+
+# 3. On relance la carte
+ggplot(data = world_data) +
+  geom_sf(aes(fill = Groupe_CAH), color = "white", size = 0.1) +
+  scale_fill_manual(values = mes_couleurs, na.value = "lightgrey") +
+  theme_minimal() +
+  labs(title = "Répartition mondiale des modèles de relation élève-enseignant",
+       subtitle = "Classification basée sur la REE, les notes et la qualité perçue (PISA 2022)",
+       caption = "Source : Données PISA 2022 - Analyse CAH") +
+  theme(legend.position = "bottom")
+
+```
+
 
 
 # 3 Existe-t-il une relation entre la REE et le bien-être des élèves dans le cadre scolaire ?
 
 Nous étudierons ainsi dans quelle mesure cette relation d'enseignant à élève peut impacter le bien-être de ces derniers.
 
-Pour estimer le bien-être des élèves des pays de l’OCDE, nous utliserons l’indice de bien-être ressenti durant les jours précédants. Cet indice est construit grâce à la partie du questionnaire sur le bien-être. L’indice s’affiche comme manquant lorsque l’élève n’a pas répondu “Oui” à la question “La journée d’hier était-elle une journée comme les autres ?”
+Pour estimer le bien-être des élèves des pays de l’OCDE, nous utliserons l’indice de bien-être ressenti durant les jours précédants.
+Cet indice est construit grâce à la partie du questionnaire sur le bien-être.
+L’indice s’affiche comme manquant lorsque l’élève n’a pas répondu “Oui” à la question “La journée d’hier était-elle une journée comme les autres ?”
 
-Les indices suivants peuvent être étudiés afin d’élargir l’analyse et de comprendre quels éléments influencent plus particulièrement les REE comme le harcèlement, etc. D’autres variables et indices peuvent être retenu pour expliquer la REE telles que l’indice d’anxiété concernant les mathématiques, l’indice sur le sentiment d’appartenance à l’école ou l’indice de harcèlement.
+Les indices suivants peuvent être étudiés afin d’élargir l’analyse et de comprendre quels éléments influencent plus particulièrement les REE comme le harcèlement, etc.
+D’autres variables et indices peuvent être retenu pour expliquer la REE telles que l’indice d’anxiété concernant les mathématiques, l’indice sur le sentiment d’appartenance à l’école ou l’indice de harcèlement.
 
-L’indice sur l’anxiété ressentie concernant les cours de mathématiques permet d’approfondir l’analyse de l’indice de soutien de l’enseignant de mathématiques (ANXMAT). Il est construit avec les réponses aux questions concernant la crainte des difficultés en cours de mathématiques ou la crainte de l’échec.
+L’indice sur l’anxiété ressentie concernant les cours de mathématiques permet d’approfondir l’analyse de l’indice de soutien de l’enseignant de mathématiques (ANXMAT).
+Il est construit avec les réponses aux questions concernant la crainte des difficultés en cours de mathématiques ou la crainte de l’échec.
 
 L’indice sur le sentiment d’appartenance, représente le sentiment d’appartenance de l’élève à son école ainsi que l’existence de relations avec d’autres à l’école (BELONG).
 
@@ -653,7 +804,8 @@ fviz_pca_var(
 )
 ```
 
-TEACHSUP contribue grandement à l'analyse et se montre déjà presque en lien avec RELATST. Ces deux variables représentent nos indices de qualité REE, donc cela fait sens.
+TEACHSUP contribue grandement à l'analyse et se montre déjà presque en lien avec RELATST.
+Ces deux variables représentent nos indices de qualité REE, donc cela fait sens.
 
 A contrario les indices ne semblent pas posséder de lien direct avec les autres variables de bien-être sur ces premiers axes.
 
@@ -678,7 +830,8 @@ vars %>%
   theme_minimal()
 ```
 
-On note ici que les indices sont centrés autour de 0, ils ont été normalisés, ce qui facilite l'étude. De Plus on note que les dispersions sont plutôt symétrique à l'exception du harcelèment.
+On note ici que les indices sont centrés autour de 0, ils ont été normalisés, ce qui facilite l'étude.
+De Plus on note que les dispersions sont plutôt symétrique à l'exception du harcelèment.
 
 ```{r}
 cor_matrix <- cor(vars)
@@ -702,7 +855,9 @@ ggplot(vars, aes(x = RELATST, y = EXPWB)) +
   theme_minimal()
 ```
 
-En regardant le nuage de point entre notre premier indice et le bien-être, on souligne que les individus ne semblent pas montrer une dépendance ces variables. De plus la matrice de corrélation nous permet de déterminer que la relation entre les différents indices de REE et le bien-être semble faible (0.21 pour EXPWP avec RELATST). Cela dit, elle n'est pas invisible.
+En regardant le nuage de point entre notre premier indice et le bien-être, on souligne que les individus ne semblent pas montrer une dépendance ces variables.
+De plus la matrice de corrélation nous permet de déterminer que la relation entre les différents indices de REE et le bien-être semble faible (0.21 pour EXPWP avec RELATST).
+Cela dit, elle n'est pas invisible.
 
 ```{r, echo= FALSE}
 model_A <- lm(EXPWB ~ RELATST + TEACHSUP + ANXMAT + BELONG + BULLIED,
@@ -711,7 +866,8 @@ model_A <- lm(EXPWB ~ RELATST + TEACHSUP + ANXMAT + BELONG + BULLIED,
 summary(model_A)
 ```
 
-En élaborant un modèle linéaire à l'aide de nos indicateurs, on voit que la p-value de chacun d'entre eux est très faible (vis-à-vis du test de significativité des coefficients). On en déduit qu'il n'y a visiblement pas de relation entre la REE et le bien-être, de manière générale.
+En élaborant un modèle linéaire à l'aide de nos indicateurs, on voit que la p-value de chacun d'entre eux est très faible (vis-à-vis du test de significativité des coefficients).
+On en déduit qu'il n'y a visiblement pas de relation entre la REE et le bien-être, de manière générale.
 
 Nous nous proposons ainsi de ré-effectuer cette étude en la croisant avec de nouvelles variables.
 
@@ -741,7 +897,9 @@ vars_csp$CSP_cat <- cut(vars_csp$ESCS,
 table(vars_csp$CSP_cat)
 ```
 
-Par souci de compléxité, on décide de scinder l'indice de catégorie socio professionnelle en variable qualitative. En utilisant 2 tertilles, on obtient directement tous les individus avec un indice de CSP faisant partis des 33% les plus faibles, ceux faisant partis des 66% les plus faibles ET des 66% les plus élevés, et faisant partis des 33% les plus élevés. On distingue alors 3 classes, les CSP faibles, moyennes, et élevées.
+Par souci de compléxité, on décide de scinder l'indice de catégorie socio professionnelle en variable qualitative.
+En utilisant 2 tertilles, on obtient directement tous les individus avec un indice de CSP faisant partis des 33% les plus faibles, ceux faisant partis des 66% les plus faibles ET des 66% les plus élevés, et faisant partis des 33% les plus élevés.
+On distingue alors 3 classes, les CSP faibles, moyennes, et élevées.
 
 On remarque la robustesse statistique de notre jeu de données avec des effectifs très similaires dans chaque classe.
 
@@ -754,7 +912,9 @@ vars_csp %>%
   theme_minimal()
 ```
 
-Comparons nos classes selon le bien-être, et la REE, de leurs individus. La CSP semble peu agir sur cela. Toutefois on remarque que les élèves issus de parents avec des catégories socio professionnelles élevées montrent une moins bonne relation entre élève et enseignant.
+Comparons nos classes selon le bien-être, et la REE, de leurs individus.
+La CSP semble peu agir sur cela.
+Toutefois on remarque que les élèves issus de parents avec des catégories socio professionnelles élevées montrent une moins bonne relation entre élève et enseignant.
 
 ```{r, echo=FALSE, dev= "png", dpi= 150}
 ggplot(vars_csp, aes(x = RELATST, y = EXPWB, color = CSP_cat)) +
@@ -763,7 +923,10 @@ ggplot(vars_csp, aes(x = RELATST, y = EXPWB, color = CSP_cat)) +
   theme_minimal()
 ```
 
-On trace sur le même nuage de points tous les individus, différenciés par leur CSP. On note que la pente, ou coefficient directeur, de la regression (REE \~ Bien-être) est plus forte dans le cas des catégories socio professionnelles élevées. Même si la différence est faible, les élèves de haute CSP sont plus touchés par les REE, c'est à dire que leur bien-être en dépend plus. Cela va dans le sens de notre analyse précédente ; si les élèves montrent être plus affectés par la REE, il fait sens que la REE ne soit pas "moyenne" et inéxistante, mais bien forte ou faible (faible dans ce cas-ci).
+On trace sur le même nuage de points tous les individus, différenciés par leur CSP.
+On note que la pente, ou coefficient directeur, de la regression (REE \~ Bien-être) est plus forte dans le cas des catégories socio professionnelles élevées.
+Même si la différence est faible, les élèves de haute CSP sont plus touchés par les REE, c'est à dire que leur bien-être en dépend plus.
+Cela va dans le sens de notre analyse précédente ; si les élèves montrent être plus affectés par la REE, il fait sens que la REE ne soit pas "moyenne" et inéxistante, mais bien forte ou faible (faible dans ce cas-ci).
 
 Construisons maintenant un modèle comportant les CSP pour voir si celles-ci se montrent impactantes ;
 
@@ -800,7 +963,8 @@ vars_sex$sexe <- factor(vars_sex$ST004D01T,
 table(vars_sex$sexe)
 ```
 
-Pour commencer, on vérifie que l'échantillon est bien représentatif ; Ce dernier comporte 51% de femmes pour 49% d'hommes. Ce qui nous conviendra pour l'étude.
+Pour commencer, on vérifie que l'échantillon est bien représentatif ; Ce dernier comporte 51% de femmes pour 49% d'hommes.
+Ce qui nous conviendra pour l'étude.
 
 ```{r,echo=FALSE,warning=FALSE}
 vars_sex %>%
@@ -818,7 +982,9 @@ vars_sex %>%
   theme_minimal()
 ```
 
-On remarque par des statistiques descriptives simples et des représentations visuelles que les hommes montrent un bien-être plus élevé que les femmes. En revanche la relation entre élèves et enseignant semble être en moyenne de meilleure qualité en ce qui concerne les femmes. Par ailleurs, la relation entre les hommes et leur enseignant est la même que celle des femmes avec leur enseignant.
+On remarque par des statistiques descriptives simples et des représentations visuelles que les hommes montrent un bien-être plus élevé que les femmes.
+En revanche la relation entre élèves et enseignant semble être en moyenne de meilleure qualité en ce qui concerne les femmes.
+Par ailleurs, la relation entre les hommes et leur enseignant est la même que celle des femmes avec leur enseignant.
 
 ```{r, echo=FALSE, dev= "png", dpi= 150}
 ggplot(vars_sex, aes(x = RELATST, y = EXPWB, color = sexe)) +
@@ -827,7 +993,8 @@ ggplot(vars_sex, aes(x = RELATST, y = EXPWB, color = sexe)) +
   theme_minimal()
 ```
 
-Le graphique ci-dessus indique que la relation entre élève et enseignant impacte le bien-être de manière plus imortante chez les femmes. Les hommes n'en sont pas dépouvus non plus.
+Le graphique ci-dessus indique que la relation entre élève et enseignant impacte le bien-être de manière plus imortante chez les femmes.
+Les hommes n'en sont pas dépouvus non plus.
 
 Etudions le lien directement avec un coefficient de correlation différencié par sexe ;
 
@@ -845,7 +1012,8 @@ vars_sex2 %>%
   summarise(correlation = cor(RELATST, EXPWB))
 ```
 
-Les correlations entre REE et bien-être restent faibles, mais sont existantes tout de même. Une part du bien être s'explique donc par la REE, et ce, plus fortement chez les femmes.
+Les correlations entre REE et bien-être restent faibles, mais sont existantes tout de même.
+Une part du bien être s'explique donc par la REE, et ce, plus fortement chez les femmes.
 
 On se propose maintenant de créer le modèle linéaire expliquant le bien-être par la REE et le sexe de l'élève.
 
@@ -856,13 +1024,17 @@ model_B2 <- lm(EXPWB ~ RELATST * sexe + TEACHSUP + ANXMAT + BELONG + BULLIED,
 summary(model_B2)
 ```
 
-D'abord, on remarque que les coefficients directeurs concernant les modalités de sexe sont les plus élevées du modèle. De plus, le R² de ce modèle est légèrement supérieur aux deux précédents. (0.1116 \> 0.103 \> 0.098)
+D'abord, on remarque que les coefficients directeurs concernant les modalités de sexe sont les plus élevées du modèle.
+De plus, le R² de ce modèle est légèrement supérieur aux deux précédents.
+(0.1116 \> 0.103 \> 0.098)
 
 Dans notre étude, nous affirmons donc que le sexe doit être plus pris en compte que la catégorie socio-professionnelle dans l'analyse du bien-être selon la REE.
 
 ### 3.2.3 En quoi l'appartenance où non d'un pays à l'OCDE influence ses élèves dans leur bien-être vis-à-vis de leur relation avec leur enseignant ?
 
-L’OCDE (Organisation de Coopération et de Développement Économiques) est une organisation internationale regroupant principalement des pays développés. Elle promouvoit des politiques publiques favorisant le bien-être social et l’amélioration des systèmes éducatifs. Dans le cadre des enquêtes PISA, elle s'avère jouer un rôle central, permettant de déterminer si un élève étudié inscrit son parcours scolaire dans un contexte mélioratif ou non.
+L’OCDE (Organisation de Coopération et de Développement Économiques) est une organisation internationale regroupant principalement des pays développés.
+Elle promouvoit des politiques publiques favorisant le bien-être social et l’amélioration des systèmes éducatifs.
+Dans le cadre des enquêtes PISA, elle s'avère jouer un rôle central, permettant de déterminer si un élève étudié inscrit son parcours scolaire dans un contexte mélioratif ou non.
 
 ```{r,echo=FALSE}
 vars_oecd <- data_etude %>%
@@ -878,7 +1050,8 @@ vars_oecd$OCDE_cat <- factor(vars_oecd$OECD,
 table(vars_oecd$OCDE_cat)
 ```
 
-A l'inverse des variables externes précédentes, notre échantillon possède ici beaucoup plus d'élèves appartenant à une des modalités qu'une autre. En effet seulement 36% des élèves de l'échantillon n'appartiennent pas à un pays compris dans l'OCDE, contre 64% qui y appartiennent.
+A l'inverse des variables externes précédentes, notre échantillon possède ici beaucoup plus d'élèves appartenant à une des modalités qu'une autre.
+En effet seulement 36% des élèves de l'échantillon n'appartiennent pas à un pays compris dans l'OCDE, contre 64% qui y appartiennent.
 
 ```{r,echo=FALSE}
 vars_oecd %>%
@@ -896,7 +1069,8 @@ vars_oecd %>%
   theme_minimal()
 ```
 
-Tout d'abord, les élèves de l'OCDE semblent moins ressentir de bien-être, et beaucoup moins de relation avec les enseignants, si l'on s'en tient à l'indice TEACHSUP plutôt qu'à RELATST. Par ailleurs, les élèves de l'OCDE semblent avoir un sentiment d'appartenance plus fort à leur école.
+Tout d'abord, les élèves de l'OCDE semblent moins ressentir de bien-être, et beaucoup moins de relation avec les enseignants, si l'on s'en tient à l'indice TEACHSUP plutôt qu'à RELATST.
+Par ailleurs, les élèves de l'OCDE semblent avoir un sentiment d'appartenance plus fort à leur école.
 
 Etudions tout cela plus en profondeur ;
 
@@ -914,9 +1088,13 @@ ggplot(vars_oecd, aes(x = RELATST, y = EXPWB, color = OCDE_cat)) +
   theme_minimal()
 ```
 
-Pour plus de précisions et comme l'indice TEACHSUP se montre être plus intéressant dans ce cas là. On étudie les deux indices de REE établis par PISA.
+Pour plus de précisions et comme l'indice TEACHSUP se montre être plus intéressant dans ce cas là.
+On étudie les deux indices de REE établis par PISA.
 
-De prime abord, notons que dans chaque cas, la REE s'améliore avec le bien-être, et la non-appartenance à l'OCDE. En revanche, on voit que le coefficient directeur de la variable explicative est plus fort pour RELATST. A noter que cet indicateur concerne moins les mathématiques que l'autre. On peut alors expliquer le phénomène de la manière suivante ; Les élèves ont un bien-être plus grandissant et lié à la relation avec leur professeur lorsque ceux-ci étudient moins les mathématiques.
+De prime abord, notons que dans chaque cas, la REE s'améliore avec le bien-être, et la non-appartenance à l'OCDE.
+En revanche, on voit que le coefficient directeur de la variable explicative est plus fort pour RELATST.
+A noter que cet indicateur concerne moins les mathématiques que l'autre.
+On peut alors expliquer le phénomène de la manière suivante ; Les élèves ont un bien-être plus grandissant et lié à la relation avec leur professeur lorsque ceux-ci étudient moins les mathématiques.
 
 En outre on construit le modèle correpondant pour vérifier les hypothèses émises.
 
@@ -927,7 +1105,11 @@ model_B3 <- lm(EXPWB ~ RELATST * OCDE_cat + TEACHSUP + ANXMAT + BELONG + BULLIED
 summary(model_B3)
 ```
 
-Les coefficients directeurs associés à l'appartenance ou non à l'OCDE sont les plus importants du modèle. Le lien est toujours faible. Cela dit, nous pouvons dire que le bien-être est déterminé par la REE, de manière plus marquée hors de l'OCDE. De plus cet appartenance ou non à cette organisation est la variable la plus efficace pour caractériser le bien-être selon la REE, en comparant aux autres variables externes. On utilise le critère du R² pour justifier cela (0.1122 \> 0.1116 \> 0.103 \> 0.098).
+Les coefficients directeurs associés à l'appartenance ou non à l'OCDE sont les plus importants du modèle.
+Le lien est toujours faible.
+Cela dit, nous pouvons dire que le bien-être est déterminé par la REE, de manière plus marquée hors de l'OCDE.
+De plus cet appartenance ou non à cette organisation est la variable la plus efficace pour caractériser le bien-être selon la REE, en comparant aux autres variables externes.
+On utilise le critère du R² pour justifier cela (0.1122 \> 0.1116 \> 0.103 \> 0.098).
 
 Toutefois, cette variable externe est aussi une varible binaire et donc très simplificatrice qui ne montre pas précisément quels sont les état de développement des pays étudiés.
 
@@ -945,20 +1127,83 @@ Ces résultats suggèrent que le bien-être des élèves repose sur des facteurs
 
 ### Méthodologie de construction des indices
 
-L’indice de qualité des relations entre élèves et enseignants (RELATST) permet de savoir lorsque l’élève fait l’état d’une meilleure relation que l’état moyen des pays de l’OCDE. Cet indice est réalisé à partir des réponses de la question 267. Le second indice concerne quant à lui la question 270 sur le soutien du professeur de mathématiques (TEACHSUP). Il fonctionne de la même manière que le premier indice, plus il est positif, plus l’élève affirme bénéficier d’un soutien de son enseignant plus important qu’en moyenne.
+L’indice de qualité des relations entre élèves et enseignants (RELATST) permet de savoir lorsque l’élève fait l’état d’une meilleure relation que l’état moyen des pays de l’OCDE.
+Cet indice est réalisé à partir des réponses de la question 267.
+Le second indice concerne quant à lui la question 270 sur le soutien du professeur de mathématiques (TEACHSUP).
+Il fonctionne de la même manière que le premier indice, plus il est positif, plus l’élève affirme bénéficier d’un soutien de son enseignant plus important qu’en moyenne.
 
-Le statut social et culturel (ESCS) est un indice composite complexe issus du questionnaire élève. Il réutilise d’autres indices que sont le statut professionnel le plus élevé des parents (HISEI), le niveau d’éducation le plus élevé des parents (PAREDINT) et les biens possédés par le foyer (HOMEPOS). Le statut socio-économique sera donc considéré à partir du statut professionnel, du niveau d’éducation et du revenu du foyer. Lorsque l’un des trois indices utilisés affiche une valeur manquante, celle-ci a été remplacé par une prédiction. Dans le cas où plusieurs données étaient manquantes, la valeur NA a été retenue. Les indices ont été standardisés afin de permettre une contribution égale de chaque pays de l’OCDE. La moyenne de l’indice ESCS est à 0 tandis que sont écart-type est à 1.
+Le statut social et culturel (ESCS) est un indice composite complexe issus du questionnaire élève.
+Il réutilise d’autres indices que sont le statut professionnel le plus élevé des parents (HISEI), le niveau d’éducation le plus élevé des parents (PAREDINT) et les biens possédés par le foyer (HOMEPOS).
+Le statut socio-économique sera donc considéré à partir du statut professionnel, du niveau d’éducation et du revenu du foyer.
+Lorsque l’un des trois indices utilisés affiche une valeur manquante, celle-ci a été remplacé par une prédiction.
+Dans le cas où plusieurs données étaient manquantes, la valeur NA a été retenue.
+Les indices ont été standardisés afin de permettre une contribution égale de chaque pays de l’OCDE.
+La moyenne de l’indice ESCS est à 0 tandis que sont écart-type est à 1.
 
-Pour les variables concernant les notes des élèves lors des épreuves PISA en mathématiques, science et lecture, l’étude se basera sur les moyennes des 10 valeurs plausibles estimées par l’OCDE (de type “PV…”) afin de standardiser les résultats obtenus par les élèves dans chaque domaines. Afin d’étudier les REE, notre étude utilisera 3 notes par élèves, et notamment celle en mathématiques,ainsi qu’une moyenne de ces notes.
+Pour les variables concernant les notes des élèves lors des épreuves PISA en mathématiques, science et lecture, l’étude se basera sur les moyennes des 10 valeurs plausibles estimées par l’OCDE (de type “PV…”) afin de standardiser les résultats obtenus par les élèves dans chaque domaines.
+Afin d’étudier les REE, notre étude utilisera 3 notes par élèves, et notamment celle en mathématiques,ainsi qu’une moyenne de ces notes.
 
-Pour estimer le bien-être des élèves des pays de l’OCDE, nous utliserons l’indice de bien-être ressenti durant les jours précédants (EXPWB). Cet indice est construit à partir de la question WB178, du questionnaire sur le bien-être. L’indice s’affiche comme manquant lorsque l’élève n’a pas répondu “Oui” à la question “La journée d’hier était-elle une journée comme les autres ?”
+Pour estimer le bien-être des élèves des pays de l’OCDE, nous utliserons l’indice de bien-être ressenti durant les jours précédants (EXPWB).
+Cet indice est construit à partir de la question WB178, du questionnaire sur le bien-être.
+L’indice s’affiche comme manquant lorsque l’élève n’a pas répondu “Oui” à la question “La journée d’hier était-elle une journée comme les autres ?”
 
-L’indice sur l’anxiété ressentie concernant les cours de mathématiques (ANXMAT) permet d’approfondir l’analyse de l’indice de soutien de l’enseignant de mathématiques. Il est construit à partir de la question ST292 concernant la crainte des difficultés en cours de mathématiques ou la crainte de l’échec. (voir PISA 2021 pour la méthodologie)
+L’indice sur l’anxiété ressentie concernant les cours de mathématiques (ANXMAT) permet d’approfondir l’analyse de l’indice de soutien de l’enseignant de mathématiques.
+Il est construit à partir de la question ST292 concernant la crainte des difficultés en cours de mathématiques ou la crainte de l’échec.
+(voir PISA 2021 pour la méthodologie)
 
-L’indice sur le sentiment d’appartenance (BELONG), représente le sentiment d’appartenance de l’élève à son école ainsi que l’existence de relations avec d’autres à l’école (ST034). (voir PISA 2018 pour méthodologie)
+L’indice sur le sentiment d’appartenance (BELONG), représente le sentiment d’appartenance de l’élève à son école ainsi que l’existence de relations avec d’autres à l’école (ST034).
+(voir PISA 2018 pour méthodologie)
 
-L’indice sur le harcèlement (BULLIED) repose sur la fréquence de plusieurs signes de harcèlement durant les 12 derniers mois (ST038), d’après les élèves. (voir PISA 2018 pour méthodologie)
+L’indice sur le harcèlement (BULLIED) repose sur la fréquence de plusieurs signes de harcèlement durant les 12 derniers mois (ST038), d’après les élèves.
+(voir PISA 2018 pour méthodologie)
 
-L’indice sur l’utilisation des technologies de l’information et de la communication (TIC) en rapport avec la matière enseignée (ICTSUBJ) est construit à partir de la question IC173. Cette question concerne la fréquence d’utilisation des TIC.
+L’indice sur l’utilisation des technologies de l’information et de la communication (TIC) en rapport avec la matière enseignée (ICTSUBJ) est construit à partir de la question IC173.
+Cette question concerne la fréquence d’utilisation des TIC.
 
 Lien pour plus de détails méthodologiques concernant les indices construits par l’OCDE : https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/03/pisa-2022-technical-report_599753f0/01820d6d-en.pdf
+
+### Correspondance pays
+
+| Nom du Pays         | Code    | Nom du Pays            | Code |
+|---------------------|---------|------------------------|------|
+| Albanie             | ALB     | Italie                 | ITA  |
+| Argentine           | ARG     | Jamaïque               | JAM  |
+| Australie           | AUS     | Japon                  | JPN  |
+| Autriche            | AUT     | Jordanie               | JOR  |
+| Azerbaïdjan (Bakou) | QAZ     | Kazakhstan             | KAZ  |
+| Belgique            | BEL     | Corée du Sud           | KOR  |
+| Brésil              | BRA     | Kosovo                 | KSV  |
+| Brunei              | BRN     | Lettonie               | LVA  |
+| Bulgarie            | BGR     | Lituanie               | LTU  |
+| Cambodge            | KHM     | Macao (Chine)          | MAC  |
+| Canada              | CAN     | Malaisie               | MYS  |
+| Chili               | CHL     | Malte                  | MLT  |
+| Taipei chinois      | TAP     | Mexique                | MEX  |
+| Colombie            | COL     | Mongolie               | MNG  |
+| Costa Rica          | CRI     | Monténégro             | MNE  |
+| Croatie             | HRV     | Maroc                  | MAR  |
+| Chypre              | QCY     | Pays-Bas               | NLD  |
+| Rép. Tchèque        | CZE     | Nouvelle-Zélande       | NZL  |
+| Danemark            | DNK     | Macédoine du Nord      | MKD  |
+| Rép. Dominicaine    | DOM     | Norvège                | NOR  |
+| Salvador            | SLV     | Autorité Palestinienne | PSE  |
+| Estonie             | EST     | Panama                 | PAN  |
+| Finlande            | FIN     | Paraguay               | PRY  |
+| France              | FRA     | Pérou                  | PER  |
+| Géorgie             | GEO     | Philippines            | PHL  |
+| Allemagne           | DEU     | Pologne                | POL  |
+| Grèce               | GRC     | Portugal               | PRT  |
+| Guatemala           | GTM     | Qatar                  | QAT  |
+| Hong Kong (Chine)   | HKG     | Rép.de Moldavie        | MDA  |
+| Hongrie             | HUN     | Roumanie               | ROU  |
+| Islande             | ISL     | Arabie Saoudite        | SAU  |
+| Indonésie           | IDN     | Serbie                 | SRB  |
+| Irlande             | IRL     | Singapour              | SGP  |
+| Israël              | ISR     | Slovaquie              | SVK  |
+| Slovénie            | SVN     | Espagne                | ESP  |
+| Suède               | SWE     | Suisse                 | CHE  |
+| Thaïlande           | THA     | Turquie                | TUR  |
+| Ukraine (régions)   | QUR     | Émirats Arabes Unis    | ARE  |
+| Royaume-Uni         | QUK/QSC | États-Unis             | USA  |
+| Uruguay             | URY     | Ouzbékistan            | UZB  |
+| Viêt Nam            | VNM     |                        |      |
