@@ -473,7 +473,7 @@ La note moyenne utilisée est désormais celle des mathématiques et non plus la
 
 ```{r, echo = FALSE, include=FALSE}
 # Test de corrélation entre la note moyenne d'un pays et son indice TEACHSUP moyen
-cor.test(bilan_pays_maths$REE_maths, bilan_pays_maths$Note_moyenne)
+cor.test(bilan_pays$REE_maths, bilan_pays$Note_moyenne)
 ```
 
 Plus un pays dispose d’un niveau en mathématiques élevé selon les notes de l'OCDE, moins la relation entre les élèves et les enseignants de mathématiques est jugée positive.
@@ -703,10 +703,9 @@ df_cluster <- bilan_pays %>%
 df_cluster <- df_cluster %>%
   rownames_to_column("iso_a3") %>%
   left_join(correspondance_pays, by = "iso_a3") %>%
-  # Si un pays n'est pas dans la liste, on garde son code par défaut
   mutate(nom_complet = ifelse(is.na(nom_complet), iso_a3, nom_complet)) %>%
-  select(-iso_a3) %>%             # On enlève l'ancien code
-  column_to_rownames("nom_complet") # On met le nom complet en identifiant de ligne
+  select(-iso_a3) %>%
+  column_to_rownames("nom_complet")
 
 df_scaled <- scale(df_cluster)
 
@@ -722,22 +721,27 @@ fviz_cluster(res_km, data = df_scaled,
              repel = TRUE,
              ellipse.type = "convex", 
              ggtheme = theme_minimal(),
-             main = "Typologie des pays selon la performance et le climat")
+             main = "Typologie des pays selon la performance et le climat") +
+             scale_colour_manual(values = mes_couleurs) +
+             scale_fill_manual(values = mes_couleurs)
 
 df_cluster %>%
   group_by(Groupe) %>%
   summarise(across(everything(), mean))
 
 ```
-
+Groupe 1 (Viet Nam, Péru, Chili, Arabie Saoudite) : REE (0.3), Note (388), Qualité (7.4)
+Groupe 2 (Hongrie, Grèce, Serbie, Turquie) : REE (-0.1), Note (470), Qualité (6.2)
+Groupe 3 (Jordanie, Thailande, Brésil, Kosovo): REE (0), Note (402), Qualité (6.8)
+Groupe 4 (Corée du Sud, Hong Kong, Australie, Norvège) : REE (0.1), Note (500), Qualité (-6.4)
 ```{r}
-# 1. Calcul de la matrice des distances (Euclidienne)
+
 dist_complet <- dist(scale(df_cluster %>% select(-Groupe)))
 
 
 res_cah <- hclust(dist_complet, method = "ward.D2")
 
-# 3. Affichage du dendrogramme (L'arbre)
+
 plot(res_cah, 
      labels = rownames(df_scaled), 
      cex = 0.7, 
@@ -746,7 +750,6 @@ plot(res_cah,
      xlab = "Pays", 
      sub = "")
 
-# Ajouter les rectangles de couleur pour les 4 groupes
 rect.hclust(res_cah, k = 4, border = mes_couleurs)
 ```
 
@@ -758,44 +761,41 @@ library(rnaturalearth)
 library(rnaturalearthdata)
 library(sf)
 
+df_analyse <- bilan_pays %>%
+  select(CNT, REE_moyen, Note_moyenne, qualite_moyen) %>%
+  na.omit() %>%
+  left_join(correspondance_pays, by = c("CNT" = "iso_a3")) %>%
+  mutate(nom_complet = ifelse(is.na(nom_complet), CNT, nom_complet))
 
-# 1. Créer la variable de groupe D'ABORD
-# On coupe l'arbre pour obtenir 4 groupes à partir de ton résultat CAH
-groupes <- cutree(res_cah, k = 4)
-df_cluster$Groupe <- as.factor(groupes)
+df_cluster_final <- df_analyse %>%
+  column_to_rownames("nom_complet")
 
-# 2. Préparer les données pour la fusion
-# On transforme les noms de lignes (codes ISO) en une vraie colonne
-df_map_final <- df_cluster %>% 
-  rownames_to_column("iso_a3") %>% # On garde le code ici
-  left_join(correspondance_pays, by = "iso_a3") %>%
-  mutate(nom_complet = ifelse(is.na(nom_complet), iso_a3, nom_complet))
+df_cluster_final$Groupe <- as.factor(res_km$cluster)
 
-# 2. On s'assure que Groupe_CAH est bien dedans (cas où il aurait sauté)
-# On réutilise les groupes issus de votre dernière CAH
-df_map_final$Groupe_CAH <- as.factor(cutree(res_cah, k = 4))
-
-# 3. Récupérer les contours du monde
 world <- ne_countries(scale = "medium", returnclass = "sf")
 
-# Nettoyage et traduction des codes
-# 1. On s'assure que notre table de données a bien "FRA" sans espaces
-df_map <- df_cluster %>% 
-  rownames_to_column("code_pisa") %>%
-  mutate(code_pisa = trimws(code_pisa))
+df_jointure_carte <- df_cluster_final %>%
+  rownames_to_column("nom_complet") %>%
+  select(CNT, Groupe) %>%
+  mutate(CNT = trimws(toupper(CNT))) %>%
+  mutate(CNT = case_when(
+    CNT == "TAP" ~ "TWN",
+    CNT == "QUK" ~ "GBR",
+    CNT == "QSC" ~ "GBR",
+    TRUE ~ CNT
+  ))
 
-# 2. On fait la jointure sur une colonne plus large du fond de carte
 world_data <- world %>%
-  left_join(df_map, by = c("iso_a3_eh" = "code_pisa")) 
+  left_join(df_jointure_carte, by = c("adm0_a3" = "CNT"))
 
-# 3. On relance la carte
 ggplot(data = world_data) +
   geom_sf(aes(fill = Groupe), color = "white", size = 0.1) +
-  scale_fill_manual(values = mes_couleurs, na.value = "lightgrey") +
+  scale_fill_manual(values = mes_couleurs, 
+                    na.value = "lightgrey", 
+                    name = "Groupes") +
   theme_minimal() +
   labs(title = "Répartition mondiale des modèles de relation élève-enseignant",
-       subtitle = "Classification basée sur la REE, les notes et la qualité perçue (PISA 2022)",
-       caption = "Source : Données PISA 2022 - Analyse CAH") +
+       subtitle = "Selon la méthode de classification ascendante hiérarchique") +
   theme(legend.position = "bottom")
 
 ```
