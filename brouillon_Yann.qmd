@@ -54,8 +54,8 @@ Les données utilisées sont issues de l'enquête PISA 2022, qui interroge des �
 ```{r, echo = FALSE, include = FALSE, warning=FALSE, message = FALSE}
 
 
-#packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse","ggrepel","rnaturalearth","rnaturalearthdata","sf","kableExtra")
-#install.packages(packages) 
+packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse","ggrepel","rnaturalearth","rnaturalearthdata","sf","kableExtra")
+install.packages(packages) 
 library(tidyverse)
 library(psych)
 library(FactoMineR)
@@ -133,19 +133,74 @@ data_etude$ST004D01T <- as.factor(data_etude$ST004D01T)
 ## 1.1 Cadre d'analyse de la REE
 En premier lieu, afin de définir le cadre dans lequel nous nous plaçons, il faut avant tout préciser comment se caractérisent élèves et enseignants dans le questionnaire PISA. En effet, pour un élève, il s'agit ici d'un enfant âgé d'environ 15 ans inscrit dans un établissement scolaire public, privé ou bien spécialisé et pouvant provenir de 85 pays différents pour l'édition 2022. Par ailleurs, les enseignants sont, par définition, les professeurs des élèves interrogés dans l'enquête PISA.
 
-Ainsi, nous nous plaçons dans un contexte particulier d'analyse puisqu'il faut dans notre cas, étudier la REE grâce aux données présentes sur les questionnaire PISA 2022. Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économique des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants. C'est pourquoi, afin de pouvoir réaliser notre étude, il nous fallait proposer une mesure des différents types de REE sur lesquels nous souhaitons nous appuyer. Ainsi, nous avons utilisé deux indices déjà créés par l'OCDE afin de caractériser cette relation. En particulier, nous avons choisi de travailler avec l'indice mesurant la REE globale, qui comprend des questions générales sur le ressenti de l'élève quant à ses interactions avec leur enseignants, mais également l'indice mesurant la REE ciblée sur les professeurs de mathématiques. Ces indices ont une moyenne de 0 par rapport aux pays de l'OCDE et plus il est positif, plus l'élève affirme avoir une bonne REE/bénéficier d’un soutien de son enseignant de mathématiques.
+Ainsi, nous nous plaçons dans un contexte particulier d'analyse puisqu'il faut dans notre cas, étudier la REE grâce aux données présentes sur les questionnaire PISA 2022. Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économique des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants. C'est pourquoi, afin de pouvoir réaliser notre étude, il nous fallait proposer une mesure des différents types de REE sur lesquels nous souhaitons nous appuyer. Ainsi, nous avons utilisé deux indices déjà créés par l'OCDE afin de caractériser cette relation. En particulier, nous avons choisi de travailler avec l'indice mesurant la REE globale, qui comprend des questions générales sur le ressenti de l'élève quant à ses interactions avec leur enseignants, mais également l'indice mesurant la REE ciblée sur les professeurs de mathématiques. Ces indices sont compris entre -4 et 4 et plus il est positif, plus l'élève affirme avoir une bonne REE/bénéficier d’un soutien de son enseignant de mathématiques.
 
 Toutefois, une potentielle limite de notre analyse mais inhérente au questionnaire PISA, est qu'il ne prend en compte la REE que dans un seul sens. En effet, dans la réalité, les enseignants ont une influence sur leurs élèves mais l'inverse est aussi véridique, les élèves peuvent modifier le comportement de leurs professeurs. Cependant, ce deuxième sens dans la REE ne peut être vérifié dans cette enquête, car seuls les élèves expriment leur opinion sur leurs professeurs.
 
 ## 1.2 Les profils des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant
 Pour commencer notre analyse, nous allons regarder le profil des élèves qui n'ont pas d'indices REE global ou de REE ciblée sur les professeurs de mathématiques. 
 
-
-![Tableau 1: Comparaisons groupes avec valeurs manquantes et sans](images_rapports/tableau1_manquants_NA.png)
-Note de lecture: Dans le groupe qui n'a pas de valeur en indice de REE global ou de REE ciblée sur les professeurs de mathématiques on a 45.96% de filles. Pour le groupe avec aucune valeur manquante sur ces deux indices on a 51.18% de filles
+```{r, echo = FALSE}
 
 
-Ce tableau sépare les données en deux, les "manquant", c'est à dire les élèves n'ayant pas de REE global ou de REE ciblée sur les professeurs de mathématiques, et "Sans NA".
+# Profil des NA
+profil_NA <- data_etude %>%
+  filter(is.na(RELATST) | is.na(TEACHSUP)) %>%
+  summarise(
+    Groupe = "Manquant",
+    Pourcentage_filles = round(100 * mean(ST004D01T == 1, na.rm = TRUE), 2),
+    Origine_socioeco = mean(ESCS, na.rm = TRUE),
+    Anxiete_maths = mean(ANXMAT, na.rm = TRUE),
+    Appartenance = mean(BELONG, na.rm = TRUE),
+    Harcelement = mean(BULLIED, na.rm = TRUE),
+    Nombre_total = n()
+  )
+
+# Profil sans NA (cas complets sur RELATST)
+profil_nonNA <- data_etude %>%
+  filter(!is.na(RELATST) & !is.na(TEACHSUP)) %>%
+  summarise(
+    Groupe = "Sans NA",
+    Pourcentage_filles = round(100 * mean(ST004D01T == 1, na.rm = TRUE), 2),
+    Origine_socioeco = mean(ESCS, na.rm = TRUE),
+    Anxiete_maths = mean(ANXMAT, na.rm = TRUE),
+    Appartenance = mean(BELONG, na.rm = TRUE),
+    Harcelement = mean(BULLIED, na.rm = TRUE),
+    Nombre_total = n()
+  )
+
+
+```
+
+
+
+```{r, results='asis'}
+library(gridExtra)
+library(grid)
+
+# 1. Créer le tableau
+df <- data.frame(
+  Groupe = c("Manquant", "Sans NA"),
+  Pourcentage_filles = c(45.96, 51.18),
+  Origine_socioeco = c(-0.6687436, -0.1969157),
+  Anxiete_maths = c(0.3075299, 0.2216972),
+  Appartenance = c(-0.20697179, -0.04908496),
+  Harcelement = c(-0.1214952, -0.3056764),
+  Nombre_total = c(159590, 454154)
+)
+
+# 2. Ouvrir un fichier PNG
+png("images_rapports/tableau1_manquants_NA.png", width = 700, height = 300)
+
+# 3. Créer le tableau graphique
+grid.table(df)
+
+# 4. Fermer le PNG
+dev.off()
+```
+
+
+Ce tableau séparer les données en deux, les "manquant", c'est à dire les élèves n'ayant pas de REE global ou de REE ciblée sur les professeurs de mathématiques, et "Sans NA".
 
 Les manquants représentent 159590 données c'est-à-dire 26% de nos données. A partir de cela nous pouvons faire un premier profil des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant. En premier lieu, le groupe "manquant" comprend plus d'hommes que le groupe qui se positionne sur leur relation avec le corps enseignant, et est légèrement plus anxieux en mathématiques.  Trois indices ont une différences plus marquée, le premier montre que le sentimant d'appartenance pour le groupe "manquant" est plus faible que l'autre groupe avec un écart de 0.16 points. L'harcèlement augmente aussi, passant de -0.30 à -0.12 et enfin l'indice sur l'origine socio-économique diminue fortement, passant de -0.20 pour le groupe ayant répondu aux question à -0.67 pour le groupe "manquant". 
 
@@ -154,36 +209,163 @@ Pour faire un résumé nos données manquant ont le profil suivant par rapport a
 Cependant lorsqu'on regarde en détail ces non-réponses on retrouve quelques informations très importantes.
 
 
-![Figure 1: Représentation des 5 pays avec le plus de proportion de non-réponses dans les indices de REE global et ciblée sur les professeurs de mathématiques](images_rapports/figure1_top5_pays_NA.png)
-Note de lecture : Le Canada a un taux de non réponse de 100% sur les données concernant l'indice de qualité de la relation entre élèves et enseignants et l'indice de qualité de relation entre élèves et enseignants de mathématiques
+```{r, echo = FALSE}
+# 0. Chemin du fichier PNG
+png(filename = "images_rapports/figure1_top5_pays_NA.png", width = 800, height = 600)
 
--> Paragraphe à améliorer
-L'enquête PISA se base sur un questionnaire distribué par les pays dans les écoles, toutefois, chaque partie du questionnaire étant facultative, un pays a pu refuser sa distribution pour certaines raisons. Pour les indices mesurant la relation entre élèves et enseignants dans la globalité et la relation avec le professeur de mathématiques on retrouve le CANADA avec un taux de non-réponses égal à 100%. . On peut donc améliorer notre profil en disant que . Cependant d'après nos recherches aucune raison officielle ne permet de conclure sur la raison de la non distribution de cette partie du questionnaire.
+# 1. Préparation des données
+relatst_NA_ligne <- is.na(data_etude$RELATST) & is.na(data_etude$TEACHSUP)
+relatst_NA_pays <- tapply(relatst_NA_ligne, data_etude$CNT, mean) * 100
+relatst_NA_pays_tri <- sort(relatst_NA_pays)
+
+top5 <- tail(relatst_NA_pays_tri, 5)
+
+# 2. Création des noms complets
+noms_complets <- names(top5)
+noms_complets[noms_complets == "CAN"] <- "Canada"
+noms_complets[noms_complets == "MAR"] <- "Maroc"
+noms_complets[noms_complets == "ISR"] <- "Israel"
+noms_complets[noms_complets == "UZB"] <- "Ouzbékistan"
+noms_complets[noms_complets == "ALB"] <- "Albanie"
+
+# 3. Graphique du Top 5
+par(mar = c(5, 8, 4, 2)) # marge gauche pour noms longs
+
+bp <- barplot(
+  top5,
+  horiz = TRUE,
+  names.arg = noms_complets,
+  las = 1,
+  col = ifelse(names(top5) == "CAN", "firebrick", "darkcyan"),
+  main = "Top 5 des pays - Non réponse (Qualité REE)",
+  xlab = "% de valeurs manquantes",
+  xlim = c(0, 115),
+  border = "white"
+)
+
+# 4. Ajout des pourcentages précis
+text(
+  x = top5, 
+  y = bp, 
+  labels = paste0(round(top5, 1), "%"), 
+  pos = 4, 
+  cex = 0.9, 
+  font = 2
+)
+
+# 5. Fermer le fichier PNG
+dev.off()
+```
+Note de lecture : Le Brunei a un taux de non réponse de 100% sur les données concernant l'indice de qualité de la relation entre élèves et enseignants.
+
+L'enquête PISA se base sur un questionnaire distribué par les pays dans les écoles, toutefois, chaque partie du questionnaire étant facultative, un pays a pu refuser sa distribution pour certaines raisons. Pour les indices mesurant la relation entre élèves et enseignants dans la globalité et la relation avec le professeur de mathématiques on retrouve le CANADA avec un taux de non-réponses égal à 100%. . On peut donc améliorer notre profil en disant que  Les pays sont Brunei, Canada, Indonésie, Israël, Cambodge, Macao, Maroc, Malaisie, Philippines et Ouzbékistan. Cependant d'après nos recherches aucune raison officielle ne permet de conclure sur la raison de la non distribution de cette partie du questionnaire.
+
+
+
+```{r, echo = FALSE,include = FALSE}
+relatst_100 <- relatst_NA_pays_tri[relatst_NA_pays_tri == 100]
+names(relatst_100)
+```
 
 
 
 
 
-
--> paragraphe à réecrire + placer en dessous des graphs
 Après avoir “nettoyé” notre base de données, nous pouvons faire une analyse du profil des élèves qui n'ont pas répondu aux questions sur leur relation avec le corps enseignant. En premier lieu, nous voyons que dans la figure 3, il existe une relation entre le fait de ne pas avoir d'indice de REE et la moyenne générale. Ne pas avoir d'indice de REE signifie ne pas avoir répondu à toutes les questions qui servent à construire celui-ci. En effet on remarque que la distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE. On peut donc en conclure que les élèves qui ne se positionnent pas sur leur relation avec le corps enseignant sont des élèves avec une moyenne générale plus faible que ceux se positionnant.
 
-![Figure 2: Comparaison des moyennes générale des élèves en fonction de leur statut de réponse sur le REE global](images_rapports/figure2_comparaison_NA_notes_relatst.png)
+
+```{r, echo = FALSE}
+png(filename = "images_rapports/figure2_comparaison_NA_notes_relatst.png", width = 800, height = 600)
+data_etude$statut_NA <- ifelse(is.na(data_etude$RELATST), "Manquant", "Présent")
+ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
+  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
+  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
+  labs(
+    title = " Distribution du nombre d'élèves par note et statut de réponse",
+    x = "moyenne générale",
+    y = "Nombre d'élèves",
+    fill = "Statut"
+  ) +
+  theme_minimal()
+dev.off()
+
+```
+```{r, echo = FALSE}
+png(filename = "images_rapports/figure3_comparaison_NA_notesmaths_teachsup.png", width = 800, height = 600)
+data_etude$statut_NA <- ifelse(is.na(data_etude$TEACHSUP), "Manquant", "Présent")
+ggplot(data_etude, aes(x = MOY_MATH, fill = statut_NA)) +
+  geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
+  scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
+  labs(
+    title = " Distribution du nombre d'élèves par note et statut de réponse",
+    x = "moyenne générale",
+    y = "Nombre d'élèves",
+    fill = "Statut"
+  ) +
+  theme_minimal()
+dev.off()
+```
 Note de lecture : La distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
 
+Concernant les autres variables nous pouvons analyser remarquer grâce au tableau 1, que les élèves n'ayant pas d'indice REE sont du genre plutôt masculin. En effet, on retrouve 38.2% de femmes pour un indice REE manquant quand celui-ci est à 49.7% pour l'ensemble des données. 
 
 
-![Figure 3: Comparaison des moyennes en mathématiques des élèves en fonction de leur statut de réponse sur le REE ciblée sur les professeurs de mathématiques](images_rapports/figure3_comparaison_NA_notesmaths_teachsup.png)
-Note de lecture : La distribution de la moyenne en mathématiques des élèves n'ayant pas d'indice de REE portant sur les enseignants de mathématiques est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
 
-blabla figure 3
+Table 1: Comparaison entre les élèves ayant un indice REE et ceux n'en ayant pas .
 
+Note de lecture: Pour les élèves n'ayant pas d'indice REE, leur indice d'anxiété moyen relatif aux mathématiques est de 0.381.
 
-![Figure 3: Comparaison des moyennes en mathématiques des élèves en fonction de leur statut de réponse sur le REE ciblée sur les professeurs de mathématiques](images_rapports/summary_table.png)
 
 Blabla conclusion du profil
-+ modif nom du png + modif titre
+```{r, echo = FALSE}
+data_etude <- data_etude[(!is.na(data_etude$RELATST)) & (!is.na(data_etude$TEACHSUP)), ]
+summary(data_etude)
+```
+```{r, echo = FALSE}
+library(gridExtra)
+library(grid)
 
+# 1. Sélection des colonnes
+cols_selection <- c("RELATST", "TEACHSUP", "ESCS", "EXPWB", "BELONG", "BULLIED", "ANXMAT")
+data_etude_clean <- data_etude[, cols_selection]
+
+# 2. Calcul des 6 statistiques de base (sans les NA)
+# On crée une fonction qui extrait uniquement Min, 1st Qu, Median, Mean, 3rd Qu, et Max
+get_clean_summary <- function(x) {
+  s <- summary(x, na.rm = TRUE)
+  # On ne garde que les 6 premières stats (on ignore la ligne NA's si elle existe)
+  return(as.vector(s)[1:6])
+}
+
+# Appliquer la fonction pour obtenir une matrice propre
+summary_mat <- sapply(data_etude_clean, get_clean_summary)
+
+# Conversion en data.frame
+summary_df <- as.data.frame(summary_mat)
+
+# Renommer les lignes explicitement
+rownames(summary_df) <- c("Min", "1st Qu.", "Median", "Mean", "3rd Qu.", "Max")
+
+# Arrondir à 3 décimales pour la précision
+summary_df <- round(summary_df, 3)
+
+# 3. Export en PNG
+# Augmentation de la taille et de la résolution pour un rendu pro
+png("summary_table.png", width = 1200, height = 500, res = 120)
+
+# Configuration du thème pour une meilleure lisibilité
+mon_theme <- ttheme_default(
+  base_size = 12,
+  colhead = list(fg_params = list(fontface = "bold", col="white"),
+                 bg_params = list(fill="#4F81BD")), # En-tête bleu pro
+  core = list(bg_params = list(fill = c("#D9E1F2", "white"))) # Lignes alternées
+)
+
+# Génération du tableau
+grid.table(summary_df, theme = mon_theme)
+
+dev.off()
+```
 ## 1.4 Une relation décrite comme globalement positive au travers du vécu de l'élève.
 Il paraît maintenant pertinent de s'intéresser à la qualité de cette relation et savoir comment elle est perçue par les élèves. Car un indice relève en effet de la qualité globale de la relation, mais il est aussi important de savoir le détail par question. Pour cela nous avons récupéré le taux des réponses positives par question en ce qui concerne la relation élève-enseignant au global et celle sur les professeurs de mathématiques, seulement pour les élèves ayant répondu à la question. 
 On remarque que les résultats sont très positifs, la question ayant le moins bon résultat est "Les enseignants font attention aux élèves en cas de retard", avec 72,7% de réponses positives. Donc pour seulement 27.3% des élèves, l'enseignant ne fait pas attention. Quant aux autres résultats, ils se situent entre 79.4% et 94.2% de réponses positives donc seulement 20.6% et 4.8% de réponses négatives. On peut conclure que les trois qualités qui caractérisent au mieux cette relation positive sont un enseignant qui n'est pas méchant, qui est amical et qui se soucie du bien-être des élèves.
