@@ -151,152 +151,45 @@ Les manquants représentent 159590 données c'est-à-dire 26% de nos données. A
 
 Pour faire un résumé nos données manquant ont le profil suivant par rapport aux autres données: On y retrouve plus d'hommes, plus anxieux envers les mathématiques, plus harcelé et avec un moins bon sentiment d'appartenance et pour finir une origine socio-écono beaucoup plus faible.
 
-Cependant lorsqu'on regarde en détail ces non-réponses on retrouve quelques informations très importantes.
-
-
-![Figure 1: Représentation des 5 pays avec le plus de proportion de non-réponses dans les indices de REE global et ciblée sur les professeurs de mathématiques](images_rapports/figure1_top5_pays_NA.png)
-Note de lecture : Le Canada a un taux de non réponse de 100% sur les données concernant l'indice de qualité de la relation entre élèves et enseignants et l'indice de qualité de relation entre élèves et enseignants de mathématiques
-
--> Paragraphe à améliorer
-L'enquête PISA se base sur un questionnaire distribué par les pays dans les écoles, toutefois, chaque partie du questionnaire étant facultative, un pays a pu refuser sa distribution pour certaines raisons. Pour les indices mesurant la relation entre élèves et enseignants dans la globalité et la relation avec le professeur de mathématiques on retrouve le CANADA avec un taux de non-réponses égal à 100%. . On peut donc améliorer notre profil en disant que . Cependant d'après nos recherches aucune raison officielle ne permet de conclure sur la raison de la non distribution de cette partie du questionnaire.
-
-
-
-
-
-
--> paragraphe à réecrire + placer en dessous des graphs
-Après avoir “nettoyé” notre base de données, nous pouvons faire une analyse du profil des élèves qui n'ont pas répondu aux questions sur leur relation avec le corps enseignant. En premier lieu, nous voyons que dans la figure 3, il existe une relation entre le fait de ne pas avoir d'indice de REE et la moyenne générale. Ne pas avoir d'indice de REE signifie ne pas avoir répondu à toutes les questions qui servent à construire celui-ci. En effet on remarque que la distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE. On peut donc en conclure que les élèves qui ne se positionnent pas sur leur relation avec le corps enseignant sont des élèves avec une moyenne générale plus faible que ceux se positionnant.
-
-![Figure 2: Comparaison des moyennes générale des élèves en fonction de leur statut de réponse sur le REE global](images_rapports/figure2_comparaison_NA_notes_relatst.png)
+![Figure 1: Comparaison des moyennes générale des élèves en fonction de leur statut de réponse sur le REE global](images_rapports/figure2_comparaison_NA_notes_relatst.png)
 Note de lecture : La distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
 
+En ce qui concerne le graphique ci-dessus, on a une logique concernant le profil des élèves qui ont des non réponses. Nous voyons qu'il existe une relation entre le fait de ne pas avoir d'indice de REE et la moyenne générale. En effet on remarque que la distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE. On peut donc en conclure que les élèves qui ne se positionnent pas sur leur relation avec le corps enseignant sont des élèves avec une moyenne générale plus faible que ceux se positionnant.
 
 
-![Figure 3: Comparaison des moyennes en mathématiques des élèves en fonction de leur statut de réponse sur le REE ciblée sur les professeurs de mathématiques](images_rapports/figure3_comparaison_NA_notesmaths_teachsup.png)
+![Figure 2: Comparaison des moyennes en mathématiques des élèves en fonction de leur statut de réponse sur le REE ciblée sur les professeurs de mathématiques](images_rapports/figure3_comparaison_NA_notesmaths_teachsup.png)
 Note de lecture : La distribution de la moyenne en mathématiques des élèves n'ayant pas d'indice de REE portant sur les enseignants de mathématiques est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
 
-blabla figure 3
+Concernant la figure 3, nous avons la distribution des notes en mathématiques selon leur réponses ou non pour avoir un indice de REE centré sur les professeurs de mathématiques. En effet l'utilisation de la moyenne en mathématiques est plus appropriée que la moyenne générale quand on regarde une potentielle liaison entre le professeur de mathématique et l'élève. On en tire les mêmes conclusion que dans la figure 2. Les élèves n'ayant pas répondu aux questions relatives sur la REE avec le professeur de mathématique ont de moins bonne notes que ceux ayant répondu aux question dans cette matière.
 
+Nous pouvons donc ajouter des caractéristiques au profil de nos élèves qui ne se positionnent pas sur leur relation avec le corps enseignant. En effet ce sont des élèves avec des moins bon résultats généraux et en mathématiques. Ce profil montre que nos analyses futures entre la REE et les autres variable pourront être biaisé car on ne s'intéressera qu'aux élèves ayant un indice donc on pourrait observer de moins fortes corrélation entre les notes et la REE car ceux ayant de moins bonnes notessont ceux ayant pas de REE. 
 
-![Figure 3: Comparaison des moyennes en mathématiques des élèves en fonction de leur statut de réponse sur le REE ciblée sur les professeurs de mathématiques](images_rapports/summary_table.png)
+## 1.3 Les profils des élèves qui ont un indice sur leur relation avec le corps enseignant
 
-Blabla conclusion du profil
-+ modif nom du png + modif titre
+![Figure 3: Statsitiques des différentes variables après suppression des valeurs manqauntes](images_rapports/figure4_summary_table.png)
+Notes de lecture: La variable RELATST correspondant à la qualitée de la REE global possède une moyenne de -0.007, un minimum de -10.09 et un maximum de 3.417.
+
+Pour continuer notre analyse nous avons supprimé de notre base de données tous les élèves qui n'ont pas d'indice de REE global et ciblée sur les mathématiques, nous vérifions que cela n'a pas trop modifié les statistiques initiales de notre jeu de données. Selon les indications de l'OCDE, décrite dans la partie 1.1, la moyenne est centrée sur 0 pour les pyas appartenant à l'OCDE et avec un édart-type de 1, donc en ajoutant les autres pays on se retrouve proche de 0 mais pas forcément exactement. En enlevant les données, on retrouve partout une moyenne aux alentours de 0 et avec un premier et troisième quartile entre -1 et 1 ce qui confirme que notre écart-type est toujours proche de 1. Donc le fait d'avoir enlevé les données manquantes n'a pas trop affecté nos variables.
 
 ## 1.4 Une relation décrite comme globalement positive au travers du vécu de l'élève.
-Il paraît maintenant pertinent de s'intéresser à la qualité de cette relation et savoir comment elle est perçue par les élèves. Car un indice relève en effet de la qualité globale de la relation, mais il est aussi important de savoir le détail par question. Pour cela nous avons récupéré le taux des réponses positives par question en ce qui concerne la relation élève-enseignant au global et celle sur les professeurs de mathématiques, seulement pour les élèves ayant répondu à la question. 
-On remarque que les résultats sont très positifs, la question ayant le moins bon résultat est "Les enseignants font attention aux élèves en cas de retard", avec 72,7% de réponses positives. Donc pour seulement 27.3% des élèves, l'enseignant ne fait pas attention. Quant aux autres résultats, ils se situent entre 79.4% et 94.2% de réponses positives donc seulement 20.6% et 4.8% de réponses négatives. On peut conclure que les trois qualités qui caractérisent au mieux cette relation positive sont un enseignant qui n'est pas méchant, qui est amical et qui se soucie du bien-être des élèves.
 
 
-```{r, echo = FALSE}
-data_relatst_na <- data_etude %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
-data_relatst <- na.omit(data_relatst_na)
-# Questions sur la REE positive
+![Figure 4: Réponses indiquant une relation positives](images_rapports/figure5_Reponses_indiquant_une _relation_positive.png)
 
-data_relatst$ST267Q01JA <- ifelse(data_relatst$ST267Q01JA %in% c(3,4), 1, 0)
-data_relatst$ST267Q02JA <- ifelse(data_relatst$ST267Q02JA %in% c(3,4), 1, 0)
-data_relatst$ST267Q03JA <- ifelse(data_relatst$ST267Q03JA %in% c(3,4), 1, 0)
-data_relatst$ST267Q04JA <- ifelse(data_relatst$ST267Q04JA %in% c(1,2), 1, 0)
-data_relatst$ST267Q05JA <- ifelse(data_relatst$ST267Q05JA %in% c(3,4), 1, 0)
-data_relatst$ST267Q06JA <- ifelse(data_relatst$ST267Q06JA %in% c(3,4), 1, 0)
-data_relatst$ST267Q07JA <- ifelse(data_relatst$ST267Q07JA %in% c(3,4), 1, 0)
-data_relatst$ST267Q08JA <- ifelse(data_relatst$ST267Q08JA %in% c(1,2), 1, 0)
+Note de lecture : 85% des élèves affirment que leurs enseignants sont respectueux envers eux.
 
-data_long_p <- data_relatst %>%
-  select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA,ST267Q08JA) %>%
-  pivot_longer(cols = everything(),
-               names_to = "Question",
-               values_to = "Relation_positive")
+Il paraît maintenant pertinent de s'intéresser à la qualité de cette relation et savoir comment elle est perçue par les élèves ayant un indice REE. Car un indice relève en effet de la qualité globale de la relation, mais il est aussi important de savoir le détail par question. Pour cela nous avons récupéré le taux des réponses positives par question en ce qui concerne la relation élève-enseignant au global et celle sur les professeurs de mathématiques, seulement pour les élèves ayant répondu à la question. 
+On remarque que les résultats sont très positifs, la question ayant le moins bon résultat est "Les enseignants font attention aux élèves en cas de retard", avec 72,7% de réponses positives. Quant aux autres résultats, ils se situent entre 79.4% et 94.2% de réponses positives. On peut conclure que les trois qualités qui caractérisent au mieux cette relation positive sont un enseignant qui n'est pas méchant, qui est amical et qui se soucie du bien-être des élèves.
 
-data_plot_p <- data_long_p %>%
-  group_by(Question) %>%
-  summarise(Pourcentage = mean(Relation_positive, na.rm = TRUE) * 100)
-
-ggplot(data_plot_p, aes(x = Question,
-                      y = Pourcentage)) +
-  geom_col(fill = "darkcyan", width = 0.7) +
-  coord_flip() +
-  scale_x_discrete(labels = function(x) stringr::str_wrap(c(
-  ST267Q01JA = "Les enseignants sont respectueux",
-  ST267Q02JA = "Les enseignants font attention aux élèves en cas de retard",
-  ST267Q03JA = "Les enseignants seront heureux de revoir l'élève dans 3 ans",
-  ST267Q04JA = "Les enseignants ne sont pas intimidants",
-  ST267Q05JA = "Les enseignants s'intéressent aux élèves",
-  ST267Q06JA = "Les enseignants sont amicaux",
-  ST267Q07JA = "Les enseignants se soucient du bien-être des élèves",
-  ST267Q08JA = "Les enseignants ne sont pas méchants"
-)[x], width = 40)) +
-  labs(title = "Réponses indiquant une relation positive",
-       x = "",
-       y = "Pourcentage (%)") +
-  geom_text(aes(label = round(Pourcentage,1)), hjust = 0, size = 4) +
-  ylim(0, 100)+
-  theme(
-    plot.title = element_text(hjust=1),
-    plot.caption = element_text(hjust = 0.20),
-    plot.margin = margin(5, 0.5, 5, 5),
-
-  )
-```
-Note de lecture : 85% des élèves ayant répondu affirment que leurs enseignants sont respectueux envers eux.
-
-Cette relation étant très positive en ce qui concerne les enseignants au global, il semble alors loisible de rentrer plus dans les détails en s'intéressant aux enseignants de mathématiques précisément. On a donc sur la figure suivant le taux de réponse positive pour les questions concernant les enseignants de mathématiques. 
-
-Les résultats sont très différents de ce qu'on a pu observer avec les enseignants dans leur globalité. En effet, les taux de réponses positives se trouvent seulement entre 25.4% et 32.2%, on se retrouve donc avec une majorité de réponses négatives contrairement à la relation globale.
-
-```{r, echo = FALSE}
-data_teachsup_na <- data_etude %>% select(ST270Q01JA, ST270Q02JA, ST270Q03JA, ST270Q04JA)
-data_teachsup <- na.omit(data_teachsup_na)
-# Questions sur la REE positive
-
-data_teachsup$ST270Q01JA <- ifelse(data_teachsup$ST270Q01JA %in% c(3,4), 1, 0)
-data_teachsup$ST270Q02JA <- ifelse(data_teachsup$ST270Q02JA %in% c(3,4), 1, 0)
-data_teachsup$ST270Q03JA <- ifelse(data_teachsup$ST270Q03JA %in% c(3,4), 1, 0)
-data_teachsup$ST270Q04JA <- ifelse(data_teachsup$ST270Q04JA %in% c(3,4), 1, 0)
-
-data_long_t <- data_teachsup %>%
-  select(ST270Q01JA, ST270Q02JA, ST270Q03JA, ST270Q04JA) %>%
-  pivot_longer(cols = everything(),
-               names_to = "Question",
-               values_to = "Soutien")
-
-data_plot_t <- data_long_t %>%
-  group_by(Question) %>%
-  summarise(Pourcentage = mean(Soutien, na.rm = TRUE) * 100)
-
-ggplot(data_plot_t, aes(x = Question,
-                      y = Pourcentage)) +
-  geom_col(fill = "darkcyan", width = 0.7) +
-  coord_flip() +
-  scale_x_discrete(labels = function(x) stringr::str_wrap(c(
-    ST270Q01JA = "L'enseignant montre de l'intérêt pour l'apprentissage des élèves.",
-    ST270Q02JA = "L'enseignant apporte de l'aide supplémentaire si besoin.",
-    ST270Q03JA = "L'enseignant aide les élèves dans leur apprentissage.",
-    ST270Q04JA = "L'enseignant continue d'enseigner jusqu'à ce que les élèves comprennent.")[x], width = 40)) +
-  labs(title = "Réponses indiquant une relation positive",
-       x = "",
-       y = "Pourcentage (%)") +
-  geom_text(aes(label = round(Pourcentage,1)), hjust = 0, size = 4) +
-  ylim(0, 100)+
-  theme(
-    plot.title = element_text(hjust=1),
-    plot.caption = element_text(hjust = 0.3),
-    plot.margin = margin(5, 0.5, 5, 5)
-  )
-```
-Note de lecture : 32.2% des élèves ayant répondu affirment que leur enseignant montre de l'intérêt pour l'apprentissage des élèves.
+Cette relation étant très positive en ce qui concerne les enseignants au global, il semble alors juste de rentrer plus dans les détails en s'intéressant aux enseignants de mathématiques précisément. On a donc sur la figure suivant le taux de réponse positive pour les questions concernant les enseignants de mathématiques. 
 
 
-```{r, echo=FALSE,include= FALSE}
-mean(is.na(data_relatst_na))*100
-mean(is.na(data_teachsup_na))*100
-rm(data_long_p,data_long_t,data_plot_p,data_plot_t,data_relatst,data_relatst_na,data_teachsup,data_teachsup_na)
-```
+![Figure 6: Réponses indiquant une relation positives avec les enseignants de mathématiques](images_rapports/figure6_Reponses_indiquant_une_relation_positive_maths.png)
+Note de lecture : 32.2% des élèves affirment que leur enseignant de mathématique montre de l'intérêt pour l'apprentissage des élèves.
 
-Cependant, nous avons affiché les résultats seulement pour les élèves ayant répondu aux questions. Si l'on regarde le taux de non réponses nous avons 43.04% de non réponses concernant la relations dans la globalité et 15.53% pour la relation avec les professeurs de mathématiques. Le chiffre de non-réponse nous pousse à nous interroger sur le profil des élèves qui ne répondent pas pour comprendre en quoi cela pourrait biaiser nos futures analyses.
+Les résultats sont très différents de ce qu'on a pu observer avec les enseignants dans leur globalité. En effet, les taux de réponses positives se trouvent seulement entre 25.4% et 32.2%, on se retrouve donc avec une majorité de réponses négatives contrairement à la relation globale. Cela montre donc que la REE avec le professeur de mathématique est mauvaise en comparaison avec la REE globale.
 
--> Malgré qu'on ai enlevé les variables avec indice = Na, il y a encore des individus avec des NA en réponse aux questions, l'indice est donc construit pour ne pas prendre en compte des NA
+Ainsi, après avoir décrit la relation élèves-enseignants et la manière dont elle est perçue par les élèves, il convient désormais de s’interroger sur ses effets concrets, notamment en ce qui concerne la réussite scolaire.
 
 # 2 La REE et la réussite scolaire : une relation complexe
 

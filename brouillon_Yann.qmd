@@ -267,7 +267,14 @@ relatst_100 <- relatst_NA_pays_tri[relatst_NA_pays_tri == 100]
 names(relatst_100)
 ```
 
+Cependant lorsqu'on regarde en détail ces non-réponses on retrouve quelques informations très importantes.
 
+
+![Figure 1: Représentation des 5 pays avec le plus de proportion de non-réponses dans les indices de REE global et ciblée sur les professeurs de mathématiques](images_rapports/figure1_top5_pays_NA.png)
+Note de lecture : Le Canada a un taux de non réponse de 100% sur les données concernant l'indice de qualité de la relation entre élèves et enseignants et l'indice de qualité de relation entre élèves et enseignants de mathématiques
+
+-> Paragraphe à améliorer
+L'enquête PISA se base sur un questionnaire distribué par les pays dans les écoles, toutefois, chaque partie du questionnaire étant facultative, un pays a pu refuser sa distribution pour certaines raisons. Pour les indices mesurant la relation entre élèves et enseignants dans la globalité et la relation avec le professeur de mathématiques on retrouve le CANADA avec un taux de non-réponses égal à 100%. De plus d'autres pays ont un taux de non réponse aux alentours de 20%, on retrouve le Maroc, l'Israel, l'Ouzbékistan et l'Albanie. D'après nos recherches aucune raison officielle ne permet de conclure sur la raison de la non distribution de cette partie du questionnaire. On peut donc améliorer notre profil en disant que nos élèves n'ayant pas d'indice de REE peuvent venir du Canada, cependant on ne peut pas en tirer des conclusions rationelles sur une répartition logique des élèves n'ayant pas répondu aux questions sur la REE global.
 
 
 
@@ -372,6 +379,8 @@ On remarque que les résultats sont très positifs, la question ayant le moins b
 
 
 ```{r, echo = FALSE}
+png(filename = "images_rapports/figure5_Reponses_indiquant_une _relation_positive.png", width = 800, height = 600)
+
 data_relatst_na <- data_etude %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
 data_relatst <- na.omit(data_relatst_na)
 # Questions sur la REE positive
@@ -420,7 +429,10 @@ ggplot(data_plot_p, aes(x = Question,
     plot.margin = margin(5, 0.5, 5, 5),
 
   )
+dev.off()
+
 ```
+
 Note de lecture : 85% des élèves ayant répondu affirment que leurs enseignants sont respectueux envers eux.
 
 Cette relation étant très positive en ce qui concerne les enseignants au global, il semble alors loisible de rentrer plus dans les détails en s'intéressant aux enseignants de mathématiques précisément. On a donc sur la figure suivant le taux de réponse positive pour les questions concernant les enseignants de mathématiques. 
@@ -428,6 +440,8 @@ Cette relation étant très positive en ce qui concerne les enseignants au globa
 Les résultats sont très différents de ce qu'on a pu observer avec les enseignants dans leur globalité. En effet, les taux de réponses positives se trouvent seulement entre 25.4% et 32.2%, on se retrouve donc avec une majorité de réponses négatives contrairement à la relation globale.
 
 ```{r, echo = FALSE}
+png(filename = "images_rapports/figure6_Reponses_indiquant_une_relation_positive_maths.png", width = 800, height = 600)
+
 data_teachsup_na <- data_etude %>% select(ST270Q01JA, ST270Q02JA, ST270Q03JA, ST270Q04JA)
 data_teachsup <- na.omit(data_teachsup_na)
 # Questions sur la REE positive
@@ -466,6 +480,8 @@ ggplot(data_plot_t, aes(x = Question,
     plot.caption = element_text(hjust = 0.3),
     plot.margin = margin(5, 0.5, 5, 5)
   )
+dev.off()
+
 ```
 Note de lecture : 32.2% des élèves ayant répondu affirment que leur enseignant montre de l'intérêt pour l'apprentissage des élèves.
 
