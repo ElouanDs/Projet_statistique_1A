@@ -709,6 +709,7 @@ La qualité perçue des cours de mathématiques est positivement corrélée avec
 
 # 3 Existe-t-il une relation entre la REE et le bien-être des élèves dans le cadre scolaire ?
 
+#3.1 à l'échelle individuelle
 Nous étudierons ainsi dans quelle mesure cette relation d'enseignant à élève peut impacter le bien-être de ces derniers.
 
 Pour estimer le bien-être des élèves des pays de l’OCDE, nous utiliserons l’indice de bien-être ressenti durant les jours précédents. Cet indice est construit grâce à la partie du questionnaire sur le bien-être. L’indice s’affiche comme manquant lorsque l’élève n’a pas répondu “Oui” à la question “La journée d’hier était-elle une journée comme les autres ?”
@@ -721,59 +722,12 @@ L’indice sur le sentiment d’appartenance, représente le sentiment d’appar
 
 L’indice sur le harcèlement repose sur la fréquence de plusieurs signes de harcèlement durant les 12 derniers mois, d’après les élèves.
 
-
-Enfin, on élabore alors une analyse en composantes principales (ACP) sur nos variables de bien-être, puis on trace le cercle des corrélations et contributions des variables pour avoir une vue globale du problème, c'est à dire pré-déterminer quels seront les différents liens, et ce sur les 2 premiers axes de cette analyse en composante factorielle :
-
-```{r, echo = FALSE, warning= FALSE}
-vars_psy <- data_etude %>%
-  select(RELATST, TEACHSUP, BELONG, BULLIED, ANXMAT)
-
-res_pca_psy <- PCA(scale(vars_psy), graph = FALSE)
-
-fviz_pca_var(
-  res_pca_psy,
-  col.var = "cos2",   
-  gradient.cols = c("orange", "darkred"),  
-  repel = TRUE,
-  title = "ACP des variables"
-)
-```
-Note: TEACHSUP est la variable correspondant à l'indice sur la REE ciblée sur les professeurs de mathématiques.
-RELATST est la variable correspondant à l'indice sur la REE globale.
-BELONG est la variable correspondant à l’indice sur le sentiment d’appartenance.
-ANXMAT est la variable correspondant à l'indice sur l’anxiété ressentie concernant les cours de mathématiques.
-BULLIED est la variable correspondant à l'indice sur le harcèlement.
-
-Note de lecture: La variable TEACHSUP est très corrélée à la variable RELATST, de plus elles contribuent bien à la construction des axes.
-
-Grâce à l'ACP, nous pouvons relever que les variables sont structurées autour de deux axes principaux expliquant 54.1% de la variance totale. La premier axe met en evidence une opposition entre un pôle "bien-être" qui est constitué du sentiment d'appartenance, et un pôle "mal-être" regroupant l'anxiété en mathématiques et le harcèlement. Cette opposition traduit un comportement logique: un élève ne se sentant bien ne va pas déclaré être harcelé ou anxieux vis-à-vis des mathématiques. Par ailleurs, la forte proximité entre la REE globale (RELATST) et la REE ciblée sur les mathématiques (TEACHSUP) indique une corrélation importante entre ces deux indices, ce qui paraît logique, de plus elles contribuent énormément à la construction des axes.
-
-## 3.1 Existe t-il une relation entre la proximité de l'élève avec l'enseignant et son bien-être ressenti à l'école ?
-
-Ainsi, pour renforcer l'analyse, nous chercherons à déterminer aussi quels sont les facteurs de bien-être. Pour cela nous rajoutons à nos données la variable 
-
-
-```{r, echo = FALSE}
+```{r}
 vars <- data_etude %>%
-  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED)
+  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED) %>%
+  na.omit()
 
 ```
-
-```{r, echo=FALSE, warning=FALSE}
-vars %>%
-  pivot_longer(cols = everything()) %>%
-  ggplot(aes(x = value)) +
-  geom_histogram(bins = 30, fill = "steelblue", color = "white") +
-  facet_wrap(~name, scales = "free") +
-  theme_minimal() +
-  ggtitle("Distribution des variables") + 
-  theme(plot.title = element_text(hjust = 0.5))
-```
-NOTE EXPWB est la variable correspondant à l'indice sur le bien être ces dernier jours.
-
-Note de lecture: La variable BELONG est cenrtrée autour de la moyenne avec un pic aux alentours de 0.
-
-On note ici que les indices sont centrés autour de 0, ils ont été normalisés, ce qui facilite l'étude. De plus, on note que les dispersions sont plutôt symétriques à l'exception du harcèlement et la REE ciblée sur les professeurs de mathématiques.
 
 ```{r, echo=FALSE}
 cor_matrix <- cor(vars)
@@ -791,39 +745,259 @@ corrplot(
 )
 ```
 Figure : Matrice de corrélation des variables
+Note de lecture: La corrélation entre l'indice d'appartenance et de harcèlement est de -0.25
 
-Note de lecture: La corrélation entre l'indice BELONG et BULLIED est de -0.25
+Cette matrice de corrélation nous donne un premier apperçu des différentes corrélations entre nos variables REE et les variables de bien-être. Aucune corrélation importante est notable mais quelques petites corrélations peuvent être remarquée comme celle entre la REE globale et le sentiment d'appartenance qui est de 0.27, donc une REE globale élevée va améliorer le sentiment d'appartenannce de l'élève. Les autres corrélations se situent toutes entre -0.20 et 0.20 donc il n'y a pas de conclusion sur une relation entre les variables à en tirer.
+
+Pour la suite on va s'intéresser à plusieurs populations afin de mieux caractériser la relation entre la qualité de la REE et le bien-être. 
+
+#3.2 à l'échelle des pays
+
+```{r}
+data_etude_bien_etre_moyen <- data_etude %>%
+  mutate(
+    bien_etre = rowMeans(
+      cbind(BELONG, EXPWB, -BULLIED, -ANXMAT),
+      na.rm = TRUE
+    )
+  )
+```
+
+```{r, echo = FALSE, include=FALSE}
+bilan_pays <- data_etude_bien_etre_moyen %>%
+  group_by(CNT) %>%
+  summarise(
+    REE = mean(RELATST, na.rm = TRUE),
+    bien_etre = mean(bien_etre, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+On analyse d’abord la relation entre REE et bien-être séparément pour les femmes et les hommes.
+```{r, echo = FALSE, warning= FALSE}
+# Femmes
+cor.test(
+  subset(bilan_pays)$REE,
+  subset(bilan_pays)$bien_etre
+)
 
 
-```{r,echo = FALSE,dev="png", dpi= 150}
-ggplot(vars, aes(x = RELATST, y = EXPWB)) +
-  geom_point(alpha = 0.3) +
-  geom_smooth(method = "lm", color = "red") +
+```
+Dans un pays où un individu moyen a un REE élevé, cela ne garantit pas qu’il ait un bien-être élevé. Autrement dit, le niveau de REE à l’échelle globale ne prédit pas directement le bien-être moyen.
+
+# 3.2 sexe
+## 3.2.1 échelle individuelle
+
+La première population est représentée par le sexe. Ainsi l’objectif est d’identifier d’éventuelles inégalités ou sensibilités spécifiques des élèves selon leur sexe auprès de l'influence des REE sur leur bien-être.
+
+```{r,echo=FALSE}
+vars_sex <- data_etude %>%
+  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED, ST004D01T) %>%
+  filter(!is.na(ST004D01T))
+
+vars_sex$sexe <- factor(vars_sex$ST004D01T,
+                        levels = c(1, 2),
+                        labels = c("Femme", "Homme"))
+```
+
+```{r,echo=FALSE}
+table(vars_sex$sexe)
+```
+Table: Répartition Femmes/Hommes dans le jeu de données
+
+-> Blabla à refaire
+Pour commencer, on vérifie que le jeu de donnée est bien représentatif ;
+Ce dernier comporte 49.7% de femmes pour 50.3% d'hommes. Ce qui nous conviendra amplement pour notre étude.
+
+
+```{r, echo=FALSE, include = FALSE}
+
+
+# Séparer les données
+vars_femmes <- vars_sex %>%
+  filter(sexe == "Femme") %>%
+  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED)
+
+vars_hommes <- vars_sex %>%
+  filter(sexe == "Homme") %>%
+  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED)
+
+# Matrice de corrélation FEMMES
+cor_femmes <- cor(vars_femmes, use = "complete.obs")
+
+corrplot(
+  cor_femmes,
+  method = "color",
+  type = "upper",
+  col = colorRampPalette(c("#2c7bb6", "white", "#d7191c"))(200),
+  tl.col = "black",
+  tl.srt = 45,
+  addCoef.col = "black",
+  number.cex = 0.7,
+  diag = FALSE,
+  title = "Corrélations - Femmes",
+  mar = c(0,0,1,0)
+)
+
+# Matrice de corrélation HOMMES
+cor_hommes <- cor(vars_hommes, use = "complete.obs")
+
+corrplot(
+  cor_hommes,
+  method = "color",
+  type = "upper",
+  col = colorRampPalette(c("#2c7bb6", "white", "#d7191c"))(200),
+  tl.col = "black",
+  tl.srt = 45,
+  addCoef.col = "black",
+  number.cex = 0.7,
+  diag = FALSE,
+  title = "Corrélations - Hommes",
+  mar = c(0,0,1,0)
+)
+```
+-> matrice à ne pas include car trop répétitif
+-> blabla à faire montrant pas beaucoup de différences.
+
+
+-> blabla à faire pour faire transistion à l'echelle des pays
+
+## 3.2.2 échelle d'un pays
+L’objectif de cette analyse est d’étudier si les différences entre garçons et filles en matière de relation enseignant-élève (REE) sont associées aux différences de bien-être, à l’échelle des pays.
+
+Dans un premier temps, les observations avec une information manquante sur le sexe sont supprimées afin de garantir la comparabilité des groupes. Une variable catégorielle sexe est ensuite créée.
+
+Un indice composite de bien-être est construit à partir de quatre variables centrées :
+
+sentiment d’appartenance (BELONG)
+bien-être récent (EXPWB)
+anxiété en mathématiques (ANXMAT)
+exposition au harcèlement (BULLIED)
+
+Les deux dernières variables étant négativement associées au bien-être, elles sont inversées afin d’assurer une cohérence d’interprétation.
+
+👉 Ainsi, un score élevé de bien_etre correspond systématiquement à une situation plus favorable.
+```{r, echo=FALSE, include=FALSE}
+data_etude_sexe <- data_etude %>%
+  filter(!is.na(ST004D01T)) %>%
+  mutate(
+    sexe = factor(ST004D01T,
+                  levels = c(1, 2),
+                  labels = c("Femme", "Homme")),
+    bien_etre = rowMeans(
+      cbind(BELONG, EXPWB, -BULLIED, -ANXMAT),
+      na.rm = TRUE
+    )
+  )
+```
+Les données sont ensuite agrégées au niveau pays × sexe, afin d’obtenir des indicateurs moyens.
+```{r, echo = FALSE, include=FALSE}
+bilan_pays_sexe <- data_etude_sexe %>%
+  group_by(CNT, sexe) %>%
+  summarise(
+    REE = mean(RELATST, na.rm = TRUE),
+    bien_etre = mean(bien_etre, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+On analyse d’abord la relation entre REE et bien-être séparément pour les femmes et les hommes.
+```{r, echo = FALSE, warning= FALSE}
+# Femmes
+cor.test(
+  subset(bilan_pays_sexe, sexe == "Femme")$REE,
+  subset(bilan_pays_sexe, sexe == "Femme")$bien_etre
+)
+
+# Hommes
+cor.test(
+  subset(bilan_pays_sexe, sexe == "Homme")$REE,
+  subset(bilan_pays_sexe, sexe == "Homme")$bien_etre
+)
+```
+Coeff plus élevé chez les hommes donc la REE joue un role plus fort dans le bien être que chez les femmes
+
+Afin d’analyser directement les inégalités, on construit des différences hommes − femmes pour chaque pays.
+
+```{r}
+library(tidyr)
+
+diff_sexe <- bilan_pays_sexe %>%
+  pivot_wider(names_from = sexe, values_from = c(REE, bien_etre)) %>%
+  mutate(
+    diff_bien_etre = bien_etre_Homme - bien_etre_Femme,
+    diff_REE = REE_Homme - REE_Femme
+  )
+```
+
+👉 Ces variables permettent une lecture directe :
+
+valeurs positives → avantage hommes
+valeurs négatives → avantage femmes
+
+Corrélation globale
+```{r}
+cor.test(diff_sexe$diff_REE, diff_sexe$diff_bien_etre)
+```
+La corrélation observée (r = 0,45) met en évidence une association positive modérée entre les écarts de relation enseignant-élève et les écarts de bien-être entre garçons et filles. Cela suggère que, dans les pays où les garçons bénéficient d’une meilleure relation avec les enseignants que les filles, ils présentent également un niveau de bien-être relativement plus élevé.
+
+
+Ce coefficient mesure la relation entre différences garçons-filles pour REE et différences garçons-filles pour bien-être, pays par pays.
+Valeur positive modérée → là où les garçons ont un avantage REE par rapport aux filles, ils tendent aussi à avoir un avantage en bien-être.
+
+Interprétation :
+
+Cette corrélation met en évidence une inégalité entre sexes : les garçons sont favorisés par rapport aux filles dans certains pays, et cela se reflète dans leur bien-être.
+
+```{r}
+ggplot(diff_sexe, aes(x = diff_REE, y = diff_bien_etre)) +
+  geom_point(alpha = 0.7, color = "darkred", size = 2.5) +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "grey40") +
+  geom_text_repel(
+    aes(label = CNT),
+    size = 3,
+    box.padding = 0.4,
+    max.overlaps = 20
+  ) +
+  geom_hline(yintercept = 0, linetype = "dotted") +
+  geom_vline(xintercept = 0, linetype = "dotted") +
   labs(
-    title = "Relation entre la REE globale et le bien être récent",
-    x = "REE globale",
-    y = "bien-être récent"
+    title = "Différences hommes-femmes par pays",
+    subtitle = "Écart = Homme - Femme",
+    x = "Différence REE",
+    y = "Différence bien-être"
   ) +
   theme_minimal()
 ```
-Note de lecture: Un indice de REE global faible n'indique pas forcément un indice de bien-être mauvais.
+Le graphique met en évidence une relation globalement positive entre les écarts de REE et les écarts de bien-être.
 
-En regardant le nuage de point entre notre premier indice et le bien-être, on souligne que les individus de notre jeu de donnée ne semblent pas révéler une dépendance entre ces variables. De plus, la matrice de corrélation nous permet de déterminer que la relation
-entre les différents indices de REE et le bien-être semble faible avec une corrélation de seulement 0.08. 
+👉 Cela signifie que :
 
-```{r, echo= FALSE}
-model_A <- lm(EXPWB ~ RELATST + TEACHSUP + ANXMAT + BELONG + BULLIED,
-              data = vars)
+dans les pays où les garçons ont une meilleure relation avec les enseignants que les filles, ils tendent également à présenter un niveau de bien-être plus élevé.
 
-summary(model_A)
+Cependant, le nuage de points reste relativement dispersé, indiquant que cette relation est modérée et qu’elle ne constitue pas un déterminant unique.
+
+Certains pays s’écartent de la tendance générale, suggérant l’existence d’autres facteurs influençant le bien-être.
+
+
+Régression linéaire
+
+```{r}
+modele_diff <- lm(diff_bien_etre ~ diff_REE, data = diff_sexe)
+summary(modele_diff)
 ```
-En élaborant un modèle linéaire à l'aide de nos indicateurs, La p-value de chacun d'entre eux est très faible (vis-à-vis du test de significativité des coefficients). De plus le R² est seulement à 0.017 On en déduit qu'il n'y a visiblement pas de relation entre la REE et le bien-être.
+Analyse des pays atypiques
 
-Nous nous proposons ainsi de ré-effectuer cette étude en la croisant avec de nouvelles variables.
+```{r}
+diff_sexe$residus <- resid(modele_diff)
 
-## 3.2 L'impact de variables externes sur le lien entre REE et bien-être 
+diff_sexe %>%
+  arrange(desc(abs(residus))) %>%
+  head(10)
+```
 
-### 3.2.1 Dans quelles mesures le statut socio-économique des élèves influence leur bien-être, la REE, et donc l'impact du bien-être sur la REE ?
+# 3.3 catégorie socio éco
+## 3.3.1 échelle individuelle
+
+
 
 Utilisons pour ce faire la variable sur l'indice de statut économique, sociale et culturel. C'est un indicateur qui mesure le milieu socio-économique des élèves à partir du niveau d’éducation et de la profession des parents ainsi que des ressources du foyer (comme les livres ou l’accès à un ordinateur).
 
@@ -906,105 +1080,9 @@ Le bien-être dans chaque contexte socio-professionnel n'explique pas la relatio
 
 Cela dit, l’indice est un indicateur synthétique du statut socio-économique, il permet des comparaisons standardisées, mais cache certaines différences spécifiques et repose sur des déclarations dites "auto-rapportées", ce qui nécessite plus de prudence dans l’interprétation des résultats.
 
+## 3.3.2 échelle d'un pays
 
-### 3.2.2 Le sexe de l'élève peut-il modifier la relation entre bien-être et REE ?
-
-Si les catégories socio-économique des parents de l'élève ne semblent pas modifier le lien REE à bien-être, peut-être que le sexe le pourra.
-
-Ainsi l’objectif est d’identifier d’éventuelles inégalités ou sensibilités spécifiques des élèves selon leur sexe auprès de l'influence des REE sur leur bien-être.
-
-```{r,echo=FALSE}
-vars_sex <- data_etude %>%
-  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED, ST004D01T)%>%
-  na.omit()
-
-vars_sex$sexe <- factor(vars_sex$ST004D01T,
-                        levels = c(1, 2),
-                        labels = c("Femme", "Homme"))
-```
-
-```{r,echo=FALSE}
-table(vars_sex$sexe)
-```
-Table: Répartition Femmes/Hommes dans le jeu de données
-
-Pour commencer, on vérifie que le jeu de donnée est bien représentatif ;
-Ce dernier comporte 49.7% de femmes pour 50.3% d'hommes. Ce qui nous conviendra amplement pour notre étude.
-
-```{r,echo=FALSE,warning=FALSE}
-vars_sex %>%
-  group_by(sexe) %>%
-  summarise(across(c(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED),
-                   list(mean = mean, sd = sd), na.rm = TRUE))
-```
-Table: Tableau de comparaison des statistiques usuelles entre les indices
-
-```{r,echo=FALSE}
-vars_sex %>%
-  pivot_longer(cols = c(EXPWB, RELATST, TEACHSUP)) %>%
-  ggplot(aes(x = sexe, y = value, fill = sexe)) +
-  geom_boxplot() +
-  facet_wrap(~name, scales = "free") +
-  labs(
-    title = "Boxplots de l'indice sur le bien-être récent, de l'indice sur la REE ciblée avec le prof de mathématique et la REE global selon le sexe",
-    x = "sexe",
-    y = "Valeur des variables"
-  ) +
-  theme_minimal()
-```
-Note de lecture: Quelque soit l'indice à analyser, il n'y a aucune différence entre les hommes et les femmmes.
-
-On remarque par l’utilisation de statistiques descriptives et des représentations visuelles qu'il n'y a aucune différence entre les hommes et les femmes quant à leur bien être sur les derniers jours, la REE global et celle ciblée sur les professeurs de mathématiques.
-
-
-```{r, echo=FALSE, dev= "png", dpi= 150}
-ggplot(vars_sex, aes(x = RELATST, y = EXPWB, color = sexe)) +
-  geom_point(alpha = 0.3) +
-  geom_smooth(method = "lm") +
-  labs(
-    title = "Relation entre la REE globale et le bien être récent selon le sexe",
-    x = "REE globale",
-    y = "bien-être récent"
-  ) +
-  theme_minimal()
-```
-Note de lecture: la relation entre élève et enseignant impacte le bien-être de manière plus importante chez les femmes que pour les hommes.
-
-Le graphique ci-dessus indique que la relation entre élève et enseignant impacte le bien-être de manière plus importante chez les femmes que pour les hommes, ces derniers en étant affectés tout de même mais dans une moindre mesure
-
-Etudions ce lien directement avec un coefficient de correlation différencié par sexe ;
-
-```{r,echo=FALSE}
-vars_sex2 <- data_etude %>%
-  select(EXPWB, RELATST, ST004D01T) %>%
-  na.omit()
-
-vars_sex2$sexe <- factor(vars_sex2$ST004D01T,
-                        levels = c(1, 2),
-                        labels = c("Femme", "Homme"))
-
-vars_sex2 %>%
-  group_by(sexe) %>%
-  summarise(correlation = cor(RELATST, EXPWB))
-```
-Les corrélations entre la REE et le bien-être restent faibles, mais ne sont pas inexistantes non plus. Une part du bien être s'explique donc par la REE, et ce, plus fortement chez les femmes.
-
-On se propose maintenant de créer le modèle linéaire expliquant le bien-être par la REE et le sexe de l'élève.
-
-```{r,echo=FALSE}
-model_B2 <- lm(EXPWB ~ RELATST * sexe + TEACHSUP + ANXMAT + BELONG + BULLIED,
-               data = vars_sex)
-
-summary(model_B2)
-```
-
-Le R² de ce modèle est similaire aux deux précédents.
-
-
-Dans notre étude, nous ne pouvons pas affirmer donc que le sexe doit être davantage pris en compte que la catégorie socio-économiques dans l'analyse du bien-être selon la REE par exemple.
-
-### 3.2.3 En quoi l'appartenance où non d'un pays à l'OCDE influence ses élèves dans leur bien-être vis-à-vis de leur relation avec leur enseignant ?
-
+# 3.4 appartenance OCDE
 L’OCDE (Organisation de Coopération et de Développement Économiques) est une organisation internationale regroupant principalement des pays développés. Elle promeut des politiques publiques favorisant le bien-être social et l’amélioration des systèmes éducatifs. 
 Dans le cadre des enquêtes PISA, elle s'avère jouer un rôle central, permettant de déterminer si un élève étudié inscrit son parcours scolaire dans un environnement propice à sa réussite ou non.
 
@@ -1100,6 +1178,83 @@ De plus cette appartenance ou non à cette organisation est la variable la plus 
 Toutefois, cette variable externe est aussi une variable binaire et donc très simplificatrice qui ne montre pas précisément quels sont les état de développement des pays étudiés.
 
 Cette classification peut ainsi cacher des différences importantes entre pays et ne permet pas de montrer la potentielle influence réelle des systèmes éducatifs sur la relation élève-enseignant et par conséquent le bien-être.
+
+# Conclusion
+
+(ancien rapport à supprimer quand plus besoin)
+
+Enfin, on élabore alors une analyse en composantes principales (ACP) sur nos variables de bien-être, puis on trace le cercle des corrélations et contributions des variables pour avoir une vue globale du problème, c'est à dire pré-déterminer quels seront les différents liens, et ce sur les 2 premiers axes de cette analyse en composante factorielle :
+
+```{r, echo = FALSE, warning= FALSE}
+vars_psy <- data_etude %>%
+  select(RELATST, TEACHSUP, BELONG, BULLIED, ANXMAT)
+
+res_pca_psy <- PCA(scale(vars_psy), graph = FALSE)
+
+fviz_pca_var(
+  res_pca_psy,
+  col.var = "cos2",   
+  gradient.cols = c("orange", "darkred"),  
+  repel = TRUE,
+  title = "ACP des variables"
+)
+```
+Note: TEACHSUP est la variable correspondant à l'indice sur la REE ciblée sur les professeurs de mathématiques.
+RELATST est la variable correspondant à l'indice sur la REE globale.
+BELONG est la variable correspondant à l’indice sur le sentiment d’appartenance.
+ANXMAT est la variable correspondant à l'indice sur l’anxiété ressentie concernant les cours de mathématiques.
+BULLIED est la variable correspondant à l'indice sur le harcèlement.
+
+Note de lecture: La variable TEACHSUP est très corrélée à la variable RELATST, de plus elles contribuent bien à la construction des axes.
+
+Grâce à l'ACP, nous pouvons relever que les variables sont structurées autour de deux axes principaux expliquant 54.1% de la variance totale. La premier axe met en evidence une opposition entre un pôle "bien-être" qui est constitué du sentiment d'appartenance, et un pôle "mal-être" regroupant l'anxiété en mathématiques et le harcèlement. Cette opposition traduit un comportement logique: un élève ne se sentant bien ne va pas déclaré être harcelé ou anxieux vis-à-vis des mathématiques. Par ailleurs, la forte proximité entre la REE globale (RELATST) et la REE ciblée sur les mathématiques (TEACHSUP) indique une corrélation importante entre ces deux indices, ce qui paraît logique, de plus elles contribuent énormément à la construction des axes.
+
+## 3.1 Existe t-il une relation entre la proximité de l'élève avec l'enseignant et son bien-être ressenti à l'école ?
+
+Ainsi, pour renforcer l'analyse, nous chercherons à déterminer aussi quels sont les facteurs de bien-être. Pour cela nous rajoutons à nos données la variable 
+
+
+
+
+
+```{r,echo = FALSE,dev="png", dpi= 150}
+ggplot(vars, aes(x = RELATST, y = EXPWB)) +
+  geom_point(alpha = 0.3) +
+  geom_smooth(method = "lm", color = "red") +
+  labs(
+    title = "Relation entre la REE globale et le bien être récent",
+    x = "REE globale",
+    y = "bien-être récent"
+  ) +
+  theme_minimal()
+```
+Note de lecture: Un indice de REE global faible n'indique pas forcément un indice de bien-être mauvais.
+
+En regardant le nuage de point entre notre premier indice et le bien-être, on souligne que les individus de notre jeu de donnée ne semblent pas révéler une dépendance entre ces variables. De plus, la matrice de corrélation nous permet de déterminer que la relation
+entre les différents indices de REE et le bien-être semble faible avec une corrélation de seulement 0.08. 
+
+```{r, echo= FALSE}
+model_A <- lm(EXPWB ~ RELATST + TEACHSUP + ANXMAT + BELONG + BULLIED,
+              data = vars)
+
+summary(model_A)
+```
+En élaborant un modèle linéaire à l'aide de nos indicateurs, La p-value de chacun d'entre eux est très faible (vis-à-vis du test de significativité des coefficients). De plus le R² est seulement à 0.017 On en déduit qu'il n'y a visiblement pas de relation entre la REE et le bien-être.
+
+Nous nous proposons ainsi de ré-effectuer cette étude en la croisant avec de nouvelles variables.
+
+## 3.2 L'impact de variables externes sur le lien entre REE et bien-être 
+
+
+
+
+### 3.2.2 Le sexe de l'élève peut-il modifier la relation entre bien-être et REE ?
+
+
+
+### 3.2.3 En quoi l'appartenance où non d'un pays à l'OCDE influence ses élèves dans leur bien-être vis-à-vis de leur relation avec leur enseignant ?
+
+
 
 ## 3.3 Qu'en est-il réellement de l'impact de la relation entre élève et enseignant sur le bien-être de l'élève ?
 

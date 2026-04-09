@@ -168,6 +168,13 @@ Nous pouvons donc ajouter des caractéristiques au profil de nos élèves qui ne
 
 ![Figure 3: Statsitiques des différentes variables après suppression des valeurs manqauntes](images_rapports/figure4_summary_table.png)
 Notes de lecture: La variable RELATST correspondant à la qualitée de la REE global possède une moyenne de -0.007, un minimum de -10.09 et un maximum de 3.417.
+Notes: RELATST correspond à l'indice sur la REE globale.
+TEACHSUP correspond à l'indice sur la REE ciblée en mathématique.
+ESCS correspond à l'indice sur la catégorie socio-économique de l'élève.
+EXPWB corresopnd à l'indice sur le bien-être de l'élève sur les derniers jours.
+BELONG correspond à l'indice sur son sentiment d'appartenance.
+BULLIED correspond à l'indice sur le harcèlement.
+ANXMAT correspond à l'indice sur l'anxiéyé en mathématiques.
 
 Pour continuer notre analyse nous avons supprimé de notre base de données tous les élèves qui n'ont pas d'indice de REE global et ciblée sur les mathématiques, nous vérifions que cela n'a pas trop modifié les statistiques initiales de notre jeu de données. Selon les indications de l'OCDE, décrite dans la partie 1.1, la moyenne est centrée sur 0 pour les pyas appartenant à l'OCDE et avec un édart-type de 1, donc en ajoutant les autres pays on se retrouve proche de 0 mais pas forcément exactement. En enlevant les données, on retrouve partout une moyenne aux alentours de 0 et avec un premier et troisième quartile entre -1 et 1 ce qui confirme que notre écart-type est toujours proche de 1. Donc le fait d'avoir enlevé les données manquantes n'a pas trop affecté nos variables.
 
