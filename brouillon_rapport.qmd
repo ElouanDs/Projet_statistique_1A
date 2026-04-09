@@ -514,6 +514,8 @@ Le niveau moyen en mathématiques est largement en dessous de la moyenne, alors 
 Si les notes et la REE sont corrélées, on peut tout de même s'interroger sur l'influence du statut socio-économique des parents dans la relation qu'entretient l'élève avec les enseignants.
 Autrement dit, les origines sociales des élèves modifient-elles la manière dont ils intéragissent avec le corps enseignant ?
 
+### 2.3.1 La qualité de la REE et l'origine sociale des élèves
+
 ```{r, echo=FALSE, warning=FALSE}
 # Dispersion de l'indice RELATST en fonction des quartiles socio-éco
 etude_ESCS <- data_etude %>% mutate(Quartile_Social = ntile(ESCS, 4))
@@ -579,6 +581,8 @@ Cette dispersion autour de la qualité de la REE moyenne de l'OCDE change lorsqu
 Les "boîtes" des trois premiers quartiles sont plus hautes.
 Autrement dit, l'écart interquartile est plus important pour les 25% des élèves les plus défavorisés, qui ont un vécu de la REE avec l'enseignant de mathématiques plus hétérogène, allant de -0.3 à 1.5.
 
+### 2.3.2 La qualité de la REE moyenne et l'origine sociale au sein de chaque pays
+
 ```{r, echo = FALSE, include=FALSE}
 cor.test(bilan_pays$ESCS_moyen, bilan_pays$REE_moyen)
 ```
@@ -631,6 +635,7 @@ Cette relation entre l'origine sociale et le niveau scolaire explique donc la pr
 
 ## 2.4 REE et rapport aux apprentissages
 
+### 2.4.1 La qualité de la REE et l'appréciation des cours
 Au delà du niveau scolaire ou de statut socio-économique, l'appréciation de l'élève concernant les matières étudiées peut partiellement expliquer la qualité de la REE, notamment concernant la qualité de l'enseignement.
 
 ```{r, echo=FALSE, include=FALSE}
@@ -645,6 +650,8 @@ Alors, aimer les maths ne suffit pas à expliquer une bonne relation entre un é
 La qualité perçue des cours de mathématiques est positivement corrélée avec la qualité de la relation avec l'enseignant de mathématiques.
 En effet, la corrélation est de 0.41 et est significative (p-value \< 2.2e-16).
 La qualité de la REE en maths est donc dépendante de la qualité observée des cours de mathématiques au cours de l'année.
+
+### 2.4.2 Des pays aux systèmes scolaires similaires en fonction de la qualité de la REE
 
 ```{r,echo=False, include=FALSE}
 cor.test(bilan_pays$qualite_moyen, bilan_pays$REE_moyen)
