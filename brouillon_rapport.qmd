@@ -409,7 +409,7 @@ Le chiffre de non-réponse nous poussent à s'interroger sur le profil des élè
 
 # 2 La REE et la réussite scolaire : une relation complexe
 
-## 2.1 Relation entre REE et niveau académique individuel
+## 2.1 Le niveau académique individuel n'explique pas la qualité de la REE
 
 La relation élèves-enseignant peut être étudiée dans le cadre de la réussite scolaire et plus précisemment concernant le niveau académique des élèves.
 Comme la REE est une relation prenant place au sein des établissements scolaires, il est tout à fait naturel de s'interroger sur l'influence de la REE sur le niveau des élèves et inversement.
@@ -446,7 +446,7 @@ Le lien de corrélation est presque nul (0.06).
 Par conséquent, un élève peut potentiellement bien s’entendre avec son professeur sans pour autant que cela ait une influence sur ses résultats scolaires.
 D’autres facteurs semblent donc être à la source de la réussite scolaire des élèves qu’une bonne relation entre élève et enseignant au niveau global.
 
-## 2.2 Relation entre REE et niveau académique national
+## 2.2 Le niveau académique national est corrélée négativement avec la qualité de la REE
 
 Comme on constate qu'il n'y a pas de lien entre REE et notes pour les élèves, on peut aussi étudier cette relation à l'échelle des pays.
 Dans cette analyse, on utilise la moyenne de REE dans chaque pays et la moyenne des notes obtenues.
@@ -454,7 +454,9 @@ Cela permet de comparer les niveau nationaux et donc de comparer les différents
 
 ```{r, echo=FALSE, include=FALSE}
 # Test de corrélation entre la note moyenne d'un pays et son indice RELATST moyen
-bilan_pays <- data_etude %>%
+
+
+bilan_pays_CNT <- data_etude %>%
   group_by(CNT) %>%
   summarise(
     REE_moyen = mean(RELATST, na.rm = TRUE),
@@ -465,9 +467,37 @@ bilan_pays <- data_etude %>%
     qualite_moyen = mean(ST272Q01JA, na.rm = TRUE),
     Effectif = n()) 
 cor.test(bilan_pays$REE_moyen, bilan_pays$Note_moyenne)
+
+# Renomme les pays avec leur nom entier
+correspondance_pays <- data.frame(
+  iso_a3 = c("ALB", "ARG", "AUS", "AUT", "QAZ", "BEL", "BRA", "BRN", "BGR", "KHM", 
+             "CAN", "CHL", "TAP", "COL", "CRI", "HRV", "QCY", "CZE", "DNK", "DOM", 
+             "SLV", "EST", "FIN", "FRA", "GEO", "DEU", "GRC", "GTM", "HKG", "HUN", 
+             "ISL", "IDN", "IRL", "ISR", "ITA", "JAM", "JPN", "JOR", "KAZ", "KOR", 
+             "KSV", "LVA", "LTU", "MAC", "MYS", "MLT", "MEX", "MNG", "MNE", "MAR", 
+             "NLD", "NZL", "MKD", "NOR", "PSE", "PAN", "PRY", "PER", "PHL", "POL", 
+             "PRT", "QAT", "MDA", "ROU", "SAU", "SRB", "SGP", "SVK", "SVN", "ESP", 
+             "SWE", "CHE", "THA", "TUR", "QUR", "ARE", "QUK", "QSC", "USA", "URY", "UZB", "VNM", "GBR"),
+  nom_complet = c("Albania", "Argentina", "Australia", "Austria", "Baku (Azerbaijan)", "Belgium", "Brazil", "Brunei", "Bulgaria", "Cambodia","Canada", "Chile", "Chinese Taipei", "Colombia", "Costa Rica", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Dominican Republic", "El Salvador", "Estonia", "Finland", "France", "Georgia", "Germany", "Greece", "Guatemala", "Hong Kong", "Hungary","Iceland", "Indonesia", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Korea","Kosovo", "Latvia", "Lithuania", "Macao", "Malaysia", "Malta", "Mexico", "Mongolia", "Montenegro", "Morocco","Netherlands", "New Zealand", "North Macedonia", "Norway", "Palestinian Authority", "Panama", "Paraguay", "Peru", "Philippines", "Poland","Portugal", "Qatar", "Moldova", "Romania", "Saudi Arabia", "Serbia", "Singapore", "Slovak Republic", "Slovenia", "Spain","Sweden", "Switzerland", "Thailand", "Türkiye", "Ukraine", "United Arab Emirates", "United Kingdom", "Scotland", "United States", "Uruguay", "Uzbekistan", "Viet Nam", "Great Britain")
+)
+
+bilan_pays <- bilan_pays_CNT %>%
+  na.omit() %>% 
+  column_to_rownames("CNT")
+
+# On transforme le tableau pour intégrer les noms complets
+bilan_pays <- bilan_pays %>%
+  rownames_to_column("iso_a3") %>%
+  left_join(correspondance_pays, by = "iso_a3") %>%
+  mutate(nom_complet = ifelse(is.na(nom_complet), iso_a3, nom_complet)) %>%
+  select(-iso_a3) %>%
+  column_to_rownames("nom_complet")
+
+bilan_pays <- bilan_pays %>%
+  rownames_to_column(var = "nom_complet")
 ```
 
-Il existe une corrélation négative très faible entre la qualité de la REE et la note moyenne de chaque pays (r =\~ -0,26).
+Il existe une corrélation négative faible entre la qualité de la REE et la note moyenne de chaque pays (r =\~ -0,26).
 La REE n'explique que partiellement le niveau académique mais d'autres facteurs entre en compte.
 On ne peut donc pas conclure d'une relation très forte entre ces deux indicateurs.
 
@@ -488,7 +518,7 @@ modele_TEACHSUP <- lm(Note_moyenne ~ REE_maths, data = bilan_pays)
 ggplot(bilan_pays, aes(x = REE_maths, y = Note_moyenne)) +
   geom_smooth(method = "lm", color = "grey", linetype = "dashed", se = FALSE) +
   geom_point(alpha = 0.5, color = "darkcyan") +
-  geom_text_repel( aes(label = CNT),
+  geom_text_repel( aes(label = nom_complet),
                   size = 3,
                   box.padding = 0.5, 
                   point.padding = 0.3,
@@ -514,7 +544,7 @@ Le niveau moyen en mathématiques est largement en dessous de la moyenne, alors 
 Si les notes et la REE sont corrélées, on peut tout de même s'interroger sur l'influence du statut socio-économique des parents dans la relation qu'entretient l'élève avec les enseignants.
 Autrement dit, les origines sociales des élèves modifient-elles la manière dont ils intéragissent avec le corps enseignant ?
 
-### 2.3.1 La qualité de la REE et l'origine sociale des élèves
+### 2.3.1 L'origine sociale des élèves n'explique pas la qualité de la REE
 
 ```{r, echo=FALSE, warning=FALSE}
 # Dispersion de l'indice RELATST en fonction des quartiles socio-éco
@@ -581,7 +611,7 @@ Cette dispersion autour de la qualité de la REE moyenne de l'OCDE change lorsqu
 Les "boîtes" des trois premiers quartiles sont plus hautes.
 Autrement dit, l'écart interquartile est plus important pour les 25% des élèves les plus défavorisés, qui ont un vécu de la REE avec l'enseignant de mathématiques plus hétérogène, allant de -0.3 à 1.5.
 
-### 2.3.2 La qualité de la REE moyenne et l'origine sociale au sein de chaque pays
+### 2.3.2 La qualité de la REE moyenne est corrélée à l'origine sociale au sein de chaque pays
 
 ```{r, echo = FALSE, include=FALSE}
 cor.test(bilan_pays$ESCS_moyen, bilan_pays$REE_moyen)
@@ -596,7 +626,7 @@ modele_ESCS <- lm(ESCS_moyen ~ REE_moyen, data = bilan_pays)
 ggplot(bilan_pays, aes(x = REE_moyen, y = ESCS_moyen)) +
   geom_smooth(method = "lm", color = "grey", linetype = "dashed", se = FALSE) +
   geom_point(alpha = 0.5, color = "darkcyan") +
-  geom_text_repel( aes(label = CNT),
+  geom_text_repel( aes(label = nom_complet),
                   size = 3,
                   box.padding = 0.5, 
                   point.padding = 0.3,
@@ -625,7 +655,7 @@ Cela révèle le fonctionnement des systèmes éducatifs et leur capacité à cr
 ::: {.callout-note icon="false"}
 ### Lien entre le statut socio-économique et le niveau scolaire des élèves
 
-Comme le présente de nombreuses études, le statut socio-économique des parents est positivement corrélée avec le niveau scolaire.
+Comme le présentent de nombreuses études, le statut socio-économique des parents est positivement corrélé avec le niveau scolaire.
 Il est même possible de parler d'une relation de causalité.
 Avoir davantage de ressources économiques et culturelles favorisent la réussite scolaire, comme l'affirme l'OCDE dans son rapport sur l'enquête PISA 2022 : "La performance des élèves est associée au statut socio-économique, mais il ne s’agit pas d’une relation immuable.".
 En effet, "En moyenne, dans les pays de l’OCDE, les élèves socio-économiquement favorisé ont obtenu 93 points de plus en mathématiques que les élèves défavorisés."
@@ -633,9 +663,9 @@ En effet, "En moyenne, dans les pays de l’OCDE, les élèves socio-économique
 Cette relation entre l'origine sociale et le niveau scolaire explique donc la présence de résultats similaires concernant la corrélation entre la qualité de la REE et le niveau académique puis avec le statut socio-économique.
 :::
 
-## 2.4 REE et rapport aux apprentissages
+## 2.4 La REE et le rapport aux apprentissages
 
-### 2.4.1 La qualité de la REE et l'appréciation des cours
+### 2.4.1 La qualité de la REE est influencée par l'appréciation des cours
 Au delà du niveau scolaire ou de statut socio-économique, l'appréciation de l'élève concernant les matières étudiées peut partiellement expliquer la qualité de la REE, notamment concernant la qualité de l'enseignement.
 
 ```{r, echo=FALSE, include=FALSE}
@@ -658,14 +688,14 @@ cor.test(bilan_pays$qualite_moyen, bilan_pays$REE_moyen)
 ```
 
 Lorsqu'on change d'échelle, en regardant la qualité observée moyenne des cours de mathématiques par pays, on constate une importante corrélation positive entre qualité des cours et qualité de la REE (0.62, p-value \< 1e-08).
-Alors, meilleure est la qualité des cours de mathématique, meilleure est la relation entre les élèves et les enseignants.
+Alors, meilleure est la qualité des cours de mathématique, meilleure est la relation entre les élèves et les enseignants à l'échelle nationale.
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE}
 modele_qualite <- lm(qualite_moyen ~ REE_moyen, data = bilan_pays)
 ggplot(bilan_pays, aes(x = REE_moyen, y = qualite_moyen)) +
   geom_smooth(method = "lm", color = "grey", linetype = "dashed", se = FALSE) +
   geom_point(alpha = 0.5, color = "darkcyan") +
-  geom_text_repel( aes(label = CNT),
+  geom_text_repel( aes(label = nom_complet),
                   size = 3,
                   box.padding = 0.5, 
                   point.padding = 0.3,
@@ -679,11 +709,12 @@ ggplot(bilan_pays, aes(x = REE_moyen, y = qualite_moyen)) +
   theme_minimal() +
   theme(legend.position = "none")
 
-mean(data_etude$ST272Q01JA)
 ```
+Note de lecture : ...
 
-Note de lecture : Avec ce nuage de points, on retrouve la même répartition des différents pays en miroir par rapport aux corrélations avec les notes et le statut socio-économique.
-On peut se demander si il n'y aurait pas des profils de pays selon la qualité de REE.
+Avec ce nuage de points, on retrouve la même répartition des différents pays en miroir par rapport aux corrélations avec les notes et le statut socio-économique.
+
+On peut alors se demander si il n'y aurait pas des profils de pays selon la qualité de REE.
 
 Profil pays ?
 
@@ -692,24 +723,10 @@ mes_couleurs <- c("aquamarine3", "brown3", "darkolivegreen3", "darkgoldenrod2")
 library(dplyr)
 library(tibble)
 
-# Création du dictionnaire (extrait de votre liste)
-correspondance_pays <- data.frame(
-  iso_a3 = c("ALB", "ARG", "AUS", "AUT", "QAZ", "BEL", "BRA", "BRN", "BGR", "KHM", 
-             "CAN", "CHL", "TAP", "COL", "CRI", "HRV", "QCY", "CZE", "DNK", "DOM", 
-             "SLV", "EST", "FIN", "FRA", "GEO", "DEU", "GRC", "GTM", "HKG", "HUN", 
-             "ISL", "IDN", "IRL", "ISR", "ITA", "JAM", "JPN", "JOR", "KAZ", "KOR", 
-             "KSV", "LVA", "LTU", "MAC", "MYS", "MLT", "MEX", "MNG", "MNE", "MAR", 
-             "NLD", "NZL", "MKD", "NOR", "PSE", "PAN", "PRY", "PER", "PHL", "POL", 
-             "PRT", "QAT", "MDA", "ROU", "SAU", "SRB", "SGP", "SVK", "SVN", "ESP", 
-             "SWE", "CHE", "THA", "TUR", "QUR", "ARE", "QUK", "QSC", "USA", "URY", "UZB", "VNM", "GBR"),
-  nom_complet = c("Albania", "Argentina", "Australia", "Austria", "Baku (Azerbaijan)", "Belgium", "Brazil", "Brunei", "Bulgaria", "Cambodia","Canada", "Chile", "Chinese Taipei", "Colombia", "Costa Rica", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Dominican Republic", "El Salvador", "Estonia", "Finland", "France", "Georgia", "Germany", "Greece", "Guatemala", "Hong Kong", "Hungary","Iceland", "Indonesia", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Korea","Kosovo", "Latvia", "Lithuania", "Macao", "Malaysia", "Malta", "Mexico", "Mongolia", "Montenegro", "Morocco","Netherlands", "New Zealand", "North Macedonia", "Norway", "Palestinian Authority", "Panama", "Paraguay", "Peru", "Philippines", "Poland","Portugal", "Qatar", "Moldova", "Romania", "Saudi Arabia", "Serbia", "Singapore", "Slovak Republic", "Slovenia", "Spain","Sweden", "Switzerland", "Thailand", "Türkiye", "Ukraine", "United Arab Emirates", "United Kingdom", "Scotland", "United States", "Uruguay", "Uzbekistan", "Viet Nam", "Great Britain")
-)
-
-
 df_cluster <- bilan_pays %>%
-  select(CNT, REE_moyen, Note_moyenne, qualite_moyen) %>%
+  select(nom_complet, REE_moyen, Note_moyenne, qualite_moyen) %>%
   na.omit() %>% 
-  column_to_rownames("CNT")
+  column_to_rownames("nom_complet")
 
 # On transforme le tableau pour intégrer les noms complets
 df_cluster <- df_cluster %>%
@@ -738,7 +755,7 @@ fviz_cluster(res_km, data = df_scaled,
              scale_fill_manual(values = mes_couleurs)
 ```
 Note de lecture : D'après le regroupement des pays par la méthode du k-means, en fonction de la qualité de la REE, des notes et de la qualité d'enseignement en mathématiques, l'Australie, le Portugal, la Suède et Singapour ont des modèle éducatifs similaires.
-```{r}
+```{r, echo=FALSE, include=FALSE}
 df_cluster %>%
   group_by(Groupe) %>%
   summarise(across(everything(), mean))
@@ -773,7 +790,7 @@ La Corée du Sud, Hong Kong, l'Australie ainsi que la Norvège en font partie.
 Pour mieux se rendre compte des regroupements de pays selon leur qualité de REE, notes et qualité d'enseignement, il est pértinent de les représenter sur une carte.
 
 ```{r}
-df_analyse <- bilan_pays %>%
+df_analyse <- bilan_pays_CNT %>%
   select(CNT, REE_moyen, Note_moyenne, qualite_moyen) %>%
   na.omit() %>%
   left_join(correspondance_pays, by = c("CNT" = "iso_a3")) %>%
