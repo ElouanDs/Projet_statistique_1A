@@ -1003,7 +1003,8 @@ Utilisons pour ce faire la variable sur l'indice de statut économique, sociale 
 
 ```{r, echo=FALSE}
 vars_csp <- data_etude %>%
-  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED, ESCS)
+  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED, ESCS) %>%
+  filter(!is.na(ESCS))
 ```
 
 ```{r,echo=FALSE}
@@ -1029,19 +1030,68 @@ On distingue alors 3 classes, les indices faibles, moyennes, et élevées.
 On remarque la robustesse statistique de notre jeu de données avec des effectifs très similaires dans chaque classe.
 
 ```{r, echo= FALSE}
-vars_csp %>%
-  pivot_longer(cols = c(EXPWB, TEACHSUP)) %>%
-  ggplot(aes(x = statut_socioeco_cat, y = value, fill = statut_socioeco_cat)) +
-  geom_boxplot() +
-  facet_wrap(~name, scales = "free") +
-  labs(
-    title = "Boxplots de l'indice sur le bien-être récent et celui sur la REE ciblée avec le prof de mathématique selon l'indice de statut économique, sociale et culturel",
-    x = "l'indice de statut économique, sociale et culturel",
-    y = "Valeur des variables"
-  ) +
-  theme_minimal()
+
+# Séparer les données selon le statut socio-éco
+vars_faible <- vars_csp %>%
+  filter(statut_socioeco_cat == "Faible") %>%
+  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED)
+
+vars_moyenne <- vars_csp %>%
+  filter(statut_socioeco_cat == "Moyenne") %>%
+  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED)
+
+vars_elevee <- vars_csp %>%
+  filter(statut_socioeco_cat == "Élevée") %>%
+  select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED)
+
+cor_faible <- cor(vars_faible, use = "complete.obs")
+
+corrplot(
+  cor_faible,
+  method = "color",
+  type = "upper",
+  col = colorRampPalette(c("#2c7bb6", "white", "#d7191c"))(200),
+  tl.col = "black",
+  tl.srt = 45,
+  addCoef.col = "black",
+  number.cex = 0.7,
+  diag = FALSE,
+  title = "Corrélations - ESCS faible",
+  mar = c(0,0,1,0)
+)
+cor_moyenne <- cor(vars_moyenne, use = "complete.obs")
+
+corrplot(
+  cor_moyenne,
+  method = "color",
+  type = "upper",
+  col = colorRampPalette(c("#2c7bb6", "white", "#d7191c"))(200),
+  tl.col = "black",
+  tl.srt = 45,
+  addCoef.col = "black",
+  number.cex = 0.7,
+  diag = FALSE,
+  title = "Corrélations - ESCS moyenne",
+  mar = c(0,0,1,0)
+)
+cor_elevee <- cor(vars_elevee, use = "complete.obs")
+
+corrplot(
+  cor_elevee,
+  method = "color",
+  type = "upper",
+  col = colorRampPalette(c("#2c7bb6", "white", "#d7191c"))(200),
+  tl.col = "black",
+  tl.srt = 45,
+  addCoef.col = "black",
+  number.cex = 0.7,
+  diag = FALSE,
+  title = "Corrélations - ESCS élevée",
+  mar = c(0,0,1,0)
+)
 ```
-Note de lecture: Quelque soit la classe de l'indice de statut économique, sociale et culturel, nous observons pas de changement sur le bien-être récent.
+-> ne pas inclure car trop répétitif
+-> aucun changement si on compare par indiviidus, à comparer par pays mainteant comme avec le sexe.
 
 Comparons nos classes selon le bien-être, et la REE, de leurs individus.
 La classe semble peu agir sur cela. Toutefois, on remarque que les élèves ayant des parents se situant dans la classe “Elevées”, sont sujets à une moins bonne relation avec l'enseignant de mathématiques. 
@@ -1081,6 +1131,144 @@ Le bien-être dans chaque contexte socio-professionnel n'explique pas la relatio
 Cela dit, l’indice est un indicateur synthétique du statut socio-économique, il permet des comparaisons standardisées, mais cache certaines différences spécifiques et repose sur des déclarations dites "auto-rapportées", ce qui nécessite plus de prudence dans l’interprétation des résultats.
 
 ## 3.3.2 échelle d'un pays
+
+->blabla à faire
+```{r, echo=FALSE, include=FALSE}
+data_etude_escs <- data_etude %>%
+  filter(!is.na(ESCS)) %>%
+  mutate(
+    statut_socioeco_cat = cut(
+      ESCS,
+      breaks = quantile(ESCS, probs = c(0, 0.33, 0.66, 1), na.rm = TRUE),
+      labels = c("Faible", "Moyenne", "Élevée"),
+      include.lowest = TRUE
+    ),
+    bien_etre = rowMeans(
+      cbind(BELONG, EXPWB, -BULLIED, -ANXMAT),
+      na.rm = TRUE
+    )
+  )
+```
+-> petit blabla
+```{r, echo = FALSE, include=FALSE}
+bilan_pays_escs <- data_etude_escs %>%
+  group_by(CNT, statut_socioeco_cat) %>%
+  summarise(
+    REE = mean(RELATST, na.rm = TRUE),
+    bien_etre = mean(bien_etre, na.rm = TRUE),
+    .groups = "drop"
+  )
+```
+-> petit blabla
+```{r, echo = FALSE, warning= FALSE}
+# Faible
+cor.test(
+  subset(bilan_pays_escs, statut_socioeco_cat == "Faible")$REE,
+  subset(bilan_pays_escs, statut_socioeco_cat == "Faible")$bien_etre
+)
+
+# Moyenne
+cor.test(
+  subset(bilan_pays_escs, statut_socioeco_cat == "Moyenne")$REE,
+  subset(bilan_pays_escs, statut_socioeco_cat == "Moyenne")$bien_etre
+)
+
+# Élevée
+cor.test(
+  subset(bilan_pays_escs, statut_socioeco_cat == "Élevée")$REE,
+  subset(bilan_pays_escs, statut_socioeco_cat == "Élevée")$bien_etre
+)
+```
+❌ Ce que tes résultats disent :
+Chez les élèves favorisés → REE n’explique pas leur bien-être
+Chez les élèves défavorisés → pareil
+Chez les moyens → pareil
+
+👉 Donc :
+
+REE n’est pas un facteur déterminant du bien-être au sein d’un groupe social
+
+-> blabla à faire
+```{r}
+library(tidyr)
+
+diff_escs <- bilan_pays_escs %>%
+  pivot_wider(
+    names_from = statut_socioeco_cat,
+    values_from = c(REE, bien_etre)
+  ) %>%
+  mutate(
+    diff_bien_etre = bien_etre_Élevée - bien_etre_Faible,
+    diff_REE = REE_Élevée - REE_Faible
+  )
+```
+
+👉 Ces variables permettent une lecture directe :
+
+valeurs positives → avantage hommes
+valeurs négatives → avantage femmes
+
+Corrélation globale
+```{r}
+cor.test(diff_escs$diff_REE, diff_escs$diff_bien_etre)
+```
+-> blabla à faire
+```{r}
+ggplot(diff_escs, aes(x = diff_REE, y = diff_bien_etre)) +
+  geom_point(alpha = 0.7, color = "darkblue", size = 2.5) +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "grey40") +
+  geom_text_repel(
+    aes(label = CNT),
+    size = 3,
+    box.padding = 0.4,
+    max.overlaps = 20
+  ) +
+  geom_hline(yintercept = 0, linetype = "dotted") +
+  geom_vline(xintercept = 0, linetype = "dotted") +
+  labs(
+    title = "Différences ESCS par pays",
+    subtitle = "Écart = ESCS élevé - ESCS faible",
+    x = "Différence REE",
+    y = "Différence bien-être"
+  ) +
+  theme_minimal()
+```
+Les pays où les favorisés ont un avantage de REE
+sont aussi ceux où ils ont un avantage de bien-être
+
+Les corrélations calculées séparément au sein de chaque groupe socio-économique sont très faibles et non significatives. Cela indique qu’à l’intérieur de chaque catégorie (faible, moyenne ou élevée), la relation enseignant-élève n’est pas associée de manière notable au bien-être moyen des élèves à l’échelle des pays.
+
+En revanche, l’analyse des écarts entre groupes (ESCS élevé – ESCS faible) met en évidence une corrélation positive (r = 0,26).
+
+Ce résultat suggère que ce n’est pas le niveau absolu de relation enseignant-élève qui importe, mais plutôt les inégalités de cette relation entre milieux sociaux.
+
+Autrement dit, dans les pays où les élèves favorisés bénéficient davantage d’une meilleure relation avec les enseignants que les élèves défavorisés, ils présentent également un avantage en termes de bien-être.
+
+Cette opposition entre absence de relation intra-groupe et présence d’une relation inter-groupe met en évidence un phénomène structurel : les inégalités sociales de traitement scolaire sont associées aux inégalités de bien-être.
+
+🔥 5. Insight (très valorisant pour ton analyse)
+
+👉 Tu peux même aller plus loin :
+
+Ce résultat montre que la REE agit davantage comme un facteur d’inégalités sociales que comme un déterminant universel du bien-être.
+
+
+Régression linéaire
+
+```{r}
+modele_diff <- lm(diff_bien_etre ~ diff_REE, data = diff_escs)
+summary(modele_diff)
+```
+Analyse des pays atypiques
+
+```{r}
+diff_escs$residus <- resid(modele_diff)
+
+diff_escs %>%
+  arrange(desc(abs(residus))) %>%
+  head(10)
+```
+
 
 # 3.4 appartenance OCDE
 L’OCDE (Organisation de Coopération et de Développement Économiques) est une organisation internationale regroupant principalement des pays développés. Elle promeut des politiques publiques favorisant le bien-être social et l’amélioration des systèmes éducatifs. 
