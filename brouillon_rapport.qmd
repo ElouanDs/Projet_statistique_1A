@@ -713,7 +713,7 @@ L'appréciation des mathématiques comme étant l'une des matières préférées
 La corrélation s'élève à environ 0.21 (p-value \< 2.2e-16), ce qui permet de dire qu'il y a bel et bien un lien entre ces deux éléments mais celui-ci reste faible.
 Alors, aimer les maths ne suffit pas à expliquer une bonne relation entre un élève et son enseignant de mathématiques.
 
-La qualité perçue des cours de mathématiques est positivement corrélée avec la qualité de la relation avec l'enseignant de mathématiques.
+La qualité perçue des cours de mathématiques est davantage corrélée avec la qualité de la relation avec l'enseignant de mathématiques.
 En effet, la corrélation est de 0.41 et est significative (p-value \< 2.2e-16).
 La qualité de la REE en maths est donc dépendante de la qualité observée des cours de mathématiques au cours de l'année.
 
@@ -746,19 +746,13 @@ ggplot(bilan_pays, aes(x = REE_moyen, y = qualite_moyen)) +
   theme(legend.position = "none")
 
 ```
+Note de lecture : Le chili suit la relation de corrélation entre la qualité des cours de mathématiques et la qualité de la REE. Son indice de REE moyen est de 0.27 et son score moyen de qualité d'enseignements des mathématiques est de 7.
 
-Note de lecture : ...
+Avec ce nuage de points, on retrouve la même répartition des différents pays en miroir par rapport aux corrélations avec les notes et le statut socio-économique. On peut alors se demander si il n'y aurait pas des profils de pays selon la qualité de REE. Pour ce faire, nous avons réaliser un regroupement des pays selon leur indice de qualité de la REE, leur note moyenne et la qualité des cours de mathématiques. 
 
-Avec ce nuage de points, on retrouve la même répartition des différents pays en miroir par rapport aux corrélations avec les notes et le statut socio-économique.
-
-On peut alors se demander si il n'y aurait pas des profils de pays selon la qualité de REE.
-
-Profil pays ?
 
 ```{r}
 mes_couleurs <- c("aquamarine3", "brown3", "darkolivegreen3", "darkgoldenrod2")
-library(dplyr)
-library(tibble)
 
 df_cluster <- bilan_pays %>%
   select(nom_complet, REE_moyen, Note_moyenne, qualite_moyen) %>%
@@ -766,6 +760,7 @@ df_cluster <- bilan_pays %>%
   column_to_rownames("nom_complet")
 
 # On transforme le tableau pour intégrer les noms complets
+pdf("images_rapports/figure14_comparaison_NA_notes_relatst.pdf", width = 6, height = 4)
 df_cluster <- df_cluster %>%
   rownames_to_column("iso_a3") %>%
   left_join(correspondance_pays, by = "iso_a3") %>%
@@ -775,11 +770,13 @@ df_cluster <- df_cluster %>%
 
 df_scaled <- scale(df_cluster)
 
+
 set.seed(123)
 res_km <- kmeans(df_scaled, centers = 4, nstart = 25)
 
 df_cluster$Groupe <- as.factor(res_km$cluster)
 
+pdf("images_rapports/figure13_kmeans.pdf", width = 6, height = 4)
 fviz_cluster(res_km, data = df_scaled,
              palette = "jco",
              geom = c("point", "text"),
@@ -787,9 +784,10 @@ fviz_cluster(res_km, data = df_scaled,
              repel = TRUE,
              ellipse.type = "convex", 
              ggtheme = theme_minimal(),
-             main = "Typologie des pays selon la qualité des REE, des enseignements en mathématiques et les notes") +
+             main = "Typologie des pays selon la qualité des REE, \ndes enseignements en mathématiques et les notes") +
              scale_colour_manual(values = mes_couleurs) +
              scale_fill_manual(values = mes_couleurs)
+dev.off()
 ```
 
 Note de lecture : D'après le regroupement des pays par la méthode du k-means, en fonction de la qualité de la REE, des notes et de la qualité d'enseignement en mathématiques, l'Australie, le Portugal, la Suède et Singapour ont des modèle éducatifs similaires.
@@ -807,10 +805,10 @@ Tableau des moyennes pour chaque groupe issus du regroupement k-means
 
 | Groupe | Qualité de la REE | Note | Qualité des cours de maths |
 |:-----------------|:----------------:|:----------------:|:----------------:|
-| 1 | [0.33]{color = "red"} | [389]{color = "blue"} | [7.48]{color = "red"} |
-| 2 | [-0.17]{color = "blue"} | [470]{color = "red"} | [6.23]{color = "blue"} |
-| 3 | [0.01]{color = "blue"} | [402]{color = "blue"} | [6.83]{color = "red"} |
-| 4 | [0.17]{color = "red"} | [501]{color = "red"} | [6.49]{color = "blue"} |
+| 1 | $\textcolor{red}{0.33}$ | $\textcolor{blue}{389}$ | $\textcolor{red}{7.48}$ |
+| 2 | $\textcolor{blue}{-0.17}$ | $\textcolor{red}{470}$ | $\textcolor{blue}{6.23}$ |
+| 3 | $\textcolor{blue}{0.01}$ | $\textcolor{blue}{402}$ | $\textcolor{red}{6.83}$ |
+| 4 | $\textcolor{red}{0.17}$ | $\textcolor{red}{501}$ | $\textcolor{blue}{6.49}$ |
 | **Total** | **0.04** | **443** | **6.70** |
 
 Le groupe 1 regroupe des pays ayant en moyenne une meilleure qualité de REE et d'enseignement en mathématiques.
@@ -821,11 +819,13 @@ Il comprends le Viet Nam, le Pérou ou encore l'Arabie Saoudite.
 Le groupe 2, en rouge, est composé de pays ayant une qualité de REE négative en moyenne (-0.17), des notes légèrement au-dessus de la moyenne de l'ensemble des pays interrogés (470 \> 443).
 On y retrouve la Grèce, la France ou la Nouvelle-Zélande.
 
-Le groupe 3, en vert, avec des pays comme la Jordanie, la Thailande et leBrésil, a une qualité de REE neutre, des notes plus faibles qu'en moyenne (402) et une qualité d'enseignement en mathématiques l"gèrement supérieure à la moyenne (6.8).
+Le groupe 3, en vert, avec des pays comme la Jordanie, la Thailande et leBrésil, a une qualité de REE neutre, des notes plus faibles qu'en moyenne (402) et une qualité d'enseignement en mathématiques légèrement supérieure à la moyenne (6.8).
 
 Le groupe 4, en orange est avant tout caractérisé par les notes moyennes obtenues (501).
 Les pays qui le composent ont aussi une qualité de REE légèrement positive (0.17), tandis que la qualité d'enseignement est jugée moins bonne qu'en moyenne (6.49).
 La Corée du Sud, Hong Kong, l'Australie ainsi que la Norvège en font partie.
+
+On peut en conclure des profils types de pays. Un pays du groupe 1 semble avoir un système éducatif davatange accès sur la qualité de la REE et de l'enseignement, que sur la performance académique. Pour un pays du groupe 2, la qualité de la REE est généralement négative, pour autant le niveau académique reste légerement supérieur à la moyenne. Concernant le groupe 3, les pays ont tendance à avoir une qualité de REE neutre, correspondant à la moyenne des pays de l'OCDE, ainsi qu'un niveau scolaire relativemenbt faible. La qualité de l'enseignement est certes supérieure à la moyenne mais les pays de ce groupe ne se caractérisent pas par un profil très marqué. Enfin un pays du groupe 4 est avant tout un pays performant où la qualité de la REE est légérement plus positive qu'en moyenne mais où la qualité de l'enseignement est légèrement plus faible.
 
 Pour mieux se rendre compte des regroupements de pays selon leur qualité de REE, notes et qualité d'enseignement, il est pértinent de les représenter sur une carte.
 
@@ -861,6 +861,7 @@ df_jointure_carte <- df_cluster_final %>%
 world_data <- world %>%
   left_join(df_jointure_carte, by = c("adm0_a3" = "CNT"))
 
+pdf("images_rapports/figure14_carte_kmeans_monde.pdf", width = 6, height = 4)
 ggplot(data = world_data) +
   geom_sf(aes(fill = Groupe), color = "white", size = 0.1) +
   scale_fill_manual(values = mes_couleurs, 
@@ -870,10 +871,15 @@ ggplot(data = world_data) +
   labs(title = "Répartition mondiale des modèles de relation élève-enseignant",
        subtitle = "Selon la méthode du k-means") +
   theme(legend.position = "bottom")
-
+dev.off()
 ```
 
 Note de lecture : La majorité des pays d'Europe ont des modèles similaires de REE associés aux notes et à la qualité d'enseignement.
+
+Si certains groupes de pays se caractérisent notamment par leur qualité de REE moyenne (comme le groupe 1 et 2), d'autres groupes s'expliquent davantage par les autres facteurs (qualité d'enseignement des mathématiques ou niveau académique). 
+Les regroupements de pays semblent parfois suivre des groupes de pays déjà existants, comme l'Europe du Sud et de l'Est ou l'Amérique latine.
+
+Si on peut regrouper les pays et leur système éducatif en fonction de leur REE et d'autres facteurs, on constate bien que la question de la qualité de la scolarité des élèves dans ces pays va au-delà des notes ou de la qualité d'enseignement. C'est pourquoi, il apparaît nécessaire d'étudier la relation entre la qualité de la REE et le bien-être des élèves.
 
 # 3 Existe-t-il une relation entre la REE et le bien-être des élèves dans le cadre scolaire ?
 
