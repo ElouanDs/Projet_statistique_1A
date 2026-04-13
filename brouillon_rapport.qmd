@@ -441,19 +441,22 @@ corrplot(
 
 Note de lecture : La corrélation entre la relation élèves-enseignants (REE) et la moyenne générale est de 0.06.
 
-Ainsi, contrairement à ce que l’on peut penser a priori, le niveau académique des élèves n'explique pas la qualité de la relation avec leurs enseignants. En effet, le lien de corrélation est presque nul (0.06).
+Ainsi, contrairement à ce que l’on peut penser a priori, le niveau académique des élèves n'explique pas la qualité de la relation avec leurs enseignants.
+En effet, le lien de corrélation est presque nul (0.06).
 Par conséquent, un élève peut potentiellement bien s’entendre avec son professeur sans pour autant que cela ai une influence sur ses résultats scolaires.
 
-La relation élèves-enseignants en général est corrélée positivement à la relation élèves-enseignants en mathématiques (0.33). Cette corrélation permet de voir que la REE en mathématiques s'explique en partie par la REE en générale. C'est pourquoi, dans les analyses suivantes, les deux variables de REE seront étudiées.
+La relation élèves-enseignants en général est corrélée positivement à la relation élèves-enseignants en mathématiques (0.33).
+Cette corrélation permet de voir que la REE en mathématiques s'explique en partie par la REE en générale.
+C'est pourquoi, dans les analyses suivantes, les deux variables de REE seront étudiées.
 
-De plus, on constate une très forte corrélation entre la moyenne générale et la moyenne en mathématiques (0.99). Il est possible de passer d'une moyenne à l'autre sans que les résultats en soient altérés.
+De plus, on constate une très forte corrélation entre la moyenne générale et la moyenne en mathématiques (0.99).
+Il est possible de passer d'une moyenne à l'autre sans que les résultats en soient altérés.
 
 D’autres facteurs semblent donc être à la source de la réussite scolaire des élèves qu’une bonne relation entre élève et enseignant au niveau global.
 
-
 ## 2.2 Le niveau académique national est corrélée négativement avec la qualité de la REE
 
-Comme on constate qu'il n'y a pas de lien entre REE et notes pour les élèves, on peut aussi étudier cette relation à l'échelle des pays.
+Comme on constate qu'il n'y a pas de lien entre REE et notes pour les élèves, il convient d'étudier cette relation à l'échelle des pays.
 Dans cette analyse, on utilise la moyenne de REE dans chaque pays et la moyenne des notes obtenues.
 Cela permet de comparer les niveau nationaux et donc de comparer les différents systèmes éducatifs et leurs influences sur la REE.
 
@@ -502,20 +505,20 @@ bilan_pays <- bilan_pays %>%
   rownames_to_column(var = "nom_complet")
 ```
 
-Il existe une corrélation négative faible entre la qualité de la REE et la note moyenne de chaque pays (r =\~ -0,26).
+Il existe une corrélation négative moyenne entre la qualité de la REE et la note moyenne de chaque pays (r =\~ -0,26).
 La REE n'explique que partiellement le niveau académique mais d'autres facteurs entre en compte.
 On ne peut donc pas conclure d'une relation très forte entre ces deux indicateurs.
 
 En se concentrant sur la REE avec les enseignants de mathématiques, on observe des résultats plus marqués.
-La note moyenne utilisée est désormais celle des mathématiques et non plus la moyenne générale.
+La note moyenne utilisée est désormais celle des mathématiques et non plus la moyenne générale, même si les deux moyennes sont interchangeables.
 
 ```{r, echo = FALSE, include=FALSE}
 # Test de corrélation entre la note moyenne d'un pays et son indice TEACHSUP moyen
 cor.test(bilan_pays$REE_maths, bilan_pays$Note_moyenne)
 ```
 
-Plus un pays dispose d’un niveau en mathématiques élevé selon les notes de l'OCDE, moins la relation entre les élèves et les enseignants de mathématiques est jugée positive.
-En effet, on constate une corrélation négative (r =\~ -0.51, p-value =\~ 5e-06) entre la qualité de la REE moyenne d'un pays et sa note OCDE moyenne concernant les mathématiques.
+Avec un test de corrélation, on constate que plus un pays dispose d’un niveau en mathématiques élevé, selon les notes de l'OCDE, moins la relation entre les élèves et les enseignants de mathématiques est jugée positive.
+En effet, la corrélation est négative (r =\~ -0.51, p-value =\~ 5e-06) entre la qualité de la REE moyenne d'un pays et sa note OCDE moyenne concernant les mathématiques.
 
 ```{r, echo = FALSE, warning= FALSE}
 # Regression linéaire entre l'indice RELATST moyen d'un pays et la note moyenne obtenue par ce pays
@@ -537,16 +540,16 @@ ggplot(bilan_pays, aes(x = REE_maths, y = Note_moyenne)) +
   theme(legend.position = "none")
 ```
 
-Note de lecture : Le Kazakhstan (KAZ) a un niveau moyen en mathématiques (445) équivalent à la moyenne des pays interrogés et un indice de REE moyen plus positif qu'en moyenne (0.45).
+Note de lecture : Le Kazakhstan a un niveau moyen en mathématiques (445) équivalent à la moyenne des pays interrogés et un indice de REE moyen plus positif qu'en moyenne (0.45).
 
-Certains pays ne suivent pas cette corrélation négative, comme Singapour (SGP) où la relation avec les enseignants de mathématiques est plus postive de 0.4 point qu'en moyenne dans les pays de l'OCDE.
-De plus, le niveau moyen en mathématiques y est le plus élevé.
-Le Guatemala (GTM) confirme bien le lien de corrélation.
+Certains pays ne semblent pas suivre cette corrélation négative, comme Singapour où la relation avec les enseignants de mathématiques est plus postive d'environ 0.4 point qu'en moyenne dans les pays de l'OCDE. De plus, le niveau moyen en mathématiques y est le plus élevé.
+
+De son côté, le Guatemala ou le Paraguay confirment bien le lien de corrélation.
 Le niveau moyen en mathématiques est largement en dessous de la moyenne, alors qu'on y retrouve la meilleure REE moyenne.
 
 ## 2.3 La REE et l'influence du statut socio-économique
 
-Si les notes et la REE sont corrélées, on peut tout de même s'interroger sur l'influence du statut socio-économique des parents dans la relation qu'entretient l'élève avec les enseignants.
+Si les notes et la REE sont corrélées, on peut tout de même s'interroger sur l'influence du statut socio-économique des parents dans la relation qu'entretient l'élève avec ses enseignants.
 Autrement dit, les origines sociales des élèves modifient-elles la manière dont ils intéragissent avec le corps enseignant ?
 
 ### 2.3.1 L'origine sociale des élèves n'explique pas la qualité de la REE
@@ -660,10 +663,10 @@ Cela révèle le fonctionnement des systèmes éducatifs et leur capacité à cr
 ::: {.callout-note icon="false"}
 ### Lien entre le statut socio-économique et le niveau scolaire des élèves
 
-Comme le présentent de nombreuses études, le statut socio-économique des parents est positivement corrélée avec le niveau scolaire. Il est également possible de parler de lien de causalité entre ces deux éléments
+Comme le présentent de nombreuses études, le statut socio-économique des parents est positivement corrélée avec le niveau scolaire.
+Il est également possible de parler de lien de causalité entre ces deux éléments
 
-"Le statut socio-économique peut avoir une influence considérable sur les résultats de l'apprentissage. Si les mauvais résultats ne découlent pas automatiquement d'un désavantage socio-économique, les écoles reproduisent parfois les schémas existants d'avantages et de désavantages, au lieu de créer une distribution plus équitable des opportunités d'apprentissage et des résultats pour les élèves." [^1]
-[^1] : [Causalité entre statut socio-économique et résultats scolaire, OCDE](https://www.oecd.org/fr/topics/sub-issues/student-socio-economic-status.html)
+"Le statut socio-économique peut avoir une influence considérable sur les résultats de l'apprentissage. Si les mauvais résultats ne découlent pas automatiquement d'un désavantage socio-économique, les écoles reproduisent parfois les schémas existants d'avantages et de désavantages, au lieu de créer une distribution plus équitable des opportunités d'apprentissage et des résultats pour les élèves." \[\^1\] \[\^1\] : [Causalité entre statut socio-économique et résultats scolaire, OCDE](https://www.oecd.org/fr/topics/sub-issues/student-socio-economic-status.html)
 
 Cette relation se confirme avec une Analyse en composantes principales (ACP).
 
@@ -681,15 +684,17 @@ fviz_pca_var(
   title = "Cercle des corrélations entre les variables de REE et niveau académique"
 )
 ```
-La moyenne générale est corrélée avec le statut socio-économique, les deux variables expliquent l'axe 2. Tandis que la qualité des cours de mathématiques et la qualité des relations élèves-enseignants expliquent l'axe 1.
+
+La dimension 1 s'explique par la moyenne générale et le statut socio-économique, qui figurent comme étant corrélées positivement.
+Tandis que la dimension 2 s'explique très nettement par la qualité des cours de mathématiques et la qualité des relations élèves-enseignants.
 
 Le lien entre l'origine sociale et le niveau scolaire explique donc la présence de résultats similaires concernant la corrélation entre la qualité de la REE et le niveau académique puis avec le statut socio-économique.
-
 :::
 
 ## 2.4 La REE et le rapport aux apprentissages
 
 ### 2.4.1 La qualité de la REE est influencée par l'appréciation des cours
+
 Au delà du niveau scolaire ou de statut socio-économique, l'appréciation de l'élève concernant les matières étudiées peut partiellement expliquer la qualité de la REE, notamment concernant la qualité de l'enseignement.
 
 ```{r, echo=FALSE, include=FALSE}
@@ -734,6 +739,7 @@ ggplot(bilan_pays, aes(x = REE_moyen, y = qualite_moyen)) +
   theme(legend.position = "none")
 
 ```
+
 Note de lecture : ...
 
 Avec ce nuage de points, on retrouve la même répartition des différents pays en miroir par rapport aux corrélations avec les notes et le statut socio-économique.
@@ -778,7 +784,9 @@ fviz_cluster(res_km, data = df_scaled,
              scale_colour_manual(values = mes_couleurs) +
              scale_fill_manual(values = mes_couleurs)
 ```
+
 Note de lecture : D'après le regroupement des pays par la méthode du k-means, en fonction de la qualité de la REE, des notes et de la qualité d'enseignement en mathématiques, l'Australie, le Portugal, la Suède et Singapour ont des modèle éducatifs similaires.
+
 ```{r, echo=FALSE, include=FALSE}
 df_cluster %>%
   group_by(Groupe) %>%
@@ -789,13 +797,14 @@ mean(df_cluster$qualite_moyen)
 ```
 
 Tableau des moyennes pour chaque groupe issus du regroupement k-means
+
 | Groupe | Qualité de la REE | Note | Qualité des cours de maths |
-|:-----------------|:-----------------|:-----------------|:-----------------|
+|:-----------------|:----------------:|:----------------:|:----------------:|
 | 1 | [0.33]{style="color:red"} | [389]{style="color:blue"} | [7.48]{style="color:red"} |
 | 2 | [-0.17]{style="color:blue"} | [470]{style="color:red"} | [6.23]{style="color:blue"} |
 | 3 | [0.01]{style="color:blue"} | [402]{style="color:blue"} | [6.83]{style="color:red"} |
 | 4 | [0.17]{style="color:red"} | [501]{style="color:red"} | [6.49]{style="color:blue"} |
-| Total | 0.04 | 443 | 6.70 |
+| **Total** | **0.04** | **443** | **6.70** |
 
 Le groupe 1 regroupe des pays ayant en moyenne une meilleure qualité de REE et d'enseignement en mathématiques.
 En revanche, ces pays ont des notes bien inférieures à la moyenne, avec une différence de 54 points.
@@ -856,7 +865,8 @@ ggplot(data = world_data) +
   theme(legend.position = "bottom")
 
 ```
-Note de lecture : La majorité des pays d'Europe ont des modèles similaires de REE associés aux notes et à la qualité d'enseignement. 
+
+Note de lecture : La majorité des pays d'Europe ont des modèles similaires de REE associés aux notes et à la qualité d'enseignement.
 
 # 3 Existe-t-il une relation entre la REE et le bien-être des élèves dans le cadre scolaire ?
 
