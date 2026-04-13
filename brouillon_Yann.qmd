@@ -282,7 +282,7 @@ Après avoir “nettoyé” notre base de données, nous pouvons faire une analy
 
 
 ```{r, echo = FALSE}
-png(filename = "images_rapports/figure2_comparaison_NA_notes_relatst.png", width = 800, height = 600)
+pdf("images_rapports/figure2_comparaison_NA_notes_relatst.pdf", width = 6, height = 4)
 data_etude$statut_NA <- ifelse(is.na(data_etude$RELATST), "Manquant", "Présent")
 ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
@@ -298,7 +298,7 @@ dev.off()
 
 ```
 ```{r, echo = FALSE}
-png(filename = "images_rapports/figure3_comparaison_NA_notesmaths_teachsup.png", width = 800, height = 600)
+pdf("images_rapports/figure3_comparaison_NA_notesmaths_teachsup.pdf", width = 6, height = 4)
 data_etude$statut_NA <- ifelse(is.na(data_etude$TEACHSUP), "Manquant", "Présent")
 ggplot(data_etude, aes(x = MOY_MATH, fill = statut_NA)) +
   geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
@@ -379,7 +379,7 @@ On remarque que les résultats sont très positifs, la question ayant le moins b
 
 
 ```{r, echo = FALSE}
-png(filename = "images_rapports/figure5_Reponses_indiquant_une _relation_positive.png", width = 800, height = 600)
+pdf("images_rapports/figure5_Reponses_indiquant_une _relation_positive.pdf", width = 6, height = 4)
 
 data_relatst_na <- data_etude %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
 data_relatst <- na.omit(data_relatst_na)
@@ -440,7 +440,7 @@ Cette relation étant très positive en ce qui concerne les enseignants au globa
 Les résultats sont très différents de ce qu'on a pu observer avec les enseignants dans leur globalité. En effet, les taux de réponses positives se trouvent seulement entre 25.4% et 32.2%, on se retrouve donc avec une majorité de réponses négatives contrairement à la relation globale.
 
 ```{r, echo = FALSE}
-png(filename = "images_rapports/figure6_Reponses_indiquant_une_relation_positive_maths.png", width = 800, height = 600)
+pdf("images_rapports/figure6_Reponses_indiquant_une_relation_positive_maths.pdf", width = 6, height = 4)
 
 data_teachsup_na <- data_etude %>% select(ST270Q01JA, ST270Q02JA, ST270Q03JA, ST270Q04JA)
 data_teachsup <- na.omit(data_teachsup_na)
@@ -507,7 +507,7 @@ Celles-ci permettent de connaître le niveau relatif des élèves concernant dif
 Pour comprendre au mieux la relation que le niveau scolaire peut entretenir avec la REE, les analyses vont se porter sur la moyenne générale obtenue par les élèves ainsi que leur moyenne de mathématiques.
 
 ```{r, echo=FALSE}
-png(filename = "images_rapports/figure7_matrice_correlation_variables.png", width = 800, height = 600)
+pdf("images_rapports/figure7_matrice_correlation_variables.pdf", width = 6, height = 4)
 
 REE_notes <- data_etude %>%
   select(RELATST, TEACHSUP, MOY_GENERALE, MOY_MATH)
@@ -604,7 +604,7 @@ En effet, on constate une corrélation négative (r =\~ -0.51, p-value =\~ 5e-06
 
 ```{r, echo = FALSE, warning= FALSE}
 
-png(filename = "images_rapports/figure8_Corrélation_entre_la_note_moyenne_en_maths_et_la_relation_avec_lenseignant_de_mathématiques.png", width = 800, height = 600)
+pdf("images_rapports/figure8_Corrélation_entre_la_note_moyenne_en_maths_et_la_relation_avec_lenseignant_de_mathématiques.pdf", width = 6, height = 4)
 
 # Regression linéaire entre l'indice RELATST moyen d'un pays et la note moyenne obtenue par ce pays
 modele_TEACHSUP <- lm(Note_moyenne ~ REE_maths, data = bilan_pays)
@@ -642,7 +642,7 @@ Autrement dit, les origines sociales des élèves modifient-elles la manière do
 
 ```{r, echo=FALSE, warning=FALSE}
 
-png(filename = "images_rapports/figure9_La_relation_élève-enseignant_selon_le_statut_socio-économique_des_parents.png", width = 800, height = 600)
+pdf("images_rapports/figure9_La_relation_élève-enseignant_selon_le_statut_socio-économique_des_parents.pdf", width = 6, height = 4)
 
 # Dispersion de l'indice RELATST en fonction des quartiles socio-éco
 etude_ESCS <- data_etude %>% mutate(Quartile_Social = ntile(ESCS, 4))
@@ -680,7 +680,7 @@ Le vécu des élèves apparaît comme similaire quelques soient les origines soc
 Les écarts inter-quartile sont très similaires pour les quatres groupes socio-économiques, tout comme les moyennes et les médianes.
 
 ```{r, echo = FALSE, warning = FALSE}
-png(filename = "images_rapports/figure10_La_relation_avec_lenseignant_de_mathématique_selon_le_statut_socio-économique_des_parents.png", width = 800, height = 600)
+pdf("images_rapports/figure10_La_relation_avec_lenseignant_de_mathématique_selon_le_statut_socio-économique_des_parents.pdf", width = 6, height = 4)
 
 # Dispersion de l'indice TEACHSUP en fonction des quartiles socio-éco
 etude_ESCS <- data_etude %>% mutate(Quartile_Social = ntile(ESCS, 4))
@@ -725,7 +725,7 @@ Lorsque dans un pays le statut socio-économique moyen a tendance à être plus 
 Inversement, dans les pays avec un statut socio-économique moyen davatange favorisé, la REE est jugée plus négativement.
 
 ```{r, echo=FALSE}
-png(filename = "images_rapports/figure11_Corrélation_entre_le_statut_socio-économique_moyen_et_la_REE_moyenne_des_pays.png", width = 800, height = 600)
+pdf("images_rapports/figure11_Corrélation_entre_le_statut_socio-économique_moyen_et_la_REE_moyenne_des_pays.pdf", width = 6, height = 4)
 
 modele_ESCS <- lm(ESCS_moyen ~ REE_moyen, data = bilan_pays)
 ggplot(bilan_pays, aes(x = REE_moyen, y = ESCS_moyen)) +
@@ -769,7 +769,7 @@ Comme le présentent de nombreuses études, le statut socio-économique des pare
 Cette relation se confirme avec une Analyse en composantes principales (ACP).
 
 ```{r, echo=FALSE}
-png(filename = "images_rapports/figure_annexe_ACP.png", width = 800, height = 600)
+pdf("images_rapports/figure_annexe_ACP.pdf", width = 6, height = 4)
 
 vars_niveau <- data_etude %>%
   select(RELATST, TEACHSUP, MOY_GENERALE, ESCS, ST272Q01JA)
@@ -819,7 +819,7 @@ Lorsqu'on change d'échelle, en regardant la qualité observée moyenne des cour
 Alors, meilleure est la qualité des cours de mathématique, meilleure est la relation entre les élèves et les enseignants à l'échelle nationale.
 
 ```{r, echo=FALSE, warning=FALSE}
-png(filename = "images_rapports/figure12_Corrélation_entre_qualité_cours_maths_et_la_REE_moyenne_des_pays.png", width = 800, height = 600)
+pdf("images_rapports/figure12_Corrélation_entre_qualité_cours_maths_et_la_REE_moyenne_des_pays.pdf", width = 6, height = 4)
 
 modele_qualite <- lm(qualite_moyen ~ REE_moyen, data = bilan_pays)
 ggplot(bilan_pays, aes(x = REE_moyen, y = qualite_moyen)) +
@@ -849,7 +849,7 @@ On peut alors se demander si il n'y aurait pas des profils de pays selon la qual
 Profil pays ?
 
 ```{r, echo=FALSE}
-png(filename = "images_rapports/figure13_Typologie_des_pays_selon_la_qualité_des_REE_des_enseignements_en_mathématiques_et_les_notes.png", width = 800, height = 600)
+pdf("images_rapports/figure13_Typologie_des_pays_selon_la_qualité_des_REE_des_enseignements_en_mathématiques_et_les_notes.pdf", width = 6, height = 4)
 
 mes_couleurs <- c("aquamarine3", "brown3", "darkolivegreen3", "darkgoldenrod2")
 library(dplyr)
@@ -925,7 +925,7 @@ La Corée du Sud, Hong Kong, l'Australie ainsi que la Norvège en font partie.
 Pour mieux se rendre compte des regroupements de pays selon leur qualité de REE, notes et qualité d'enseignement, il est pértinent de les représenter sur une carte.
 
 ```{r, echo=FALSE}
-png(filename = "images_rapports/figure14_Répartition_mondiale_des_modèles_de_relation_élève-enseignant.png", width = 800, height = 600)
+pdf("images_rapports/figure14_Répartition_mondiale_des_modèles_de_relation_élève-enseignant.pdf", width = 6, height = 4)
 
 df_analyse <- bilan_pays_CNT %>%
   select(CNT, REE_moyen, Note_moyenne, qualite_moyen) %>%

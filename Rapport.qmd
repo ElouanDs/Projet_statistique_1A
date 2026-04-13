@@ -3,7 +3,6 @@ title: "Relation élèves enseignants"
 author: "Barbeau Faustine - Combes Florent - Dumas Elouan - Malzieu Yann"
 format:
   pdf:
-    dpi: 150
     documentclass: report
     classoption: oneside
     pdf-engine: pdflatex 
@@ -50,84 +49,6 @@ Dans un premier temps, il s’agira de comprendre ce qu’est la relation élèv
 
 Les données utilisées sont issues de l'enquête PISA 2022, qui interroge des élèves âgés de 15 habitant dans 85 pays. Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économique des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants.
 
-
-```{r, echo = FALSE, include = FALSE, warning=FALSE, message = FALSE}
-
-
-packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse","ggrepel","rnaturalearth","rnaturalearthdata","sf","kableExtra")
-install.packages(packages) 
-library(tidyverse)
-library(psych)
-library(FactoMineR)
-library(factoextra)
-library(corrplot)
-library(ggrepel)
-library(rnaturalearth)
-library(rnaturalearthdata)
-library(knitr)
-library(kableExtra)
-```
-
-```{r, echo = FALSE, include = FALSE}
-# Importation des données
-data <- readRDS("stu_qqq.rds")
-```
-
-```{r, echo = FALSE, include = FALSE}
-matieres <- c(
-"MATH", #Mathématiques générales
-"READ", #Lecture
-"SCIE", #Science
-"MCCR", #Mathématiques : Changement et relation
-"MCQN", #Mathématiques : Quantitatif
-"MCSS", #Mathématiques : Espace et formes
-"MCUD", #Mathématiques : Incertitude et données
-"MPEM", #Mathématiques : Employer des concepts mathématiques, définitions et théorèmes
-"MPFS", #Mathématiques : Formuler des situations mathématiquement
-"MPIN", #Mathématiques : Interpréter, appliquer et analyser des sorties mathématiques
-"MPRE" #Mathématiques : Raisonnement
-)
-```
-
-```{r, echo = FALSE, include = FALSE}
-## Gestion des notes
-Notes <- data %>% select(starts_with("PV"))
-Notes_NA <- data %>% select(starts_with("PV"))
-Notes_NA <-lapply(Notes_NA, as.numeric)
-moyennes_NA <- lapply(Notes_NA, mean, na.rm = FALSE)
-```
-
-```{r, echo = FALSE, include = FALSE}
-Notes_moyennes <- as.data.frame(
-  sapply(matieres, function(m) {
-    vars <- paste0("PV", 1:10, m)
-    rowMeans(Notes[, vars], na.rm = TRUE)
-  })
-)
-
-colnames(Notes_moyennes) <- paste0("MOY_", matieres)
-
-Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
-```
-
-```{r, echo = FALSE, include = FALSE}
-# Selection des indices + variables explicatives
-vars_collector <- c("RELATST","TEACHSUP","ESCS","ST272Q01JA", "EXPWB","BELONG","BULLIED","ANXMAT","ST267Q01JA", "ST267Q02JA", "ST267Q03JA", "ST267Q04JA", "ST267Q05JA", "ST267Q06JA", "ST267Q07JA", "ST267Q08JA","ST270Q01JA", "ST270Q02JA", "ST270Q03JA", "ST270Q04JA","ST268Q01JA","ST268Q02JA", "ST268Q03JA","OECD")
-
-vars_etude <- vars_collector[vars_collector %in% names(data)]
-
-idx_vars_etude <- match(vars_etude, names(data))
-
-data_etude <- c(data[, c(1,26, idx_vars_etude), drop = FALSE],Notes_moyennes[c(1,12)])
-data_etude <- as.data.frame(data_etude)
-rm(data,Notes,Notes_moyennes,Notes_NA)
-```
-
-```{r, echo = FALSE, include = FALSE}
-# Conversion en facteur
-data_etude$ST004D01T <- as.factor(data_etude$ST004D01T)
-```
-
 # 1 Comprendre la relation élève-enseignant
 
 ## 1.1 Cadre d'analyse de la REE
@@ -142,6 +63,7 @@ Pour commencer notre analyse, nous allons regarder le profil des élèves qui n'
 
 
 ![Tableau 1: Comparaisons groupes avec valeurs manquantes et sans](images_rapports/tableau1_manquants_NA.png){fig-cap="Tableau 1 : Comparaisons groupes avec valeurs manquantes et sans"}
+
 Note de lecture: Dans le groupe qui n'a pas de valeur en indice de REE global ou de REE ciblée sur les professeurs de mathématiques on a 45.96% de filles. Pour le groupe avec aucune valeur manquante sur ces deux indices on a 51.18% de filles
 
 
@@ -151,13 +73,15 @@ Les manquants représentent 159590 données c'est-à-dire 26% de nos données. A
 
 Pour faire un résumé nos données manquant ont le profil suivant par rapport aux autres données: On y retrouve plus d'hommes, plus anxieux envers les mathématiques, plus harcelé et avec un moins bon sentiment d'appartenance et pour finir une origine socio-écono beaucoup plus faible.
 
-![Figure 1: Comparaison des moyennes générale des élèves en fonction de leur statut de réponse sur le REE global](images_rapports/figure2_comparaison_NA_notes_relatst.png){fig-cap="Comparaison des moyennes générale des élèves en fonction de leur statut de réponse sur le REE global"}
+![Figure 1: Comparaison des moyennes générale des élèves en fonction de leur statut de réponse sur le REE global](images_rapports/figure2_comparaison_NA_notes_relatst.pdf){fig-cap="Comparaison des moyennes générale des élèves en fonction de leur statut de réponse sur le REE global"}
+
 Note de lecture : La distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
 
 En ce qui concerne le graphique ci-dessus, on a une logique concernant le profil des élèves qui ont des non réponses. Nous voyons qu'il existe une relation entre le fait de ne pas avoir d'indice de REE et la moyenne générale. En effet on remarque que la distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE. On peut donc en conclure que les élèves qui ne se positionnent pas sur leur relation avec le corps enseignant sont des élèves avec une moyenne générale plus faible que ceux se positionnant.
 
 
-![Figure 2: Comparaison des moyennes en mathématiques des élèves en fonction de leur statut de réponse sur le REE ciblée sur les professeurs de mathématiques](images_rapports/figure3_comparaison_NA_notesmaths_teachsup.png){fig-cap="Comparaison des moyennes en mathématiques des élèves en fonction de leur statut de réponse sur le REE ciblée sur les professeurs de mathématiques"}
+![Figure 2: Comparaison des moyennes en mathématiques des élèves en fonction de leur statut de réponse sur le REE ciblée sur les professeurs de mathématiques](images_rapports/figure3_comparaison_NA_notesmaths_teachsup.pdf){fig-cap="Comparaison des moyennes en mathématiques des élèves en fonction de leur statut de réponse sur le REE ciblée sur les professeurs de mathématiques"}
+
 Note de lecture : La distribution de la moyenne en mathématiques des élèves n'ayant pas d'indice de REE portant sur les enseignants de mathématiques est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
 
 Concernant la figure 3, nous avons la distribution des notes en mathématiques selon leur réponses ou non pour avoir un indice de REE centré sur les professeurs de mathématiques. En effet l'utilisation de la moyenne en mathématiques est plus appropriée que la moyenne générale quand on regarde une potentielle liaison entre le professeur de mathématique et l'élève. On en tire les mêmes conclusion que dans la figure 2. Les élèves n'ayant pas répondu aux questions relatives sur la REE avec le professeur de mathématique ont de moins bonne notes que ceux ayant répondu aux question dans cette matière.
@@ -167,6 +91,7 @@ Nous pouvons donc ajouter des caractéristiques au profil de nos élèves qui ne
 ## 1.3 Les profils des élèves qui ont un indice sur leur relation avec le corps enseignant
 
 ![Statsitiques des différentes variables après suppression des valeurs manquantes](images_rapports/figure4_summary_table.png){fig-cap="Statsitiques des différentes variables après suppression des valeurs manquantes"}
+
 Notes de lecture: La variable RELATST correspondant à la qualitée de la REE global possède une moyenne de -0.007, un minimum de -10.09 et un maximum de 3.417.
 Notes: RELATST correspond à l'indice sur la REE globale.
 TEACHSUP correspond à l'indice sur la REE ciblée en mathématique.
@@ -181,7 +106,7 @@ Pour continuer notre analyse nous avons supprimé de notre base de données tous
 ## 1.4 Une relation décrite comme globalement positive au travers du vécu de l'élève.
 
 
-![Graphique en barre indiquant le taux de réponse positives selon les questions](images_rapports/figure5_Reponses_indiquant_une _relation_positive.png){fig-cap="Graphique en barre indiquant le taux de réponse positives selon les questions"}
+![Graphique en barre indiquant le taux de réponse positives selon les questions](images_rapports/figure5_Reponses_indiquant_une _relation_positive.pdf){fig-cap="Graphique en barre indiquant le taux de réponse positives selon les questions"}
 
 Note de lecture : 85% des élèves affirment que leurs enseignants sont respectueux envers eux.
 
@@ -191,7 +116,8 @@ On remarque que les résultats sont très positifs, la question ayant le moins b
 Cette relation étant très positive en ce qui concerne les enseignants au global, il semble alors juste de rentrer plus dans les détails en s'intéressant aux enseignants de mathématiques précisément. On a donc sur la figure suivant le taux de réponse positive pour les questions concernant les enseignants de mathématiques. 
 
 
-![Graphique en barre indiquant le taux de réponse positives selon les questions avec les enseignants de mathématiques](images_rapports/figure6_Reponses_indiquant_une_relation_positive_maths.png){fig-cap="Graphique en barre indiquant le taux de réponse positives selon les questions avec les enseignants de mathématiques"}
+![Graphique en barre indiquant le taux de réponse positives selon les questions avec les enseignants de mathématiques](images_rapports/figure6_Reponses_indiquant_une_relation_positive_maths.pdf){fig-cap="Graphique en barre indiquant le taux de réponse positives selon les questions avec les enseignants de mathématiques"}
+
 Note de lecture : 32.2% des élèves affirment que leur enseignant de mathématique montre de l'intérêt pour l'apprentissage des élèves.
 
 Les résultats sont très différents de ce qu'on a pu observer avec les enseignants dans leur globalité. En effet, les taux de réponses positives se trouvent seulement entre 25.4% et 32.2%, on se retrouve donc avec une majorité de réponses négatives contrairement à la relation globale. Cela montre donc que la REE avec le professeur de mathématique est mauvaise en comparaison avec la REE globale.
@@ -208,7 +134,7 @@ Le niveau scolaire est ici étudié au travers des notes établies par l'OCDE lo
 Celles-ci permettent de connaître le niveau relatif des élèves concernant différents domaines d'études : les mathématiques, la compréhension de l'écrit et les sciences.
 Pour comprendre au mieux la relation que le niveau scolaire peut entretenir avec la REE, les analyses vont se porter sur la moyenne générale obtenue par les élèves ainsi que leur moyenne de mathématiques.
 
-![Matrice de corrélation entre les variables](images_rapports/figure7_matrice_correlation_variables.png){fig-cap="Matrice de corrélation entre les variables"}
+![Matrice de corrélation entre les variables](images_rapports/figure7_matrice_correlation_variables.pdf){fig-cap="Matrice de corrélation entre les variables"}
 
 Note de lecture : La corrélation entre la relation élèves-enseignants (REE) et la moyenne générale est de 0.06.
 
@@ -233,7 +159,7 @@ La note moyenne utilisée est désormais celle des mathématiques et non plus la
 Plus un pays dispose d’un niveau en mathématiques élevé selon les notes de l'OCDE, moins la relation entre les élèves et les enseignants de mathématiques est jugée positive.
 En effet, on constate une corrélation négative (r =\~ -0.51, p-value =\~ 5e-06) entre la qualité de la REE moyenne d'un pays et sa note OCDE moyenne concernant les mathématiques.
 
-![Figure 7: Nuage de points représentant les corrélation entre la note moyenne en mathématiques et la relation avec le professeur de cette matière par pays](images_rapports/figure8_Corrélation_entre_la_note_moyenne_en_maths_et_la_relation_avec_lenseignant_de_mathématiques.png){fig-cap="Nuage de points représentant les corrélation entre la note moyenne en mathématiques et la relation avec le professeur de cette matière par pays"}
+![Nuage de points représentant les corrélation entre la note moyenne en mathématiques et la relation avec le professeur de cette matière par pays](images_rapports/figure8_Corrélation_entre_la_note_moyenne_en_maths_et_la_relation_avec_lenseignant_de_mathématiques.pdf){fig-cap="Nuage de points représentant les corrélation entre la note moyenne en mathématiques et la relation avec le professeur de cette matière par pays"}
 
 Note de lecture : Le Kazakhstan (KAZ) a un niveau moyen en mathématiques (445) équivalent à la moyenne des pays interrogés et un indice de REE moyen plus positif qu'en moyenne (0.45).
 
@@ -249,7 +175,7 @@ Autrement dit, les origines sociales des élèves modifient-elles la manière do
 
 ### 2.3.1 L'origine sociale des élèves n'explique pas la qualité de la REE
 
-![Figure 8: Boxplots de la valeurs de l'indice de REE global selon l'indice socio_économique](images_rapports/figure9_La_relation_élève-enseignant_selon_le_statut_socio-économique_des_parents.png){fig-cap="Boxplots de la valeurs de l'indice de REE global selon l'indice socio_économique"}
+![Boxplots de la valeurs de l'indice de REE global selon l'indice socio_économique](images_rapports/figure9_La_relation_élève-enseignant_selon_le_statut_socio-économique_des_parents.pdf){fig-cap="Boxplots de la valeurs de l'indice de REE global selon l'indice socio_économique"}
 
 Note de lecture : Les 50 % d'élèves situés parmi les plus défavorisés (quartile 1) rapportent des scores d'indice de REE compris entre environ -0,7 et +0,8.
 
@@ -260,7 +186,7 @@ Le statut socio-économique des parents n'influence pas la qualité de la relati
 Le vécu des élèves apparaît comme similaire quelques soient les origines sociales.
 Les écarts inter-quartile sont très similaires pour les quatres groupes socio-économiques, tout comme les moyennes et les médianes.
 
-![Figure 9 : Boxplots représentant la valeur de la REE ciblée sur l'enseignant de mathématique en fonction de la valeur de l'indice socio-économique ](images_rapports/figure10_La_relation_avec_lenseignant_de_mathématique_selon_le_statut_socio-économique_des_parents.png){fig-cap="Boxplots représentant la valeur de la REE ciblée sur l'enseignant de mathématique en fonction de la valeur de l'indice socio-économique"}
+![Boxplots représentant la valeur de la REE ciblée sur l'enseignant de mathématique en fonction de la valeur de l'indice socio-économique ](images_rapports/figure10_La_relation_avec_lenseignant_de_mathématique_selon_le_statut_socio-économique_des_parents.pdf){fig-cap="Boxplots représentant la valeur de la REE ciblée sur l'enseignant de mathématique en fonction de la valeur de l'indice socio-économique"}
 
 Note de lecture : L'indice moyen de relation avec l'enseignant de mathématiques pour les élèves appartenant au quart le plus défavorisé de la population (quartile 1) se situe entre -0.3 et 1.5 pour la moitié d'entre eux (dans la "boîte").
 
@@ -274,7 +200,7 @@ A l'échelle nationale, la REE et le statut socio-économique sont corrélés n�
 Lorsque dans un pays le statut socio-économique moyen a tendance à être plus défavorisés, les élèves observent en moyenne une meilleure relation avec leurs enseignants.
 Inversement, dans les pays avec un statut socio-économique moyen davatange favorisé, la REE est jugée plus négativement.
 
-![Figure 10 : Nuage de points représentant les pays en fonction de leur REE moyen et de leur statut socio-économique](images_rapports/figure11_Corrélation_entre_le_statut_socio-économique_moyen_et_la_REE_moyenne_des_pays.png){fig-cap="Nuage de points représentant les pays en fonction de leur REE moyen et de leur statut socio-économique"}
+![Nuage de points représentant les pays en fonction de leur REE moyen et de leur statut socio-économique](images_rapports/figure11_Corrélation_entre_le_statut_socio-économique_moyen_et_la_REE_moyenne_des_pays.pdf){fig-cap="Nuage de points représentant les pays en fonction de leur REE moyen et de leur statut socio-économique"}
 
 Note de lecture : L'Albanie (ALB) a un indice socio-économique moyen inférieur à la moyenne des pays interrogés (-0.75) ainsi qu'un indice de REE moyen supérieur à la moyenne (0.3).
 
@@ -297,7 +223,8 @@ Comme le présentent de nombreuses études, le statut socio-économique des pare
 
 Cette relation se confirme avec une Analyse en composantes principales (ACP).
 
-![Figure annexe: Cercle de corrélation](images_rapports/figure_annexe_ACP.png){fig-cap="Cercle de corrélation"}
+![Cercle de corrélation](images_rapports/figure_annexe_ACP.pdf){fig-cap="Cercle de corrélation"}
+
 La moyenne générale est corrélée avec le statut socio-économique, les deux variables expliquent l'axe 2. Tandis que la qualité des cours de mathématiques et la qualité des relations élèves-enseignants expliquent l'axe 1.
 
 Le lien entre l'origine sociale et le niveau scolaire explique donc la présence de résultats similaires concernant la corrélation entre la qualité de la REE et le niveau académique puis avec le statut socio-économique.
@@ -321,7 +248,8 @@ La qualité de la REE en maths est donc dépendante de la qualité observée des
 Lorsqu'on change d'échelle, en regardant la qualité observée moyenne des cours de mathématiques par pays, on constate une importante corrélation positive entre qualité des cours et qualité de la REE (0.62, p-value \< 1e-08).
 Alors, meilleure est la qualité des cours de mathématique, meilleure est la relation entre les élèves et les enseignants à l'échelle nationale.
 
-![Figure 11: Nuage de points représentant les pays en fonction de leur REE ciblée en mathématiques et la qualité des cours de mathématiques ](images_rapports/figure12_Corrélation_entre_qualité_cours_maths_et_la_REE_moyenne_des_pays.png){fig-cap="Nuage de points représentant les pays en fonction de leur REE ciblée en mathématiques et la qualité des cours de mathématiques"}
+![Nuage de points représentant les pays en fonction de leur REE ciblée en mathématiques et la qualité des cours de mathématiques ](images_rapports/figure12_Corrélation_entre_qualité_cours_maths_et_la_REE_moyenne_des_pays.pdf){fig-cap="Nuage de points représentant les pays en fonction de leur REE ciblée en mathématiques et la qualité des cours de mathématiques"}
+
 Note de lecture : ...
 
 Avec ce nuage de points, on retrouve la même répartition des différents pays en miroir par rapport aux corrélations avec les notes et le statut socio-économique.
@@ -330,7 +258,8 @@ On peut alors se demander si il n'y aurait pas des profils de pays selon la qual
 
 Profil pays ?
 
-![Figure 12 : Nuage de points représentant des groupes de pays selon la qualité de la REE ciblée en mathématiques et les notes de mathématiques ](images_rapports/figure13_Typologie_des_pays_selon_la_qualité_des_REE_des_enseignements_en_mathématiques_et_les_notes.png){fig-cap="Nuage de points représentant des groupes de pays selon la qualité de la REE ciblée en mathématiques et les notes de mathématiques"}
+![Nuage de points représentant des groupes de pays selon la qualité de la REE ciblée en mathématiques et les notes de mathématiques ](images_rapports/figure13_Typologie_des_pays_selon_la_qualité_des_REE_des_enseignements_en_mathématiques_et_les_notes.pdf){fig-cap="Nuage de points représentant des groupes de pays selon la qualité de la REE ciblée en mathématiques et les notes de mathématiques"}
+
 Note de lecture : D'après le regroupement des pays par la méthode du k-means, en fonction de la qualité de la REE, des notes et de la qualité d'enseignement en mathématiques, l'Australie, le Portugal, la Suède et Singapour ont des modèle éducatifs similaires.
 
 
@@ -361,7 +290,8 @@ La Corée du Sud, Hong Kong, l'Australie ainsi que la Norvège en font partie.
 
 Pour mieux se rendre compte des regroupements de pays selon leur qualité de REE, notes et qualité d'enseignement, il est pértinent de les représenter sur une carte.
 
-![Figure 13 : Carte du regroupement des pays suite au k-means ](images_rapports/figure14_Répartition_mondiale_des_modèles_de_relation_élève-enseignant.png){fig-cap="Carte du regroupement des pays suite au k-means"}
+![Carte du regroupement des pays suite au k-means ](images_rapports/figure14_Répartition_mondiale_des_modèles_de_relation_élève-enseignant.pdf){fig-cap="Carte du regroupement des pays suite au k-means"}
+
 Note de lecture : La majorité des pays d'Europe ont des modèles similaires de REE associés aux notes et à la qualité d'enseignement. 
 
 # Annexe
