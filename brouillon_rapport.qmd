@@ -11,6 +11,8 @@ format:
     header-includes: |
       \usepackage{graphicx}
       \usepackage{fancyhdr}
+      \usepackage[table]{xcolor}
+      \usepackage{colortbl}
       
       \pagestyle{fancy}
       \fancyhf{}
@@ -542,7 +544,8 @@ ggplot(bilan_pays, aes(x = REE_maths, y = Note_moyenne)) +
 
 Note de lecture : Le Kazakhstan a un niveau moyen en mathématiques (445) équivalent à la moyenne des pays interrogés et un indice de REE moyen plus positif qu'en moyenne (0.45).
 
-Certains pays ne semblent pas suivre cette corrélation négative, comme Singapour où la relation avec les enseignants de mathématiques est plus postive d'environ 0.4 point qu'en moyenne dans les pays de l'OCDE. De plus, le niveau moyen en mathématiques y est le plus élevé.
+Certains pays ne semblent pas suivre cette corrélation négative, comme Singapour où la relation avec les enseignants de mathématiques est plus postive d'environ 0.4 point qu'en moyenne dans les pays de l'OCDE.
+De plus, le niveau moyen en mathématiques y est le plus élevé.
 
 De son côté, le Guatemala ou le Paraguay confirment bien le lien de corrélation.
 Le niveau moyen en mathématiques est largement en dessous de la moyenne, alors qu'on y retrouve la meilleure REE moyenne.
@@ -627,8 +630,8 @@ Autrement dit, l'écart interquartile est plus important pour les 25% des élèv
 cor.test(bilan_pays$ESCS_moyen, bilan_pays$REE_moyen)
 ```
 
-A l'échelle nationale, la REE et le statut socio-économique sont corrélés négativement (-0.41).
-Lorsque dans un pays le statut socio-économique moyen a tendance à être plus défavorisés, les élèves observent en moyenne une meilleure relation avec leurs enseignants.
+A l'échelle des pays, la REE et le statut socio-économique des élèves sont corrélés négativement de manière significative (-0.41).
+Alors, lorsque dans un pays le statut socio-économique moyen a tendance à être plus défavorisés, les élèves observent en moyenne une meilleure relation avec leurs enseignants.
 Inversement, dans les pays avec un statut socio-économique moyen davatange favorisé, la REE est jugée plus négativement.
 
 ```{r, echo=FALSE}
@@ -649,15 +652,15 @@ ggplot(bilan_pays, aes(x = REE_moyen, y = ESCS_moyen)) +
   theme_minimal() +
   theme(legend.position = "none")
 ```
-
-Note de lecture : L'Albanie (ALB) a un indice socio-économique moyen inférieur à la moyenne des pays interrogés (-0.75) ainsi qu'un indice de REE moyen supérieur à la moyenne (0.3).
+Note de lecture : L'Albanie a un indice socio-économique moyen inférieur à la moyenne des pays interrogés (-0.75) ainsi qu'un indice de REE moyen supérieur à la moyenne (0.3).
 
 Le grapique illustre les différences de systèmes éducatifs entre les différents pays interrogés.
-En effet, si à l'échelle individuelle on ne constate pas de relation de corrélation significative entre les orgines sociales et la qualité de la REE, en comparant les différents pays, on peut conclure d'une influence.
-Cette corrélation négative oppose des systèmes éducatifs tels que ceux du Vietnam (VNM) ou du Guatemala (GTM) et ceux de la Pologne (POL) ou de la Tchéquie (CZE).
+En effet, si à l'échelle individuelle, on ne constate pas de relation de corrélation significative entre les orgines sociales et la qualité de la REE, en comparant les différents pays, on peut conclure d'une influence.
+Cette corrélation négative oppose des systèmes éducatifs tels que ceux du Vietnam ou du Guatemala et ceux de la Pologne ou de la Tchéquie.
 D'un côté, on retouve des pays dont les élèves ont des origines davantage défavorisées et une REE plutôt positive, de l'autre côté des pays dont les élèves ont un statut scoio-économique correspondant à la moyenne OCDE et une REE jugée plus négativement qu'en moyenne au sein des pays de l'OCDE.
 
 On peut en conclure que si, au niveau individuel, aucune corrélation significative n'est observée, une corrélation modérée à forte apparaît au niveau agrégé, c'est-à-dire au niveau des pays.
+Le résultat est comparable à la corrélation entre la qualité de la REE et les notes OCDE.
 
 Cette différence suggère que le lien entre la qualité de la REE et le statut social n'est pas individuel, mais une caractéristique systémique.
 Cela révèle le fonctionnement des systèmes éducatifs et leur capacité à créer une relation plus ou moins positive entre les élèves et les enseignants.
@@ -668,7 +671,9 @@ Cela révèle le fonctionnement des systèmes éducatifs et leur capacité à cr
 Comme le présentent de nombreuses études, le statut socio-économique des parents est positivement corrélée avec le niveau scolaire.
 Il est également possible de parler de lien de causalité entre ces deux éléments
 
-"Le statut socio-économique peut avoir une influence considérable sur les résultats de l'apprentissage. Si les mauvais résultats ne découlent pas automatiquement d'un désavantage socio-économique, les écoles reproduisent parfois les schémas existants d'avantages et de désavantages, au lieu de créer une distribution plus équitable des opportunités d'apprentissage et des résultats pour les élèves." \[\^1\] \[\^1\] : [Causalité entre statut socio-économique et résultats scolaire, OCDE](https://www.oecd.org/fr/topics/sub-issues/student-socio-economic-status.html)
+"Le statut socio-économique peut avoir une influence considérable sur les résultats de l'apprentissage. Si les mauvais résultats ne découlent pas automatiquement d'un désavantage socio-économique, les écoles reproduisent parfois les schémas existants d'avantages et de désavantages, au lieu de créer une distribution plus équitable des opportunités d'apprentissage et des résultats pour les élèves." [^1] 
+
+[^1]: [Causalité entre statut socio-économique et résultats scolaire, OCDE](https://www.oecd.org/fr/topics/sub-issues/student-socio-economic-status.html)
 
 Cette relation se confirme avec une Analyse en composantes principales (ACP).
 
@@ -802,10 +807,10 @@ Tableau des moyennes pour chaque groupe issus du regroupement k-means
 
 | Groupe | Qualité de la REE | Note | Qualité des cours de maths |
 |:-----------------|:----------------:|:----------------:|:----------------:|
-| 1 | [0.33]{style="color:red"} | [389]{style="color:blue"} | [7.48]{style="color:red"} |
-| 2 | [-0.17]{style="color:blue"} | [470]{style="color:red"} | [6.23]{style="color:blue"} |
-| 3 | [0.01]{style="color:blue"} | [402]{style="color:blue"} | [6.83]{style="color:red"} |
-| 4 | [0.17]{style="color:red"} | [501]{style="color:red"} | [6.49]{style="color:blue"} |
+| 1 | [0.33]{color = "red"} | [389]{color = "blue"} | [7.48]{color = "red"} |
+| 2 | [-0.17]{color = "blue"} | [470]{color = "red"} | [6.23]{color = "blue"} |
+| 3 | [0.01]{color = "blue"} | [402]{color = "blue"} | [6.83]{color = "red"} |
+| 4 | [0.17]{color = "red"} | [501]{color = "red"} | [6.49]{color = "blue"} |
 | **Total** | **0.04** | **443** | **6.70** |
 
 Le groupe 1 regroupe des pays ayant en moyenne une meilleure qualité de REE et d'enseignement en mathématiques.
