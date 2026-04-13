@@ -411,11 +411,11 @@ Le chiffre de non-réponse nous poussent à s'interroger sur le profil des élè
 
 ## 2.1 Le niveau académique individuel n'explique pas la qualité de la REE
 
-La relation élèves-enseignant peut être étudiée dans le cadre de la réussite scolaire et plus précisemment concernant le niveau académique des élèves.
+La relation élèves-enseignant peut être étudiée dans le cadre de la réussite scolaire et plus précisemment avec le niveau académique des élèves.
 Comme la REE est une relation prenant place au sein des établissements scolaires, il est tout à fait naturel de s'interroger sur l'influence de la REE sur le niveau des élèves et inversement.
 Le niveau scolaire est ici étudié au travers des notes établies par l'OCDE lors de l'enquête PISA 2022.
-Celle-ci permettent de connaître le niveau relatif des élèves concernant différents domaines d'études.
-Pour comprendre au mieux la relation que le niveau scolaire peut entretenir avec la REE, les analyses vont se porter sur la moyenne générale obtenue par les élèves ainsi que la moyenne de mathématiques.
+Celles-ci permettent de connaître le niveau relatif des élèves concernant différents domaines d'études : les mathématiques, la compréhension de l'écrit et les sciences.
+Pour comprendre au mieux la relation que le niveau scolaire peut entretenir avec la REE, les analyses vont se porter sur la moyenne générale obtenue par les élèves ainsi que leur moyenne de mathématiques.
 
 ```{r, echo=FALSE}
 REE_notes <- data_etude %>%
@@ -441,9 +441,11 @@ corrplot(
 
 Note de lecture : La corrélation entre la relation élèves-enseignants (REE) et la moyenne générale est de 0.06.
 
-Ainsi, contrairement à ce que l’on peut penser a priori, le niveau académique des élèves n'explique pas la qualité de la relation avec leurs enseignants.
-Le lien de corrélation est presque nul (0.06).
-Par conséquent, un élève peut potentiellement bien s’entendre avec son professeur sans pour autant que cela ait une influence sur ses résultats scolaires.
+Ainsi, contrairement à ce que l’on peut penser a priori, le niveau académique des élèves n'explique pas la qualité de la relation avec leurs enseignants. En effet, le lien de corrélation est presque nul (0.06).
+Par conséquent, un élève peut potentiellement bien s’entendre avec son professeur sans pour autant que cela ai une influence sur ses résultats scolaires.
+
+La relation élèves-enseignants en général est corrélée positivement à la relation élèves-enseignants en mathématiques (0.33). 
+
 D’autres facteurs semblent donc être à la source de la réussite scolaire des élèves qu’une bonne relation entre élève et enseignant au niveau global.
 
 ## 2.2 Le niveau académique national est corrélée négativement avec la qualité de la REE
@@ -466,7 +468,7 @@ bilan_pays_CNT <- data_etude %>%
     ESCS_moyen = mean(ESCS, na.rm = TRUE),
     qualite_moyen = mean(ST272Q01JA, na.rm = TRUE),
     Effectif = n()) 
-cor.test(bilan_pays$REE_moyen, bilan_pays$Note_moyenne)
+cor.test(bilan_pays_CNT$REE_moyen, bilan_pays_CNT$Note_moyenne)
 
 # Renomme les pays avec leur nom entier
 correspondance_pays <- data.frame(
@@ -792,14 +794,18 @@ Pour mieux se rendre compte des regroupements de pays selon leur qualité de REE
 ```{r}
 df_analyse <- bilan_pays_CNT %>%
   select(CNT, REE_moyen, Note_moyenne, qualite_moyen) %>%
-  na.omit() %>%
+  na.omit() %>%  # C'est ici que le pays manquant est supprimé
   left_join(correspondance_pays, by = c("CNT" = "iso_a3")) %>%
   mutate(nom_complet = ifelse(is.na(nom_complet), CNT, nom_complet))
 
 df_cluster_final <- df_analyse %>%
   column_to_rownames("nom_complet")
 
-df_cluster_final$Groupe <- as.factor(res_km$cluster)
+set.seed(123)
+res_km_final <- kmeans(scale(df_cluster_final %>% select(REE_moyen, Note_moyenne, qualite_moyen)), 
+                       centers = 4, nstart = 25)
+
+df_cluster_final$Groupe <- as.factor(res_km_final$cluster)
 
 world <- ne_countries(scale = "medium", returnclass = "sf")
 
