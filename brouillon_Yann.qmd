@@ -1051,8 +1051,8 @@ cor.test(
 ```
 Dans un pays où un individu moyen a un REE élevé, cela ne garantit pas qu’il ait un bien-être élevé. Autrement dit, le niveau de REE à l’échelle globale ne prédit pas directement le bien-être moyen.
 
-## 3.2 sexe
-### 3.2.1 échelle individuelle
+## 3.3 sexe
+### 3.3.1 échelle individuelle
 
 La première population est représentée par le sexe. Ainsi l’objectif est d’identifier d’éventuelles inégalités ou sensibilités spécifiques des élèves selon leur sexe auprès de l'influence des REE sur leur bien-être.
 
@@ -1128,7 +1128,7 @@ corrplot(
 
 -> blabla à faire pour faire transistion à l'echelle des pays
 
-### 3.2.2 échelle d'un pays
+### 3.3.2 échelle d'un pays
 L’objectif de cette analyse est d’étudier si les différences entre garçons et filles en matière de relation enseignant-élève (REE) sont associées aux différences de bien-être, à l’échelle des pays.
 
 Dans un premier temps, les observations avec une information manquante sur le sexe sont supprimées afin de garantir la comparabilité des groupes. Une variable catégorielle sexe est ensuite créée.
@@ -1261,8 +1261,8 @@ diff_sexe %>%
   head(10)
 ```
 
-## 3.3 catégorie socio éco
-### 3.3.1 échelle individuelle
+## 3.4 catégorie socio éco
+### 3.4.1 échelle individuelle
 
 
 
@@ -1361,7 +1361,7 @@ corrplot(
 -> aucun changement si on compare par indiviidus, à comparer par pays mainteant comme avec le sexe.
 
 
-### 3.3.2 échelle d'un pays
+### 3.4.2 échelle d'un pays
 
 ->blabla à faire
 ```{r, echo=FALSE, include=FALSE}
@@ -1500,8 +1500,8 @@ diff_escs %>%
 ```
 
 
-## 3.4 Différence selon le contexte du pays
-### 3.4.1 Appartenance OCDE ou non
+## 3.5 Différence selon le contexte du pays
+### 3.5.1 Appartenance OCDE ou non
 
 L’OCDE (Organisation de Coopération et de Développement Économiques) est une organisation internationale regroupant principalement des pays développés. Elle promeut des politiques publiques favorisant le bien-être social et l’amélioration des systèmes éducatifs. 
 Dans le cadre des enquêtes PISA, elle s'avère jouer un rôle central, permettant de déterminer si un élève étudié inscrit son parcours scolaire dans un environnement propice à sa réussite ou non.
@@ -1580,7 +1580,7 @@ Cela signifie que le niveau moyen de bien-être des élèves diffère selon l’
 
 Le test de Student est ici approprié car il permet de comparer les moyennes de deux groupes indépendants sur une variable quantitative, tout en restant robuste aux écarts de normalité lorsque la taille d’échantillon est suffisante.
 
-### 3.4.2 Développement du pays
+### 3.5.2 Développement du pays
 📚 Source fiable
 
 👉 Utilise :
