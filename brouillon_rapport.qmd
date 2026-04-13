@@ -579,7 +579,7 @@ etude_ESCS %>%
   )
 ```
 
-Note de lecture : Les 50 % d'élèves situés parmi les plus défavorisés (quartile 1) rapportent des scores d'indice de REE compris entre environ -0,7 et +0,8.
+Note de lecture : Les 50 % d'élèves situés parmi les 25% les plus défavorisés (quartile 1) rapportent des scores d'indice de REE compris entre environ -0,7 et +0,8.
 
 Note : L'indice REE est une variable composite : une valeur positive indique une perception de la relation plus chaleureuse et soutenante que la moyenne de l'OCDE, tandis qu'une valeur négative indique une relation perçue comme plus distante ou moins aidante.
 Les losanges rouges représentent la moyenne arithmétique de chaque groupe, tandis que la ligne noire horizontale à l'intérieur de chaque boîte indique la médiane (50 % des élèves se situent au-dessus, 50 % en dessous).
@@ -587,6 +587,8 @@ Les losanges rouges représentent la moyenne arithmétique de chaque groupe, tan
 Le statut socio-économique des parents n'influence pas la qualité de la relation entre élèves et enseignants, comme le montre le graphique ci-dessus.
 Le vécu des élèves apparaît comme similaire quelques soient les origines sociales.
 Les écarts inter-quartile sont très similaires pour les quatres groupes socio-économiques, tout comme les moyennes et les médianes.
+
+En s'intéressant à la relation élèves-enseignants en mathématiques, les résulats changent légèrement.
 
 ```{r, echo = FALSE, warning = FALSE}
 # Dispersion de l'indice TEACHSUP en fonction des quartiles socio-éco
@@ -601,7 +603,7 @@ etude_ESCS %>%
   labs(
     title = "La relation avec l'enseignant de mathématique selon le statut socio-économique des parents",
     x = "Quartiles socio-économiques",
-    y = "Indice REE",
+    y = "Indice REE maths",
     caption = "Source : Données PISA 2022"
   ) +
   theme_minimal()+
@@ -616,7 +618,7 @@ etude_ESCS %>%
 Note de lecture : L'indice moyen de relation avec l'enseignant de mathématiques pour les élèves appartenant au quart le plus défavorisé de la population (quartile 1) se situe entre -0.3 et 1.5 pour la moitié d'entre eux (dans la "boîte").
 
 Cette dispersion autour de la qualité de la REE moyenne de l'OCDE change lorsqu'on s'intéresse à la relation dans le cadre des mathématiques.
-Les "boîtes" des trois premiers quartiles sont plus hautes.
+La "boîtes" du premier quartile est plus haute.
 Autrement dit, l'écart interquartile est plus important pour les 25% des élèves les plus défavorisés, qui ont un vécu de la REE avec l'enseignant de mathématiques plus hétérogène, allant de -0.3 à 1.5.
 
 ### 2.3.2 La qualité de la REE moyenne est corrélée à l'origine sociale au sein de chaque pays
