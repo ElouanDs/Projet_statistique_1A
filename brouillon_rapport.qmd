@@ -522,25 +522,93 @@ cor.test(bilan_pays$REE_maths, bilan_pays$Note_moyenne)
 Avec un test de corrélation, on constate que plus un pays dispose d’un niveau en mathématiques élevé, selon les notes de l'OCDE, moins la relation entre les élèves et les enseignants de mathématiques est jugée positive.
 En effet, la corrélation est négative (r =\~ -0.51, p-value =\~ 5e-06) entre la qualité de la REE moyenne d'un pays et sa note OCDE moyenne concernant les mathématiques.
 
-```{r, echo = FALSE, warning= FALSE}
-# Regression linéaire entre l'indice RELATST moyen d'un pays et la note moyenne obtenue par ce pays
+
+```{r}
+continent_map <- c(
+  # Europe
+  "Albania" = "Europe", "Austria" = "Europe", "Belgium" = "Europe",
+  "Bulgaria" = "Europe", "Croatia" = "Europe", "Cyprus" = "Europe",
+  "Czech Republic" = "Europe", "Denmark" = "Europe", "Estonia" = "Europe",
+  "Finland" = "Europe", "France" = "Europe", "Germany" = "Europe",
+  "Greece" = "Europe", "Hungary" = "Europe", "Iceland" = "Europe",
+  "Ireland" = "Europe", "Italy" = "Europe", "Kosovo" = "Europe",
+  "Latvia" = "Europe", "Lithuania" = "Europe", "Malta" = "Europe",
+  "Moldova" = "Europe", "Montenegro" = "Europe", "Netherlands" = "Europe",
+  "North Macedonia" = "Europe", "Norway" = "Europe", "Poland" = "Europe",
+  "Portugal" = "Europe", "Romania" = "Europe", "Serbia" = "Europe",
+  "Slovak Republic" = "Europe", "Slovenia" = "Europe", "Spain" = "Europe",
+  "Sweden" = "Europe", "Switzerland" = "Europe", "Ukraine" = "Europe",
+  "United Kingdom" = "Europe", "Scotland" = "Europe", "Great Britain" = "Europe",
+  "Georgia" = "Europe",
+
+  # Asie
+  "Baku (Azerbaijan)" = "Asie", "Brunei" = "Asie", "Cambodia" = "Asie",
+  "Chinese Taipei" = "Asie", "Hong Kong" = "Asie", "Indonesia" = "Asie",
+  "Japan" = "Asie", "Jordan" = "Asie", "Kazakhstan" = "Asie",
+  "Korea" = "Asie", "Macao" = "Asie", "Malaysia" = "Asie",
+  "Mongolia" = "Asie", "Palestinian Authority" = "Asie",
+  "Philippines" = "Asie", "Qatar" = "Asie", "Saudi Arabia" = "Asie",
+  "Singapore" = "Asie", "Thailand" = "Asie", "Türkiye" = "Asie",
+  "United Arab Emirates" = "Asie", "Uzbekistan" = "Asie",
+  "Viet Nam" = "Asie", "Israel" = "Asie",
+
+  # Amériques
+  "Argentina" = "Amériques", "Brazil" = "Amériques", "Canada" = "Amériques",
+  "Chile" = "Amériques", "Colombia" = "Amériques", "Costa Rica" = "Amériques",
+  "Dominican Republic" = "Amériques", "El Salvador" = "Amériques",
+  "Guatemala" = "Amériques", "Jamaica" = "Amériques", "Mexico" = "Amériques",
+  "Panama" = "Amériques", "Paraguay" = "Amériques", "Peru" = "Amériques",
+  "United States" = "Amériques", "Uruguay" = "Amériques",
+
+  # Océanie
+  "Australia" = "Océanie", "New Zealand" = "Océanie",
+
+  # Afrique
+  "Morocco" = "Afrique"
+)
+
+# Ajout de la variable continent dans le dataframe
+bilan_pays <- bilan_pays |>
+  mutate(continent = continent_map[nom_complet])
+
+# Palette de couleurs par continent
+couleurs_continents <- c(
+  "Europe"    = "#4e79a7",
+  "Asie"      = "#e15759",
+  "Amériques" = "#59a14f",
+  "Océanie"   = "#f28e2b",
+  "Afrique"   = "#b07aa1"
+)
+
+# Graphique
 modele_TEACHSUP <- lm(Note_moyenne ~ REE_maths, data = bilan_pays)
+
+pdf("images_rapports/figure8_correlation_REE_note.pdf", width = 6, height = 4)
 ggplot(bilan_pays, aes(x = REE_maths, y = Note_moyenne)) +
   geom_smooth(method = "lm", color = "grey", linetype = "dashed", se = FALSE) +
-  geom_point(alpha = 0.5, color = "darkcyan") +
-  geom_text_repel( aes(label = nom_complet),
+  geom_point(aes(color = continent), alpha = 0.7, size = 2) +
+  geom_text_repel(aes(label = nom_complet, color = continent),
                   size = 3,
-                  box.padding = 0.5, 
+                  box.padding = 0.5,
                   point.padding = 0.3,
-                  segment.color = "grey50") +
-  geom_hline(yintercept = mean(bilan_pays$Note_moyenne, na.rm = TRUE), 
+                  segment.color = "grey50",
+                  show.legend = FALSE) +
+  geom_hline(yintercept = mean(bilan_pays$Note_moyenne, na.rm = TRUE),
              linetype = "dotted", color = "#2c7bb6", size = 0.8) +
-  labs(title = "Corrélation entre la note moyenne en maths et la relation avec \nl'enseignant de mathématiques", subtitle = "En rouge, les pays ne confirmant pas la corrélation. \nLes lignes en pointillée bleues correspondent aux moyennes. ", x = "Indice de relation moyen avec l'enseignant de maths", y = "Note OCDE moyenne en mathématiques")+
   geom_vline(xintercept = mean(bilan_pays$REE_maths, na.rm = TRUE),
              linetype = "dotted", color = "#2c7bb6", size = 0.8) +
+  scale_color_manual(values = couleurs_continents, name = "Continent") +
+  labs(
+    title = "Corrélation entre la note moyenne en maths et la relation avec \nl'enseignant de mathématiques",
+    subtitle = "Les lignes en pointillées bleues correspondent aux moyennes.",
+    x = "Indice de relation moyen avec l'enseignant de maths",
+    y = "Note OCDE moyenne en mathématiques"
+  ) +
   theme_minimal() +
-  theme(legend.position = "none")
+  theme(legend.position = "right")
+dev.off()
 ```
+
 
 Note de lecture : Le Kazakhstan a un niveau moyen en mathématiques (445) équivalent à la moyenne des pays interrogés et un indice de REE moyen plus positif qu'en moyenne (0.45).
 
@@ -596,6 +664,7 @@ En s'intéressant à la relation élèves-enseignants en mathématiques, les ré
 ```{r, echo = FALSE, warning = FALSE}
 # Dispersion de l'indice TEACHSUP en fonction des quartiles socio-éco
 etude_ESCS <- data_etude %>% mutate(Quartile_Social = ntile(ESCS, 4))
+
 etude_ESCS %>%
   ggplot(aes(x = factor(Quartile_Social), y = TEACHSUP, fill = factor(Quartile_Social))) +
   geom_boxplot(alpha = 0.6, outlier.shape = NA, width = 0.6) +
@@ -636,21 +705,31 @@ Inversement, dans les pays avec un statut socio-économique moyen davatange favo
 
 ```{r, echo=FALSE}
 modele_ESCS <- lm(ESCS_moyen ~ REE_moyen, data = bilan_pays)
+
+pdf("images_rapports/figure11_correlation_REE_statut.pdf", width = 6, height = 4)
 ggplot(bilan_pays, aes(x = REE_moyen, y = ESCS_moyen)) +
   geom_smooth(method = "lm", color = "grey", linetype = "dashed", se = FALSE) +
-  geom_point(alpha = 0.5, color = "darkcyan") +
-  geom_text_repel( aes(label = nom_complet),
+  geom_point(aes(color = continent), alpha = 0.7, size = 2) +
+  geom_text_repel(aes(label = nom_complet, color = continent),
                   size = 3,
-                  box.padding = 0.5, 
+                  box.padding = 0.5,
                   point.padding = 0.3,
-                  segment.color = "grey50") +
-  geom_hline(yintercept = mean(bilan_pays$ESCS_moyen, na.rm = TRUE), 
+                  segment.color = "grey50",
+                  show.legend = FALSE) +
+  geom_hline(yintercept = mean(bilan_pays$ESCS_moyen, na.rm = TRUE),
              linetype = "dotted", color = "#2c7bb6", size = 0.8) +
-  geom_vline(xintercept = mean(bilan_pays$REE_moyen, na.rm = TRUE), 
+  geom_vline(xintercept = mean(bilan_pays$REE_moyen, na.rm = TRUE),
              linetype = "dotted", color = "#2c7bb6", size = 0.8) +
-  labs(title = "Corrélation entre le statut socio-économique moyen et \nla REE moyenne des pays", subtitle = "Les lignes en pointillée bleues correspondent aux moyennes. ", x = "Indice de relation moyen avec les enseignants", y = "Indice de statut socio-économique moyen")+
+  scale_color_manual(values = couleurs_continents, name = "Continent") +
+  labs(
+    title = "Corrélation entre le statut socio-économique moyen et \nla REE moyenne des pays",
+    subtitle = "Les lignes en pointillées bleues correspondent aux moyennes.",
+    x = "Indice de relation moyen avec les enseignants",
+    y = "Indice de statut socio-économique moyen"
+  ) +
   theme_minimal() +
-  theme(legend.position = "none")
+  theme(legend.position = "right")
+dev.off()
 ```
 Note de lecture : L'Albanie a un indice socio-économique moyen inférieur à la moyenne des pays interrogés (-0.75) ainsi qu'un indice de REE moyen supérieur à la moyenne (0.3).
 
@@ -728,23 +807,31 @@ Alors, meilleure est la qualité des cours de mathématique, meilleure est la re
 
 ```{r, echo=FALSE, warning=FALSE}
 modele_qualite <- lm(qualite_moyen ~ REE_moyen, data = bilan_pays)
+
+pdf("images_rapports/figure12_correlation_REE_qualite.pdf", width = 6, height = 4)
 ggplot(bilan_pays, aes(x = REE_moyen, y = qualite_moyen)) +
   geom_smooth(method = "lm", color = "grey", linetype = "dashed", se = FALSE) +
-  geom_point(alpha = 0.5, color = "darkcyan") +
-  geom_text_repel( aes(label = nom_complet),
+  geom_point(aes(color = continent), alpha = 0.7, size = 2) +
+  geom_text_repel(aes(label = nom_complet, color = continent),
                   size = 3,
-                  box.padding = 0.5, 
+                  box.padding = 0.5,
                   point.padding = 0.3,
-                  segment.color = "grey50") +
-  
-  geom_hline(yintercept = mean(bilan_pays$qualite_moyen, na.rm = TRUE), 
+                  segment.color = "grey50",
+                  show.legend = FALSE) +
+  geom_hline(yintercept = mean(bilan_pays$qualite_moyen, na.rm = TRUE),
              linetype = "dotted", color = "#2c7bb6", size = 0.8) +
-  geom_vline(xintercept = mean(bilan_pays$REE_moyen, na.rm = TRUE), 
+  geom_vline(xintercept = mean(bilan_pays$REE_moyen, na.rm = TRUE),
              linetype = "dotted", color = "#2c7bb6", size = 0.8) +
-  labs(title = "Corrélation entre la qualité des cours de maths et \nla REE moyenne des pays", subtitle = "Les lignes en pointillée bleues correspondent aux moyennes. ", x = "Indice de relation moyen avec les enseignants", y = "Score de qualité des cours (/10)")+
+  scale_color_manual(values = couleurs_continents, name = "Continent") +
+  labs(
+    title = "Corrélation entre la qualité des cours de maths et \nla REE moyenne des pays",
+    subtitle = "Les lignes en pointillées bleues correspondent aux moyennes.",
+    x = "Indice de relation moyen avec les enseignants",
+    y = "Score de qualité des cours (/10)"
+  ) +
   theme_minimal() +
-  theme(legend.position = "none")
-
+  theme(legend.position = "right")
+dev.off()
 ```
 Note de lecture : Le chili suit la relation de corrélation entre la qualité des cours de mathématiques et la qualité de la REE. Son indice de REE moyen est de 0.27 et son score moyen de qualité d'enseignements des mathématiques est de 7.
 
