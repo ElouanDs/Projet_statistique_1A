@@ -37,6 +37,83 @@ nocite: "@*"
 
 \renewcommand{\contentsname}{Table des matières}
 
+```{r, echo = FALSE, include = FALSE, warning=FALSE, message = FALSE}
+
+
+packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse","ggrepel","rnaturalearth","rnaturalearthdata","sf","kableExtra")
+install.packages(packages) 
+library(tidyverse)
+library(psych)
+library(FactoMineR)
+library(factoextra)
+library(corrplot)
+library(ggrepel)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(knitr)
+library(kableExtra)
+```
+
+```{r, echo = FALSE, include = FALSE}
+# Importation des données
+data <- readRDS("stu_qqq.rds")
+```
+
+```{r, echo = FALSE, include = FALSE}
+matieres <- c(
+"MATH", #Mathématiques générales
+"READ", #Lecture
+"SCIE", #Science
+"MCCR", #Mathématiques : Changement et relation
+"MCQN", #Mathématiques : Quantitatif
+"MCSS", #Mathématiques : Espace et formes
+"MCUD", #Mathématiques : Incertitude et données
+"MPEM", #Mathématiques : Employer des concepts mathématiques, définitions et théorèmes
+"MPFS", #Mathématiques : Formuler des situations mathématiquement
+"MPIN", #Mathématiques : Interpréter, appliquer et analyser des sorties mathématiques
+"MPRE" #Mathématiques : Raisonnement
+)
+```
+
+```{r, echo = FALSE, include = FALSE}
+## Gestion des notes
+Notes <- data %>% select(starts_with("PV"))
+Notes_NA <- data %>% select(starts_with("PV"))
+Notes_NA <-lapply(Notes_NA, as.numeric)
+moyennes_NA <- lapply(Notes_NA, mean, na.rm = FALSE)
+```
+
+```{r, echo = FALSE, include = FALSE}
+Notes_moyennes <- as.data.frame(
+  sapply(matieres, function(m) {
+    vars <- paste0("PV", 1:10, m)
+    rowMeans(Notes[, vars], na.rm = TRUE)
+  })
+)
+
+colnames(Notes_moyennes) <- paste0("MOY_", matieres)
+
+Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
+```
+
+```{r, echo = FALSE, include = FALSE}
+# Selection des indices + variables explicatives
+vars_collector <- c("RELATST","TEACHSUP","ESCS","ST272Q01JA", "EXPWB","BELONG","BULLIED","ANXMAT","ST267Q01JA", "ST267Q02JA", "ST267Q03JA", "ST267Q04JA", "ST267Q05JA", "ST267Q06JA", "ST267Q07JA", "ST267Q08JA","ST270Q01JA", "ST270Q02JA", "ST270Q03JA", "ST270Q04JA","ST268Q01JA","ST268Q02JA", "ST268Q03JA","OECD")
+
+vars_etude <- vars_collector[vars_collector %in% names(data)]
+
+idx_vars_etude <- match(vars_etude, names(data))
+
+data_etude <- c(data[, c(1,26, idx_vars_etude), drop = FALSE],Notes_moyennes[c(1,12)])
+data_etude <- as.data.frame(data_etude)
+rm(data,Notes,Notes_moyennes,Notes_NA)
+```
+
+```{r, echo = FALSE, include = FALSE}
+# Conversion en facteur
+data_etude$ST004D01T <- as.factor(data_etude$ST004D01T)
+```
+
 # Introduction
 
 "La relation élève-enseignant s'intéresse à ce qui se passe entre l'enseignant et ses élèves, à l'école, d'un point de vue à la fois cognitif, affectif et social, au-delà des savoirs scolaires" (Espinosa, 2016). Selon lui, l'enseignement constitue un facteur à part entière de l'éducation des élèves, car même si cette dernière relève majoritairement de la responsabilité des parents, l'impact des professeurs dans la vie des élèves reste non négligeable. Ainsi, cette affirmation s'observe-t-elle réellement dans la réalité ? La relation entre les élèves et leurs enseignants ne se limite-t-elle pas uniquement à un cadre scolaire ? Une bonne relation élève/enseignant implique-t-elle la performance académique de l'élève ? Toutes ces interrogations nous amènent à nous intéresser au sujet suivant : La relation entre élèves et enseignants (REE).
@@ -320,7 +397,7 @@ Si on peut regrouper les pays et leur système éducatif en fonction de leur REE
 ## 3.1 à l'échelle individuelle
 Nous étudierons ainsi dans quelle mesure cette relation d'enseignant à élève peut impacter le bien-être de ces derniers.
 
-Pour estimer le bien-être des élèves des pays de l’OCDE, nous utiliserons l’indice de bien-être ressenti durant les jours précédents. Cet indice est construit grâce à la partie du questionnaire sur le bien-être. L’indice s’affiche comme manquant lorsque l’élève n’a pas répondu “Oui” à la question “La journée d’hier était-elle une journée comme les autres ?”
+Pour estimer le bien-être des élèves des pays de l’OCDE, nous utiliserons entre-autre l’indice de bien-être ressenti durant les jours précédents. Cet indice est construit grâce à la partie du questionnaire sur le bien-être. L’indice s’affiche comme manquant lorsque l’élève n’a pas répondu “Oui” à la question “La journée d’hier était-elle une journée comme les autres ?”
 
 Les indices suivants peuvent être étudiés afin d’élargir l’analyse et de comprendre quels éléments influencent plus particulièrement les REE comme le harcèlement, etc. D’autres variables et indices peuvent être retenu pour expliquer la REE telles que l’indice d’anxiété concernant les mathématiques, l’indice sur le sentiment d’appartenance à l’école ou l’indice de harcèlement.
 
@@ -330,7 +407,7 @@ L’indice sur le sentiment d’appartenance, représente le sentiment d’appar
 
 L’indice sur le harcèlement repose sur la fréquence de plusieurs signes de harcèlement durant les 12 derniers mois, d’après les élèves.
 
-```{r}
+```{r,echo=FALSE,include=FALSE}
 vars <- data_etude %>%
   select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED) %>%
   na.omit()
@@ -357,10 +434,11 @@ Note de lecture: La corrélation entre l'indice d'appartenance et de harcèlemen
 
 Cette matrice de corrélation nous donne un premier apperçu des différentes corrélations entre nos variables REE et les variables de bien-être. Aucune corrélation importante est notable mais quelques petites corrélations peuvent être remarquée comme celle entre la REE globale et le sentiment d'appartenance qui est de 0.27, donc une REE globale élevée va améliorer le sentiment d'appartenannce de l'élève. Les autres corrélations se situent toutes entre -0.20 et 0.20 donc il n'y a pas de conclusion sur une relation entre les variables à en tirer.
 
-Pour la suite on va s'intéresser à plusieurs populations afin de mieux caractériser la relation entre la qualité de la REE et le bien-être. 
+Cette matrice montre donc qu'aucune relation est visible entre le bien-être et la REE du point du vue d'un individu, cependant il est aussi important de s'intéresser au point de vue d'un pays, si la méthode d'enseignement d'un pays à un impect sur le bien-être des élèves du pays
+
 
 ## 3.2 à l'échelle des pays
-
+-> paragraphe d'introduction de la partie. On anaylse cette fois-ci les données regroupéss en pays
 ```{r}
 data_etude_bien_etre_moyen <- data_etude %>%
   mutate(
@@ -380,22 +458,24 @@ bilan_pays <- data_etude_bien_etre_moyen %>%
     .groups = "drop"
   )
 ```
-On analyse d’abord la relation entre REE et bien-être séparément pour les femmes et les hommes.
 ```{r, echo = FALSE, warning= FALSE}
 # Femmes
-cor.test(
+cor(
   subset(bilan_pays)$REE,
   subset(bilan_pays)$bien_etre
 )
 
 
 ```
-Dans un pays où un individu moyen a un REE élevé, cela ne garantit pas qu’il ait un bien-être élevé. Autrement dit, le niveau de REE à l’échelle globale ne prédit pas directement le bien-être moyen.
+-> Paragrpahe de conclusion sur le modèle en regroupant tous les individus dpar pays, coefficient de corrélation de -0.001 entre bien-être et REE.
 
+Pour la suite on va s'intéresser à plusieurs populations afin de mieux caractériser la relation entre la qualité de la REE et le bien-être. 
 ## 3.3 sexe
 ### 3.3.1 échelle individuelle
 
 La première population est représentée par le sexe. Ainsi l’objectif est d’identifier d’éventuelles inégalités ou sensibilités spécifiques des élèves selon leur sexe auprès de l'influence des REE sur leur bien-être.
+
+Dans un premier temps, les observations avec une information manquante sur le sexe sont supprimées afin de garantir la comparabilité des groupes. Une variable catégorielle sexe est ensuite créée.
 
 ```{r,echo=FALSE}
 vars_sex <- data_etude %>%
@@ -412,9 +492,8 @@ table(vars_sex$sexe)
 ```
 Table: Répartition Femmes/Hommes dans le jeu de données
 
--> Blabla à refaire
-Pour commencer, on vérifie que le jeu de donnée est bien représentatif ;
-Ce dernier comporte 49.7% de femmes pour 50.3% d'hommes. Ce qui nous conviendra amplement pour notre étude.
+-> Petit paragraphe sur la répartition homme femme pour montrer que c'est bien équilibré (232437 Femmes / 221685 Hommes)
+
 
 
 ```{r, echo=FALSE}
@@ -463,27 +542,29 @@ corrplot(
   mar = c(0,0,1,0)
 )
 ```
--> matrice à ne pas include car trop répétitif
--> blabla à faire montrant pas beaucoup de différences.
+-> Expliquer juste que les corrélation entre hommes et femmes sont les mêmes donc à l'échelle d'un individus pas de différence (attention la graph ne sera pas affiché dans le rapport donc ne pas dire "comme on voit sur le graph").
 
 
--> blabla à faire pour faire transistion à l'echelle des pays
+-> Transistion à faire pour analyse à l'echelle des pays
 
 ### 3.3.2 échelle d'un pays
+-> paragraphe suivant à faire un peu mieux, c'est que de l'IA mdrrr
 L’objectif de cette analyse est d’étudier si les différences entre garçons et filles en matière de relation enseignant-élève (REE) sont associées aux différences de bien-être, à l’échelle des pays.
-
-Dans un premier temps, les observations avec une information manquante sur le sexe sont supprimées afin de garantir la comparabilité des groupes. Une variable catégorielle sexe est ensuite créée.
 
 Un indice composite de bien-être est construit à partir de quatre variables centrées :
 
-sentiment d’appartenance (BELONG)
-bien-être récent (EXPWB)
-anxiété en mathématiques (ANXMAT)
-exposition au harcèlement (BULLIED)
+sentiment d’appartenance 
+bien-être récent 
+anxiété en mathématiques 
+exposition au harcèlement
 
 Les deux dernières variables étant négativement associées au bien-être, elles sont inversées afin d’assurer une cohérence d’interprétation.
 
-👉 Ainsi, un score élevé de bien_etre correspond systématiquement à une situation plus favorable.
+Ainsi, un score élevé de bien_etre correspond systématiquement à une situation plus favorable.
+
+Les données sont ensuite agrégées au niveau pays × sexe, afin d’obtenir des indicateurs moyens.
+
+On analyse d’abord la relation entre REE et bien-être séparément pour les femmes et les hommes.
 ```{r, echo=FALSE, include=FALSE}
 data_etude_sexe <- data_etude %>%
   filter(!is.na(ST004D01T)) %>%
@@ -497,7 +578,7 @@ data_etude_sexe <- data_etude %>%
     )
   )
 ```
-Les données sont ensuite agrégées au niveau pays × sexe, afin d’obtenir des indicateurs moyens.
+
 ```{r, echo = FALSE, include=FALSE}
 bilan_pays_sexe <- data_etude_sexe %>%
   group_by(CNT, sexe) %>%
@@ -507,23 +588,27 @@ bilan_pays_sexe <- data_etude_sexe %>%
     .groups = "drop"
   )
 ```
-On analyse d’abord la relation entre REE et bien-être séparément pour les femmes et les hommes.
+
 ```{r, echo = FALSE, warning= FALSE}
 # Femmes
-cor.test(
+cor(
   subset(bilan_pays_sexe, sexe == "Femme")$REE,
   subset(bilan_pays_sexe, sexe == "Femme")$bien_etre
 )
 
 # Hommes
-cor.test(
+cor(
   subset(bilan_pays_sexe, sexe == "Homme")$REE,
   subset(bilan_pays_sexe, sexe == "Homme")$bien_etre
 )
 ```
-Coeff plus élevé chez les hommes donc la REE joue un role plus fort dans le bien être que chez les femmes
+-> Interprétation des coefficient de corrélation à faire (0.087 Femmes/ -0.032 Hommes)
+Coeff plus élevé chez les femmes donc la REE joue un role plus fort dans le bien être que chez les hommes. Mais les coefficients restent faibles donc cela ne montre pas qu'en regardant juste une partie de la population on peut expliquer une corrélation entre bien-êter et REE donc afin d’analyser directement les inégalités, on construit des variables de différence hommes − femmes pour chaque pays.
 
-Afin d’analyser directement les inégalités, on construit des différences hommes − femmes pour chaque pays.
+👉 Ces variables permettent une lecture directe :
+
+valeurs positives → avantage hommes
+valeurs négatives → avantage femmes
 
 ```{r, echo= FALSE, include=FALSE}
 library(tidyr)
@@ -536,22 +621,12 @@ diff_sexe <- bilan_pays_sexe %>%
   )
 ```
 
-👉 Ces variables permettent une lecture directe :
 
-valeurs positives → avantage hommes
-valeurs négatives → avantage femmes
 
-Corrélation globale
 ```{r,echo=FALSE,include=FALSE}
-cor.test(diff_sexe$diff_REE, diff_sexe$diff_bien_etre)
+cor(diff_sexe$diff_REE, diff_sexe$diff_bien_etre)
 ```
 La corrélation observée (r = 0,45) met en évidence une association positive modérée entre les écarts de relation enseignant-élève et les écarts de bien-être entre garçons et filles. Cela suggère que, dans les pays où les garçons bénéficient d’une meilleure relation avec les enseignants que les filles, ils présentent également un niveau de bien-être relativement plus élevé.
-
-
-Ce coefficient mesure la relation entre différences garçons-filles pour REE et différences garçons-filles pour bien-être, pays par pays.
-Valeur positive modérée → là où les garçons ont un avantage REE par rapport aux filles, ils tendent aussi à avoir un avantage en bien-être.
-
-Interprétation :
 
 Cette corrélation met en évidence une inégalité entre sexes : les garçons sont favorisés par rapport aux filles dans certains pays, et cela se reflète dans leur bien-être.
 
@@ -575,6 +650,9 @@ ggplot(diff_sexe, aes(x = diff_REE, y = diff_bien_etre)) +
   ) +
   theme_minimal()
 ```
+
+-> Analyse du graphique à faire, paragraphe suivant à retravailler car c'est encore de l'IA
+
 Le graphique met en évidence une relation globalement positive entre les écarts de REE et les écarts de bien-être.
 
 👉 Cela signifie que :
@@ -585,28 +663,24 @@ Cependant, le nuage de points reste relativement dispersé, indiquant que cette 
 
 Certains pays s’écartent de la tendance générale, suggérant l’existence d’autres facteurs influençant le bien-être.
 
-
-Régression linéaire
-
-```{r,echo=FALSE}
-modele_diff <- lm(diff_bien_etre ~ diff_REE, data = diff_sexe)
-summary(modele_diff)
-```
 Analyse des pays atypiques
 
 ```{r,echo=FALSE}
+modele_diff <- lm(diff_bien_etre ~ diff_REE, data = diff_sexe)
+
 diff_sexe$residus <- resid(modele_diff)
 
 diff_sexe %>%
   arrange(desc(abs(residus))) %>%
   head(10)
 ```
+-> Paragraphe à faire pour analyse des pays atypiques, donc ceux qui ne correspondent pas à la relation, je sais pas si c'est utile donc à supprimer si c'est nul
 
 ## 3.4 catégorie socio éco
 ### 3.4.1 échelle individuelle
 
 
-
+-> Paragraphe à un tout petit peu reformuler
 Utilisons pour ce faire la variable sur l'indice de statut économique, sociale et culturel. C'est un indicateur qui mesure le milieu socio-économique des élèves à partir du niveau d’éducation et de la profession des parents ainsi que des ressources du foyer (comme les livres ou l’accès à un ordinateur).
 
 ```{r, echo=FALSE}
@@ -637,7 +711,7 @@ On distingue alors 3 classes, les indices faibles, moyennes, et élevées.
 
 On remarque la robustesse statistique de notre jeu de données avec des effectifs très similaires dans chaque classe.
 
-```{r, echo= FALSE}
+```{r, echo= FALSE, include = FALSE}
 
 # Séparer les données selon le statut socio-éco
 vars_faible <- vars_csp %>%
@@ -698,13 +772,12 @@ corrplot(
   mar = c(0,0,1,0)
 )
 ```
--> ne pas inclure car trop répétitif
--> aucun changement si on compare par indiviidus, à comparer par pays mainteant comme avec le sexe.
+-> Paragraphe pour dire que à l'échelle individuelle (attention la graph ne sera pas affiché dans le rapport donc ne pas dire "comme on voit sur le graph"), aucun changement si on compare par indiviidus, à comparer par pays maintenant comme avec le sexe.
 
 
 ### 3.4.2 échelle d'un pays
 
-->blabla à faire
+-> Paragraphe pour dire que la construction de cette partie est similaire à la 3.3.2 avec le même indice de bien être construit et regroupement par pays
 ```{r, echo=FALSE, include=FALSE}
 data_etude_escs <- data_etude %>%
   filter(!is.na(ESCS)) %>%
@@ -721,7 +794,7 @@ data_etude_escs <- data_etude %>%
     )
   )
 ```
--> petit blabla
+
 ```{r, echo = FALSE, include=FALSE}
 bilan_pays_escs <- data_etude_escs %>%
   group_by(CNT, statut_socioeco_cat) %>%
@@ -731,26 +804,28 @@ bilan_pays_escs <- data_etude_escs %>%
     .groups = "drop"
   )
 ```
--> petit blabla
+
 ```{r, echo = FALSE, warning= FALSE}
 # Faible
-cor.test(
+cor(
   subset(bilan_pays_escs, statut_socioeco_cat == "Faible")$REE,
   subset(bilan_pays_escs, statut_socioeco_cat == "Faible")$bien_etre
 )
 
 # Moyenne
-cor.test(
+cor(
   subset(bilan_pays_escs, statut_socioeco_cat == "Moyenne")$REE,
   subset(bilan_pays_escs, statut_socioeco_cat == "Moyenne")$bien_etre
 )
 
 # Élevée
-cor.test(
+cor(
   subset(bilan_pays_escs, statut_socioeco_cat == "Élevée")$REE,
   subset(bilan_pays_escs, statut_socioeco_cat == "Élevée")$bien_etre
 )
 ```
+-> Interprétation de coefficients de corrélation entre REE et bien être selon classe ESCS et regroupé par pays(Faible 0.08309806 / Moyen 0.007088236  / élevé 0.02185366 
+)
 ❌ Ce que tes résultats disent :
 Chez les élèves favorisés → REE n’explique pas leur bien-être
 Chez les élèves défavorisés → pareil
@@ -760,7 +835,8 @@ Chez les moyens → pareil
 
 REE n’est pas un facteur déterminant du bien-être au sein d’un groupe social
 
--> blabla à faire
+-> Dire que les différences vont être étudiée comme en partie 3.3.2 en comparant ceux ayant un ESCS faible et ceux ayant un ESCS élevé
+
 ```{r,echo=FALSE}
 library(tidyr)
 
@@ -782,9 +858,8 @@ valeurs négatives → avantage femmes
 
 Corrélation globale
 ```{r,echo=FALSE}
-cor.test(diff_escs$diff_REE, diff_escs$diff_bien_etre)
+cor(diff_escs$diff_REE, diff_escs$diff_bien_etre)
 ```
--> blabla à faire
 ```{r,echo=FALSE}
 ggplot(diff_escs, aes(x = diff_REE, y = diff_bien_etre)) +
   geom_point(alpha = 0.7, color = "darkblue", size = 2.5) +
@@ -805,6 +880,9 @@ ggplot(diff_escs, aes(x = diff_REE, y = diff_bien_etre)) +
   ) +
   theme_minimal()
 ```
+
+-> Paragraphe sur Coeff de corrélation de 0.265, donc un peu mieux+ analyse graphique. paragraphes suivant à retravailler car IA
+
 Les pays où les favorisés ont un avantage de REE sont aussi ceux où ils ont un avantage de bien-être
 
 Les corrélations calculées séparément au sein de chaque groupe socio-économique sont très faibles et non significatives. Cela indique qu’à l’intérieur de chaque catégorie (faible, moyenne ou élevée), la relation enseignant-élève n’est pas associée de manière notable au bien-être moyen des élèves à l’échelle des pays.
@@ -823,16 +901,11 @@ Cette opposition entre absence de relation intra-groupe et présence d’une rel
 
 Ce résultat montre que la REE agit davantage comme un facteur d’inégalités sociales que comme un déterminant universel du bien-être.
 
-
-Régression linéaire
-
-```{r,echo=FALSE}
-modele_diff <- lm(diff_bien_etre ~ diff_REE, data = diff_escs)
-summary(modele_diff)
-```
 Analyse des pays atypiques
 
 ```{r,echo=FALSE}
+modele_diff <- lm(diff_bien_etre ~ diff_REE, data = diff_escs)
+
 diff_escs$residus <- resid(modele_diff)
 
 diff_escs %>%
@@ -840,6 +913,7 @@ diff_escs %>%
   head(10)
 ```
 
+-> Comme en 3.3.2 analyse des pays atypique, à ne pas laisser si pas intéressant
 
 ## 3.5 Différence selon le contexte du pays
 ### 3.5.1 Appartenance OCDE ou non
@@ -847,7 +921,7 @@ diff_escs %>%
 L’OCDE (Organisation de Coopération et de Développement Économiques) est une organisation internationale regroupant principalement des pays développés. Elle promeut des politiques publiques favorisant le bien-être social et l’amélioration des systèmes éducatifs. 
 Dans le cadre des enquêtes PISA, elle s'avère jouer un rôle central, permettant de déterminer si un élève étudié inscrit son parcours scolaire dans un environnement propice à sa réussite ou non.
 
-```{r}
+```{r,echo=FALSE}
 data_oecd_pays <- data_etude %>%
   filter(!is.na(OECD)) %>%
   mutate(
@@ -865,12 +939,13 @@ data_oecd_pays <- data_etude %>%
   )
 ```
 
-```{r}
-cor.test(data_oecd_pays$OECD, data_oecd_pays$bien_etre)
-cor.test(data_oecd_pays$OECD, data_oecd_pays$REE)
+```{r,echo=FALSE}
+cor(data_oecd_pays$OECD, data_oecd_pays$bien_etre)
+cor(data_oecd_pays$OECD, data_oecd_pays$REE)
 ```
 
-```{r}
+
+```{r,echo = FALSE}
 ggplot(data_oecd_pays, aes(x = REE, y = bien_etre, color = factor(OECD))) +
   geom_point(size = 2.5, alpha = 0.8) +
   
@@ -895,6 +970,24 @@ ggplot(data_oecd_pays, aes(x = REE, y = bien_etre, color = factor(OECD))) +
   theme_minimal()
 ```
 
+-> Paragraphe analyse coeff: 1er coeff de 0.24 entre OCDE et bien-être. 2e coeff de -0.23 entre OCDE et REE
+
+Si r > 0 :
+
+→ les pays OCDE ont en moyenne :
+
+un bien-être plus élevé
+une meilleure REE
+✔️ Si r < 0 :
+
+→ les pays non OCDE sont avantagés
+
+✔️ Si r ≈ 0 :
+
+→ pas de lien
+
+-> Paragraphe analyse graph
+
 ```{r}
 data_oecd_pays %>%
   group_by(OECD) %>%
@@ -904,42 +997,44 @@ data_oecd_pays %>%
   )
 ```
 
-```{r}
+-> Analyse des moyennes en fonction appartenant OCDE ou non.
+non OCDE: REE moyen 0.11. bien-être -0.023
+OCDE : REE moyen 0.004 bien être 0.049
+
+-> Transistion sur t.test qui sert à comparer les moyennes de bienêtre et REE
+```{r, echo=FALSE}
 t.test(bien_etre ~ OECD, data = data_oecd_pays)
 ```
-
+```{r, echo=FALSE}
+t.test(REE ~ OECD, data = data_oecd_pays)
+```
+-> paragraphe suivant fait par IA à reformuler. Faire un giga point sur la méthodologie (expliquer le principe du test, la valeurs de sortie, les hypothèse de départ, les rejets etc...)
 1. p-value
-H0 : pas de différence de bien-être entre groupes
+H0 : pas de différence de bien-être/REE entre groupes
 H1 : il existe une différence
 
 p < 0.05 → différence significative
 p > 0.05 → pas de différence significativ
 
-Le test de Student met en évidence une différence significative entre les pays de l’OCDE et les pays non OCDE (p-value < 0,05).
+-> Type de paragraphe
+Le test de Student met en évidence une différence significative entre les pays de l’OCDE et les pays non OCDE à 95% (p-value < 0,05).
 L’hypothèse nulle d’égalité des moyennes est donc rejetée.
 Cela signifie que le niveau moyen de bien-être des élèves diffère selon l’appartenance à l’OCDE.
 
 Le test de Student est ici approprié car il permet de comparer les moyennes de deux groupes indépendants sur une variable quantitative, tout en restant robuste aux écarts de normalité lorsque la taille d’échantillon est suffisante.
 
 ### 3.5.2 Développement du pays
-📚 Source fiable
+-> Paragraphe pour dire qu'on a classé les pays en fonction de leur niveau de développement selon la source suivante. Puis construction indice bien être comme partie 3.3.2
 
-👉 Utilise :
 Programme des Nations unies pour le développement
 https://hdr.undp.org/
 
 👉 Classification :
 
-Très élevé / élevé
-Moyen
-Faible
-
-👉 Tu regroupes en 3 classes :
-
 Élevé
 Intermédiaire
 Faible
-```{r}
+```{r, echo=FALSE}
 data_etude$niveau_dev <- dplyr::case_when(
 
   # 🔵 ÉLEVÉ (OCDE + pays très développés)
@@ -962,7 +1057,7 @@ data_etude$niveau_dev <- dplyr::case_when(
 
 
 ```
-```{r}
+```{r, echo=FALSE}
 data_dev <- data_etude %>%
   mutate(
     bien_etre = rowMeans(
@@ -972,7 +1067,7 @@ data_dev <- data_etude %>%
   )
 ```
 
-```{r}
+```{r,echo=FALSE}
 data_dev_pays <- data_dev %>%
   group_by(CNT, niveau_dev) %>%
   summarise(
@@ -982,16 +1077,31 @@ data_dev_pays <- data_dev %>%
   )
 ```
 ```{r}
-cor.test(subset(data_dev_pays, niveau_dev == "Élevé")$REE,
+library(dplyr)
+
+resume_dev <- data_dev_pays %>%
+  group_by(niveau_dev) %>%
+  summarise(
+    REE_moy = mean(REE, na.rm = TRUE),
+    bien_etre_moy = mean(bien_etre, na.rm = TRUE),
+    n_pays = n()
+  )
+
+resume_dev
+```
+-> Petit tableau des valeurs à commenter
+
+```{r,echo=FALSE}
+cor(subset(data_dev_pays, niveau_dev == "Élevé")$REE,
          subset(data_dev_pays, niveau_dev == "Élevé")$bien_etre)
 
-cor.test(subset(data_dev_pays, niveau_dev == "Intermédiaire")$REE,
+cor(subset(data_dev_pays, niveau_dev == "Intermédiaire")$REE,
          subset(data_dev_pays, niveau_dev == "Intermédiaire")$bien_etre)
 
-cor.test(subset(data_dev_pays, niveau_dev == "Faible")$REE,
+cor(subset(data_dev_pays, niveau_dev == "Faible")$REE,
          subset(data_dev_pays, niveau_dev == "Faible")$bien_etre)
 ```
-```{r}
+```{r,echo=FALSE}
 ggplot(data_dev_pays, aes(x = REE, y = bien_etre, color = niveau_dev)) +
   geom_point(size = 2.5, alpha = 0.8) +
   
@@ -1016,19 +1126,15 @@ ggplot(data_dev_pays, aes(x = REE, y = bien_etre, color = niveau_dev)) +
   
   theme_minimal()
 ```
-```{r}
-library(dplyr)
+-> Paragraphe interprétation corrélation + graph
+coeff bien-être REE pour développement élevé 0.55
+coeff bien-être REE pour moyen -0.27
+pour faire -0.04
 
-resume_dev <- data_dev_pays %>%
-  group_by(niveau_dev) %>%
-  summarise(
-    REE_moy = mean(REE, na.rm = TRUE),
-    bien_etre_moy = mean(bien_etre, na.rm = TRUE),
-    n_pays = n()
-  )
 
-resume_dev
-```
+# Conclusion
+
+
 
 # Annexe
 
