@@ -616,7 +616,7 @@ Certains pays ne semblent pas suivre cette corrélation négative, comme Singapo
 De plus, le niveau moyen en mathématiques y est le plus élevé.
 
 De son côté, le Guatemala ou le Paraguay confirment bien le lien de corrélation.
-Le niveau moyen en mathématiques est largement en dessous de la moyenne, alors qu'on y retrouve la meilleure REE moyenne.
+Le niveau moyen en mathématiques est largement en dessous de la moyenne, alors qu'on y retrouve la meilleure REE moyenne. Aussi, la répartition des pays correspond en partie au regroupement par continent, ce qui nous permet de dire qu'il y aurait différents types de systèmes éducatifs selon les zones géographiques.
 
 ## 2.3 La REE et l'influence du statut socio-économique
 
@@ -739,7 +739,7 @@ Cette corrélation négative oppose des systèmes éducatifs tels que ceux du Vi
 D'un côté, on retouve des pays dont les élèves ont des origines davantage défavorisées et une REE plutôt positive, de l'autre côté des pays dont les élèves ont un statut scoio-économique correspondant à la moyenne OCDE et une REE jugée plus négativement qu'en moyenne au sein des pays de l'OCDE.
 
 On peut en conclure que si, au niveau individuel, aucune corrélation significative n'est observée, une corrélation modérée à forte apparaît au niveau agrégé, c'est-à-dire au niveau des pays.
-Le résultat est comparable à la corrélation entre la qualité de la REE et les notes OCDE.
+Le résultat est comparable à la corrélation entre la qualité de la REE et les notes OCDE, on retrouve une répartition géographique des pays.
 
 Cette différence suggère que le lien entre la qualité de la REE et le statut social n'est pas individuel, mais une caractéristique systémique.
 Cela révèle le fonctionnement des systèmes éducatifs et leur capacité à créer une relation plus ou moins positive entre les élèves et les enseignants.
@@ -898,7 +898,7 @@ Tableau des moyennes pour chaque groupe issus du regroupement k-means
 | 4 | $\textcolor{red}{0.17}$ | $\textcolor{red}{501}$ | $\textcolor{blue}{6.49}$ |
 | **Total** | **0.04** | **443** | **6.70** |
 
-Le groupe 1 regroupe des pays ayant en moyenne une meilleure qualité de REE et d'enseignement en mathématiques.
+Le groupe 1, en bleu, regroupe des pays ayant en moyenne une meilleure qualité de REE et d'enseignement en mathématiques.
 En revanche, ces pays ont des notes bien inférieures à la moyenne, avec une différence de 54 points.
 Cette différence représente un peu plus de 2 ans de scolarité en moins pour les élèves de ces pays par rapport à l'ensemble des pays.
 Il comprends le Viet Nam, le Pérou ou encore l'Arabie Saoudite.
