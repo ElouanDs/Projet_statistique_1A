@@ -247,7 +247,7 @@ La note moyenne utilisée est désormais celle des mathématiques et non plus la
 Avec un test de corrélation, on constate que plus un pays dispose d’un niveau en mathématiques élevé, selon les notes de l'OCDE, moins la relation entre les élèves et les enseignants de mathématiques est jugée positive.
 En effet, la corrélation est négative (r =\~ -0.51, p-value =\~ 5e-06) entre la qualité de la REE moyenne d'un pays et sa note OCDE moyenne concernant les mathématiques.
 
-![Nuage de points représentant les corrélation entre la note moyenne en mathématiques et la relation avec le professeur de cette matière par pays](images_rapports/figure8_Corrélation_entre_la_note_moyenne_en_maths_et_la_relation_avec_lenseignant_de_mathématiques.pdf){fig-cap="Nuage de points représentant les corrélation entre la note moyenne en mathématiques et la relation avec le professeur de cette matière par pays"}
+![Nuage de points représentant les corrélation entre la note moyenne en mathématiques et la relation avec le professeur de cette matière par pays](images_rapports/figure8_correlation_REE_note.pdf){fig-cap="Nuage de points représentant les corrélation entre la note moyenne en mathématiques et la relation avec le professeur de cette matière par pays"}
 
 Note de lecture : Le Kazakhstan a un niveau moyen en mathématiques (445) équivalent à la moyenne des pays interrogés et un indice de REE moyen plus positif qu'en moyenne (0.45).
 
@@ -291,7 +291,7 @@ A l'échelle des pays, la REE et le statut socio-économique des élèves sont c
 Alors, lorsque dans un pays le statut socio-économique moyen a tendance à être plus défavorisés, les élèves observent en moyenne une meilleure relation avec leurs enseignants.
 Inversement, dans les pays avec un statut socio-économique moyen davatange favorisé, la REE est jugée plus négativement.
 
-![Nuage de points représentant les pays en fonction de leur REE moyen et de leur statut socio-économique](images_rapports/figure11_Corrélation_entre_le_statut_socio-économique_moyen_et_la_REE_moyenne_des_pays.pdf){fig-cap="Nuage de points représentant les pays en fonction de leur REE moyen et de leur statut socio-économique"}
+![Nuage de points représentant les pays en fonction de leur REE moyen et de leur statut socio-économique](images_rapports/figure11_correlation_REE_statut.pdf){fig-cap="Nuage de points représentant les pays en fonction de leur REE moyen et de leur statut socio-économique"}
 
 Note de lecture : L'Albanie a un indice socio-économique moyen inférieur à la moyenne des pays interrogés (-0.75) ainsi qu'un indice de REE moyen supérieur à la moyenne (0.3).
 
@@ -345,7 +345,7 @@ La qualité de la REE en maths est donc dépendante de la qualité observée des
 Lorsqu'on change d'échelle, en regardant la qualité observée moyenne des cours de mathématiques par pays, on constate une importante corrélation positive entre qualité des cours et qualité de la REE (0.62, p-value \< 1e-08).
 Alors, meilleure est la qualité des cours de mathématique, meilleure est la relation entre les élèves et les enseignants à l'échelle nationale.
 
-![Nuage de points représentant les pays en fonction de leur REE ciblée en mathématiques et la qualité des cours de mathématiques ](images_rapports/figure12_Corrélation_entre_qualité_cours_maths_et_la_REE_moyenne_des_pays.pdf){fig-cap="Nuage de points représentant les pays en fonction de leur REE ciblée en mathématiques et la qualité des cours de mathématiques"}
+![Nuage de points représentant les pays en fonction de leur REE ciblée en mathématiques et la qualité des cours de mathématiques ](images_rapports/figure12_correlation_REE_qualite.pdf){fig-cap="Nuage de points représentant les pays en fonction de leur REE ciblée en mathématiques et la qualité des cours de mathématiques"}
 
 Note de lecture : Le chili suit la relation de corrélation entre la qualité des cours de mathématiques et la qualité de la REE. Son indice de REE moyen est de 0.27 et son score moyen de qualité d'enseignements des mathématiques est de 7.
 
