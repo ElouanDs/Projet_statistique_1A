@@ -325,7 +325,6 @@ Note de lecture: Pour les élèves n'ayant pas d'indice REE, leur indice d'anxi�
 
 Blabla conclusion du profil
 ```{r, echo = FALSE}
-data_etude <- data_etude[(!is.na(data_etude$RELATST)) & (!is.na(data_etude$TEACHSUP)), ]
 summary(data_etude)
 ```
 ```{r, echo = FALSE}
