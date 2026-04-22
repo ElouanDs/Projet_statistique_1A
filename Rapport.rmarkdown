@@ -37,6 +37,84 @@ nocite: "@*"
 
 \renewcommand{\contentsname}{Table des matières}
 
+```{r, echo = FALSE, include = FALSE, warning=FALSE, message = FALSE}
+
+
+packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse","ggrepel","rnaturalearth","rnaturalearthdata","sf","kableExtra")
+install.packages(packages) 
+library(tidyverse)
+library(psych)
+library(FactoMineR)
+library(factoextra)
+library(corrplot)
+library(ggrepel)
+library(rnaturalearth)
+library(rnaturalearthdata)
+library(knitr)
+library(kableExtra)
+```
+
+```{r, echo = FALSE, include = FALSE}
+# Importation des données
+data <- readRDS("stu_qqq.rds")
+```
+
+```{r, echo = FALSE, include = FALSE}
+matieres <- c(
+"MATH", #Mathématiques générales
+"READ", #Lecture
+"SCIE", #Science
+"MCCR", #Mathématiques : Changement et relation
+"MCQN", #Mathématiques : Quantitatif
+"MCSS", #Mathématiques : Espace et formes
+"MCUD", #Mathématiques : Incertitude et données
+"MPEM", #Mathématiques : Employer des concepts mathématiques, définitions et théorèmes
+"MPFS", #Mathématiques : Formuler des situations mathématiquement
+"MPIN", #Mathématiques : Interpréter, appliquer et analyser des sorties mathématiques
+"MPRE" #Mathématiques : Raisonnement
+)
+```
+
+```{r, echo = FALSE, include = FALSE}
+## Gestion des notes
+Notes <- data %>% select(starts_with("PV"))
+Notes_NA <- data %>% select(starts_with("PV"))
+Notes_NA <-lapply(Notes_NA, as.numeric)
+moyennes_NA <- lapply(Notes_NA, mean, na.rm = FALSE)
+```
+
+```{r, echo = FALSE, include = FALSE}
+Notes_moyennes <- as.data.frame(
+  sapply(matieres, function(m) {
+    vars <- paste0("PV", 1:10, m)
+    rowMeans(Notes[, vars], na.rm = TRUE)
+  })
+)
+
+colnames(Notes_moyennes) <- paste0("MOY_", matieres)
+
+Notes_moyennes$MOY_GENERALE <- rowMeans(Notes_moyennes, na.rm = TRUE)
+```
+
+```{r, echo = FALSE, include = FALSE}
+# Selection des indices + variables explicatives
+vars_collector <- c("RELATST","TEACHSUP","ESCS","ST272Q01JA", "EXPWB","BELONG","BULLIED","ANXMAT","ST267Q01JA", "ST267Q02JA", "ST267Q03JA", "ST267Q04JA", "ST267Q05JA", "ST267Q06JA", "ST267Q07JA", "ST267Q08JA","ST270Q01JA", "ST270Q02JA", "ST270Q03JA", "ST270Q04JA","ST268Q01JA","ST268Q02JA", "ST268Q03JA","OECD")
+
+vars_etude <- vars_collector[vars_collector %in% names(data)]
+
+idx_vars_etude <- match(vars_etude, names(data))
+
+data_etude <- c(data[, c(1,26, idx_vars_etude), drop = FALSE],Notes_moyennes[c(1,12)])
+data_etude <- as.data.frame(data_etude)
+rm(data,Notes,Notes_moyennes,Notes_NA)
+```
+
+```{r, echo = FALSE, include = FALSE}
+# Conversion en facteur
+data_etude$ST004D01T <- as.factor(data_etude$ST004D01T)
+data_etude <- data_etude[(!is.na(data_etude$RELATST)) & (!is.na(data_etude$TEACHSUP)), ]
+
+```
 
 # Introduction
 
@@ -396,7 +474,7 @@ Pour pouvoir proposer une analyse plus pertinente en utilisant le sexe comme fac
 ### 3.3.2 Le pays d’origine permet aussi d’ajouter du sens au lien entre REE et bien-être selon le sexe
 L’objectif de cette analyse est d’examiner si les écarts entre filles et garçons en matière de REE sont associés aux différences de bien-être observées entre les sexes, à l’échelle des pays.
 
-L’interprétation des coefficients de corrélation montre des valeurs très faibles : 0.087 chez les filles et -0.032 chez les hommes. Le lien entre relation enseignant-élève et bien-être apparaît légèrement plus marqué chez les filles, suggérant un effet un peu plus important de la REE sur leur bien-être. Toutefois, ces coefficients restent très faibles, ce qui indique qu’une analyse séparée par sexe ne suffit pas à mettre en évidence une relation entre ces deux variables.
+L’interprétation des coefficients de corrélation montre des valeurs très faibles : 0,087 chez les filles et −0,032 chez les hommes. Le lien entre relation enseignant-élève et bien-être apparaît légèrement plus marqué chez les filles, suggérant un effet un peu plus important de la REE sur leur bien-être. Toutefois, ces coefficients restent très faibles, ce qui indique qu’une analyse séparée par sexe ne suffit pas à mettre en évidence une relation entre ces deux variables.
 Afin d’aller plus directement à l’analyse des inégalités, des variables d’écart entre hommes et filles sont construites pour chaque pays.
 Ces écarts s’interprètent simplement : une valeur positive indique un avantage en faveur des hommes, tandis qu’une valeur négative traduit un avantage en faveur des filles. 
 
@@ -528,3 +606,4 @@ Lien pour plus de détails méthodologiques concernant les indices construits pa
 | Royaume-Uni         | QUK/QSC | États-Unis             | USA  |
 | Uruguay             | URY     | Ouzbékistan            | UZB  |
 | Viêt Nam            | VNM     |                        |      |
+
