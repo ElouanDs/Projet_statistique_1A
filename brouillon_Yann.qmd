@@ -1146,23 +1146,34 @@ Pour approfondir l’étude du lien entre REE et bien-être au sein de l’OCDE 
 ```{r, echo=FALSE}
 data_etude$niveau_dev <- dplyr::case_when(
 
-  # 🔵 ÉLEVÉ (OCDE + pays très développés)
+  # 🔵 ÉLEVÉ (IDH ≥ 0.800)
   data_etude$CNT %in% c(
-    "AUS","AUT","BEL","CAN","DNK","FIN","FRA","DEU","ISL","IRL","ISR",
-    "ITA","JPN","KOR","LUX","NLD","NZL","NOR","ESP","SWE","CHE","GBR","USA",
-    "CZE","EST","SVK","SVN","POL","PRT","HUN","LVA","LTU","MLT","SGP","HKG","MAC","TAP"
-  ) ~ "Élevé",
+    "ISL","NOR","CHE","DNK","DEU","SWE",
+    "AUS","HKG","NLD","BEL","IRL","FIN",
+    "SGP","QUK","QSC","ARE","CAN","NZL","USA",
+    "KOR","SVN","AUT","JPN","MLT","FRA","ISR",
+    "ESP","CZE","ITA","QCY","GRC","POL","EST",
+    "SAU","LTU","PRT","HRV","LVA","QAT","SVK",
+    "CHL","HUN","ARG","MNE","URY","BGR","ROU",
+    "GEO","BRN","KAZ","CRI","SRB","MYS","MKD",
+    "ALB"
+  ) ~ "Élevé ",
 
-  # 🟠 INTERMÉDIAIRE (pays émergents / transition)
+  # 🟠 INTERMÉDIAIRE (IDH 0.700–0.799)
   data_etude$CNT %in% c(
-    "ARG","BRA","CHL","COL","CRI","HRV","GRC","MEX","PAN","PRY","PER","URY",
-    "ROU","BGR","MYS","THA","TUR","QAT","ARE","SAU","KAZ","MNE","SRB","MKD",
-    "ALB","GEO","MDA","QAZ","QUR"
+    "THA","QAZ","MEX","COL","BRA","MDA","QUR",
+    "VNM","PER","PRY","JOR","MNG","UZB","IDN",
+    "JAM","PHL","MAR"
   ) ~ "Intermédiaire",
 
-  # 🔴 FAIBLE (pays en développement)
-  TRUE ~ "Faible"
+  # 🔴 FAIBLE (IDH 0.550–0.699)
+  data_etude$CNT %in% c(
+    "SLV","PSE","GTM","KHM"
+  ) ~ "Faible",
+
+  TRUE ~ Non classés
 )
+
 
 ```
 ```{r, echo=FALSE}

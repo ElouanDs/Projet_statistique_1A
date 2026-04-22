@@ -334,25 +334,21 @@ En outre, pour savoir si ces indices ont un réel impact sur les différents typ
 
 Note de lecture: La corrélation entre l'indice d'appartenance et de harcèlement est de -0.26
 
-Cette matrice de corrélation nous donne un premier aperçu des différentes corrélations entre nos variables REE et les variables de bien-être. Aucune corrélation importante est notable mais quelques petites corrélations peuvent être remarquées comme celle entre la REE globale et le sentiment d'appartenance qui est de 0.27, donc une REE globale élevée est susceptible d’améliorer le sentiment d'appartenance de l'élève. Les autres coefficients de corrélation entre les indices de REE et les variables liées au bien-être comme l’anxiété, le sentiment de harcèlement ou bien le niveau général de bonheur se situent tous entre -0.20 et 0.20. On ne peut pas apporter de conclusion marquée sur une relation entre les variables à en tirer.
+Cette matrice des corrélations nous donne un premier aperçu des différents liens entre nos indices de REE et les variables de bien-être. Aucune corrélation n’est réellement notable mais quelques petits coefficients peuvent être remarqués comme celui entre la REE globale et le sentiment d’appartenance qui est de 0.27, donc une REE globale élevée est susceptible d’améliorer le sentiment d’appartenance de l’élève. Les autres coefficients de corrélation entre les indices de REE et les variables liées au bien-être comme l’anxiété, le sentiment de harcèlement ou bien le niveau général de bonheur se situent tous entre -0.20 et 0.20. On ne peut donc pas apporter une conclusion très marquée sur la relation entre nos variables d'intérêt. 
 
-Cette matrice montre donc qu’aucune relation n’est visible entre le bien-être et la REE sous le prisme des élèves pris au cas par cas. Cependant, même si on ne peut tirer d’analyses concluantes au niveau individuel, il peut être intéressant de changer de dimension et de se placer à l’échelle d'un pays tout entier. Cela pourra nous permettre de conclure si la méthode d'enseignement d'un pays à un impact global sur le bien-être des élèves du pays concerné
+Nous pouvons donc relever uniquement, que de petits liens existent entre le bien-être et la REE, sous le prisme des élèves pris au cas par cas. Cependant, même si on ne peut tirer d’analyses très concluantes au niveau individuel, il peut être intéressant de changer de dimension et de se placer à l’échelle d’un pays tout entier. Cela pourrait nous permettre de déduire si, les méthodes d’interaction mises en place par les enseignants d’un pays aux yeux de leur élèves, ont un impact global sur le bien-être des élèves du pays concerné.
 
 ## 3.2 La segmentation de l’échantillon par pays rend l’analyse plus pertinente afin de rendre compte du lien entre bien-être et REE
-### 3.2.1 Le lien entre la REE et le bien–être à l'échelle des pays ne se fait également pas remarquer dans une analyse non-discriminante
-
-On étudie cette fois-ci les données regroupées au sein des pays
-
-Si l’analyse du lien entre les variables de bien-être et les indices de REE ne s’est pas révélée très concluante, il peut être plus pertinent de s’intéresser à ce même lien mais au sein des pays pris séparément. Dans cette optique, nous pourrons potientiellement relever si, dans certains systèmes éducatifs, les élèves sont plus heureux que la moyenne.
-
-Un indicateur général de bien-être, est construit à partir des quatres variables caractérisant le bien-être : le sentiment d’appartenance à l’école, le bien-être récent, l’anxiété en mathématiques et l’exposition au harcèlement. Les deux dernières dimensions étant négativement corrélées au bien-être, elles sont inversées afin d’assurer une interprétation homogène de l’indicateur. Ainsi, un score élevé de bien-être traduit systématiquement une situation plus favorable.
-
-En regroupant les individus simplement par pays, les variables de bien-être n’ont aucun effet sur les relations élèves-enseignants dans le cadre général. Etant donné qu’on fait la moyenne du bien-être dans les pays pour le bien être considéré, on fait la moyenne de la REE dans les pays pour la REE donc il est plutôt normal d’obtenir un coefficient de corrélation pratiquement nul : -0.001. 
-Il faut donc trouver un moyen de classifier l’échantillon portant sur un facteur discriminatoire des pays
 
 
-### 3.2.2 Les résultats relatifs au lien REE et bien-être deviennent notable lorsque l’on segmente l’échantillon selon les types de pays étudiés
-#### 3.2.2.1 L’analyse du lien entre bien-être et REE en fonction de l’appartenance à l’OCDE permet d’étoffer notre étude
+Si l’analyse du lien entre les variables de bien-être et les indices de REE ne s’est pas révélée très concluante, il peut être plus pertinent de s’intéresser à ce même lien mais regroupé au sein des pays pris séparément. Dans cette optique, nous pourrions potentiellement relever si, dans certains types de systèmes éducatifs, les élèves sont plus heureux que la moyenne.
+
+Nous mesurons ici le bien-être par un indicateur général, construit à partir des quatres variables caractérisant le bien-être : le sentiment d’appartenance à l’école, le bien-être récent, l’anxiété en mathématiques et l’exposition au harcèlement. Les deux dernières dimensions étant négativement corrélées au bien-être, sont inversées afin d’assurer une interprétation homogène de l’indicateur. Ainsi, un score élevé de bien-être traduit systématiquement une situation plus favorable. En regroupant les individus simplement par pays, lorsque l’on calcule les liens de corrélations en faisant la moyenne de la REE des pays et de leur bien-être, on se retrouve dans la même situation que précédemment puisqu’aucun travail permettant de séparer l’échantillon a été effectué. En effet, on trouve un coefficient de corrélation pratiquement nul : -0.001. 
+
+Le lien entre la REE et le bien–être à l’échelle des pays ne se fait également pas remarquer dans une analyse non-discriminante. Il faut donc trouver un moyen de classifier l’échantillon portant sur un facteur discriminant des pays, d’où tout l’intérêt de notre étude dans cette partie.
+
+
+### 3.2.1 Les résultats relatifs au lien REE et bien-être deviennent notable lorsque l’on segmente l’échantillon selon l'appartenance à l'OCDE
 
 Un premier facteur permettant de différencier les pays entre eux est l’appartenance à l’OCDE. En effet, l’OCDE (Organisation de Coopération et de Développement Économiques) est une organisation internationale regroupant principalement des pays dits “développés”. Elle promeut des politiques publiques favorisant le bien-être social et l’amélioration des systèmes éducatifs. C’est pourquoi, utiliser ce statut peut être pertinent dans notre analyse. Ainsi, de manière générale dans le cadre des enquêtes PISA, l’appartenance à l’OCDE s'avère jouer un rôle déterminant pour savoir si un élève inscrit son parcours scolaire dans un environnement propice à sa situation sociale et mentale ou non.
 
@@ -360,22 +356,18 @@ Un premier facteur permettant de différencier les pays entre eux est l’appart
 
 Note de Lecture: Le Guatemala (GTM) a une moyenne de bien-être par élève d'environ -0.10 et une REE moyenne par élève de 0.77
 
-L’analyse des corrélations met en évidence une différence marquée dans la relation entre la relation élève-enseignant (REE) et le bien-être selon l’appartenance à l’OCDE.
+On constate donc un lien positif marqué entre le bien-être moyen et la REE moyenne par pays en fonction de l’appartenance à l’OCDE. En effet, pour la plupart des pays de l’OCDE, on remarque que plus la REE moyenne est bonne, plus l’indicateur de bien-être moyen tend aussi à être important, en particulier pour la Corée du Sud (KOR) où la REE semble avoir une importance majeure sur le niveau de bonheur des élèves. En revanche ce lien s’inverse généralement lorsque l’on s’intéresse aux pays ne figurant pas dans l’OCDE notamment pour le Paraguay (PRY) qui voit son indice de bien-être diminuer au fur et à mesure que la REE moyenne augmente.
 
-Dans les pays membres de l’OCDE, la corrélation est de 0.34. Cela signifie que plus la relation élève-enseignant est de qualité, plus le niveau de bien-être des élèves tend à être élevé. La REE apparaît donc comme un facteur favorable au bien-être dans ces pays.
-
-En revanche, dans les pays non membres de l’OCDE, la corrélation est négative (-0.23). Ce résultat suggère qu’une meilleure relation élève-enseignant n’est pas associée à une augmentation du bien-être, et pourrait même être liée à une légère diminution de celui-ci. 
-
-On remarque tout cela sur le graphique représentant la REE en fonction du bien être par pays.
+De plus, ce que la régression linéaire entre la REE et le bien-être en moyenne selon l’appartenance à l’OCDE tend à faire remarquer, se confirme par l’analyse des coefficients de corrélations entre ces deux indicateurs d’intérêt. De ce fait, on distingue une corrélation positive entre la REE dans l’OCDE et les variables de bien-être (à hauteur d’un coefficient de +0.34), tandis que si un pays n’appartient pas à l’OCDE, le lien REE et bien-être tend à s’inverser et donc devenir négatif (-0.23). Ainsi, plus la REE est bonne dans l’OCDE et plus le niveau de bien-être l’est tout autant. En revanche, plus les interactions entre élèves et enseignants sont bonnes hors OCDE, plus le bien-être moyen tend à diminuer.
 
 
-#### 3.2.2.2 Le niveau de développement du pays constitue un facteur plus général pour étudier la relation entre le bien-être et la REE
+#### 3.2.2 Le niveau de développement du pays constitue un facteur plus général pour étudier la relation entre le bien-être et la REE
 
-Pour approfondir l’étude du lien entre REE et bien-être au sein de l’OCDE il peut être pertinent de valider ou réfuter nos précédentes analyses en généralisant le caractère discriminant des pays au niveau de développement au sens du Programme des Nations Unies pour le développement. Pour ce faire, nous avons utilisé la classification suivante. Les pays ayant un niveau de développement qualifié de “Élevé” regroupent les membres de l’OCDE et certaines nations où l’IDH est substantiel même si celles-ci n’appartiennent pas à l’OCDE. Les pays émergents ou en période de transition sont inclus dans le niveau de développement “Intermédiaire”. Finalement, les pays dits “en développement” sont inscrits dans la catégorie “Faible”. C’est donc sur cette répartition des pays étudiés que nous allons poursuivre notre analyse.
+Pour approfondir l’étude du lien entre REE et bien-être au sein de l’OCDE il peut être pertinent de valider ou réfuter nos précédentes analyses en généralisant le caractère discriminant des pays au niveau de développement au sens de l’Indice du Développement Humain (IDH) du Programme des Nations Unies pour le Développement (PNUD). Pour ce faire, nous avons utilisé la classification suivante. Les pays ayant un niveau de développement qualifié de “Élevé” regroupent les membres de l’OCDE et certaines nations où l’IDH est substantiel même si celles-ci n’appartiennent pas à l’OCDE. Les pays émergents ou en période de transition sont inclus dans le niveau de développement “Intermédiaire”. Finalement, les pays dits “en développement” sont inscrits dans la catégorie “Faible”. C’est donc sur cette répartition des pays étudiés que nous allons poursuivre notre analyse.
 
 ![Nuage de points représentant la REE des élèves en fonction de leur bien-être regroupés par pays et différenciés selon leur niveau de développement](images_rapports/figure17_Nuage_de_points_developpement.pdf){fig-cap="Nuage de points représentant la REE des élèves en fonction de leur bien-être regroupés par pays et différenciés selon leur niveau de développement"}
 
-Note de lecture: Le Danemark (DNK), qui est un pays très développé, possède une moyenne de bien-être par élève à 0.10 et une moyenne de REE par élève de 0.30.
+Note de lecture : Le Danemark (DNK) figurant dans la liste des pays à niveau de développement dit “Élevé” possède une moyenne de bien-être par élève de 0.10 ainsi qu’une REE moyenne de 0.30.
 
 -> Paragraphe interprétation corrélation + graph
 
