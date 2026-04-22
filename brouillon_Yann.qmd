@@ -1157,7 +1157,7 @@ data_etude$niveau_dev <- dplyr::case_when(
     "CHL","HUN","ARG","MNE","URY","BGR","ROU",
     "GEO","BRN","KAZ","CRI","SRB","MYS","MKD",
     "ALB"
-  ) ~ "Élevé ",
+  ) ~ "Élevé",
 
   # 🟠 INTERMÉDIAIRE (IDH 0.700–0.799)
   data_etude$CNT %in% c(
@@ -1171,7 +1171,7 @@ data_etude$niveau_dev <- dplyr::case_when(
     "SLV","PSE","GTM","KHM"
   ) ~ "Faible",
 
-  TRUE ~ Non classés
+  TRUE ~ "Non classés"
 )
 
 
