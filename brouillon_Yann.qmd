@@ -1167,9 +1167,8 @@ data_etude$niveau_dev <- dplyr::case_when(
   ) ~ "Intermédiaire",
 
   # 🔴 FAIBLE (IDH 0.550–0.699)
-  data_etude$CNT %in% c(
-    "SLV","PSE","GTM","KHM"                         
-  ) ~ "Faible",
+  TRUE ~ "Faible"
+
 )
 
 
@@ -1237,7 +1236,7 @@ ggplot(data_dev_pays, aes(x = REE, y = bien_etre, color = niveau_dev)) +
   ) +
   
   scale_color_manual(values = c(
-    "Faible et non classés" = "#d73027",
+    "Faible" = "#d73027",
     "Intermédiaire" = "#fc8d59",
     "Élevé" = "#2c7bb6"
   )) +
