@@ -118,15 +118,14 @@ data_etude <- data_etude[(!is.na(data_etude$RELATST)) & (!is.na(data_etude$TEACH
 
 # Introduction
 
-"La relation élève-enseignant s'intéresse à ce qui se passe entre l'enseignant et ses élèves, à l'école, d'un point de vue à la fois cognitif, affectif et social, au-delà des savoirs scolaires" (Espinosa, 2016). Selon lui, l'enseignement constitue un facteur à part entière de l'éducation des élèves, car même si cette dernière relève majoritairement de la responsabilité des parents, l'impact des professeurs dans la vie des élèves reste non négligeable. Ainsi, cette affirmation s'observe-t-elle réellement dans la réalité ? La relation entre les élèves et leurs enseignants ne se limite-t-elle pas uniquement à un cadre scolaire ? Une bonne relation élève/enseignant implique-t-elle la performance académique de l'élève ? Toutes ces interrogations nous amènent à nous intéresser au sujet suivant : La relation entre élèves et enseignants (REE).
+"La relation élève-enseignant s'intéresse à ce qui se passe entre l'enseignant et ses élèves, à l'école, d'un point de vue à la fois cognitif, affectif et social, au-delà des savoirs scolaires" (Espinosa, 2016). Selon lui, l'enseignement constitue un facteur à part entière de l'éducation des élèves, car même si cette dernière relève majoritairement de la responsabilité des parents, l'impact des professeurs dans la vie des élèves reste non négligeable. C’est pourquoi à première vue, l’école semble être le lieu de l’apprentissage des connaissances via la transmission d’un savoir par un professeur à des élèves. Cependant, l’effet de l’enseignement pourrait ne pas se limiter uniquement aux résultats scolaires comme on pourrait le penser a priori. Ainsi, cette relation nous amène à soulever quelques interrogations. Peut-on tout d’abord établir un réel lien entre la réussite scolaire et la qualité des interactions entre les élèves et leurs enseignants ? De plus, comme l’évoque Espinosa, une bonne REE a-t-elle des répercussions positives sur une dimension plus sociale ou bien mentale comme le bien-être par exemple ? Tout ceci mène à nous intéresser au sujet suivant : La relation entre élèves et enseignants (REE).
 
 La relation élèves enseignants caractérise une interaction, qu'elle soit positive ou négative, entretenue entre les élèves et les enseignants. Cette relation s'inscrit dans une dynamique de transmission des savoirs et peut être qualifiée de verticale, dans la mesure où l'enseignant détient un savoir que l'élève est en train d'acquérir. Elle possède également une dimension subjective, puisqu'elle repose en grande partie sur le ressenti des élèves. Ainsi sa mesure repose nécessairement sur des données déclaratives, susceptibles de comporter certains biais.
 
 Dans notre étude nous allons donc mesurer cette REE, et nous nous demanderons si une bonne relation entre élèves et enseignants influence positivement la scolarité des élèves à différentes échelles.
 
-Dans un premier temps, il s’agira de comprendre ce qu’est la relation élèves-enseignants à travers la manière dont elle est perçue par les élèves, ainsi que d’analyser les cas de non-réponse. Ensuite, nous étudierons les liens entre la REE et la réussite scolaire, en tenant compte des performances individuelles, des différences entre pays et du contexte socio-économique. Enfin, nous nous intéresserons aux relations entre la REE et le bien-être des élèves dans le cadre scolaire, notamment en termes d’anxiété et de relations entre pairs.
+Dans un premier temps, il s’agira de comprendre ce qu’est la relation élèves-enseignants à travers la manière dont elle est perçue par les élèves, ainsi que d’analyser les cas de non-réponse. Ensuite, nous étudierons les liens entre la REE et la réussite scolaire, en tenant compte des performances individuelles, des différences entre pays et du contexte socio-économique. Enfin, nous nous intéresserons aux relations entre la REE et le bien-être des élèves dans le cadre scolaire, notamment en termes d’anxiété et de relations entre pairs que ce soit à l’échelle des pays, du sexe ou encore de la dimension socio-économique.
 
-Les données utilisées sont issues de l'enquête PISA 2022, qui interroge des élèves âgés de 15 habitant dans 85 pays. Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économique des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants.
 
 # 1 Comprendre la relation élève-enseignant
 
@@ -604,12 +603,12 @@ cor(
 )
 ```
 -> Interprétation des coefficient de corrélation à faire (0.087 Femmes/ -0.032 Hommes)
-Coeff plus élevé chez les femmes donc la REE joue un role plus fort dans le bien être que chez les hommes. Mais les coefficients restent faibles donc cela ne montre pas qu'en regardant juste une partie de la population on peut expliquer une corrélation entre bien-êter et REE donc afin d’analyser directement les inégalités, on construit des variables de différence hommes − femmes pour chaque pays.
+Coeff plus élevé chez les femmes donc la REE joue un role plus fort dans le bien être que chez les hommes. Mais les coefficients restent faibles donc cela ne montre pas qu'en regardant juste une partie de la population on peut expliquer une corrélation entre bien-êter et REE donc afin d’analyser directement les inégalités, on construit des variables de différence hommes - femmes pour chaque pays.
 
-👉 Ces variables permettent une lecture directe :
+ Ces variables permettent une lecture directe :
 
-valeurs positives → avantage hommes
-valeurs négatives → avantage femmes
+valeurs positives -> avantage hommes
+valeurs négatives -> avantage femmes
 
 ```{r, echo= FALSE, include=FALSE}
 library(tidyr)
@@ -712,7 +711,7 @@ ggplot(diff_sexe, aes(x = diff_REE, y = diff_bien_etre)) +
 
 Le graphique met en évidence une relation globalement positive entre les écarts de REE et les écarts de bien-être.
 
-👉 Cela signifie que :
+ Cela signifie que :
 
 dans les pays où les garçons ont une meilleure relation avec les enseignants que les filles, ils tendent également à présenter un niveau de bien-être plus élevé.
 
@@ -883,12 +882,12 @@ cor(
 ```
 -> Interprétation de coefficients de corrélation entre REE et bien être selon classe ESCS et regroupé par pays(Faible 0.08309806 / Moyen 0.007088236  / élevé 0.02185366 
 )
-❌ Ce que tes résultats disent :
-Chez les élèves favorisés → REE n’explique pas leur bien-être
-Chez les élèves défavorisés → pareil
-Chez les moyens → pareil
+Ce que tes résultats disent :
+Chez les élèves favorisés -> REE n’explique pas leur bien-être
+Chez les élèves défavorisés -> pareil
+Chez les moyens -> pareil
 
-👉 Donc :
+Donc :
 
 REE n’est pas un facteur déterminant du bien-être au sein d’un groupe social
 
@@ -908,10 +907,10 @@ diff_escs <- bilan_pays_escs %>%
   )
 ```
 
-👉 Ces variables permettent une lecture directe :
+Ces variables permettent une lecture directe :
 
-valeurs positives → avantage hommes
-valeurs négatives → avantage femmes
+valeurs positives -> avantage hommes
+valeurs négatives -> avantage femmes
 
 Corrélation globale
 ```{r,echo=FALSE}
@@ -944,7 +943,7 @@ Les pays où les favorisés ont un avantage de REE sont aussi ceux où ils ont u
 
 Les corrélations calculées séparément au sein de chaque groupe socio-économique sont très faibles et non significatives. Cela indique qu’à l’intérieur de chaque catégorie (faible, moyenne ou élevée), la relation enseignant-élève n’est pas associée de manière notable au bien-être moyen des élèves à l’échelle des pays.
 
-En revanche, l’analyse des écarts entre groupes (ESCS élevé – ESCS faible) met en évidence une corrélation positive (r = 0,26).
+En revanche, l’analyse des écarts entre groupes (ESCS élevé - ESCS faible) met en évidence une corrélation positive (r = 0,26).
 
 Ce résultat suggère que ce n’est pas le niveau absolu de relation enseignant-élève qui importe, mais plutôt les inégalités de cette relation entre milieux sociaux.
 
@@ -952,9 +951,9 @@ Autrement dit, dans les pays où les élèves favorisés bénéficient davantage
 
 Cette opposition entre absence de relation intra-groupe et présence d’une relation inter-groupe met en évidence un phénomène structurel : les inégalités sociales de traitement scolaire sont associées aux inégalités de bien-être.
 
-🔥 5. Insight (très valorisant pour ton analyse)
+5. Insight (très valorisant pour ton analyse)
 
-👉 Tu peux même aller plus loin :
+Tu peux même aller plus loin :
 
 Ce résultat montre que la REE agit davantage comme un facteur d’inégalités sociales que comme un déterminant universel du bien-être.
 
@@ -1030,18 +1029,17 @@ ggplot(data_oecd_pays, aes(x = REE, y = bien_etre, color = factor(OECD))) +
 -> Paragraphe analyse coeff: 1er coeff de 0.24 entre OCDE et bien-être. 2e coeff de -0.23 entre OCDE et REE
 
 Si r > 0 :
-
-→ les pays OCDE ont en moyenne :
+-> les pays OCDE ont en moyenne :
 
 un bien-être plus élevé
 une meilleure REE
-✔️ Si r < 0 :
+ Si r < 0 :
 
-→ les pays non OCDE sont avantagés
+->les pays non OCDE sont avantagés
 
-✔️ Si r ≈ 0 :
+ Si r = 0 :
 
-→ pas de lien
+-> pas de lien
 
 -> Paragraphe analyse graph
 
@@ -1070,8 +1068,8 @@ t.test(REE ~ OECD, data = data_oecd_pays)
 H0 : pas de différence de bien-être/REE entre groupes
 H1 : il existe une différence
 
-p < 0.05 → différence significative
-p > 0.05 → pas de différence significativ
+p < 0.05 -> différence significative
+p > 0.05 -> pas de différence significativ
 
 -> Type de paragraphe
 Le test de Student met en évidence une différence significative entre les pays de l’OCDE et les pays non OCDE à 95% (p-value < 0,05).
@@ -1086,7 +1084,7 @@ Le test de Student est ici approprié car il permet de comparer les moyennes de 
 Programme des Nations unies pour le développement
 https://hdr.undp.org/
 
-👉 Classification :
+Classification :
 
 Élevé
 Intermédiaire
