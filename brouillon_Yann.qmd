@@ -1154,14 +1154,14 @@ data_etude$niveau_dev <- dplyr::case_when(
     "KOR","SVN","AUT","JPN","MLT","FRA","ISR",
     "ESP","CZE","ITA","QCY","GRC","POL","EST",
     "SAU","LTU","PRT","HRV","LVA","QAT","SVK",
-    "CHL","HUN","ARG","MNE","URY","BGR","ROU",
+    "CHL","HUN","MNE","BGR","ROU",
     "GEO","BRN","KAZ","CRI","SRB","MYS","MKD",
-    "ALB","TAP","MAC"
+    "ALB","TAP","MAC","TUR"
   ) ~ "Élevé",
 
   # 🟠 INTERMÉDIAIRE (IDH 0.700–0.799)
   data_etude$CNT %in% c(
-    "THA","QAZ","MEX","COL","BRA","MDA","QUR",
+    "THA","QAZ","MEX","ARG","URY","COL","BRA","MDA","QUR",
     "VNM","PER","PRY","JOR","MNG","UZB","IDN",
     "JAM","PHL","MAR","KSV"
   ) ~ "Intermédiaire",
@@ -1209,13 +1209,15 @@ resume_dev
 
 ```{r,echo=FALSE}
 cor(subset(data_dev_pays, niveau_dev == "Élevé")$REE,
-         subset(data_dev_pays, niveau_dev == "Élevé")$bien_etre)
+         subset(data_dev_pays, niveau_dev == "Élevé")$bien_etre, use = "complete.obs")
 
 cor(subset(data_dev_pays, niveau_dev == "Intermédiaire")$REE,
-         subset(data_dev_pays, niveau_dev == "Intermédiaire")$bien_etre)
+         subset(data_dev_pays, niveau_dev == "Intermédiaire")$bien_etre, use = "complete.obs")
 
 cor(subset(data_dev_pays, niveau_dev == "Faible")$REE,
-         subset(data_dev_pays, niveau_dev == "Faible")$bien_etre)
+         subset(data_dev_pays, niveau_dev == "Faible")$bien_etre, use = "complete.obs")
+
+
 ```
 ```{r,echo=FALSE}
 pdf("images_rapports/figure17_Nuage_de_points_developpement.pdf", width = 6, height = 4)
