@@ -1167,11 +1167,8 @@ data_etude$niveau_dev <- dplyr::case_when(
   ) ~ "Intermédiaire",
 
   # 🔴 FAIBLE (IDH 0.550–0.699)
-  data_etude$CNT %in% c(
-    "SLV","PSE","GTM","KHM"
-  ) ~ "Faible",
 
-  TRUE ~ "Non classés"
+  TRUE ~ "Faible et non classés"
 )
 
 
@@ -1217,8 +1214,8 @@ cor(subset(data_dev_pays, niveau_dev == "Élevé")$REE,
 cor(subset(data_dev_pays, niveau_dev == "Intermédiaire")$REE,
          subset(data_dev_pays, niveau_dev == "Intermédiaire")$bien_etre)
 
-cor(subset(data_dev_pays, niveau_dev == "Faible")$REE,
-         subset(data_dev_pays, niveau_dev == "Faible")$bien_etre)
+cor(subset(data_dev_pays, niveau_dev == "Faible et non classés")$REE,
+         subset(data_dev_pays, niveau_dev == "Faible et non classés")$bien_etre)
 ```
 ```{r,echo=FALSE}
 pdf("images_rapports/figure17_Nuage_de_points_developpement.pdf", width = 6, height = 4)
@@ -1239,9 +1236,9 @@ ggplot(data_dev_pays, aes(x = REE, y = bien_etre, color = niveau_dev)) +
   ) +
   
   scale_color_manual(values = c(
-    "Faible" = "#d73027",
+    "Faible et non classés" = "#d73027",
     "Intermédiaire" = "#fc8d59",
-    "Élevé" = "#1a9850"
+    "Élevé" = "green"
   )) +
   
   theme_minimal()
