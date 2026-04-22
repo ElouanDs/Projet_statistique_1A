@@ -7,6 +7,7 @@ format:
     classoption: oneside
     pdf-engine: pdflatex 
     toc: true
+    lof: true
     header-includes: |
       \usepackage{graphicx}
       \usepackage{fancyhdr}
@@ -36,7 +37,6 @@ nocite: "@*"
 ---
 
 \renewcommand{\contentsname}{Table des matières}
-
 
 # Introduction
 
@@ -457,6 +457,17 @@ En revanche, l’approche par écarts entre milieux socio-économiques à l’é
 Ainsi, comme pour le genre, la REE apparaît moins comme un facteur participant aux inégalités sociales de bien-être.
 
 # Conclusion
+
+À travers les données PISA 2022, nous avons pu analyser la relation élèves-enseignants et déterminer dans quelle mesure une bonne relation entre élèves et enseignants influence positivement la scolarité des élèves à différentes échelles. Les résultats montrent une réalité plus nuancée qu’attendue.
+
+En premier lieu, la REE est globalement positive dans le ressenti des élèves, même si des différences sont visibles en fonction du contexte, notamment en mathématiques où la relation est nettement plus négative. De plus, l’analyse montre que la réussite scolaire est très faiblement liée à la qualité de la REE. Cela remet en question l’idée reçue qu’une bonne relation avec les enseignants serait un facteur direct de bonnes notes.
+
+Cependant, à une échelle globale, on remarque des dynamiques intéressantes. Les comparaisons entre pays révèlent des corrélations, parfois négatives, entre le niveau académique moyen et la qualité de la REE, ce qui peut suggérer des différences entre systèmes éducatifs. Concernant le statut socio-économique, celui-ci n’influence pas non plus la qualité de la REE à l’échelle individuelle, mais il devient significatif lorsqu’on raisonne à l’échelle d’un pays.
+
+Concernant le bien-être, la REE n’a pas non plus un rôle déterminant lorsqu’elle est analysée de manière individuelle. En revanche, son influence devient plus significative lorsqu’elle est étudiée par pays et en fonction de différents facteurs tels que le niveau de développement des pays. De plus, grâce à l’étude des écarts entre groupes (filles-garçons et niveaux socio-économiques), on a pu mettre en évidence que la REE peut contribuer à accentuer certaines inégalités de bien-être.
+
+Ainsi, la relation élèves-enseignants apparaît comme un facteur complexe. Elle ne constitue ni un déterminant unique de la réussite scolaire ni du bien-être, mais fait partie d’un ensemble plus large de facteurs.
+
 
 
 
