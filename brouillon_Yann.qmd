@@ -1156,19 +1156,20 @@ data_etude$niveau_dev <- dplyr::case_when(
     "SAU","LTU","PRT","HRV","LVA","QAT","SVK",
     "CHL","HUN","ARG","MNE","URY","BGR","ROU",
     "GEO","BRN","KAZ","CRI","SRB","MYS","MKD",
-    "ALB"
+    "ALB","TAP","MAC"
   ) ~ "Élevé",
 
   # 🟠 INTERMÉDIAIRE (IDH 0.700–0.799)
   data_etude$CNT %in% c(
     "THA","QAZ","MEX","COL","BRA","MDA","QUR",
     "VNM","PER","PRY","JOR","MNG","UZB","IDN",
-    "JAM","PHL","MAR"
+    "JAM","PHL","MAR","KSV"
   ) ~ "Intermédiaire",
 
   # 🔴 FAIBLE (IDH 0.550–0.699)
-
-  TRUE ~ "Faible et non classés"
+  data_etude$CNT %in% c(
+    "SLV","PSE","GTM","KHM"                         
+  ) ~ "Faible",
 )
 
 
@@ -1238,7 +1239,7 @@ ggplot(data_dev_pays, aes(x = REE, y = bien_etre, color = niveau_dev)) +
   scale_color_manual(values = c(
     "Faible et non classés" = "#d73027",
     "Intermédiaire" = "#fc8d59",
-    "Élevé" = "green"
+    "Élevé" = "#2c7bb6"
   )) +
   
   theme_minimal()
