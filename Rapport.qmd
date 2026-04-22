@@ -73,14 +73,14 @@ Les manquants représentent 159590 données c'est-à-dire 26% de nos données. A
 
 Pour faire un résumé nos données manquant ont le profil suivant par rapport aux autres données: On y retrouve plus d'hommes, plus anxieux envers les mathématiques, plus harcelé et avec un moins bon sentiment d'appartenance et pour finir une origine socio-écono beaucoup plus faible.
 
-![Figure 1: Comparaison des moyennes générale des élèves en fonction de leur statut de réponse sur le REE global](images_rapports/figure2_comparaison_NA_notes_relatst.pdf){fig-cap="Comparaison des moyennes générale des élèves en fonction de leur statut de réponse sur le REE global"}
+![Comparaison des moyennes générale des élèves en fonction de leur statut de réponse sur le REE global](images_rapports/figure2_comparaison_NA_notes_relatst.pdf){fig-cap="Comparaison des moyennes générale des élèves en fonction de leur statut de réponse sur le REE global"}
 
 Note de lecture : La distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
 
 En ce qui concerne le graphique ci-dessus, on a une logique concernant le profil des élèves qui ont des non réponses. Nous voyons qu'il existe une relation entre le fait de ne pas avoir d'indice de REE et la moyenne générale. En effet on remarque que la distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE. On peut donc en conclure que les élèves qui ne se positionnent pas sur leur relation avec le corps enseignant sont des élèves avec une moyenne générale plus faible que ceux se positionnant.
 
 
-![Figure 2: Comparaison des moyennes en mathématiques des élèves en fonction de leur statut de réponse sur le REE ciblée sur les professeurs de mathématiques](images_rapports/figure3_comparaison_NA_notesmaths_teachsup.pdf){fig-cap="Comparaison des moyennes en mathématiques des élèves en fonction de leur statut de réponse sur le REE ciblée sur les professeurs de mathématiques"}
+![Comparaison des moyennes en mathématiques des élèves en fonction de leur statut de réponse sur le REE ciblée sur les professeurs de mathématiques](images_rapports/figure3_comparaison_NA_notesmaths_teachsup.pdf){fig-cap="Comparaison des moyennes en mathématiques des élèves en fonction de leur statut de réponse sur le REE ciblée sur les professeurs de mathématiques"}
 
 Note de lecture : La distribution de la moyenne en mathématiques des élèves n'ayant pas d'indice de REE portant sur les enseignants de mathématiques est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
 

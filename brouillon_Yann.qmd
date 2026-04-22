@@ -178,7 +178,6 @@ profil_nonNA <- data_etude %>%
 library(gridExtra)
 library(grid)
 
-# 1. Créer le tableau
 df <- data.frame(
   Groupe = c("Manquant", "Sans NA"),
   Pourcentage_filles = c(45.96, 51.18),
@@ -189,13 +188,20 @@ df <- data.frame(
   Nombre_total = c(159590, 454154)
 )
 
-# 2. Ouvrir un fichier PNG
-png("images_rapports/tableau1_manquants_NA.png", width = 700, height = 300)
+g <- tableGrob(df, rows = NULL)
 
-# 3. Créer le tableau graphique
-grid.table(df)
+png("images_rapports/tableau1_manquants_NA.png",
+    width = 700, height = 160)
 
-# 4. Fermer le PNG
+grid.newpage()
+
+# ⚠️ IMPORTANT : on force le viewport à remplir toute la page
+pushViewport(viewport(x = 0.5, y = 0.5,
+                      width = 1, height = 1,
+                      just = c("center", "center")))
+
+grid.draw(g)
+
 dev.off()
 ```
 
@@ -282,7 +288,7 @@ Après avoir “nettoyé” notre base de données, nous pouvons faire une analy
 
 
 ```{r, echo = FALSE}
-pdf("images_rapports/figure2_comparaison_NA_notes_relatst.pdf", width = 6, height = 4)
+pdf("images_rapports/figure2_comparaison_NA_notes_relatst.pdf", width = 5.8, height = 3.8)
 data_etude$statut_NA <- ifelse(is.na(data_etude$RELATST), "Manquant", "Présent")
 ggplot(data_etude, aes(x = MOY_GENERALE, fill = statut_NA)) +
   geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
@@ -298,7 +304,7 @@ dev.off()
 
 ```
 ```{r, echo = FALSE}
-pdf("images_rapports/figure3_comparaison_NA_notesmaths_teachsup.pdf", width = 6, height = 4)
+pdf("images_rapports/figure3_comparaison_NA_notesmaths_teachsup.pdf", width = 5.8, height = 3.8)
 data_etude$statut_NA <- ifelse(is.na(data_etude$TEACHSUP), "Manquant", "Présent")
 ggplot(data_etude, aes(x = MOY_MATH, fill = statut_NA)) +
   geom_histogram(bins = 50, alpha = 0.6, position = "identity") + 
@@ -331,43 +337,43 @@ summary(data_etude)
 library(gridExtra)
 library(grid)
 
-# 1. Sélection des colonnes
 cols_selection <- c("RELATST", "TEACHSUP", "ESCS", "EXPWB", "BELONG", "BULLIED", "ANXMAT")
 data_etude_clean <- data_etude[, cols_selection]
 
-# 2. Calcul des 6 statistiques de base (sans les NA)
-# On crée une fonction qui extrait uniquement Min, 1st Qu, Median, Mean, 3rd Qu, et Max
 get_clean_summary <- function(x) {
   s <- summary(x, na.rm = TRUE)
-  # On ne garde que les 6 premières stats (on ignore la ligne NA's si elle existe)
-  return(as.vector(s)[1:6])
+  as.vector(s)[1:6]
 }
 
-# Appliquer la fonction pour obtenir une matrice propre
 summary_mat <- sapply(data_etude_clean, get_clean_summary)
-
-# Conversion en data.frame
 summary_df <- as.data.frame(summary_mat)
 
-# Renommer les lignes explicitement
 rownames(summary_df) <- c("Min", "1st Qu.", "Median", "Mean", "3rd Qu.", "Max")
-
-# Arrondir à 3 décimales pour la précision
 summary_df <- round(summary_df, 3)
 
-# 3. Export en PNG
-# Augmentation de la taille et de la résolution pour un rendu pro
-png("summary_table.png", width = 1200, height = 500, res = 120)
+png("summary_table.png", width = 1100, height = 380, res = 120)
 
-# Configuration du thème pour une meilleure lisibilité
 mon_theme <- ttheme_default(
-  base_size = 12,
-  colhead = list(fg_params = list(fontface = "bold", col="white"),
-                 bg_params = list(fill="#4F81BD")), # En-tête bleu pro
-  core = list(bg_params = list(fill = c("#D9E1F2", "white"))) # Lignes alternées
+  base_size = 11,   # légèrement réduit
+  colhead = list(
+    fg_params = list(fontface = "bold", col="white"),
+    bg_params = list(fill="#4F81BD")
+  ),
+  core = list(
+    bg_params = list(fill = c("#D9E1F2", "white"))
+  )
 )
 
-# Génération du tableau
+grid.newpage()
+
+# 🔥 suppression du centrage + remplissage total
+pushViewport(viewport(
+  x = 0, y = 1,
+  just = c("left", "top"),
+  width = 1,
+  height = 1
+))
+
 grid.table(summary_df, theme = mon_theme)
 
 dev.off()
@@ -378,7 +384,7 @@ On remarque que les résultats sont très positifs, la question ayant le moins b
 
 
 ```{r, echo = FALSE}
-pdf("images_rapports/figure5_Reponses_indiquant_une _relation_positive.pdf", width = 6, height = 4)
+pdf("images_rapports/figure5_Reponses_indiquant_une _relation_positive.pdf", width = 5.7, height = 3.7)
 
 data_relatst_na <- data_etude %>% select(ST267Q01JA, ST267Q02JA, ST267Q03JA, ST267Q04JA, ST267Q05JA, ST267Q06JA, ST267Q07JA, ST267Q08JA)
 data_relatst <- na.omit(data_relatst_na)
@@ -439,7 +445,7 @@ Cette relation étant très positive en ce qui concerne les enseignants au globa
 Les résultats sont très différents de ce qu'on a pu observer avec les enseignants dans leur globalité. En effet, les taux de réponses positives se trouvent seulement entre 25.4% et 32.2%, on se retrouve donc avec une majorité de réponses négatives contrairement à la relation globale.
 
 ```{r, echo = FALSE}
-pdf("images_rapports/figure6_Reponses_indiquant_une_relation_positive_maths.pdf", width = 6, height = 4)
+pdf("images_rapports/figure6_Reponses_indiquant_une_relation_positive_maths.pdf", width = 5.7, height = 3.7)
 
 data_teachsup_na <- data_etude %>% select(ST270Q01JA, ST270Q02JA, ST270Q03JA, ST270Q04JA)
 data_teachsup <- na.omit(data_teachsup_na)
@@ -494,6 +500,10 @@ rm(data_long_p,data_long_t,data_plot_p,data_plot_t,data_relatst,data_relatst_na,
 Cependant, nous avons affiché les résultats seulement pour les élèves ayant répondu aux questions. Si l'on regarde le taux de non réponses nous avons 43.04% de non réponses concernant la relations dans la globalité et 15.53% pour la relation avec les professeurs de mathématiques. Le chiffre de non-réponse nous pousse à nous interroger sur le profil des élèves qui ne répondent pas pour comprendre en quoi cela pourrait biaiser nos futures analyses.
 
 -> Malgré qu'on ai enlevé les variables avec indice = Na, il y a encore des individus avec des NA en réponse aux questions, l'indice est donc construit pour ne pas prendre en compte des NA
+```{r}
+data_etude <- data_etude[(!is.na(data_etude$RELATST)) & (!is.na(data_etude$TEACHSUP)), ]
+
+```
 
 # 2 La REE et la réussite scolaire : une relation complexe
 
@@ -506,7 +516,7 @@ Celles-ci permettent de connaître le niveau relatif des élèves concernant dif
 Pour comprendre au mieux la relation que le niveau scolaire peut entretenir avec la REE, les analyses vont se porter sur la moyenne générale obtenue par les élèves ainsi que leur moyenne de mathématiques.
 
 ```{r, echo=FALSE}
-pdf("images_rapports/figure7_matrice_correlation_variables.pdf", width = 6, height = 4)
+pdf("images_rapports/figure7_matrice_correlation_variables.pdf", width = 5.5, height = 3.5)
 
 REE_notes <- data_etude %>%
   select(RELATST, TEACHSUP, MOY_GENERALE, MOY_MATH)
@@ -641,7 +651,7 @@ Autrement dit, les origines sociales des élèves modifient-elles la manière do
 
 ```{r, echo=FALSE, warning=FALSE}
 
-pdf("images_rapports/figure9_La_relation_élève-enseignant_selon_le_statut_socio-économique_des_parents.pdf", width = 6, height = 4)
+pdf("images_rapports/figure9_La_relation_élève-enseignant_selon_le_statut_socio-économique_des_parents.pdf", width = 5.5, height = 3.5)
 
 # Dispersion de l'indice RELATST en fonction des quartiles socio-éco
 etude_ESCS <- data_etude %>% mutate(Quartile_Social = ntile(ESCS, 4))
@@ -679,7 +689,7 @@ Le vécu des élèves apparaît comme similaire quelques soient les origines soc
 Les écarts inter-quartile sont très similaires pour les quatres groupes socio-économiques, tout comme les moyennes et les médianes.
 
 ```{r, echo = FALSE, warning = FALSE}
-pdf("images_rapports/figure10_La_relation_avec_lenseignant_de_mathématique_selon_le_statut_socio-économique_des_parents.pdf", width = 6, height = 4)
+pdf("images_rapports/figure10_La_relation_avec_lenseignant_de_mathématique_selon_le_statut_socio-économique_des_parents.pdf", width = 5.5, height = 3.5)
 
 # Dispersion de l'indice TEACHSUP en fonction des quartiles socio-éco
 etude_ESCS <- data_etude %>% mutate(Quartile_Social = ntile(ESCS, 4))
@@ -768,7 +778,7 @@ Comme le présentent de nombreuses études, le statut socio-économique des pare
 Cette relation se confirme avec une Analyse en composantes principales (ACP).
 
 ```{r, echo=FALSE}
-pdf("images_rapports/figure_annexe_ACP.pdf", width = 6, height = 4)
+pdf("images_rapports/figure_annexe_ACP.pdf", width = 5.5, height = 3.5)
 
 vars_niveau <- data_etude %>%
   select(RELATST, TEACHSUP, MOY_GENERALE, ESCS, ST272Q01JA)
@@ -995,7 +1005,7 @@ vars <- data_etude %>%
 
 ```{r, echo=FALSE}
 cor_matrix <- cor(vars)
-pdf("images_rapports/figure15_Matrice_de_correlation_bien_etre_REE.pdf", width = 6, height = 4)
+pdf("images_rapports/figure15_Matrice_de_correlation_bien_etre_REE.pdf", width = 5.5, height = 3.5)
 
 corrplot(
   cor_matrix,
@@ -1386,14 +1396,14 @@ Cette corrélation met en évidence une inégalité entre sexes : les garçons s
 # On sépare les pays selon la médiane de l'écart de REE
 infographie_data <- diff_sexe %>%
   mutate(groupe_pays = if_else(diff_REE > median(diff_REE, na.rm = TRUE), 
-                               "Relation profs plus favorable aux garçons", 
-                               "Relation profs moins favorable aux garçons")) %>%
+                               "REE favorable aux garçons", 
+                               "REE moins favorable aux garçons")) %>%
   group_by(groupe_pays) %>%
   summarise(moyenne_diff_bien_etre = mean(diff_bien_etre, na.rm = TRUE))
 
 # 2. Création du graphique simple (style "Data-Visualisation")
 
-pdf("images_rapports/figure18_graph_barre_sexe.pdf", width = 6, height = 4)
+pdf("images_rapports/figure18_graph_barre_sexe.pdf", width = 5, height = 3.3)
 
 ggplot(infographie_data, aes(x = groupe_pays, y = moyenne_diff_bien_etre, fill = groupe_pays)) +
   geom_col(width = 0.6) +
