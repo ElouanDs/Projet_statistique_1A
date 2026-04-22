@@ -208,9 +208,9 @@ dev.off()
 
 Ce tableau séparer les données en deux, les "manquant", c'est à dire les élèves n'ayant pas de REE global ou de REE ciblée sur les professeurs de mathématiques, et "Sans NA".
 
-Les manquants représentent 159590 données c'est-à-dire 26% de nos données. A partir de cela nous pouvons faire un premier profil des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant. En premier lieu, le groupe "manquant" comprend plus d'hommes que le groupe qui se positionne sur leur relation avec le corps enseignant, et est légèrement plus anxieux en mathématiques.  Trois indices ont une différences plus marquée, le premier montre que le sentimant d'appartenance pour le groupe "manquant" est plus faible que l'autre groupe avec un écart de 0.16 points. L'harcèlement augmente aussi, passant de -0.30 à -0.12 et enfin l'indice sur l'origine socio-économique diminue fortement, passant de -0.20 pour le groupe ayant répondu aux question à -0.67 pour le groupe "manquant". 
+Les manquants représentent 159590 données c'est-à-dire 26% de nos données. A partir de cela nous pouvons faire un premier profil des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant. En premier lieu, le groupe "manquant" comprend plus de garçons que le groupe qui se positionne sur leur relation avec le corps enseignant, et est légèrement plus anxieux en mathématiques.  Trois indices ont une différences plus marquée, le premier montre que le sentimant d'appartenance pour le groupe "manquant" est plus faible que l'autre groupe avec un écart de 0.16 points. L'harcèlement augmente aussi, passant de -0.30 à -0.12 et enfin l'indice sur l'origine socio-économique diminue fortement, passant de -0.20 pour le groupe ayant répondu aux question à -0.67 pour le groupe "manquant". 
 
-Pour faire un résumé nos données manquant ont le profil suivant par rapport aux autres données: On y retrouve plus d'hommes, plus anxieux envers les mathématiques, plus harcelé et avec un moins bon sentiment d'appartenance et pour finir une origine socio-écono beaucoup plus faible.
+Pour faire un résumé nos données manquant ont le profil suivant par rapport aux autres données: On y retrouve plus de garçons, plus anxieux envers les mathématiques, plus harcelé et avec un moins bon sentiment d'appartenance et pour finir une origine socio-économique beaucoup plus faible.
 
 Cependant lorsqu'on regarde en détail ces non-réponses on retrouve quelques informations très importantes.
 
@@ -663,7 +663,7 @@ etude_ESCS %>%
   scale_fill_viridis_d(option = "mako", begin = 0.3, end = 0.8) +
   coord_cartesian(ylim = c(-2.5, 2.5)) +
   labs(
-    title = "La relation élève-enseignant selon le statut socio-économique des parents",
+    title = "La relation élève-enseignant selon le statut socio-économique",
     x = "Quartiles socio-économiques",
     y = "Indice REE",
     caption = "Source : Données PISA 2022"
@@ -701,7 +701,7 @@ etude_ESCS %>%
   scale_fill_viridis_d(option = "mako", begin = 0.3, end = 0.8) +
   coord_cartesian(ylim = c(-2.5, 2.5)) +
   labs(
-    title = "La relation avec l'enseignant de mathématique selon le statut socio-économique des parents",
+    title = "La relation avec l'enseignant de maths selon le statut socio-économique",
     x = "Quartiles socio-économiques",
     y = "Indice REE maths",
     caption = "Source : Données PISA 2022"
