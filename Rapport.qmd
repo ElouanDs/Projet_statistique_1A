@@ -332,7 +332,10 @@ En outre, pour savoir si ces indices ont un réel impact sur les différents typ
 
 ![Matrice de corrélation entre la variable REE et les variables de bien-être ](images_rapports/figure15_Matrice_de_correlation_bien_etre_REE.pdf){fig-cap="Matrice de corrélation entre la variable REE et les variables de bien-être"}
 
-Note de lecture: La corrélation entre l'indice d'appartenance et de harcèlement est de -0.26
+Note de lecture 1: RELATST = REE globale, TEACHSUP = REE maths, EXPWB = indice de bien-être récent, ANXMAT = anxiété en mathématiques, BELONG = sentiment d'appartenance, BULLIED = indice de harcèlement
+
+Note de lecture 2: La corrélation entre l'indice d'appartenance et de harcèlement est de -0.26
+
 
 Cette matrice des corrélations nous donne un premier aperçu des différents liens entre nos indices de REE et les variables de bien-être. Aucune corrélation n’est réellement notable mais quelques petits coefficients peuvent être remarqués comme celui entre la REE globale et le sentiment d’appartenance qui est de 0.27, donc une REE globale élevée est susceptible d’améliorer le sentiment d’appartenance de l’élève. Les autres coefficients de corrélation entre les indices de REE et les variables liées au bien-être comme l’anxiété, le sentiment de harcèlement ou bien le niveau général de bonheur se situent tous entre -0.20 et 0.20. On ne peut donc pas apporter une conclusion très marquée sur la relation entre nos variables d'intérêt. 
 
