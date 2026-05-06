@@ -1092,10 +1092,10 @@ data_oecd_pays <- data_etude %>%
 ```
 
 ```{r,echo=FALSE}
-cor(subset(data_oecd_pays, OECD == 1)$REE,
+cor.test(subset(data_oecd_pays, OECD == 1)$REE,
     subset(data_oecd_pays, OECD == 1)$bien_etre)
 
-cor(subset(data_oecd_pays, OECD == 0)$REE,
+cor.test(subset(data_oecd_pays, OECD == 0)$REE,
     subset(data_oecd_pays, OECD == 0)$bien_etre)
 ```
 
@@ -1208,13 +1208,14 @@ resume_dev
 -> Petit tableau des valeurs à commenter
 
 ```{r,echo=FALSE}
-cor(subset(data_dev_pays, niveau_dev == "Élevé")$REE,
-         subset(data_dev_pays, niveau_dev == "Élevé")$bien_etre, use = "complete.obs")
+cor.test(subset(data_dev_pays, niveau_dev == "Élevé")$REE,
+         subset(data_dev_pays, niveau_dev == "Élevé")$bien_etre)
 
-cor(subset(data_dev_pays, niveau_dev == "Intermédiaire")$REE,
+cor.test(subset(data_dev_pays, niveau_dev == "Intermédiaire")$REE,
          subset(data_dev_pays, niveau_dev == "Intermédiaire")$bien_etre, use = "complete.obs")
 
-cor(subset(data_dev_pays, niveau_dev == "Faible")$REE,
+
+cor.test(subset(data_dev_pays, niveau_dev == "Faible")$REE,
          subset(data_dev_pays, niveau_dev == "Faible")$bien_etre, use = "complete.obs")
 
 
