@@ -181,10 +181,10 @@ library(grid)
 df <- data.frame(
   Groupe = c("Manquant", "Sans NA"),
   Pourcentage_filles = c(45.96, 51.18),
-  Origine_socioeco = c(-0.6687436, -0.1969157),
-  Anxiete_maths = c(0.3075299, 0.2216972),
-  Appartenance = c(-0.20697179, -0.04908496),
-  Harcelement = c(-0.1214952, -0.3056764),
+  Origine_socioeco = c(-0.67, -0.20),
+  Anxiete_maths = c(0.31, 0.22),
+  Appartenance = c(-0.21, -0.05),
+  Harcelement = c(-0.12, -0.31),
   Nombre_total = c(159590, 454154)
 )
 
@@ -1252,7 +1252,15 @@ cor.test(subset(data_dev_pays, niveau_dev == "Faible")$REE,
 
 
 ```
+```{r}
+# Ajout des noms complets à data_dev_pays
+data_dev_pays <- data_dev_pays %>%
+  left_join(correspondance_pays, by = c("CNT" = "iso_a3")) %>%
+  mutate(nom_complet = ifelse(is.na(nom_complet), CNT, nom_complet))
+```
+
 ```{r,echo=FALSE}
+
 pdf("images_rapports/figure17_Nuage_de_points_developpement.pdf", width = 6, height = 4)
 
 ggplot(data_dev_pays, aes(x = REE, y = bien_etre, color = niveau_dev)) +
@@ -1261,7 +1269,12 @@ ggplot(data_dev_pays, aes(x = REE, y = bien_etre, color = niveau_dev)) +
   # Régressions séparées
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed") +
   
-  geom_text_repel(aes(label = CNT), size = 3) +
+  geom_text_repel(aes(label = nom_complet),
+                size = 3,
+                box.padding = 0.5,
+                point.padding = 0.3,
+                segment.color = "grey50",
+                show.legend = FALSE) +
   
   labs(
     title = "Relation REE et bien-être selon le niveau de développement",
@@ -1489,27 +1502,37 @@ Ainsi, l’écart est nettement plus élevé dans le second cas. Cela suggère q
 Le passage du premier au second groupe correspond à une augmentation d’environ 40 % de cet écart. Autrement dit, les inégalités de bien-être ne se limitent pas à une simple différence entre sexes : elles semblent s’accentuer lorsque les garçons bénéficient d’une relation plus favorable avec les enseignants.
 En résumé, dans les pays où les garçons sont davantage soutenus ou perçoivent plus positivement leur relation avec les enseignants, l’écart de bien-être avec les filles tend à se creuser de manière significative.
 
+```{r}
+bilan_pays_sexe <- bilan_pays_sexe %>%
+  left_join(correspondance_pays, by = c("CNT" = "iso_a3")) %>%
+  mutate(nom_complet = ifelse(is.na(nom_complet), CNT, nom_complet))
+```
 
 ```{r,echo=FALSE}
-pdf("images_rapports/figure19_nuage_points_sexe.pdf", width = 6, height = 4)
 
-ggplot(diff_sexe, aes(x = diff_REE, y = diff_bien_etre)) +
-  geom_point(alpha = 0.7, color = "darkred", size = 2.5) +
-  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "grey40") +
-  geom_text_repel(
-    aes(label = CNT),
-    size = 3,
-    box.padding = 0.4,
-    max.overlaps = 20
-  ) +
-  geom_hline(yintercept = 0, linetype = "dotted") +
-  geom_vline(xintercept = 0, linetype = "dotted") +
+pdf("images_rapports/figure19_nuage_points_sexe.pdf", width = 7, height = 5)
+
+ggplot(bilan_pays_sexe, aes(x = REE, y = bien_etre, color = sexe)) +
+  geom_point(size = 2.5, alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", aes(group = sexe)) +
+  geom_text_repel(aes(label = nom_complet), size = 3,
+                box.padding = 0.5,
+                point.padding = 0.3,
+                segment.color = "grey50",
+                show.legend = FALSE) +
+  scale_color_manual(values = c("Femme" = "#d7191c", "Homme" = "#2c7bb6")) +
   labs(
-    title = "Différences hommes-femmes par pays",
-    x = "Différence REE",
-    y = "Différence bien-être"
+    title = "REE et bien-être par pays selon le sexe",
+    x = "Relation Enseignant-Élève (REE)",
+    y = "Bien-être moyen",
+    color = ""
   ) +
-  theme_minimal()
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 13),
+    legend.position = "bottom"
+  )
+
 dev.off()
 ```
 
@@ -1733,26 +1756,47 @@ Corrélation globale
 ```{r,echo=FALSE}
 cor(diff_escs$diff_REE, diff_escs$diff_bien_etre)
 ```
-```{r,echo=FALSE}
-pdf("images_rapports/figure21_nuage_points_ESCS.pdf", width = 6, height = 4)
 
-ggplot(diff_escs, aes(x = diff_REE, y = diff_bien_etre)) +
-  geom_point(alpha = 0.7, color = "darkblue", size = 2.5) +
-  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", color = "grey40") +
-  geom_text_repel(
-    aes(label = CNT),
-    size = 3,
-    box.padding = 0.4,
-    max.overlaps = 20
-  ) +
-  geom_hline(yintercept = 0, linetype = "dotted") +
-  geom_vline(xintercept = 0, linetype = "dotted") +
+```{r}
+bilan_pays_escs_2groupes <- bilan_pays_escs %>%
+  filter(statut_socioeco_cat %in% c("Q1", "Q4")) %>%
+  mutate(groupe = if_else(statut_socioeco_cat == "Q1",
+                          "25% les plus défavorisés",
+                          "25% les plus favorisés"))
+bilan_pays_escs_2groupes <- bilan_pays_escs_2groupes %>%
+  left_join(correspondance_pays, by = c("CNT" = "iso_a3")) %>%
+  mutate(nom_complet = ifelse(is.na(nom_complet), CNT, nom_complet))
+```
+
+```{r,echo=FALSE}
+
+
+pdf("images_rapports/figure21_nuage_REE_bienetre_escs.pdf", width = 7, height = 5)
+
+ggplot(bilan_pays_escs_2groupes, aes(x = REE, y = bien_etre, color = groupe)) +
+  geom_point(size = 2.5, alpha = 0.8) +
+  geom_smooth(method = "lm", se = FALSE, linetype = "dashed", aes(group = groupe)) +
+  geom_text_repel(aes(label = nom_complet), size = 3,
+                box.padding = 0.6,
+                point.padding = 0.3,
+                segment.color = "grey50",
+                show.legend = FALSE) +
+  scale_color_manual(values = c(
+    "25% les plus défavorisés" = "#d7191c",
+    "25% les plus favorisés" = "#2c7bb6"
+  )) +
   labs(
-    title = "Différences ESCS par pays",
-    x = "Différence REE",
-    y = "Différence bien-être"
+    title = "REE et bien-être par pays selon le milieu social",
+    x = "Relation Enseignant-Élève (REE)",
+    y = "Bien-être moyen",
+    color = ""
   ) +
-  theme_minimal()
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 13),
+    legend.position = "bottom"
+  )
+
 dev.off()
 ```
 
