@@ -173,11 +173,13 @@ En effet, la corrélation est négative (r² =\~ -0.50, p-value =\~ 1.18e-05) en
 
 Note de lecture : Le Kazakhstan a un niveau moyen en mathématiques (445) équivalent à la moyenne des pays interrogés et un indice de REE moyen plus positif qu'en moyenne (0.45).
 
+Note : L'indice REE est une variable composite : une valeur positive indique une perception de la relation plus chaleureuse et soutenante que la moyenne de l'OCDE, tandis qu'une valeur négative indique une relation perçue comme plus distante ou moins aidante.
+
 Certains pays ne semblent pas suivre cette corrélation négative, comme Singapour où la relation avec les enseignants de mathématiques est plus postive d'environ 0.4 point qu'en moyenne dans les pays de l'OCDE.
 De plus, le niveau moyen en mathématiques y est le plus élevé.
 
 De son côté, le Guatemala ou le Paraguay confirment bien le lien de corrélation.
-Le niveau moyen en mathématiques est largement en dessous de la moyenne, alors qu'on y retrouve la meilleure REE moyenne.
+Le niveau moyen en mathématiques est largement en dessous de la moyenne, alors qu'on y retrouve la meilleure REE moyenne. Aussi, la répartition des pays correspond en partie au regroupement par continent, ce qui nous permet de dire qu'il y aurait différents types de systèmes éducatifs selon les zones géographiques.
 
 ## 2.3 La REE et l'influence du statut socio-économique
 
@@ -190,8 +192,7 @@ Autrement dit, les origines sociales des élèves modifient-elles la manière do
 
 Note de lecture : Les 50 % d'élèves situés parmi les 25% les plus défavorisés (quartile 1) rapportent des scores d'indice de REE compris entre environ -0,7 et +0,8.
 
-Note : L'indice REE est une variable composite : une valeur positive indique une perception de la relation plus chaleureuse et soutenante que la moyenne de l'OCDE, tandis qu'une valeur négative indique une relation perçue comme plus distante ou moins aidante.
-Les losanges rouges représentent la moyenne arithmétique de chaque groupe, tandis que la ligne noire horizontale à l'intérieur de chaque boîte indique la médiane (50 % des élèves se situent au-dessus, 50 % en dessous).
+Note : Les losanges rouges représentent la moyenne arithmétique de chaque groupe, tandis que la ligne noire horizontale à l'intérieur de chaque boîte indique la médiane (50 % des élèves se situent au-dessus, 50 % en dessous).
 
 Le statut socio-économique des parents n'influence pas la qualité de la relation entre élèves et enseignants, comme le montre le graphique ci-dessus.
 Le vécu des élèves apparaît comme similaire quelques soient les origines sociales.
@@ -332,10 +333,9 @@ En outre, pour savoir si ces indices ont un réel impact sur les différents typ
 
 ![Matrice de corrélation entre la variable REE et les variables de bien-être ](images_rapports/figure15_Matrice_de_correlation_bien_etre_REE.pdf){fig-cap="Matrice de corrélation entre la variable REE et les variables de bien-être"}
 
-Note de lecture 1: RELATST = REE globale, TEACHSUP = REE maths, EXPWB = indice de bien-être récent, ANXMAT = anxiété en mathématiques, BELONG = sentiment d'appartenance, BULLIED = indice de harcèlement
+Note de lecture : La corrélation entre l'indice d'appartenance et de harcèlement est de -0.26
 
-Note de lecture 2: La corrélation entre l'indice d'appartenance et de harcèlement est de -0.26
-
+Note : REE correspond à l'indice de qualité de ma relation élève-enseignant. REE maths est l'indice de qualité de la relation avec l'enseigant de mathématiques. Le bien-être fait référence l'indice de bien-être récent. L'anxiété maths est l'anxiété ressentie concernant les mathématiques. Appartenance correspond au sentiment d'appartenance des élèves et harcèlement est l'indice de harcèlement construit par l'OCDE.
 
 Cette matrice des corrélations nous donne un premier aperçu des différents liens entre nos indices de REE et les variables de bien-être. Aucune corrélation n’est réellement notable mais quelques petits coefficients peuvent être remarqués comme celui entre la REE globale et le sentiment d’appartenance qui est de 0.27, donc une REE globale élevée est susceptible d’améliorer le sentiment d’appartenance de l’élève. Les autres coefficients de corrélation entre les indices de REE et les variables liées au bien-être comme l’anxiété, le sentiment de harcèlement ou bien le niveau général de bonheur se situent tous entre -0.20 et 0.20. On ne peut donc pas apporter une conclusion très marquée sur la relation entre nos variables d'intérêt. 
 
@@ -444,8 +444,9 @@ Ces résultats suggèrent qu’au sein de chaque groupe socio-économique, la re
 Ainsi, la REE ne semble pas constituer un facteur déterminant du bien-être lorsqu’on raisonne à l’intérieur de chaque catégorie sociale.
 De la même façon que dans l’analyse menée en section 3.3.2, l’étape suivante consiste donc à comparer directement les écarts entre groupes sociaux ; notamment entre élèves de milieu défavorisé et de milieu favorisé, afin d’identifier d’éventuelles inégalités plus structurelles à l’échelle des pays.
 
-![Nuage de points représentant les pays en fonction de leur différence de REE entre garçons-filles avec la différence de bien-être entre catégories socio-économiques](images_rapports/figure20_nuage_points_ESCS.pdf){fig-cap="Nuage de points représentant les pays en fonction de leur différence de REE entre garçons-filles avec la différence de bien-être entre catégories socio-économiques"}
+![Nuage de points représentant les pays en fonction de leur différence de REE entre garçons-filles avec la différence de bien-être entre catégories socio-économiques](images_rapports/figure20_barplot_REE_escs.pdf){fig-cap="Nuage de points représentant les pays en fonction de leur différence de REE entre garçons-filles avec la différence de bien-être entre catégories socio-économiques"}
 
+A MODIFIER (titre, note de lecture...)
 Note de lecture: Le Japon (JPN) à un écart de REE de 0.15, donc les élèves de milieu favorisé ont une meilleure REE que les élèves venant de milieu défavorisé. Cependant l'écart de bien-être est proche de 0, ce qui indique aucune différence
 
 La corrélation globale entre les écarts de REE et les écarts de bien-être entre élèves de milieu élevé et de milieu faible est de 0,265. Ce résultat indique une association positive modérée entre ces deux variables.

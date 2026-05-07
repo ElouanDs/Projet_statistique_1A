@@ -1000,11 +1000,13 @@ En outre, pour savoir si ces indices ont un réel impact sur les différents typ
 vars <- data_etude %>%
   select(EXPWB, RELATST, TEACHSUP, ANXMAT, BELONG, BULLIED) %>%
   na.omit()
-
+colnames(vars) <- c("Bien-être", "REE", "REE maths", "Anxiété maths", "Appartenance", "Harcèlement")
 ```
 
 ```{r, echo=FALSE}
+
 cor_matrix <- cor(vars)
+
 pdf("images_rapports/figure15_Matrice_de_correlation_bien_etre_REE.pdf", width = 5.5, height = 3.5)
 
 corrplot(
@@ -1101,16 +1103,46 @@ cor.test(subset(data_oecd_pays, OECD == 0)$REE,
 
 
 ```{r,echo = FALSE}
-pdf("images_rapports/figure16_Nuage_de_points_OCDE.pdf", width = 6, height = 4)
 
+correspondance_pays <- data.frame(
+  iso_a3 = c("ALB", "ARG", "AUS", "AUT", "QAZ", "BEL", "BRA", "BRN", "BGR", "KHM", 
+             "CAN", "CHL", "TAP", "COL", "CRI", "HRV", "QCY", "CZE", "DNK", "DOM", 
+             "SLV", "EST", "FIN", "FRA", "GEO", "DEU", "GRC", "GTM", "HKG", "HUN", 
+             "ISL", "IDN", "IRL", "ISR", "ITA", "JAM", "JPN", "JOR", "KAZ", "KOR", 
+             "KSV", "LVA", "LTU", "MAC", "MYS", "MLT", "MEX", "MNG", "MNE", "MAR", 
+             "NLD", "NZL", "MKD", "NOR", "PSE", "PAN", "PRY", "PER", "PHL", "POL", 
+             "PRT", "QAT", "MDA", "ROU", "SAU", "SRB", "SGP", "SVK", "SVN", "ESP", 
+             "SWE", "CHE", "THA", "TUR", "QUR", "ARE", "QUK", "QSC", "USA", "URY", "UZB", "VNM", "GBR"),
+  nom_complet = c("Albania", "Argentina", "Australia", "Austria", "Baku (Azerbaijan)", "Belgium", "Brazil", "Brunei", "Bulgaria", "Cambodia","Canada", "Chile", "Chinese Taipei", "Colombia", "Costa Rica", "Croatia", "Cyprus", "Czech Republic", "Denmark", "Dominican Republic", "El Salvador", "Estonia", "Finland", "France", "Georgia", "Germany", "Greece", "Guatemala", "Hong Kong", "Hungary","Iceland", "Indonesia", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Korea","Kosovo", "Latvia", "Lithuania", "Macao", "Malaysia", "Malta", "Mexico", "Mongolia", "Montenegro", "Morocco","Netherlands", "New Zealand", "North Macedonia", "Norway", "Palestinian Authority", "Panama", "Paraguay", "Peru", "Philippines", "Poland","Portugal", "Qatar", "Moldova", "Romania", "Saudi Arabia", "Serbia", "Singapore", "Slovak Republic", "Slovenia", "Spain","Sweden", "Switzerland", "Thailand", "Türkiye", "Ukraine", "United Arab Emirates", "United Kingdom", "Scotland", "United States", "Uruguay", "Uzbekistan", "Viet Nam", "Great Britain")
+)
+
+# On transforme le tableau pour intégrer les noms complets
+data_oecd_pays <- data_oecd_pays %>%
+  na.omit() %>% 
+  column_to_rownames("CNT")
+
+data_oecd_pays <- data_oecd_pays %>%
+  rownames_to_column("iso_a3") %>%
+  left_join(correspondance_pays, by = "iso_a3") %>%
+  mutate(nom_complet = ifelse(is.na(nom_complet), iso_a3, nom_complet)) %>%
+  select(-iso_a3) %>%
+  column_to_rownames("nom_complet")
+
+data_oecd_pays <- data_oecd_pays %>%
+  rownames_to_column(var = "nom_complet")
+
+pdf("images_rapports/figure16_Nuage_de_points_OCDE.pdf", width = 6, height = 4)
 ggplot(data_oecd_pays, aes(x = REE, y = bien_etre, color = factor(OECD))) +
   geom_point(size = 2.5, alpha = 0.8) +
-  
+  geom_text_repel(aes(label = nom_complet),
+                  size = 3,
+                  box.padding = 0.5,
+                  point.padding = 0.3,
+                  segment.color = "grey50",
+                  show.legend = FALSE) +
   # Régressions séparées
   geom_smooth(method = "lm", se = FALSE, linetype = "dashed") +
-  
-  geom_text_repel(aes(label = CNT), size = 3) +
-  
+
   labs(
     title = "Relation REE et bien-être selon l'appartenance à l'OCDE",
     x = "REE moyenne par pays",
