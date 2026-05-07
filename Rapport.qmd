@@ -88,7 +88,6 @@ Concernant la figure 3, nous avons la distribution des notes en mathématiques s
 
 Nous pouvons donc ajouter des caractéristiques au profil de nos élèves qui ne se positionnent pas sur leur relation avec le corps enseignant. En effet ce sont des élèves avec des moins bon résultats généraux et en mathématiques. Ce profil montre que nos analyses futures entre la REE et les autres variable pourront être biaisé car on ne s'intéressera qu'aux élèves ayant un indice donc on pourrait observer de moins fortes corrélation entre les notes et la REE car ceux ayant de moins bonnes notes sont ceux n'ayant pas de REE. 
 
-## 1.3 Les profils des élèves qui ont un indice sur leur relation avec le corps enseignant
 
 ![Statsitiques des différentes variables après suppression des valeurs manquantes](images_rapports/figure4_summary_table.png){fig-cap="Statsitiques des différentes variables après suppression des valeurs manquantes"}
 
@@ -104,7 +103,7 @@ ANXMAT correspond à l'indice sur l'anxiéyé en mathématiques.
 
 Pour continuer notre analyse nous avons supprimé de notre base de données tous les élèves qui n'ont pas d'indice de REE global et ciblée sur les mathématiques, nous vérifions que cela n'a pas trop modifié les statistiques initiales de notre jeu de données. Selon les indications de l'OCDE, décrite dans la partie 1.1, la moyenne est centrée sur 0 pour les pyas appartenant à l'OCDE et avec un édart-type de 1, donc en ajoutant les autres pays on se retrouve proche de 0 mais pas forcément exactement. En enlevant les données, on retrouve partout une moyenne aux alentours de 0 et avec un premier et troisième quartile entre -1 et 1 ce qui confirme que notre écart-type est toujours proche de 1. Donc le fait d'avoir enlevé les données manquantes n'a pas trop affecté nos variables.
 
-## 1.4 Une relation décrite comme globalement positive au travers du vécu de l'élève.
+## 1.3 Une relation décrite comme globalement positive au travers du vécu de l'élève.
 
 
 ![Graphique en barre indiquant le taux de réponse positives selon les questions](images_rapports/figure5_Reponses_indiquant_une _relation_positive.pdf){fig-cap="Graphique en barre indiquant le taux de réponse positives selon les questions"}
@@ -351,8 +350,6 @@ Nous mesurons ici le bien-être par un indicateur général, construit à partir
 Le lien entre la REE et le bien–être à l’échelle des pays ne se fait également pas remarquer dans une analyse non-discriminante. Il faut donc trouver un moyen de classifier l’échantillon portant sur un facteur discriminant des pays, d’où tout l’intérêt de notre étude dans cette partie.
 
 
-### 3.2.1 Les résultats relatifs au lien REE et bien-être deviennent notable lorsque l’on segmente l’échantillon selon l'appartenance à l'OCDE
-
 Un premier facteur permettant de différencier les pays entre eux est l’appartenance à l’OCDE. En effet, l’OCDE (Organisation de Coopération et de Développement Économiques) est une organisation internationale regroupant principalement des pays dits “développés”. Elle promeut des politiques publiques favorisant le bien-être social et l’amélioration des systèmes éducatifs. C’est pourquoi, utiliser ce statut peut être pertinent dans notre analyse. Ainsi, de manière générale dans le cadre des enquêtes PISA, l’appartenance à l’OCDE s'avère jouer un rôle déterminant pour savoir si un élève inscrit son parcours scolaire dans un environnement propice à sa situation sociale et mentale ou non.
 
 ![Nuage de points représentant la REE des élèves en fonction de leur bien-être regroupés par pays et différenciés selon leur appartenance ou non à l'OCDE](images_rapports/figure16_Nuage_de_points_OCDE.pdf){fig-cap="Nuage de points représentant la REE des élèves en fonction de leur bien-être regroupé par pays et différenciés selon leur appartenance ou non à l'OCDE"}
@@ -364,8 +361,6 @@ On constate donc un lien positif marqué entre le bien-être moyen et la REE moy
 De plus, ce que la régression linéaire entre la REE et le bien-être en moyenne selon l’appartenance à l’OCDE tend à faire remarquer, se confirme par l’analyse des coefficients de corrélations entre ces deux indicateurs d’intérêt. De ce fait, on distingue a priori, une corrélation positive entre la REE dans l’OCDE et les variables de bien-être (à hauteur d’un coefficient de +0.34), tandis que si un pays n’appartient pas à l’OCDE, le lien REE et bien-être tend à s’inverser et donc devenir négatif (-0.23). A noter, que ces coefficients de corrélation ne se sont pas toujours montrés très significatifs après tests de corrélation de Pearson. En effet, on trouve tout d'abord une p-value de 0.08 (> 5%, le niveau de test) pour le premier test qui n’atteint pas le seuil de significativité statistique, suggérant une tendance mais sans preuve suffisante pour pouvoir affirmer qu'il existe un véritable lien de corrélation entre nos variables d'intérêt. Puis, nous relevons une p-value de 0.28 pour le second (on ne rejette pas l'hypothèse de corrélation nulle à 95% de confiance). Ainsi, plus la REE est bonne dans l’OCDE et plus le niveau de bien-être semnle l'être tout autant. En revanche, il est fortement possible qu'il n'existe pas de lien significatif entre les interactions entre élèves et enseignants et le niveau de bien-être moyen (hors OCDE).
 
 
-### 3.2.2 Le niveau de développement du pays constitue un facteur plus général pour étudier la relation entre le bien-être et la REE
-
 Pour approfondir l’étude du lien entre REE et bien-être au sein de l’OCDE il peut être pertinent de valider ou réfuter nos précédentes analyses en généralisant le caractère discriminant des pays au niveau de développement au sens de l’Indice du Développement Humain (IDH) du Programme des Nations Unies pour le Développement (PNUD). Pour ce faire, nous avons utilisé la classification suivante. Les pays ayant un niveau de développement qualifié de “Élevé” regroupent une partie des membres de l’OCDE et certaines nations où l’IDH est substantiel même si celles-ci n’appartiennent pas à l’OCDE. Les pays émergents ou en période de transition sont inclus dans le niveau de développement “Intermédiaire”. Finalement, les pays dits “en développement” sont inscrits dans la catégorie “Faible". C’est donc sur cette répartition des pays étudiés que nous allons poursuivre notre analyse.
 
 ![Nuage de points représentant la REE des élèves en fonction de leur bien-être regroupés par pays et différenciés selon leur niveau de développement](images_rapports/figure17_Nuage_de_points_developpement.pdf){fig-cap="Nuage de points représentant la REE des élèves en fonction de leur bien-être regroupés par pays et différenciés selon leur niveau de développement"}
@@ -376,8 +371,8 @@ On peut donc observer sur le nuage de points ci-dessus, que sur la base d'un nou
 
 Ainsi, après nous être intéressés au lien entre REE et bien-être en fonction du niveau de développement des pays, nous allons utiliser un autre moyen de segmenter l’échantillon retenu. En effet, nous pouvons également scinder la population en fonction des caractéristiques relatives aux individus qui la composent et non par rapport au pays d’origine des élèves. Dans la partie suivante, c’est le sexe des élèves qui sera étudié pour compléter notre analyse REE/bien-être.
 
-## 3.3 Utiliser le sexe comme variable de différenciation de la population permet aussi d’expliquer le lien entre REE et bien-être
-### 3.3.1 Le sexe comme unique filtre ne rend pas forcément compte de l’effet de la REE sur le bien-être des élèves
+## 3.3 Le sexe comme variable de différenciation ne modère pas l'effet de la REE sur le bien-être des élèves
+
 
 Un autre facteur permettant de séparer la population est représentée par le sexe. Ainsi l’objectif est d’identifier d’éventuelles inégalités ou sensibilités spécifiques des élèves selon leur sexe auprès de l'influence des REE sur leur bien-être.
 
@@ -387,78 +382,58 @@ Ainsi, au niveau des coefficients de corrélation, nous avons généralement rel
 
 Pour pouvoir proposer une analyse plus pertinente en utilisant le sexe comme facteur permettant de segmenter notre échantillon nous pouvons y ajouter l’étude des pays dans lesquels le lien entre le sexe et la REE est plus ou moins important afin de tirer des conclusions sur le niveau de bien-être  observé.
 
-### 3.3.2 Le pays d’origine permet aussi d’ajouter du sens au lien entre REE et bien-être selon le sexe
 L’objectif de cette analyse est d’examiner si les écarts entre filles et garçons en matière de REE sont associés aux différences de bien-être observées entre les sexes, à l’échelle des pays.
 
-L’interprétation des coefficients de corrélation montre des valeurs très faibles : 0.087 chez les filles et -0.032 chez les garçons. Le lien entre relation enseignant-élève et bien-être apparaît légèrement plus marqué chez les filles, suggérant un effet un peu plus important de la REE sur leur bien-être. Toutefois, ces coefficients restent très faibles, ce qui indique qu’une analyse séparée par sexe ne suffit pas à mettre en évidence une relation entre ces deux variables.
-Afin d’aller plus directement à l’analyse des inégalités, des variables d’écart entre garçons et filles sont construites pour chaque pays.
-Ces écarts s’interprètent simplement : une valeur positive indique un avantage en faveur des garçons, tandis qu’une valeur négative traduit un avantage en faveur des filles. 
+Pour cela nous allons classer les pays en deux groupes selon que leur REE moyenne est plus favorable aux garçons ou aux filles. On calcule ensuite le bien-être moyen pour chacun de ces groupes.
 
-La corrélation observée de 0.45 met en évidence une association positive modérée entre les écarts de relation enseignant-élève et les écarts de bien-être entre garçons et filles. Cela suggère que, dans les pays où les garçons bénéficient d’une meilleure relation avec les enseignants que les filles, ils présentent également un niveau de bien-être relativement plus élevé.
+![Graphique en barre représentant le bien-être moyen selon le profil de REE du pays](images_rapports/figure18_graph_barre_sexe.pdf){fig-cap="Graphique en barre représentant le bien-être moyen selon le profil de REE du pays"}
 
-Cette corrélation met en évidence une inégalité entre sexes : les garçons sont favorisés par rapport aux filles dans certains pays, et cela se reflète dans leur bien-être.
+Note de Lecture: Pour les pays ayant une REE moins favorable aux filles, le bien-être moyen est de 0.025
 
-![Graphique en barre représentant l'impact de la REE sur la différence de bien-être](images_rapports/figure18_Graph_barre_sexe.pdf){fig-cap="Graphique en barre représentant l'impact de la REE sur la différence de bien-être"}
+Le graphique laisse apparaître un écart visuel entre les deux groupes, les pays à REE favorable aux filles affichant un bien-être moyen légèrement supérieur. Cet écart doit toutefois être soumis à un test statistique avant d'en tirer des conclusions.
+Le t-test de Student permet de déterminer si la différence observée entre deux moyennes est réelle ou due au hasard. La statistique t (t = 1,26) mesure l'écart entre les deux moyennes rapporté à la variabilité des données — une valeur faible indique que les groupes sont peu différents l'un de l'autre. La p-value (p = 0,21) représente la probabilité d'observer un tel écart par simple hasard ; au-delà du seuil conventionnel de 0,05, on ne peut pas conclure à une différence significative. Enfin, l'intervalle de confiance à 95 % [-0,022 ; 0,101] contient 0, ce qui confirme qu'on ne peut exclure que la vraie différence soit nulle. Les moyennes des deux groupes (0,025 vs −0,014) sont presques identiques, ce qui confirme l'ensemble de ces résultats : le profil de REE d'un pays, favorable aux filles ou aux garçons, n'est pas associé à un niveau de bien-être moyen significativement différent.
 
-Note de Lecture: Pour les pays ayant une REE moins favorable aux garçons, donc un coefficient de corrélation sur les différence plus proche de 0, la différence de bien-être en les garçons et les filles est de 0.09.
+Pour aller plus loin, on visualise directement la relation entre REE et bien-être pour chaque pays, en distinguant filles et garçons.
 
-Le graphique compare deux groupes de pays selon la qualité de la relation enseignant-élève en fonction du sexe. On observe que l’écart de bien-être en faveur des garçons varie selon ce contexte relationnel.
-Dans les pays où la relation élève-enseignant est relativement moins favorable aux garçons (barre bleue), l’écart de bien-être entre garçons et filles est d’environ 0.09. À l’inverse, dans les pays où cette relation leur est plus favorable (barre grise), cet écart atteint plus de 0.15.
-Ainsi, l’écart est nettement plus élevé dans le second cas. Cela suggère que la qualité de la relation avec les enseignants peut amplifier les différences de bien-être entre filles et garçons.
-Le passage du premier au second groupe correspond à une augmentation d’environ 40 % de cet écart. Autrement dit, les inégalités de bien-être ne se limitent pas à une simple différence entre sexes : elles semblent s’accentuer lorsque les garçons bénéficient d’une relation plus favorable avec les enseignants.
 
-![Nuage de points représentant les pays en fonction de leur différence de REE entre garçons-filles avec la différence de bien-être entre garçons-filles](images_rapports/figure19_nuage_points_sexe.pdf){fig-cap="Nuage de points représentant les pays en fonction de leur différence de REE entre garçons-filles avec la différence de bien-être entre garçons-filles"}
+![Nuage de points représentant la REE et bien-être par pays selon le sexe](images_rapports/figure19_nuage_points_sexe.pdf){fig-cap="Nuage de points représentant la REE et bien-être par pays selon le sexe"}
 
-Note de lecture: La Bulgarie (BGR) a une différence de REE de -0.11, ce qui veut dire que la REE est meilleur pour les filles. Concernant le bien-être, il est de -0.05, donc meilleur pour les filles aussi.
+Note de lecture: L'Albanie (ALB) a une REE de 0.60 et un bien être de 0.20 chez les femmes.
 
-Le graphique met en évidence une relation globalement positive entre les écarts de REE et les écarts de bien-être entre filles et garçons.
-En effet, cela signifie que dans les pays où les garçons bénéficient d’une relation plus favorable avec les enseignants que les filles, ils présentent également un niveau de bien-être plus élevé.
-Cependant, le nuage de points reste assez dispersé, ce qui indique que cette relation est réelle mais modérée, et qu’elle ne suffit pas à expliquer à elle seule les différences observées.
-Enfin, certains pays s’écartent de cette tendance générale, ce qui suggère que d’autres facteurs interviennent également dans la formation des inégalités de bien-être entre les sexes.
+Le nuage de points révèle que les deux droites de régression sont presques parallèles. Cela signifie que la relation entre REE et bien-être est d'intensité similaire pour les filles et les garçons : lorsque la REE s'améliore dans un pays, le bien-être progresse de manière comparable pour les deux sexes. Le sexe ne modère donc pas la relation entre REE et bien-être à l'échelle des pays. Cependant, on note que les filles présentent souvent un niveau de bien-être inférieur à celui des garçons à niveau de REE équivalent, mais cet écart étant constant quel que soit le niveau de REE, il ne relève pas de la relation enseignant-élève et dépasse le cadre de notre analyse.
 
-En conclusion l'analyse montre que la REE n’explique que faiblement le bien-être lorsqu’elle est étudiée séparément par sexe. En revanche, l’étude des écarts entre filles et garçons révèle une relation positive modérée : dans les pays où les garçons bénéficient d’une meilleure REE, ils présentent également un niveau de bien-être plus élevé.
+L'ensemble des analyses menées dans la partie 3.3 montre un résultat clair : le sexe, pris isolément ou combiné à la dimension pays, ne constitue pas un facteur de différenciation significatif de l'effet de la REE sur le bien-être. Les matrices de corrélation sont similaires entre filles et garçons, le profil de REE des pays n'est pas associé à des différences de bien-être significatives, et les pentes de régression sont identiques pour les deux sexes. 
 
-Ainsi, la REE apparaît comme un facteur contribuant aux inégalités de bien-être entre sexes.
+## 3.4 Le milieu socio-économique comme variable de différenciation ne modère pas non plus l'effet de la REE sur le bien-être des élèves
 
-## 3.4 Utiliser la catégorie socioprofessionnelle comme manière de différencier la population permet aussi d’expliquer le lien entre REE et bien-être
-### 3.4.1 Comprendre le lien entre REE et bien-être selon le milieu social à l’échelle individuelle 
-
-Pour ce faire, servons-nous de la variable sur l'indice de statut économique, social et culturel. 
-C'est un indicateur qui mesure le milieu socio-économique des élèves à partir du niveau d’éducation et de la profession des parents ainsi que des ressources du foyer.
-
-Par souci de complexité, on décide de scinder l'indice de statut économique, social et culturel en variable qualitative. 
-En utilisant 2 tertiles, on obtient directement tous les individus avec un indice faisant partis des 33% les plus faibles, ceux faisant partis des 66% les plus faibles ET des 66% les plus élevés, et faisant partis des 33% les plus élevés.
-On distingue alors 3 classes, les indices faibles, moyennes, et élevées. 
+Pour ce faire, servons-nous de la variable sur l'indice de statut économique, social et culturel (ESCS). C'est un indicateur qui mesure le milieu socio-économique des élèves à partir du niveau d'éducation et de la profession des parents ainsi que des ressources du foyer (comme les livres ou l'accès à un ordinateur).
+L'indice est découpé en quatre quartiles afin de distinguer les élèves selon leur milieu social : les 25 % les plus défavorisés (Q1), deux groupes intermédiaires (Q2, Q3), et les 25 % les plus favorisés (Q4).
 
 À l’échelle individuelle, l’analyse des corrélations selon les différents niveaux de statut socio-économique ne met pas en évidence de différences structurelles marquées entre les variables étudiées. Les relations entre bien-être, REE et autres variables associées restent globalement similaires quel que soit le niveau d’ESCS.
 Autrement dit, le fait de comparer les individus selon leur statut socio-économique ne permet pas de faire apparaître des variations significatives dans les liens entre ces variables. Les mécanismes semblent donc relativement stables au niveau individuel.
-Dans la continuité de l’analyse menée sur le genre, l’étape suivante consiste alors à passer à une lecture agrégée au niveau des pays. Cette approche permet d’examiner si des différences plus structurelles émergent lorsqu’on observe les écarts entre groupes plutôt qu’entre individus.
+Dans la continuité de l’analyse menée sur le sexe, l’étape suivante consiste alors à passer à une lecture agrégée au niveau des pays. Cette approche permet d’examiner si des différences plus structurelles émergent lorsqu’on observe les écarts entre groupes plutôt qu’entre individus.
 
-### 3.4.2 Etudier le lien REE–bien-être en comparant les pays selon le milieu social 
-
-Cette partie s’inscrit dans la continuité de la section 3.3.2, en reprenant exactement la même construction méthodologique. L’indicateur de bien-être est défini de manière identique, à partir des mêmes quatre variables centrées (sentiment d’appartenance à l’école, bien-être récent, anxiété en mathématiques et exposition au harcèlement), les deux dernières étant inversées afin d’assurer une lecture cohérente de l’ensemble.
+Pour cette étape, nous reprenons exactement la même construction méthodologique. L’indicateur de bien-être est défini de manière identique, à partir des mêmes quatre variables centrées (sentiment d’appartenance à l’école, bien-être récent, anxiété en mathématiques et exposition au harcèlement), les deux dernières étant inversées afin d’assurer une lecture cohérente de l’ensemble.
 Comme précédemment, les données sont ensuite agrégées au niveau des pays afin de disposer d’indicateurs moyens comparables entre contextes nationaux. Cette harmonisation permet de conserver une logique d’analyse similaire à celle utilisée pour les différences de sexe.
 
-L’interprétation des coefficients de corrélation entre la REE et le bien-être, calculés selon les catégories ESCS et agrégés par pays, met en évidence des liens très faibles dans l’ensemble : 0,083 pour les élèves de milieu faible, 0,007 pour les élèves de milieu moyen et 0,022 pour les élèves de milieu élevé.
-Ces résultats suggèrent qu’au sein de chaque groupe socio-économique, la relation enseignant-élève explique très peu les variations de bien-être. Autrement dit, que l’on considère les élèves défavorisés, moyens ou favorisés, le lien entre REE et bien-être reste globalement marginal.
-Ainsi, la REE ne semble pas constituer un facteur déterminant du bien-être lorsqu’on raisonne à l’intérieur de chaque catégorie sociale.
-De la même façon que dans l’analyse menée en section 3.3.2, l’étape suivante consiste donc à comparer directement les écarts entre groupes sociaux ; notamment entre élèves de milieu défavorisé et de milieu favorisé, afin d’identifier d’éventuelles inégalités plus structurelles à l’échelle des pays.
+Contrairement à l'analyse par sexe qui ne comportait que deux groupes naturels, la variable ESCS en compte quatre. Conserver les quatre quartiles dans le t-test et le nuage de points présenterait deux inconvénients majeurs : d'une part, les groupes intermédiaires (Q2 et Q3) introduisent du bruit sans apporter de contraste analytique supplémentaire ; d'autre part, le nuage de points deviendrait illisible avec quatre points par pays soit plus de 300 observations. On choisit donc de ne retenir que Q1 et Q4, qui représentent les situations les plus contrastées et permettent une comparaison directe entre élèves très défavorisés et très favorisés, dans le même esprit que la comparaison filles/garçons menée en 3.3.
 
-![Nuage de points représentant les pays en fonction de leur différence de REE entre garçons-filles avec la différence de bien-être entre catégories socio-économiques](images_rapports/figure20_barplot_REE_escs.pdf){fig-cap="Nuage de points représentant les pays en fonction de leur différence de REE entre garçons-filles avec la différence de bien-être entre catégories socio-économiques"}
+Les pays sont classés en deux groupes selon que leur REE est plus favorable aux élèves favorisés (Q4) ou défavorisés (Q1). On calcule ensuite le bien-être moyen pour chacun de ces groupes.
 
-A MODIFIER (titre, note de lecture...)
-Note de lecture: Le Japon (JPN) à un écart de REE de 0.15, donc les élèves de milieu favorisé ont une meilleure REE que les élèves venant de milieu défavorisé. Cependant l'écart de bien-être est proche de 0, ce qui indique aucune différence
+![Graphique en barre représentant le bien-être moyen selon le profil de REE du pays distnigué par catégories socio-économique](images_rapports/figure20_barplot_REE_escs.pdf){fig-cap="Graphique en barre représentant le bien-être moyen selon le profil de REE du pays"}
 
-La corrélation globale entre les écarts de REE et les écarts de bien-être entre élèves de milieu élevé et de milieu faible est de 0,265. Ce résultat indique une association positive modérée entre ces deux variables.
-En fait, les pays dans lesquels les élèves issus de milieux favorisés bénéficient d’une relation enseignant-élève plus avantageuse que ceux de milieux défavorisés sont aussi ceux où ils présentent un avantage en termes de bien-être.
-L’analyse graphique confirme cette tendance générale, malgré une certaine dispersion des points, ce qui suggère que la relation n’est pas parfaitement uniforme d’un pays à l’autre.
+Note de lecture: Pour les pays ayant une meilleur REE chez les élève provenant de catégories socio-économiques défavorisées, le bien-être moyen est de 0.03.
 
+Le graphique laisse apparaître un léger écart entre les deux groupes de pays. Le t-test permet de déterminer si cet écart est statistiquement significatif. Les résultats obtenus via le t.test ne permet pas de conclure à une différence significative (t = 1,13 ; p = 0,26). L'intervalle de confiance à 95 % contient 0 [-0,017 ; 0,064], et les moyennes des deux groupes sont très proches (0,029 vs 0,006). Ce résultat est cohérent avec celui obtenu pour le sexe : le simple fait de classer les pays selon leur profil de REE, ici favorable aux défavorisés ou aux favorisés, n'est pas associé à un niveau de bien-être moyen significativement différent.
 
-L’analyse montre que, à l’échelle individuelle comme au sein de chaque catégorie sociale, la REE est très faiblement liée au bien-être, quel que soit le milieu socio-économique. Autrement dit, la REE ne constitue pas un facteur déterminant du bien-être lorsqu’on raisonne à l’intérieur des groupes.
+![Nuage de points représentant la REE et bien-être par pays selon la catégorie ESCS](images_rapports/figure21_nuage_REE_bienetre_escs.pdf){fig-cap="Nuage de points représentant la REE et bien-être par pays selon la catégorie ESCS"}
 
-En revanche, l’approche par écarts entre milieux socio-économiques à l’échelle des pays met en évidence une relation positive modérée : dans les pays où les élèves favorisés bénéficient d’une meilleure REE que les élèves défavorisés, ils présentent également un avantage en termes de bien-être.
+Note de lecture: L'Albanie (ALB) possède une REE moyenne de 0.45 et un bien-être moyen de 0.3 chez les élèves venant d'un milieu socio-économique défavorisé.
 
-Ainsi, comme pour le genre, la REE apparaît moins comme un facteur participant aux inégalités sociales de bien-être.
+Le nuage de points met en évidence deux enseignements principaux. D'une part, les deux droites de régression sont presques parallèles, ce qui signifie que la REE a un effet d'intensité similaire sur le bien-être pour les élèves défavorisés et favorisés : lorsque la relation avec les enseignants s'améliore dans un pays, le bien-être progresse de façon comparable dans les deux groupes. Le milieu social ne modère donc pas la relation entre REE et bien-être à l'échelle des pays.
+D'autre part, les élèves du quartile supérieur (Q4) affichent un bien-être plus élevé que ceux du quartile inférieur (Q1), à niveau de REE équivalent. Ce décalage vertical, visible aussi dans la partie 3.3, traduit un effet du milieu social sur le bien-être, cependant cela sort aussi de notre cadre d'analyse.
+
+L'ensemble des analyses de la section 3.4 aboutit à un constat symétrique à celui de la section 3.3 : le milieu social, pris isolément ou combiné à la dimension pays, ne constitue pas un facteur de différenciation de l'effet de la REE sur le bien-être. Les matrices de corrélation sont stables entre quartiles, le profil de REE des pays n'est pas associé à des différences de bien-être significatives, et les pentes de régression sont identiques pour les deux groupes extrêmes.
 
 # Conclusion
 
@@ -468,7 +443,7 @@ En premier lieu, la REE est globalement positive dans le ressenti des élèves, 
 
 Cependant, à une échelle globale, on remarque des dynamiques intéressantes. Les comparaisons entre pays révèlent des corrélations, parfois négatives, entre le niveau académique moyen et la qualité de la REE, ce qui peut suggérer des différences entre systèmes éducatifs. Concernant le statut socio-économique, celui-ci n’influence pas non plus la qualité de la REE à l’échelle individuelle, mais il devient significatif lorsqu’on raisonne à l’échelle d’un pays.
 
-Concernant le bien-être, la REE n’a pas non plus un rôle déterminant lorsqu’elle est analysée de manière individuelle. En revanche, son influence devient plus significative lorsqu’elle est étudiée par pays et en fonction de différents facteurs tels que le niveau de développement des pays. De plus, grâce à l’étude des écarts entre groupes (filles-garçons et niveaux socio-économiques), on a pu mettre en évidence que la REE peut contribuer à accentuer certaines inégalités de bien-être.
+Concernant le bien-être, la REE ne joue pas non plus un rôle déterminant lorsqu'elle est analysée à l'échelle individuelle. En revanche, son influence devient plus perceptible lorsqu'elle est étudiée par pays et en fonction du niveau de développement économique. Les analyses menées selon le sexe et le milieu social aboutissent quant à elles à un constat convergent : ni le sexe ni le milieu social n'ont un impact dans l'effet de la REE sur le bien-être. 
 
 Ainsi, la relation élèves-enseignants apparaît comme un facteur complexe. Elle ne constitue ni un déterminant unique de la réussite scolaire ni du bien-être, mais fait partie d’un ensemble plus large de facteurs.
 

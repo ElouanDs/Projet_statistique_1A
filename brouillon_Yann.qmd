@@ -1451,7 +1451,7 @@ infographie_data <- diff_sexe %>%
                                "REE favorable aux garçons", 
                                "REE favorable aux filles")) %>%
   group_by(groupe_pays) %>%
-  summarise(moyenne_diff_bien_etre = mean((bein_etre_homme,bien_etre_femme, na.rm = TRUE))
+  summarise(moyenne_diff_bien_etre = mean(c(bien_etre_homme,bien_etre_femme), na.rm = TRUE))
 
 # 2. Création du graphique simple (style "Data-Visualisation")
 
@@ -1673,6 +1673,47 @@ Ces résultats suggèrent qu’au sein de chaque groupe socio-économique, la re
 Ainsi, la REE ne semble pas constituer un facteur déterminant du bien-être lorsqu’on raisonne à l’intérieur de chaque catégorie sociale.
 De la même façon que dans l’analyse menée en section 3.3.2, l’étape suivante consiste donc à comparer directement les écarts entre groupes sociaux ; notamment entre élèves de milieu défavorisé et de milieu favorisé (afin d’identifier d’éventuelles inégalités plus structurelles à l’échelle des pays).
 
+```{r}
+diff_REE_escs <- bilan_pays_escs %>%
+  filter(statut_socioeco_cat %in% c("Q1", "Q4")) %>%
+  pivot_wider(names_from = statut_socioeco_cat, values_from = c(REE, bien_etre)) %>%
+  mutate(
+    diff_REE = REE_Q4 - REE_Q1,
+    type_REE = if_else(diff_REE > 0,
+                       "REE meilleure chez les favorisés",
+                       "REE meilleure chez les défavorisés")
+  ) %>%
+  select(CNT, type_REE)
+```
+```{r}
+barplot_data_escs <- bilan_pays_escs %>%
+  left_join(diff_REE_escs, by = "CNT") %>%
+  group_by(type_REE) %>%
+  summarise(bien_etre_moyen = mean(bien_etre, na.rm = TRUE), .groups = "drop")
+
+pdf("images_rapports/figure20_barplot_REE_escs.pdf", width = 5, height = 3.5)
+
+ggplot(barplot_data_escs, aes(x = type_REE, y = bien_etre_moyen, fill = type_REE)) +
+  geom_col(width = 0.5) +
+  scale_fill_manual(values = c(
+    "REE meilleure chez les défavorisés" = "#d7191c",
+    "REE meilleure chez les favorisés" = "#2c7bb6"
+  )) +
+  labs(
+    title = "Bien-être moyen selon le profil de REE du pays",
+    x = "",
+    y = "Bien-être moyen"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(face = "bold", size = 13)
+  )
+
+dev.off()
+```
+
+
 ```{r,echo=FALSE}
 library(tidyr)
 
@@ -1693,7 +1734,7 @@ Corrélation globale
 cor(diff_escs$diff_REE, diff_escs$diff_bien_etre)
 ```
 ```{r,echo=FALSE}
-pdf("images_rapports/figure20_nuage_points_ESCS.pdf", width = 6, height = 4)
+pdf("images_rapports/figure21_nuage_points_ESCS.pdf", width = 6, height = 4)
 
 ggplot(diff_escs, aes(x = diff_REE, y = diff_bien_etre)) +
   geom_point(alpha = 0.7, color = "darkblue", size = 2.5) +
