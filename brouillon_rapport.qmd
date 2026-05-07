@@ -68,8 +68,8 @@ Cette base de données permet d'accéder à des informations portant sur les per
 ```{r, echo = FALSE, include = FALSE, warning=FALSE, message = FALSE}
 
 
-#packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse","ggrepel", "cluster", "rnaturalearth", "rnaturalearthdata", "sf")
-#install.packages(packages) 
+packages <- c("ggplot2", "dplyr", "corrplot","GGally","psych","FactoMineR","factoextra", "tidyverse","ggrepel", "cluster", "rnaturalearth", "rnaturalearthdata", "sf")
+install.packages(packages) 
 library(tidyverse)
 library(psych)
 library(FactoMineR)
@@ -627,7 +627,7 @@ Autrement dit, les origines sociales des élèves modifient-elles la manière do
 
 ```{r, echo=FALSE, warning=FALSE}
 # Dispersion de l'indice RELATST en fonction des quartiles socio-éco
-pdf("images_rapports/figure9_boxplot_REE_ESCS.pdf", width = 5, height = 3.3)
+
 etude_ESCS <- data_etude %>% mutate(Quartile_Social = ntile(ESCS, 4))
 etude_ESCS %>%
   ggplot(aes(x = factor(Quartile_Social), y = RELATST, fill = factor(Quartile_Social))) +
@@ -649,7 +649,6 @@ etude_ESCS %>%
     plot.title = element_text(face = "bold", size = 12),
     axis.text.x = element_text(size = 10)
   )
-dev.off()
 ```
 
 Note de lecture : Les 50 % d'élèves situés parmi les 25% les plus défavorisés (quartile 1) rapportent des scores d'indice de REE compris entre environ -0,7 et +0,8.
@@ -782,11 +781,11 @@ Le lien entre l'origine sociale et le niveau scolaire explique donc la présence
 Au delà du niveau scolaire ou de statut socio-économique, l'appréciation de l'élève concernant les matières étudiées peut partiellement expliquer la qualité de la REE, notamment concernant la qualité de l'enseignement.
 
 L'appréciation des mathématiques comme étant l'une des matières préférées de l'élève est légérement corrélée avec la qualité de la relation avec l'enseignement de cette matière.
-La corrélation s'élève à environ 0.21, ce qui permet de dire qu'il y a bel et bien un lien entre ces deux éléments mais celui-ci reste faible.
+La corrélation a un r² d'environ 0.21 (p-value < 2.2e-16), ce qui permet de dire qu'il y a bel et bien un lien entre ces deux éléments mais celui-ci reste faible.
 Alors, aimer les maths ne suffit pas à expliquer une bonne relation entre un élève et son enseignant de mathématiques.
 
 La qualité perçue des cours de mathématiques est davantage corrélée avec la qualité de la relation avec l'enseignant de mathématiques.
-En effet, la corrélation est de 0.41 et est significative.
+En effet, la corrélation est de 0.41 et est significative (p-value < 2.2e-16).
 La qualité de la REE en maths est donc dépendante de la qualité observée des cours de mathématiques au cours de l'année.
 
 ```{r, echo=FALSE, include=FALSE}
@@ -800,7 +799,7 @@ cor.test(data_etude$TEACHSUP, data_etude$ST272Q01JA)
 cor.test(bilan_pays$qualite_moyen, bilan_pays$REE_moyen)
 ```
 
-Lorsqu'on change d'échelle, en regardant la qualité observée moyenne des cours de mathématiques par pays, on constate une importante corrélation positive entre qualité des cours et qualité de la REE (0.62).
+Lorsqu'on change d'échelle, en regardant la qualité observée moyenne des cours de mathématiques par pays, on constate une importante corrélation positive entre qualité des cours et qualité de la REE (r² =\~ 0.62, p-value = 1.035e-08).
 Alors, meilleure est la qualité des cours de mathématique, meilleure est la relation entre les élèves et les enseignants à l'échelle nationale.
 
 ```{r, echo=FALSE, warning=FALSE}
