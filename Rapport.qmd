@@ -303,9 +303,9 @@ Le groupe 4, en orange est avant tout caractérisé par les notes moyennes obten
 Les pays qui le composent ont aussi une qualité de REE légèrement positive (0.17), tandis que la qualité d'enseignement est jugée moins bonne qu'en moyenne (6.49).
 La Corée du Sud, Hong Kong, l'Australie ainsi que la Norvège en font partie.
 
-On peut en conclure des profils types de pays. Un pays du groupe 1 semble avoir un système éducatif davatange accès sur la qualité de la REE et de l'enseignement, que sur la performance académique. Pour un pays du groupe 2, la qualité de la REE est généralement négative, pour autant le niveau académique reste légerement supérieur à la moyenne. Concernant le groupe 3, les pays ont tendance à avoir une qualité de REE neutre, correspondant à la moyenne des pays de l'OCDE, ainsi qu'un niveau scolaire relativemenbt faible. La qualité de l'enseignement est certes supérieure à la moyenne mais les pays de ce groupe ne se caractérisent pas par un profil très marqué. Enfin un pays du groupe 4 est avant tout un pays performant où la qualité de la REE est légérement plus positive qu'en moyenne mais où la qualité de l'enseignement est légèrement plus faible.
+On peut en conclure des profils types de pays. Un pays du groupe 1 semble avoir un système éducatif davatange accès sur la qualité de la REE et de l'enseignement, que sur la performance académique. Pour un pays du groupe 2, la qualité de la REE est généralement négative, pour autant le niveau académique reste légerement supérieur à la moyenne. Concernant le groupe 3, les pays ont tendance à avoir une qualité de REE neutre, correspondant à la moyenne des pays de l'OCDE, ainsi qu'un niveau scolaire relativement faible. La qualité de l'enseignement est certes supérieure à la moyenne mais les pays de ce groupe ne se caractérisent pas par un profil très marqué. Enfin un pays du groupe 4 est avant tout un pays performant où la qualité de la REE est légèrement plus positive qu'en moyenne mais où la qualité de l'enseignement est également plus faible.
 
-Pour mieux se rendre compte des regroupements de pays selon leur qualité de REE, notes et qualité d'enseignement, il est pértinent de les représenter sur une carte.
+Pour mieux se rendre compte des regroupements de pays selon leur qualité de REE, notes et qualité d'enseignement, il est pertinent de les représenter sur une carte.
 
 ![Carte du regroupement des pays suite au k-means ](images_rapports/figure14_carte_kmeans_monde.pdf){fig-cap="Carte du regroupement des pays suite au k-means"}
 
@@ -328,17 +328,19 @@ Les indices suivants peuvent être étudiés afin d’élargir l’analyse et de
 
 Il est alors loisible d’apporter quelques précisions sur les indices que nous venons d’évoquer. Ainsi, l’indice sur l’anxiété ressentie concernant les cours de mathématiques permet d’approfondir l’analyse de l’indice de soutien de l’enseignant de mathématiques. Il est construit avec les réponses aux questions concernant la crainte des difficultés en cours de mathématiques ou la crainte de l’échec. En revanche, l’indice sur le sentiment d’appartenance, représente le sentiment d’appartenance de l’élève à son école ainsi que l’existence de relations avec d’autres à l’école.  Enfin, l’indice sur le harcèlement repose sur la fréquence de plusieurs signes de harcèlement durant les 12 derniers mois, d’après les élèves.
 
-En outre, pour savoir si ces indices ont un réel impact sur les différents types de REE nous pouvons étudier la matrice des corrélations ci-dessous :
+Dans la suite de notre étude, nous définirons le bien-être de l'élève comme la moyenne de chacun des indices cités ci-dessus.
+
+En outre, pour savoir si ces indices ont un réel impact sur les différents types de REE nous nous intéressons à la matrice des corrélations suivante :
 
 ![Matrice de corrélation entre la variable REE et les variables de bien-être ](images_rapports/figure15_Matrice_de_correlation_bien_etre_REE.pdf){fig-cap="Matrice de corrélation entre la variable REE et les variables de bien-être"}
 
 Note de lecture : La corrélation entre l'indice d'appartenance et de harcèlement est de -0.26
 
-Note : REE correspond à l'indice de qualité de ma relation élève-enseignant. REE maths est l'indice de qualité de la relation avec l'enseigant de mathématiques. Le bien-être fait référence l'indice de bien-être récent. L'anxiété maths est l'anxiété ressentie concernant les mathématiques. Appartenance correspond au sentiment d'appartenance des élèves et harcèlement est l'indice de harcèlement construit par l'OCDE.
+Note : REE correspond à l'indice de qualité de ma relation élève-enseignant. REE maths est l'indice de qualité de la relation avec l'enseigant de mathématiques. Le bien-être fait référence à l'indice de bien-être récent. L'anxiété maths est l'anxiété ressentie pendant les cours de mathématiques. Appartenance correspond au sentiment d'appartenance des élèves et harcèlement est l'indice de harcèlement construit par l'OCDE.
 
 Cette matrice des corrélations nous donne un premier aperçu des différents liens entre nos indices de REE et les variables de bien-être. Aucune corrélation n’est réellement notable mais quelques petits coefficients peuvent être remarqués comme celui entre la REE globale et le sentiment d’appartenance qui est de 0.27, donc une REE globale élevée est susceptible d’améliorer le sentiment d’appartenance de l’élève. Les autres coefficients de corrélation entre les indices de REE et les variables liées au bien-être comme l’anxiété, le sentiment de harcèlement ou bien le niveau général de bonheur se situent tous entre -0.20 et 0.20. On ne peut donc pas apporter une conclusion très marquée sur la relation entre nos variables d'intérêt. 
 
-Nous pouvons donc relever uniquement, que de petits liens existent entre le bien-être et la REE, sous le prisme des élèves pris au cas par cas. Cependant, même si on ne peut tirer d’analyses très concluantes au niveau individuel, il peut être intéressant de changer de dimension et de se placer à l’échelle d’un pays tout entier. Cela pourrait nous permettre de déduire si, les méthodes d’interaction mises en place par les enseignants d’un pays aux yeux de leur élèves, ont un impact global sur le bien-être des élèves du pays concerné.
+Nous pouvons donc relever, que de petits liens existent seulement entre le bien-être et la REE, sous le prisme des élèves pris au cas par cas. Cependant, même si on ne peut tirer d’analyses très concluantes au niveau individuel, il peut être intéressant de changer de dimension et de se placer à l’échelle d’un pays tout entier. Cela pourrait nous permettre de déduire si, les méthodes d’interaction mises en place par les enseignants d’un pays aux yeux de leur élèves, ont un impact global sur le bien-être des élèves du pays concerné.
 
 ## 3.2 La segmentation de l’échantillon par pays rend l’analyse plus pertinente afin de rendre compte du lien entre bien-être et REE
 
