@@ -71,7 +71,7 @@ Ce tableau sépare les données en deux, les "manquant", c'est à dire les élè
 
 Les manquants représentent 159590 données c'est-à-dire 26% de nos données. A partir de cela nous pouvons faire un premier profil des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant. En premier lieu, le groupe "manquant" comprend plus de garçons que le groupe qui se positionne sur leur relation avec le corps enseignant, et est légèrement plus anxieux en mathématiques.  Trois indices ont une différences plus marquée, le premier montre que le sentimant d'appartenance pour le groupe "manquant" est plus faible que l'autre groupe avec un écart de 0.16 points. L'harcèlement augmente aussi, passant de -0.30 à -0.12 et enfin l'indice sur l'origine socio-économique diminue fortement, passant de -0.20 pour le groupe ayant répondu aux question à -0.67 pour le groupe "manquant". 
 
-Pour faire un résumé nos données manquant ont le profil suivant par rapport aux autres données: On y retrouve plus de garçons, plus anxieux envers les mathématiques, plus harcelé et avec un moins bon sentiment d'appartenance et pour finir une origine socio-écono beaucoup plus faible.
+Pour faire un résumé nos données manquant ont le profil suivant par rapport aux autres données: On y retrouve plus de garçons, plus anxieux envers les mathématiques, plus harcelé et avec un moins bon sentiment d'appartenance et pour finir une origine socio-économique beaucoup plus faible.
 
 ![Comparaison des moyennes générale des élèves en fonction de leur statut de réponse sur le REE global](images_rapports/figure2_comparaison_NA_notes_relatst.pdf){fig-cap="Comparaison des moyennes générale des élèves en fonction de leur statut de réponse sur le REE global"}
 
@@ -464,50 +464,5 @@ Pour les variables concernant les notes des élèves lors des épreuves PISA en 
 
 
 
-Lien pour plus de détails méthodologiques concernant les indices construits par l’OCDE : https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/03/pisa-2022-technical-report_599753f0/01820d6d-en.pdf
+[Lien pour plus de détails méthodologiques concernant les indices construits par l’OCDE](https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/03/pisa-2022-technical-report_599753f0/01820d6d-en.pdf)
 
-### Correspondance pays
-
-| Nom du Pays         | Code    | Nom du Pays            | Code |
-|---------------------|---------|------------------------|------|
-| Albanie             | ALB     | Italie                 | ITA  |
-| Argentine           | ARG     | Jamaïque               | JAM  |
-| Australie           | AUS     | Japon                  | JPN  |
-| Autriche            | AUT     | Jordanie               | JOR  |
-| Azerbaïdjan (Bakou) | QAZ     | Kazakhstan             | KAZ  |
-| Belgique            | BEL     | Corée du Sud           | KOR  |
-| Brésil              | BRA     | Kosovo                 | KSV  |
-| Brunei              | BRN     | Lettonie               | LVA  |
-| Bulgarie            | BGR     | Lituanie               | LTU  |
-| Cambodge            | KHM     | Macao (Chine)          | MAC  |
-| Canada              | CAN     | Malaisie               | MYS  |
-| Chili               | CHL     | Malte                  | MLT  |
-| Taipei chinois      | TAP     | Mexique                | MEX  |
-| Colombie            | COL     | Mongolie               | MNG  |
-| Costa Rica          | CRI     | Monténégro             | MNE  |
-| Croatie             | HRV     | Maroc                  | MAR  |
-| Chypre              | QCY     | Pays-Bas               | NLD  |
-| Rép. Tchèque        | CZE     | Nouvelle-Zélande       | NZL  |
-| Danemark            | DNK     | Macédoine du Nord      | MKD  |
-| Rép. Dominicaine    | DOM     | Norvège                | NOR  |
-| Salvador            | SLV     | Autorité Palestinienne | PSE  |
-| Estonie             | EST     | Panama                 | PAN  |
-| Finlande            | FIN     | Paraguay               | PRY  |
-| France              | FRA     | Pérou                  | PER  |
-| Géorgie             | GEO     | Philippines            | PHL  |
-| Allemagne           | DEU     | Pologne                | POL  |
-| Grèce               | GRC     | Portugal               | PRT  |
-| Guatemala           | GTM     | Qatar                  | QAT  |
-| Hong Kong (Chine)   | HKG     | Rép.de Moldavie        | MDA  |
-| Hongrie             | HUN     | Roumanie               | ROU  |
-| Islande             | ISL     | Arabie Saoudite        | SAU  |
-| Indonésie           | IDN     | Serbie                 | SRB  |
-| Irlande             | IRL     | Singapour              | SGP  |
-| Israël              | ISR     | Slovaquie              | SVK  |
-| Slovénie            | SVN     | Espagne                | ESP  |
-| Suède               | SWE     | Suisse                 | CHE  |
-| Thaïlande           | THA     | Turquie                | TUR  |
-| Ukraine (régions)   | QUR     | Émirats Arabes Unis    | ARE  |
-| Royaume-Uni         | QUK/QSC | États-Unis             | USA  |
-| Uruguay             | URY     | Ouzbékistan            | UZB  |
-| Viêt Nam            | VNM     |                        |      |

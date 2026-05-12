@@ -311,7 +311,7 @@ ggplot(data_etude, aes(x = MOY_MATH, fill = statut_NA)) +
   scale_fill_manual(values = c("Manquant" = "#E69F00", "Présent" = "#56B4E9")) +
   labs(
     title = " Distribution du nombre d'élèves par note et statut de réponse",
-    x = "moyenne générale",
+    x = "moyenne en mathématiques",
     y = "Nombre d'élèves",
     fill = "Statut"
   ) +
