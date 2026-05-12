@@ -84,7 +84,7 @@ En ce qui concerne le graphique ci-dessus, on observe une logique concernant le 
 
 Note de lecture : La distribution de la moyenne en mathématiques des élèves n'ayant pas d'indice de REE portant sur les enseignants de mathématiques est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
 
-Concernant la figure 3, nous avons la distribution des notes en mathématiques selon leur réponses ou non pour avoir un indice de REE centré sur les professeurs de mathématiques. En effet l'utilisation de la moyenne en mathématiques est plus appropriée que la moyenne générale quand on regarde une potentielle liaison entre le professeur de mathématique et l'élève. On en tire les mêmes conclusion que dans la figure 2. Les élèves n'ayant pas répondu aux questions relatives sur la REE avec le professeur de mathématique ont de moins bonne notes que ceux ayant répondu aux questions dans cette matière.
+Concernant la figure 3, nous avons la distribution des notes en mathématiques selon leur réponses ou non pour avoir un indice de REE centré sur les professeurs de mathématiques. En effet l'utilisation de la moyenne en mathématiques est plus appropriée que la moyenne générale quand on regarde une potentielle liaison entre le professeur de mathématique et l'élève. On en tire les mêmes conclusion que dans la figure 2. Les élèves n’ayant pas répondu aux questions relatives à la REE avec le professeur de mathématiques ont de moins bonnes notes que ceux ayant répondu aux questions dans cette matière.
 
 Nous pouvons donc ajouter des caractéristiques au profil de nos élèves qui ne se positionnent pas sur leur relation avec le corps enseignant. En effet ce sont des élèves avec des moins bon résultats généraux et en mathématiques. Ce profil montre que nos analyses futures entre la REE et les autres variable pourront être biaisé car on ne s'intéressera qu'aux élèves ayant un indice donc on pourrait observer de moins fortes corrélation entre les notes et la REE car ceux ayant de moins bonnes notes sont ceux n'ayant pas de REE. 
 
@@ -113,10 +113,10 @@ Note de lecture : 85% des élèves affirment que leurs enseignants sont respectu
 Il paraît maintenant pertinent de s'intéresser à la qualité de cette relation et savoir comment elle est perçue par les élèves ayant un indice REE. Car un indice relève en effet de la qualité globale de la relation, mais il est aussi important de savoir le détail par question. Pour cela nous avons récupéré le taux des réponses positives par question en ce qui concerne la relation élève-enseignant au global et celle sur les professeurs de mathématiques, seulement pour les élèves ayant répondu à la question. 
 On remarque que les résultats sont très positifs, la question ayant le moins bon résultat est "Les enseignants font attention aux élèves en cas de retard", avec 72,7% de réponses positives. Quant aux autres résultats, ils se situent entre 79.4% et 94.2% de réponses positives. On peut conclure que les trois qualités qui caractérisent au mieux cette relation positive sont un enseignant qui n'est pas méchant, qui est amical et qui se soucie du bien-être des élèves.
 
-Cette relation étant très positive en ce qui concerne les enseignants au global, il semble alors juste de rentrer plus dans les détails en s'intéressant aux enseignants de mathématiques précisément. On a sur la figure suivante le taux de réponse positives pour les questions concernant les enseignants de mathématiques. 
+Cette relation étant très positive en ce qui concerne les enseignants au global, il semble alors juste de rentrer plus dans les détails en s'intéressant aux enseignants de mathématiques précisément. On a sur la figure suivante le taux de réponses positives pour les questions concernant les enseignants de mathématiques. 
 
 
-![Graphique en barre indiquant le taux de réponse positives selon les questions avec les enseignants de mathématiques](images_rapports/figure6_Reponses_indiquant_une_relation_positive_maths.pdf){fig-cap="Graphique en barre indiquant le taux de réponse positives selon les questions avec les enseignants de mathématiques"}
+![Graphique en barre indiquant le taux de réponses positives selon les questions avec les enseignants de mathématiques](images_rapports/figure6_Reponses_indiquant_une_relation_positive_maths.pdf){fig-cap="Graphique en barre indiquant le taux de réponse positives selon les questions avec les enseignants de mathématiques"}
 
 Note de lecture : 32.2% des élèves affirment que leur enseignant de mathématiques montre de l'intérêt pour l'apprentissage des élèves.
 
@@ -156,7 +156,7 @@ D’autres facteurs semblent donc être à la source de la réussite scolaire de
 
 Comme on constate qu'il n'y a pas de lien entre REE et notes pour les élèves, il convient d'étudier cette relation à l'échelle des pays.
 Dans cette analyse, on utilise la moyenne de REE dans chaque pays et la moyenne des notes obtenues.
-Cela permet de comparer les niveau nationaux et donc de comparer les différents systèmes éducatifs et leurs influences sur la REE.
+Cela permet de comparer les niveaux nationaux et donc de comparer les différents systèmes éducatifs et leur influence sur la REE.
 
 Il existe une corrélation négative moyenne entre la qualité de la REE et la note moyenne de chaque pays (r =\~ -0,26, p-value =\~ 0.03).
 La REE n'explique que partiellement le niveau académique mais d'autres facteurs entrent en compte.
@@ -174,7 +174,7 @@ Note de lecture : Le Kazakhstan a un niveau moyen en mathématiques (445) équiv
 
 Note : L'indice REE est une variable composite : une valeur positive indique une perception de la relation plus chaleureuse et soutenante que la moyenne de l'OCDE, tandis qu'une valeur négative indique une relation perçue comme plus distante ou moins aidante.
 
-Certains pays ne semblent pas suivre cette corrélation négative, comme Singapour où la relation avec les enseignants de mathématiques est plus postive d'environ 0.4 point qu'en moyenne dans les pays de l'OCDE.
+Certains pays ne semblent pas suivre cette corrélation négative, comme Singapour où la relation avec les enseignants de mathématiques est plus positive d'environ 0.4 point qu'en moyenne dans les pays de l'OCDE.
 De plus, le niveau moyen en mathématiques y est le plus élevé.
 
 De son côté, le Guatemala ou le Paraguay confirment bien le lien de corrélation.
@@ -220,7 +220,7 @@ Note de lecture : L'Albanie a un indice socio-économique moyen inférieur à la
 Le grapique illustre les différences de systèmes éducatifs entre les différents pays interrogés.
 En effet, si à l'échelle individuelle, on ne constate pas de relation de corrélation significative entre les orgines sociales et la qualité de la REE, en comparant les différents pays, on peut conclure d'une influence.
 Cette corrélation négative oppose des systèmes éducatifs tels que ceux du Vietnam ou du Guatemala et celui de la Moldavie.
-D'un côté, on retouve des pays dont les élèves ont des origines davantage défavorisées et une REE plutôt positive, de l'autre côté un pays dont les élèves ont un statut scoio-économique correspondant à la moyenne OCDE et une REE jugée plus négativement qu'en moyenne au sein des pays de l'OCDE.
+D’un côté, on retrouve des pays dont les élèves sont issus de milieux plus défavorisés mais bénéficient d'une REE plutôt positive ; de l’autre, un pays dont les élèves ont un statut socio-économique proche de la moyenne de l'OCDE, mais où la REE est jugée plus négative que la moyenne.
 
 On peut en conclure que si, au niveau individuel, aucune corrélation significative n'est observée, une corrélation modérée à forte apparaît au niveau agrégé, c'est-à-dire au niveau des pays.
 Le résultat est comparable à la corrélation entre la qualité de la REE et les notes OCDE.
@@ -254,7 +254,7 @@ Le lien entre l'origine sociale et le niveau scolaire explique donc la présence
 
 Au delà du niveau scolaire ou de statut socio-économique, l'appréciation de l'élève concernant les matières étudiées peut partiellement expliquer la qualité de la REE, notamment concernant la qualité de l'enseignement.
 
-L'appréciation des mathématiques comme étant l'une des matières préférées de l'élève est légérement corrélée avec la qualité de la relation avec l'enseignement de cette matière.
+L'appréciation des mathématiques comme étant l'une des matières préférées de l'élève est légèrement corrélée avec la qualité de la relation avec l'enseignement de cette matière.
 La corrélation a un r d'environ 0.21 (p-value < 2.2e-16), ce qui permet de dire qu'il y a bel et bien un lien entre ces deux éléments mais celui-ci reste faible.
 Alors, aimer les maths ne suffit pas à expliquer une bonne relation entre un élève et son enseignant de mathématiques.
 
@@ -297,7 +297,7 @@ Il comprends le Viet Nam, le Pérou ou encore l'Arabie Saoudite.
 Le groupe 2, en rouge, est composé de pays ayant une qualité de REE négative en moyenne (-0.17), des notes légèrement au-dessus de la moyenne de l'ensemble des pays interrogés (470 \> 443).
 On y retrouve la Grèce, la France ou la Nouvelle-Zélande.
 
-Le groupe 3, en vert, avec des pays comme la Jordanie, la Thailande et leBrésil, a une qualité de REE neutre, des notes plus faibles qu'en moyenne (402) et une qualité d'enseignement en mathématiques légèrement supérieure à la moyenne (6.8).
+Le groupe 3, en vert, avec des pays comme la Jordanie, la Thailande et le Brésil, a une qualité de REE neutre, des notes plus faibles qu'en moyenne (402) et une qualité d'enseignement en mathématiques légèrement supérieure à la moyenne (6.8).
 
 Le groupe 4, en orange est avant tout caractérisé par les notes moyennes obtenues (501).
 Les pays qui le composent ont aussi une qualité de REE légèrement positive (0.17), tandis que la qualité d'enseignement est jugée moins bonne qu'en moyenne (6.49).
