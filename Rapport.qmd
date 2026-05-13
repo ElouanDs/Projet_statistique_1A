@@ -8,6 +8,7 @@ format:
     pdf-engine: pdflatex 
     toc: true
     lof: true
+    lot: true
     header-includes: |
       \usepackage{graphicx}
       \usepackage{fancyhdr}
@@ -54,7 +55,11 @@ Dans un premier temps, il s’agira de comprendre ce qu’est la relation élèv
 ## 1.1 Cadre d'analyse de la REE
 En premier lieu, afin de définir le cadre dans lequel nous nous plaçons, il faut avant tout préciser comment se caractérisent élèves et enseignants dans le questionnaire PISA. En effet, pour un élève, il s'agit ici d'un enfant âgé d'environ 15 ans inscrit dans un établissement scolaire public, privé ou bien spécialisé et pouvant provenir de 85 pays différents pour l'édition 2022. Par ailleurs, les enseignants sont, par définition, les professeurs des élèves interrogés dans l'enquête PISA.
 
+<<<<<<< HEAD
 Ainsi, nous nous plaçons dans un contexte particulier d'analyse puisqu'il faut dans notre cas, étudier la REE grâce aux données présentes sur le questionnaire PISA 2022. Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économique des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants. C'est pourquoi, afin de pouvoir réaliser notre étude, il nous fallait proposer une mesure des différents types de REE sur lesquels nous souhaitons nous appuyer. Ainsi, nous avons utilisé deux indices déjà créés par l'OCDE afin de caractériser cette relation. En particulier, nous avons choisi de travailler avec l'indice mesurant la REE globale, qui comprend des questions générales sur le ressenti de l'élève quant à ses interactions avec leur enseignants, mais également l'indice mesurant la REE ciblée sur les professeurs de mathématiques. Ces indices ont une moyenne de 0 par rapport aux pays de l'OCDE et plus il est positif, plus l'élève affirme avoir une bonne REE/bénéficier d’un soutien de son enseignant de mathématiques.
+=======
+Ainsi, nous nous plaçons dans un contexte particulier d'analyse puisqu'il faut dans notre cas, étudier la REE grâce aux données présentes sur les questionnaires PISA 2022. Cette base de données permet d'accéder à des informations portant sur les performances scolaires, le contexte socio-économique des élèves, leur ressenti vis-à-vis de l'école ainsi que leur relation avec leurs enseignants. C'est pourquoi, afin de pouvoir réaliser notre étude, il nous fallait proposer une mesure des différents types de REE sur lesquels nous souhaitons nous appuyer. Ainsi, nous avons utilisé deux indices déjà créés par l'OCDE afin de caractériser cette relation. En particulier, nous avons choisi de travailler avec l'indice mesurant la REE globale, qui comprend des questions générales sur le ressenti de l'élève quant à ses interactions avec leur enseignants, mais également l'indice mesurant la REE ciblée sur les professeurs de mathématiques. Ces indices ont une moyenne de 0 par rapport aux pays de l'OCDE et plus il est positif, plus l'élève affirme avoir une bonne REE/bénéficier d’un soutien de son enseignant de mathématiques.
+>>>>>>> 0096db43b3324ef508b2f10baaccac56df8ff1be
 
 Toutefois, une potentielle limite de notre analyse mais inhérente au questionnaire PISA, est qu'il ne prend en compte la REE que dans un seul sens. En effet, dans la réalité, les enseignants ont une influence sur leurs élèves mais l'inverse est aussi véridique, les élèves peuvent modifier le comportement de leurs professeurs. Cependant, ce deuxième sens dans la REE ne peut être vérifié dans cette enquête, car seuls les élèves expriment leur opinion sur leurs professeurs.
 
@@ -62,35 +67,66 @@ Toutefois, une potentielle limite de notre analyse mais inhérente au questionna
 Pour commencer notre analyse, nous allons regarder le profil des élèves qui n'ont pas d'indices de REE globale ou de REE ciblée sur les professeurs de mathématiques. 
 
 
+<<<<<<< HEAD
 ![Tableau 1: Comparaisons groupes avec valeurs manquantes et sans](images_rapports/tableau1_manquants_NA.png){fig-cap="Tableau 1 : Comparaison des groupes avec valeurs manquantes et sans"}
 
 Note de lecture: Dans le groupe qui n'a pas de valeur en indice de REE globale ou de REE ciblée sur les professeurs de mathématiques on a 45.96% de filles. Pour le groupe avec aucune valeur manquante sur ces deux indices on a 51.18% de filles.
+=======
+| Groupe | % Filles | Statut socio-éco. | Anxiété en maths | Appartenance | Harcèlement | Effectif total |
+|:-------|:--------:|:-----------------:|:----------------:|:------------:|:-----------:|:--------------:|
+| Données manquantes | 45.96 | -0.67 | 0.31 | -0.21 | -0.12 | 159 590 |
+| Sans NA | 51.18 | -0.20 | 0.22 | -0.05 | -0.31 | 454 154 |
+
+: Comparaison des groupes selon la présence de données manquantes
+>>>>>>> 0096db43b3324ef508b2f10baaccac56df8ff1be
 
 
 Ce tableau sépare les données en deux : en premier nous avons les "manquant", c'est à dire les élèves n'ayant pas de REE globale ou de REE ciblée sur les professeurs de mathématiques, et les "sans NA".
 
+<<<<<<< HEAD
 Les "manquants" représentent 159590 données c'est-à-dire 26% de nos données. A partir de cela nous pouvons définir un premier profil des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant. En premier lieu, le groupe "manquant" comprend plus de garçons que le groupe qui se positionne sur leur relation avec le corps enseignant, et est légèrement plus anxieux en mathématiques.  Trois indices ont une différence plus marquée. En effet, le premier montre que le sentiment d'appartenance pour le groupe "manquant" est plus faible que l'autre groupe avec un écart de 0.16 points. Le harcèlement augmente aussi, passant de -0.30 à -0.12 et enfin l'indice sur l'origine socio-économique diminue fortement, passant de -0.20 pour le groupe ayant répondu aux question, à -0.67 pour le groupe "manquant". 
 
 Pour faire un résumé nos données manquant ont le profil suivant par rapport aux autres données: on y retrouve plus de garçons, plus anxieux envers les mathématiques, plus harcelés et avec un moins bon sentiment d'appartenance et pour finir une origine socio-économique beaucoup plus faible.
+=======
+Les manquants représentent 159590 données c'est-à-dire 26% de nos données. A partir de cela nous pouvons faire un premier profil des élèves qui ne se positionnent pas sur leur relation avec le corps enseignant. En premier lieu, le groupe "manquant" comprend plus de garçons que le groupe qui se positionne sur leur relation avec le corps enseignant, et est légèrement plus anxieux en mathématiques.  Trois indices ont une différences plus marquée, le premier montre que le sentimant d'appartenance pour le groupe "manquant" est plus faible que l'autre groupe avec un écart de 0.16 points. L'harcèlement augmente aussi, passant de -0.30 à -0.12 et enfin l'indice sur l'origine socio-économique diminue fortement, passant de -0.20 pour le groupe ayant répondu aux questions à -0.67 pour le groupe "manquant". 
+
+Pour faire un résumé nos données manquant ont le profil suivant par rapport aux autres données: On y retrouve plus de garçons, plus anxieux envers les mathématiques, plus harcelés et avec un moins bon sentiment d'appartenance et pour finir une origine socio-économique beaucoup plus faible.
+>>>>>>> 0096db43b3324ef508b2f10baaccac56df8ff1be
 
 ![Comparaison des moyennes générale des élèves en fonction de leur statut de réponse sur le REE global](images_rapports/figure2_comparaison_NA_notes_relatst.pdf){fig-cap="Comparaison des moyennes générale des élèves en fonction de leur statut de réponse sur le REE global"}
 
 Note de lecture : La distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
 
+<<<<<<< HEAD
 En ce qui concerne le graphique ci-dessus, une certaine logique concernant le profil des élèves qui ont des non réponses et la moyenne générale se fait observer. En effet, on remarque que la distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE. On peut donc en conclure que les élèves qui ne se positionnent pas sur leur relation avec le corps enseignant sont des élèves avec une moyenne générale plus faible que ceux se positionnant.
+=======
+En ce qui concerne le graphique ci-dessus, on observe une logique concernant le profil des élèves qui ont des non réponses. Nous voyons qu'il existe une relation entre le fait de ne pas avoir d'indice de REE et la moyenne générale. En effet on remarque que la distribution de la moyenne générale des élèves n'ayant pas d'indice de REE est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE. On peut donc en conclure que les élèves qui ne se positionnent pas sur leur relation avec le corps enseignant sont des élèves avec une moyenne générale plus faible que ceux se positionnant.
+>>>>>>> 0096db43b3324ef508b2f10baaccac56df8ff1be
 
 
 ![Comparaison des moyennes en mathématiques des élèves en fonction de leur statut de réponse sur le REE ciblée sur les professeurs de mathématiques](images_rapports/figure3_comparaison_NA_notesmaths_teachsup.pdf){fig-cap="Comparaison des moyennes en mathématiques des élèves en fonction de leur statut de réponse sur le REE ciblée sur les professeurs de mathématiques"}
 
 Note de lecture : La distribution de la moyenne en mathématiques des élèves n'ayant pas d'indice de REE portant sur les enseignants de mathématiques est plus centrée sur la gauche que la distribution pour les élèves ayant un indice de REE.
 
+<<<<<<< HEAD
 Concernant la figure 3, nous avons la distribution des notes en mathématiques selon leur réponses ou non pour avoir un indice de REE centré sur les professeurs de mathématiques. En effet, l'utilisation de la moyenne en mathématiques est plus appropriée que la moyenne générale quand on regarde une potentielle liaison entre le professeur de mathématiques et l'élève. On en tire les mêmes conclusions que dans la figure 2. Les élèves n'ayant pas répondu aux questions relatives à la REE sur le professeur de mathématiques ont de moins bonnes notes que ceux ayant répondu aux questions dans cette matière.
+=======
+Concernant la figure 3, nous avons la distribution des notes en mathématiques selon leur réponses ou non pour avoir un indice de REE centré sur les professeurs de mathématiques. En effet l'utilisation de la moyenne en mathématiques est plus appropriée que la moyenne générale quand on regarde une potentielle liaison entre le professeur de mathématique et l'élève. On en tire les mêmes conclusion que dans la figure 2. Les élèves n’ayant pas répondu aux questions relatives à la REE avec le professeur de mathématiques ont de moins bonnes notes que ceux ayant répondu aux questions dans cette matière.
+>>>>>>> 0096db43b3324ef508b2f10baaccac56df8ff1be
 
 Nous pouvons donc ajouter des caractéristiques au profil de nos élèves qui ne se positionnent pas sur leur relation avec le corps enseignant. En effet, ce sont des élèves avec de moins bons résultats en général et en mathématiques. Ce profil montre que nos analyses futures entre la REE et les autres variables pourront être biaisées car on ne s'intéressera qu'aux élèves ayant un indice. On pourrait donc observer de moins fortes corrélations entre les notes et la REE car ceux ayant de moins bonnes notes sont ceux n'ayant pas de REE. 
 
 
-![Statsitiques des différentes variables après suppression des valeurs manquantes](images_rapports/figure4_summary_table.png){fig-cap="Statsitiques des différentes variables après suppression des valeurs manquantes"}
+| | REE | REE maths | Statut socio-éco. | Bien-être | Appart | Harcèlement | Anxiété maths |
+|:--------|:---------------:|:-------------:|:-----------------:|:---------:|:------------:|:-----------:|:-------------:|
+| *Min* | -10.09 | -3.254 | -6.841 | -3.127 | -3.504 | -1.228 | -2.626 |
+| *1er Qu.* | -0.67 | -0.564 | -1.054 | -0.645 | -0.646 | -1.228 | -0.379 |
+| *Médiane* | -0.011 | -0.1 | -0.184 | 0.126 | -0.313 | -0.391 | 0.193 |
+| *Moyenne* | 0.04 | 0.118 | -0.31 | -0.001 | -0.081 | -0.268 | 0.232 |
+| *3e Qu.* | 0.67 | 1.556 | 0.587 | 1.051 | 0.352 | 0.538 | 0.789 |
+| *Max* | 3.417 | 1.649 | 7.38 | 1.117 | 3.173 | 4.694 | 2.892 |
 
+<<<<<<< HEAD
 Notes de lecture: La variable RELATST correspondant à la qualité de la REE globale possède une moyenne de -0.007, un minimum de -10.09 et un maximum de 3.417.
 
 Notes: RELATST correspond à l'indice sur la REE globale.
@@ -100,6 +136,10 @@ EXPWB correspond à l'indice sur le bien-être de l'élève sur les derniers jou
 BELONG correspond à l'indice sur son sentiment d'appartenance.
 BULLIED correspond à l'indice sur le harcèlement.
 ANXMAT correspond à l'indice sur l'anxiété en mathématiques.
+=======
+: Statistiques descriptives des variables principales. *Bien-être* = bien-être des derniers jours. *Appart* = Sentiment d'appartenance
+
+>>>>>>> 0096db43b3324ef508b2f10baaccac56df8ff1be
 
 Pour continuer notre analyse, nous avons supprimé de notre base de données tous les élèves qui n'ont pas d'indice de REE globale et ciblée sur les mathématiques, puis avons vérifié que cela n'ait pas trop modifié les statistiques initiales de notre jeu de données. Selon les indications de l'OCDE, décrites dans la partie 1.1, la moyenne est centrée sur 0 pour les pays appartenant à l'OCDE et avec un écart-type de 1, donc en ajoutant les autres pays, on se retrouve proche de 0 mais pas forcément exactement. En enlevant les données, on retrouve partout une moyenne aux alentours de 0 puis avec un premier et troisième quartile entre -1 et 1 ce qui confirme que notre écart-type est toujours proche de 1. Ainsi, le fait d'avoir enlevé les données manquantes n'a pas trop affecté nos variables.
 
@@ -113,10 +153,14 @@ Note de lecture : 85% des élèves affirment que leurs enseignants sont respectu
 Il paraît maintenant pertinent de s'intéresser à la qualité de cette relation et savoir comment elle est perçue par les élèves ayant un indice REE. Car un indice relève en effet de la qualité globale de la relation, mais il est aussi important de savoir le détail par question. Pour cela nous avons récupéré le taux des réponses positives par question en ce qui concerne la relation élève-enseignant au global et celle avec les professeurs de mathématiques, seulement pour les élèves ayant répondu à la question. 
 On remarque que les résultats sont très positifs, la question ayant le moins bon résultat est "Les enseignants font attention aux élèves en cas de retard", avec 72,7% de réponses positives. Quant aux autres résultats, ils se situent entre 79.4% et 94.2% de réponses positives. On peut conclure que les trois qualités qui caractérisent au mieux cette relation positive sont un enseignant qui n'est pas méchant, qui est amical et qui se soucie du bien-être des élèves.
 
+<<<<<<< HEAD
 Cette relation étant très positive en ce qui concerne les enseignants au global, il semble alors pertinent de rentrer davantage dans les détails en s'intéressant aux enseignants de mathématiques précisément. On a sur la figure suivante le taux de réponse positives pour les questions concernant les enseignants de mathématiques. 
+=======
+Cette relation étant très positive en ce qui concerne les enseignants au global, il semble alors juste de rentrer plus dans les détails en s'intéressant aux enseignants de mathématiques précisément. On a sur la figure suivante le taux de réponses positives pour les questions concernant les enseignants de mathématiques. 
+>>>>>>> 0096db43b3324ef508b2f10baaccac56df8ff1be
 
 
-![Graphique en barre indiquant le taux de réponse positives selon les questions avec les enseignants de mathématiques](images_rapports/figure6_Reponses_indiquant_une_relation_positive_maths.pdf){fig-cap="Graphique en barre indiquant le taux de réponse positives selon les questions avec les enseignants de mathématiques"}
+![Graphique en barre indiquant le taux de réponses positives selon les questions avec les enseignants de mathématiques](images_rapports/figure6_Reponses_indiquant_une_relation_positive_maths.pdf){fig-cap="Graphique en barre indiquant le taux de réponse positives selon les questions avec les enseignants de mathématiques"}
 
 Note de lecture : 32.2% des élèves affirment que leur enseignant de mathématiques montre de l'intérêt pour l'apprentissage des élèves.
 
@@ -156,9 +200,15 @@ D’autres facteurs semblent donc être à la source de la réussite scolaire de
 
 Comme on constate qu'il n'y a pas de lien entre REE et les notes pour les élèves, il convient alors d'étudier cette relation à l'échelle des pays pour voir si des différences se font remarquer.
 Dans cette analyse, on utilise la moyenne de REE dans chaque pays et la moyenne des notes obtenues.
+<<<<<<< HEAD
 Cela permet de comparer les niveaux nationaux et donc de l'influence des différents systèmes éducatifs sur la REE.
 
 Il existe une corrélation négative moyenne entre la qualité de la REE et la note moyenne de chaque pays (r² =\~ -0,26, p-value =\~ 0.03).
+=======
+Cela permet de comparer les niveaux nationaux et donc de comparer les différents systèmes éducatifs et leur influence sur la REE.
+
+Il existe une corrélation négative moyenne entre la qualité de la REE et la note moyenne de chaque pays (r =\~ -0,26, p-value =\~ 0.03).
+>>>>>>> 0096db43b3324ef508b2f10baaccac56df8ff1be
 La REE n'explique que partiellement le niveau académique mais d'autres facteurs entrent en compte.
 On ne peut donc pas conclure d'une relation très forte entre ces deux indicateurs.
 
@@ -166,7 +216,7 @@ En revanche, si l'on se concentre sur la REE avec les enseignants de mathématiq
 La note moyenne utilisée est désormais celle en mathématiques et non la moyenne générale, même si les deux moyennes sont interchangeables.
 
 Avec un test de corrélation, on constate que plus un pays dispose d’un niveau en mathématiques élevé, selon les notes de l'OCDE, moins la relation entre les élèves et les enseignants de mathématiques est jugée positive.
-En effet, la corrélation est négative (r² =\~ -0.50, p-value =\~ 1.18e-05) entre la qualité de la REE moyenne d'un pays et sa note OCDE moyenne concernant les mathématiques.
+En effet, la corrélation est négative (r =\~ -0.50, p-value =\~ 1.18e-05) entre la qualité de la REE moyenne d'un pays et sa note OCDE moyenne concernant les mathématiques.
 
 ![Nuage de points représentant la corrélation entre la note moyenne en mathématiques et la relation avec le professeur de cette matière par pays](images_rapports/figure8_correlation_REE_note.pdf){fig-cap="Nuage de points représentant les corrélations entre la note moyenne en mathématiques et la relation avec le professeur de cette matière par pays"}
 
@@ -174,7 +224,11 @@ Note de lecture : Le Kazakhstan a un niveau moyen en mathématiques (445) équiv
 
 Note : L'indice REE est une variable composite : une valeur positive indique une perception de la relation plus chaleureuse et soutenante que la moyenne de l'OCDE, tandis qu'une valeur négative indique une relation perçue comme plus distante ou moins aidante.
 
+<<<<<<< HEAD
 Certains pays ne semblent pas suivre cette corrélation négative, comme Singapour où la relation avec les enseignants de mathématiques est plus positive que la moyenne des pays de l'OCDE d'environ 0.4 point.
+=======
+Certains pays ne semblent pas suivre cette corrélation négative, comme Singapour où la relation avec les enseignants de mathématiques est plus positive d'environ 0.4 point qu'en moyenne dans les pays de l'OCDE.
+>>>>>>> 0096db43b3324ef508b2f10baaccac56df8ff1be
 De plus, le niveau moyen en mathématiques y est le plus élevé.
 
 De son côté, le Guatemala ou le Paraguay confirment bien le lien de corrélation.
@@ -209,9 +263,15 @@ Autrement dit, l'écart interquartile est plus important pour les 25% des élèv
 
 ### 2.3.2 La qualité de la REE moyenne est corrélée à l'origine sociale au sein de chaque pays
 
+<<<<<<< HEAD
 A l'échelle des pays, la REE et le statut socio-économique des élèves sont corrélés négativement de manière significative (r² =\~ -0.41, p-value =\~ 0.0005).
 Alors, lorsque dans un pays le statut socio-économique moyen a tendance à être plus défavorisé, les élèves observent en moyenne une meilleure relation avec leurs enseignants.
 Inversement, dans les pays avec un statut socio-économique moyen plus important, la REE est jugée plus négativement selon les élèves.
+=======
+A l'échelle des pays, la REE et le statut socio-économique des élèves sont corrélés négativement de manière significative (r =\~ -0.41, p-value =\~ 0.0005).
+Alors, lorsque dans un pays le statut socio-économique moyen a tendance à être plus défavorisés, les élèves observent en moyenne une meilleure relation avec leurs enseignants.
+Inversement, dans les pays avec un statut socio-économique moyen davatange favorisé, la REE est jugée plus négativement.
+>>>>>>> 0096db43b3324ef508b2f10baaccac56df8ff1be
 
 ![Nuage de points représentant les pays en fonction de leur REE moyen et de leur statut socio-économique](images_rapports/figure11_correlation_REE_statut.pdf){fig-cap="Nuage de points représentant les pays en fonction de leur REE moyenne et de leur statut socio-économique"}
 
@@ -220,7 +280,11 @@ Note de lecture : L'Albanie a un indice socio-économique moyen inférieur à la
 Le grapique illustre les différences de systèmes éducatifs entre les différents pays interrogés.
 En effet, si à l'échelle individuelle, on ne constate pas de lien de corrélation significative entre les origines sociales et la qualité de la REE, en comparant les différents pays, on peut conclure d'une influence.
 Cette corrélation négative oppose des systèmes éducatifs tels que ceux du Vietnam ou du Guatemala et celui de la Moldavie.
+<<<<<<< HEAD
 D'un côté, on retouve des pays dont les élèves ont des origines moins favorisées et une REE plutôt positive, de l'autre côté un pays dont les élèves ont un statut scoio-économique correspondant à la moyenne OCDE et une REE jugée plus négativement qu'en moyenne au sein des pays de l'OCDE.
+=======
+D’un côté, on retrouve des pays dont les élèves sont issus de milieux plus défavorisés mais bénéficient d'une REE plutôt positive ; de l’autre, un pays dont les élèves ont un statut socio-économique proche de la moyenne de l'OCDE, mais où la REE est jugée plus négative que la moyenne.
+>>>>>>> 0096db43b3324ef508b2f10baaccac56df8ff1be
 
 On peut en conclure que si, au niveau individuel, aucune corrélation significative n'est observée, une corrélation modérée voire forte apparaît au niveau agrégé, c'est-à-dire au niveau des pays.
 Le résultat est comparable à la corrélation entre la qualité de la REE et les notes OCDE.
@@ -254,9 +318,15 @@ Le lien entre l'origine sociale et le niveau scolaire explique donc la présence
 
 Au-delà du niveau scolaire ou de statut socio-économique, l'appréciation de l'élève concernant les matières étudiées peut partiellement expliquer la qualité de la REE, notamment concernant la qualité de l'enseignement.
 
+<<<<<<< HEAD
 L'appréciation des mathématiques comme étant l'une des matières préférées de l'élève est légèrement corrélée à la qualité de la relation avec l'enseignement de cette matière.
 La corrélation a un r² d'environ 0.21 (p-value < 2.2e-16), ce qui permet de dire qu'il y a bel et bien un lien entre ces deux éléments mais celui-ci reste faible.
 Ainsi, aimer les maths ne suffit pas à expliquer une bonne relation entre un élève et son enseignant de mathématiques.
+=======
+L'appréciation des mathématiques comme étant l'une des matières préférées de l'élève est légèrement corrélée avec la qualité de la relation avec l'enseignement de cette matière.
+La corrélation a un r d'environ 0.21 (p-value < 2.2e-16), ce qui permet de dire qu'il y a bel et bien un lien entre ces deux éléments mais celui-ci reste faible.
+Alors, aimer les maths ne suffit pas à expliquer une bonne relation entre un élève et son enseignant de mathématiques.
+>>>>>>> 0096db43b3324ef508b2f10baaccac56df8ff1be
 
 La qualité perçue des cours de mathématiques est davantage corrélée à la qualité de la relation avec l'enseignant de mathématiques.
 En effet, la corrélation est de 0.41 et significative (p-value < 2.2e-16).
@@ -264,8 +334,13 @@ La qualité de la REE en maths est donc dépendante de la qualité observée des
 
 ### 2.4.2 Des pays aux systèmes scolaires similaires en fonction de la qualité de la REE
 
+<<<<<<< HEAD
 Lorsqu'on change d'échelle, en regardant la qualité observée moyenne des cours de mathématiques par pays, on constate une corrélation positive marquée entre qualité des cours et la qualité de la REE (r² =\~ 0.62, p-value = 1.035e-08).
 Ainsi, meilleure est la qualité des cours de mathématiques, plus la relation entre les élèves et les enseignants à l'échelle nationale est bonne.
+=======
+Lorsqu'on change d'échelle, en regardant la qualité observée moyenne des cours de mathématiques par pays, on constate une importante corrélation positive entre qualité des cours et qualité de la REE (r =\~ 0.62, p-value = 1.035e-08).
+Alors, meilleure est la qualité des cours de mathématique, meilleure est la relation entre les élèves et les enseignants à l'échelle nationale.
+>>>>>>> 0096db43b3324ef508b2f10baaccac56df8ff1be
 
 ![Nuage de points représentant les pays en fonction de leur REE ciblée en mathématiques et la qualité des cours de mathématiques ](images_rapports/figure12_correlation_REE_qualite.pdf){fig-cap="Nuage de points représentant les pays en fonction de leur REE ciblée en mathématiques et la qualité des cours de mathématiques"}
 
@@ -278,7 +353,10 @@ Avec ce nuage de points, on retrouve la même répartition des différents pays 
 Note de lecture : D'après le regroupement des pays par la méthode du k-means, en fonction de la qualité de la REE, des notes et de la qualité d'enseignement en mathématiques, l'Australie, le Portugal, la Suède et Singapour ont des modèle éducatifs similaires.
 
 
+<<<<<<< HEAD
 Tableau 2: Tableau des moyennes pour chaque groupe issu du regroupement k-means
+=======
+>>>>>>> 0096db43b3324ef508b2f10baaccac56df8ff1be
 
 | Groupe | Qualité de la REE | Note | Qualité des cours de maths |
 |:-----------------|:----------------:|:----------------:|:----------------:|
@@ -288,6 +366,7 @@ Tableau 2: Tableau des moyennes pour chaque groupe issu du regroupement k-means
 | 4 | $\textcolor{red}{0.17}$ | $\textcolor{red}{501}$ | $\textcolor{blue}{6.49}$ |
 | **Total** | **0.04** | **443** | **6.70** |
 
+: Tableau des moyennes pour chaque groupe issus du regroupement k-means
 
 Le groupe 1 regroupe des pays ayant en moyenne une meilleure qualité de REE et d'enseignement en mathématiques.
 En revanche, ces pays ont des notes bien inférieures à la moyenne, avec une différence de 54 points.
@@ -297,7 +376,11 @@ Il comprend le Viet Nam, le Pérou ou encore l'Arabie Saoudite.
 Le groupe 2, en rouge, est composé de pays ayant une qualité de REE négative en moyenne (-0.17), des notes légèrement au-dessus de la moyenne de l'ensemble des pays interrogés (470 \> 443).
 On y retrouve la Grèce, la France ou la Nouvelle-Zélande.
 
+<<<<<<< HEAD
 Le groupe 3, en vert, avec des pays comme la Jordanie, la Thailande et le Brésil, dispose d'une qualité de REE neutre, des notes plus faibles qu'en moyenne (402) et une qualité d'enseignement en mathématiques légèrement supérieure à la moyenne (6.8).
+=======
+Le groupe 3, en vert, avec des pays comme la Jordanie, la Thailande et le Brésil, a une qualité de REE neutre, des notes plus faibles qu'en moyenne (402) et une qualité d'enseignement en mathématiques légèrement supérieure à la moyenne (6.8).
+>>>>>>> 0096db43b3324ef508b2f10baaccac56df8ff1be
 
 Le groupe 4, en orange est avant tout caractérisé par les notes moyennes obtenues (501).
 Les pays qui le composent ont aussi une qualité de REE légèrement positive (0.17), tandis que la qualité d'enseignement est jugée moins bonne qu'en moyenne (6.49).
@@ -388,11 +471,20 @@ L’objectif de cette analyse est d’examiner si les écarts entre filles et ga
 
 Pour cela nous allons classer les pays en deux groupes selon que leur REE moyenne est meilleure pour les  garçons ou pour les filles. On calcule ensuite le bien-être moyen pour chacun de ces groupes.
 
-![Graphique en barre représentant le bien-être moyen selon le profil de REE du pays](images_rapports/figure18_graph_barre_sexe.pdf){fig-cap="Graphique en barre représentant le bien-être moyen selon le profil de REE du pays"}
 
+<<<<<<< HEAD
 Note de Lecture: Pour les pays où la REE est meilleures pour les garçons, le bien-être moyen est de 0.025
+=======
+| Groupe de pays | Bien-être moyen |
+|:-------------------------------|:---------------:|
+| REE favorable aux filles | 0.025 |
+| REE favorable aux garçons | -0.014 |
+>>>>>>> 0096db43b3324ef508b2f10baaccac56df8ff1be
 
-Le graphique laisse apparaître un écart visuel entre les deux groupes, les pays à REE favorable aux filles affichant un bien-être moyen légèrement supérieur. Cet écart doit toutefois être soumis à un test statistique avant d'en tirer des conclusions.
+: Bien-être moyen selon le profil de REE du pays
+
+
+Le tableau laisse apparaître un écart entre les deux groupes, les pays à REE favorable aux filles affichant un bien-être moyen légèrement supérieur. Cet écart doit toutefois être soumis à un test statistique avant d'en tirer des conclusions.
 Le t-test de Student permet de déterminer si la différence observée entre deux moyennes est réelle ou due au hasard. La statistique t (t = 1,26) mesure l'écart entre les deux moyennes rapporté à la variabilité des données — une valeur faible indique que les groupes sont peu différents l'un de l'autre. La p-value (p = 0,21) représente la probabilité d'observer un tel écart par simple hasard ; au-delà du seuil conventionnel de 0,05, on ne peut pas conclure à une différence significative. Enfin, l'intervalle de confiance à 95 % [-0,022 ; 0,101] contient 0, ce qui confirme qu'on ne peut exclure que la vraie différence soit nulle. Les moyennes des deux groupes (0,025 vs -0,014) sont presques identiques, ce qui confirme l'ensemble de ces résultats : le profil de REE d'un pays, favorable aux filles ou aux garçons, n'est pas associé à un niveau de bien-être moyen significativement différent.
 
 Pour aller plus loin, on visualise directement la relation entre REE et bien-être pour chaque pays, en distinguant filles et garçons.
@@ -422,9 +514,13 @@ Contrairement à l'analyse par sexe qui ne comportait que deux groupes naturels,
 
 Les pays sont classés en deux groupes selon que leur REE est plus favorable aux élèves favorisés (Q4) ou défavorisés (Q1). On calcule ensuite le bien-être moyen pour chacun de ces groupes.
 
-![Graphique en barre représentant le bien-être moyen selon le profil de REE du pays distnigué par catégories socio-économique](images_rapports/figure20_barplot_REE_escs.pdf){fig-cap="Graphique en barre représentant le bien-être moyen selon le profil de REE du pays"}
 
-Note de lecture: Pour les pays ayant une meilleur REE chez les élève provenant de catégories socio-économiques défavorisées, le bien-être moyen est de 0.03.
+| Groupe de pays | Bien-être moyen |
+|:-------------------------------|:---------------:|
+| REE meilleure chez les défavorisés | 0.029 |
+| REE meilleure chez les favorisés | 0.005 |
+
+: Bien-être moyen selon le profil de REE du pays distingué par catégories socio-économique
 
 Le graphique laisse apparaître un léger écart entre les deux groupes de pays. Le t-test permet de déterminer si cet écart est statistiquement significatif. Les résultats obtenus via le t.test ne permet pas de conclure à une différence significative (t = 1,13 ; p = 0,26). L'intervalle de confiance à 95 % contient 0 [-0,017 ; 0,064], et les moyennes des deux groupes sont très proches (0,029 vs 0,006). Ce résultat est cohérent avec celui obtenu pour le sexe : le simple fait de classer les pays selon leur profil de REE, ici favorable aux défavorisés ou aux favorisés, n'est pas associé à un niveau de bien-être moyen significativement différent.
 
@@ -464,50 +560,5 @@ Pour les variables concernant les notes des élèves lors des épreuves PISA en 
 
 
 
-Lien pour plus de détails méthodologiques concernant les indices construits par l’OCDE : https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/03/pisa-2022-technical-report_599753f0/01820d6d-en.pdf
+[Lien pour plus de détails méthodologiques concernant les indices construits par l’OCDE](https://www.oecd.org/content/dam/oecd/en/publications/reports/2024/03/pisa-2022-technical-report_599753f0/01820d6d-en.pdf)
 
-### Correspondance pays
-
-| Nom du Pays         | Code    | Nom du Pays            | Code |
-|---------------------|---------|------------------------|------|
-| Albanie             | ALB     | Italie                 | ITA  |
-| Argentine           | ARG     | Jamaïque               | JAM  |
-| Australie           | AUS     | Japon                  | JPN  |
-| Autriche            | AUT     | Jordanie               | JOR  |
-| Azerbaïdjan (Bakou) | QAZ     | Kazakhstan             | KAZ  |
-| Belgique            | BEL     | Corée du Sud           | KOR  |
-| Brésil              | BRA     | Kosovo                 | KSV  |
-| Brunei              | BRN     | Lettonie               | LVA  |
-| Bulgarie            | BGR     | Lituanie               | LTU  |
-| Cambodge            | KHM     | Macao (Chine)          | MAC  |
-| Canada              | CAN     | Malaisie               | MYS  |
-| Chili               | CHL     | Malte                  | MLT  |
-| Taipei chinois      | TAP     | Mexique                | MEX  |
-| Colombie            | COL     | Mongolie               | MNG  |
-| Costa Rica          | CRI     | Monténégro             | MNE  |
-| Croatie             | HRV     | Maroc                  | MAR  |
-| Chypre              | QCY     | Pays-Bas               | NLD  |
-| Rép. Tchèque        | CZE     | Nouvelle-Zélande       | NZL  |
-| Danemark            | DNK     | Macédoine du Nord      | MKD  |
-| Rép. Dominicaine    | DOM     | Norvège                | NOR  |
-| Salvador            | SLV     | Autorité Palestinienne | PSE  |
-| Estonie             | EST     | Panama                 | PAN  |
-| Finlande            | FIN     | Paraguay               | PRY  |
-| France              | FRA     | Pérou                  | PER  |
-| Géorgie             | GEO     | Philippines            | PHL  |
-| Allemagne           | DEU     | Pologne                | POL  |
-| Grèce               | GRC     | Portugal               | PRT  |
-| Guatemala           | GTM     | Qatar                  | QAT  |
-| Hong Kong (Chine)   | HKG     | Rép.de Moldavie        | MDA  |
-| Hongrie             | HUN     | Roumanie               | ROU  |
-| Islande             | ISL     | Arabie Saoudite        | SAU  |
-| Indonésie           | IDN     | Serbie                 | SRB  |
-| Irlande             | IRL     | Singapour              | SGP  |
-| Israël              | ISR     | Slovaquie              | SVK  |
-| Slovénie            | SVN     | Espagne                | ESP  |
-| Suède               | SWE     | Suisse                 | CHE  |
-| Thaïlande           | THA     | Turquie                | TUR  |
-| Ukraine (régions)   | QUR     | Émirats Arabes Unis    | ARE  |
-| Royaume-Uni         | QUK/QSC | États-Unis             | USA  |
-| Uruguay             | URY     | Ouzbékistan            | UZB  |
-| Viêt Nam            | VNM     |                        |      |
