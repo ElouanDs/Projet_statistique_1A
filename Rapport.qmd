@@ -8,6 +8,7 @@ format:
     pdf-engine: pdflatex 
     toc: true
     lof: true
+    lot: true
     header-includes: |
       \usepackage{graphicx}
       \usepackage{fancyhdr}
@@ -62,9 +63,12 @@ Toutefois, une potentielle limite de notre analyse mais inhérente au questionna
 Pour commencer notre analyse, nous allons regarder le profil des élèves qui n'ont pas d'indices REE global ou de REE ciblée sur les professeurs de mathématiques. 
 
 
-![Tableau 1: Comparaisons groupes avec valeurs manquantes et sans](images_rapports/tableau1_manquants_NA.png){fig-cap="Tableau 1 : Comparaisons groupes avec valeurs manquantes et sans"}
+| Groupe | % Filles | Statut socio-éco. | Anxiété en maths | Appartenance | Harcèlement | Effectif total |
+|:-------|:--------:|:-----------------:|:----------------:|:------------:|:-----------:|:--------------:|
+| Données manquantes | 45.96 | -0.67 | 0.31 | -0.21 | -0.12 | 159 590 |
+| Sans NA | 51.18 | -0.20 | 0.22 | -0.05 | -0.31 | 454 154 |
 
-Note de lecture: Dans le groupe qui n'a pas de valeur en indice de REE global ou de REE ciblée sur les professeurs de mathématiques on a 45.96% de filles. Pour le groupe avec aucune valeur manquante sur ces deux indices on a 51.18% de filles
+: Comparaison des groupes selon la présence de données manquantes
 
 
 Ce tableau sépare les données en deux, les "manquant", c'est à dire les élèves n'ayant pas de REE global ou de REE ciblée sur les professeurs de mathématiques, et "Sans NA".
@@ -89,17 +93,17 @@ Concernant la figure 3, nous avons la distribution des notes en mathématiques s
 Nous pouvons donc ajouter des caractéristiques au profil de nos élèves qui ne se positionnent pas sur leur relation avec le corps enseignant. En effet ce sont des élèves avec des moins bon résultats généraux et en mathématiques. Ce profil montre que nos analyses futures entre la REE et les autres variable pourront être biaisé car on ne s'intéressera qu'aux élèves ayant un indice donc on pourrait observer de moins fortes corrélation entre les notes et la REE car ceux ayant de moins bonnes notes sont ceux n'ayant pas de REE. 
 
 
-![Statsitiques des différentes variables après suppression des valeurs manquantes](images_rapports/figure4_summary_table.png){fig-cap="Statsitiques des différentes variables après suppression des valeurs manquantes"}
+| | REE | REE maths | Statut socio-éco. | Bien-être | Appart | Harcèlement | Anxiété maths |
+|:--------|:---------------:|:-------------:|:-----------------:|:---------:|:------------:|:-----------:|:-------------:|
+| *Min* | -10.09 | -3.254 | -6.841 | -3.127 | -3.504 | -1.228 | -2.626 |
+| *1er Qu.* | -0.67 | -0.564 | -1.054 | -0.645 | -0.646 | -1.228 | -0.379 |
+| *Médiane* | -0.011 | -0.1 | -0.184 | 0.126 | -0.313 | -0.391 | 0.193 |
+| *Moyenne* | 0.04 | 0.118 | -0.31 | -0.001 | -0.081 | -0.268 | 0.232 |
+| *3e Qu.* | 0.67 | 1.556 | 0.587 | 1.051 | 0.352 | 0.538 | 0.789 |
+| *Max* | 3.417 | 1.649 | 7.38 | 1.117 | 3.173 | 4.694 | 2.892 |
 
-Notes de lecture: La variable RELATST correspondant à la qualitée de la REE global possède une moyenne de -0.007, un minimum de -10.09 et un maximum de 3.417.
+: Statistiques descriptives des variables principales. *Bien-être* = bien-être des derniers jours. *Appart* = Sentiment d'appartenance
 
-Notes: RELATST correspond à l'indice sur la REE globale.
-TEACHSUP correspond à l'indice sur la REE ciblée en mathématique.
-ESCS correspond à l'indice sur la catégorie socio-économique de l'élève.
-EXPWB corresopnd à l'indice sur le bien-être de l'élève sur les derniers jours.
-BELONG correspond à l'indice sur son sentiment d'appartenance.
-BULLIED correspond à l'indice sur le harcèlement.
-ANXMAT correspond à l'indice sur l'anxiéyé en mathématiques.
 
 Pour continuer notre analyse nous avons supprimé de notre base de données tous les élèves qui n'ont pas d'indice de REE global et ciblée sur les mathématiques, nous vérifions que cela n'a pas trop modifié les statistiques initiales de notre jeu de données. Selon les indications de l'OCDE, décrite dans la partie 1.1, la moyenne est centrée sur 0 pour les pyas appartenant à l'OCDE et avec un édart-type de 1, donc en ajoutant les autres pays on se retrouve proche de 0 mais pas forcément exactement. En enlevant les données, on retrouve partout une moyenne aux alentours de 0 et avec un premier et troisième quartile entre -1 et 1 ce qui confirme que notre écart-type est toujours proche de 1. Donc le fait d'avoir enlevé les données manquantes n'a pas trop affecté nos variables.
 
@@ -278,7 +282,6 @@ Avec ce nuage de points, on retrouve la même répartition des différents pays 
 Note de lecture : D'après le regroupement des pays par la méthode du k-means, en fonction de la qualité de la REE, des notes et de la qualité d'enseignement en mathématiques, l'Australie, le Portugal, la Suède et Singapour ont des modèle éducatifs similaires.
 
 
-Tableau 2: Tableau des moyennes pour chaque groupe issus du regroupement k-means
 
 | Groupe | Qualité de la REE | Note | Qualité des cours de maths |
 |:-----------------|:----------------:|:----------------:|:----------------:|
@@ -288,6 +291,7 @@ Tableau 2: Tableau des moyennes pour chaque groupe issus du regroupement k-means
 | 4 | $\textcolor{red}{0.17}$ | $\textcolor{red}{501}$ | $\textcolor{blue}{6.49}$ |
 | **Total** | **0.04** | **443** | **6.70** |
 
+: Tableau des moyennes pour chaque groupe issus du regroupement k-means
 
 Le groupe 1 regroupe des pays ayant en moyenne une meilleure qualité de REE et d'enseignement en mathématiques.
 En revanche, ces pays ont des notes bien inférieures à la moyenne, avec une différence de 54 points.
@@ -388,11 +392,16 @@ L’objectif de cette analyse est d’examiner si les écarts entre filles et ga
 
 Pour cela nous allons classer les pays en deux groupes selon que leur REE moyenne est plus favorable aux garçons ou aux filles. On calcule ensuite le bien-être moyen pour chacun de ces groupes.
 
-![Graphique en barre représentant le bien-être moyen selon le profil de REE du pays](images_rapports/figure18_graph_barre_sexe.pdf){fig-cap="Graphique en barre représentant le bien-être moyen selon le profil de REE du pays"}
 
-Note de Lecture: Pour les pays ayant une REE moins favorable aux filles, le bien-être moyen est de 0.025
+| Groupe de pays | Bien-être moyen |
+|:-------------------------------|:---------------:|
+| REE favorable aux filles | 0.025 |
+| REE favorable aux garçons | -0.014 |
 
-Le graphique laisse apparaître un écart visuel entre les deux groupes, les pays à REE favorable aux filles affichant un bien-être moyen légèrement supérieur. Cet écart doit toutefois être soumis à un test statistique avant d'en tirer des conclusions.
+: Bien-être moyen selon le profil de REE du pays
+
+
+Le tableau laisse apparaître un écart entre les deux groupes, les pays à REE favorable aux filles affichant un bien-être moyen légèrement supérieur. Cet écart doit toutefois être soumis à un test statistique avant d'en tirer des conclusions.
 Le t-test de Student permet de déterminer si la différence observée entre deux moyennes est réelle ou due au hasard. La statistique t (t = 1,26) mesure l'écart entre les deux moyennes rapporté à la variabilité des données — une valeur faible indique que les groupes sont peu différents l'un de l'autre. La p-value (p = 0,21) représente la probabilité d'observer un tel écart par simple hasard ; au-delà du seuil conventionnel de 0,05, on ne peut pas conclure à une différence significative. Enfin, l'intervalle de confiance à 95 % [-0,022 ; 0,101] contient 0, ce qui confirme qu'on ne peut exclure que la vraie différence soit nulle. Les moyennes des deux groupes (0,025 vs -0,014) sont presques identiques, ce qui confirme l'ensemble de ces résultats : le profil de REE d'un pays, favorable aux filles ou aux garçons, n'est pas associé à un niveau de bien-être moyen significativement différent.
 
 Pour aller plus loin, on visualise directement la relation entre REE et bien-être pour chaque pays, en distinguant filles et garçons.
@@ -422,9 +431,13 @@ Contrairement à l'analyse par sexe qui ne comportait que deux groupes naturels,
 
 Les pays sont classés en deux groupes selon que leur REE est plus favorable aux élèves favorisés (Q4) ou défavorisés (Q1). On calcule ensuite le bien-être moyen pour chacun de ces groupes.
 
-![Graphique en barre représentant le bien-être moyen selon le profil de REE du pays distnigué par catégories socio-économique](images_rapports/figure20_barplot_REE_escs.pdf){fig-cap="Graphique en barre représentant le bien-être moyen selon le profil de REE du pays"}
 
-Note de lecture: Pour les pays ayant une meilleur REE chez les élève provenant de catégories socio-économiques défavorisées, le bien-être moyen est de 0.03.
+| Groupe de pays | Bien-être moyen |
+|:-------------------------------|:---------------:|
+| REE meilleure chez les défavorisés | 0.029 |
+| REE meilleure chez les favorisés | 0.005 |
+
+: Bien-être moyen selon le profil de REE du pays distingué par catégories socio-économique
 
 Le graphique laisse apparaître un léger écart entre les deux groupes de pays. Le t-test permet de déterminer si cet écart est statistiquement significatif. Les résultats obtenus via le t.test ne permet pas de conclure à une différence significative (t = 1,13 ; p = 0,26). L'intervalle de confiance à 95 % contient 0 [-0,017 ; 0,064], et les moyennes des deux groupes sont très proches (0,029 vs 0,006). Ce résultat est cohérent avec celui obtenu pour le sexe : le simple fait de classer les pays selon leur profil de REE, ici favorable aux défavorisés ou aux favorisés, n'est pas associé à un niveau de bien-être moyen significativement différent.
 
