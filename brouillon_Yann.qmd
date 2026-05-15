@@ -66,6 +66,7 @@ library(rnaturalearth)
 library(rnaturalearthdata)
 library(knitr)
 library(kableExtra)
+library(dplyr)
 ```
 
 ```{r, echo = FALSE, include = FALSE}
@@ -1059,8 +1060,8 @@ bilan_pays <- data_etude_bien_etre_moyen %>%
 ```
 ```{r, echo = FALSE, warning= FALSE}
 cor(
-  subset(bilan_pays)$REE,
-  subset(bilan_pays)$bien_etre
+  subset(bilan_pays$REE),
+  subset(bilan_pays$bien_etre)
 )
 
 
@@ -1157,6 +1158,30 @@ ggplot(data_oecd_pays, aes(x = REE, y = bien_etre, color = factor(OECD))) +
   
   theme_minimal()
 dev.off()
+```
+```{r, echo = FALSE}
+# on teste les hypothèses de la régression linéaire
+
+lm_model <- lm(bien_etre ~ REE + OECD, data = data_oecd_pays)
+
+plot(lm_model, which = 1)  # Residuals vs Fitted (linéarité)
+
+# Test de Shapiro-Wilk (plus adapté que KS pour ça)
+shapiro.test(residuals(lm_model))
+
+# Visualisation
+plot(lm_model, which = 2)  # Q-Q plot
+
+# Test de Breusch-Pagan
+library(lmtest)
+bptest(lm_model)
+
+# Visualisation
+plot(lm_model, which = 3)  # Scale-Location
+
+library(car)
+vif(lm_model)  # VIF > 5 ou 10 = problème
+
 ```
 
 
